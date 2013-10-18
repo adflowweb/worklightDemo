@@ -1,2 +1,2 @@
-/bin
-/apps/HelloApp/android/native/gen
+bin/
+apps/HelloApp/android/native/gen/
