@@ -1,0 +1,172 @@
+<!DOCTYPE html><html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <title>FlatUIDemo</title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" name="viewport">
+        <link href="wlclient/css/wlclient.css" rel="stylesheet">
+        <link href="wlclient/css/wlgap.android.css" rel="stylesheet">
+        <link href="images/favicon.png" rel="shortcut icon">
+        <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
+        <script>
+		// Define WL namespace.
+		var WL = WL ? WL : {};
+		/**
+		 * WLClient configuration variables.
+		 * Values are injected by the deployer that packs the gadget.
+		 */
+		WL.StaticAppProps = {
+   "APP_DISPLAY_NAME": "FlatUIDemo",
+   "APP_ID": "FlatUIDemo",
+   "APP_SERVICES_URL": "\/apps\/services\/",
+   "APP_VERSION": "1.0",
+   "ENVIRONMENT": "android",
+   "LOGIN_DISPLAY_TYPE": "embedded",
+   "WORKLIGHT_PLATFORM_VERSION": "6.0.0",
+   "WORKLIGHT_ROOT_URL": "\/apps\/services\/api\/FlatUIDemo\/android\/"
+};</script>
+		<script src="wlclient/js/cordova.js"></script>
+		<script src="common/js/wljq.js"></script>
+		<script src="common/js/wl_.min.js"></script>
+		<script src="common/js/sjcl.min.js"></script>
+		<script src="wlclient/js/analytics/Tealeaf.min.js"></script>
+		<script src="common/js/stacktrace.min.js"></script>
+		<script src="common/js/base.js"></script>
+		<script src="wlclient/js/messages.js"></script>
+		<script src="common/js/wlcommon.js"></script>
+		<script src="wlclient/js/diagnosticDialog.js"></script>
+		<script src="wlclient/js/deviceAuthentication.js"></script>
+		<script src="wlclient/js/window.js"></script>
+		<script src="wlclient/js/worklight.js"></script>
+		<script src="wlclient/js/wlclient.js"></script>
+		<script src="wlclient/js/wlfragments.js"></script>
+		<script src="wlclient/js/encryptedcache.js"></script>
+		<script src="wlclient/js/analytics/analytics.js"></script>
+		<script src="wlclient/js/checksum.js"></script>
+		<script src="wlclient/js/deviceSensors/triggers.js"></script>
+		<script src="wlclient/js/deviceSensors/acquisition.js"></script>
+		<script src="wlclient/js/deviceSensors/geo.js"></script>
+		<script src="wlclient/js/deviceSensors/wifi.js"></script>
+		<script src="wlclient/js/events/eventTransmitter.js"></script>
+		<script src="wlclient/js/deviceSensors/bind.js"></script>
+		<script src="wlclient/js/deviceSensors/geoUtilities.js"></script>
+		<script src="wlclient/js/challengeHandlers/antiXSRFChallengeHandler.js"></script>
+		<script src="wlclient/js/challengeHandlers/authenticityChallengeHandler.js"></script>
+		<script src="wlclient/js/challengeHandlers/deviceAuthAutoProvisioningChallengeHandler.js"></script>
+		<script src="wlclient/js/challengeHandlers/deviceAuthNoProvisioningChallengeHandler.js"></script>
+		<script src="wlclient/js/challengeHandlers/remoteDisableChallengeHandler.js"></script>
+		<script src="wlclient/js/deviceSensors/ExtendedGeolocation.js"></script>
+		<script src="wlclient/js/features_stubs/jsonstore_stub.js"></script>
+		<script src="wlclient/js/wlgap.android.js"></script>
+		<script>
+	window.$ = window.jQuery = WLJQ;
+</script>
+<script src="jqueryMobile/jquery.mobile-1.3.0.js"></script>
+        <link href="css/jquery.mobile.flatui.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div data-role="page">
+            <div data-display="push" data-position="right" data-role="panel" data-theme="a" id="panel"></div>
+            <div data-role="header">
+                <a data-icon="home" data-iconpos="notext" data-role="button" title="Home">Home</a>
+                <h1>A</h1>
+                <a data-icon="flat-menu" data-iconpos="notext" data-role="button" href="#panel"></a>
+            </div>
+            <div data-role="content" role="main">
+                <p>
+				Sample text and <a href="#">links</a>.
+			</p>
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <button data-icon="flat-settings" data-theme="a">Button A</button>
+                    </div>
+                    <div class="ui-block-b">
+                        <button data-icon="flat-new" data-theme="b">Button B</button>
+                    </div>
+                </fieldset>
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <button data-icon="flat-man" data-theme="c">Button C</button>
+                    </div>
+                    <div class="ui-block-b">
+                        <button data-icon="flat-mail" data-theme="d">Button D</button>
+                    </div>
+                </fieldset>
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <button data-icon="flat-lock" data-theme="e">Button E</button>
+                    </div>
+                    <div class="ui-block-b">
+                        <button data-icon="flat-menu" data-theme="f">Button F</button>
+                    </div>
+                </fieldset>
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <button data-icon="flat-heart" data-theme="g">Button G</button>
+                    </div>
+                </fieldset>
+                <ul data-inset="true" data-role="listview">
+                    <li data-role="list-divider" data-theme="a">List Header</li>
+                    <li>Read-only list item</li>
+                    <li>
+                        <a href="#">Linked list item</a>
+                    </li>
+                </ul>
+                <div data-content-theme="b" data-role="collapsible-set" data-theme="b">
+                    <div data-collapsed="false" data-collapsed-icon="flat-time" data-expanded-icon="flat-cross" data-role="collapsible">
+                        <h3>Section 1</h3>
+                        <p>I'm the collapsible content for section 1</p>
+                    </div>
+                    <div data-collapsed-icon="flat-calendar" data-expanded-icon="flat-cross" data-role="collapsible">
+                        <h3>Section 2</h3>
+                        <p>I'm the collapsible content for section 2</p>
+                    </div>
+                    <div data-collapsed-icon="flat-settings" data-expanded-icon="flat-cross" data-role="collapsible">
+                        <h3>Section 3</h3>
+                        <p>I'm the collapsible content for section 3</p>
+                    </div>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <input checked data-theme="c" id="radio-choice-1-a" name="radio-choice-a" type="radio" value="choice-1"> <label for="radio-choice-1-a">Radio</label> <input checked data-theme="c" id="checkbox-a" name="checkbox-a" type="checkbox">
+					<label for="checkbox-a">Checkbox</label>
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <a data-icon="home" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Home</a> <a data-icon="flat-video" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Video</a> <a data-icon="flat-time" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Time</a> <a data-icon="flat-settings" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Settings</a>
+				<a data-icon="flat-plus" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Plus</a> <a data-icon="flat-new" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">New</a> <a data-icon="flat-menu" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Menu</a> <a data-icon="flat-man" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Man</a> <a data-icon="flat-mail" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Mail</a> <a data-icon="flat-lock" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Lock</a> <a data-icon="flat-location" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Location</a>
+				<a data-icon="flat-heart" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Heart</a> <a data-icon="flat-eye" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Eye</a> <a data-icon="flat-cross" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Cross</a> <a data-icon="flat-cmd" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Cmd</a> <a data-icon="flat-checkround" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Checkround</a>
+				<a data-icon="flat-calendar" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Calendar</a>
+				<a data-icon="flat-bubble" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Bubble</a>
+				<a data-icon="flat-volume" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Volume</a>
+				<a data-icon="flat-camera" data-iconpos="notext" data-inline="true" data-role="button" data-theme="b" href="#">Camera</a>
+                </div>
+                <select data-role="slider" data-theme="b" id="flip-1" name="flip-1">
+				<option value="off">Off</option>
+				<option selected value="on">On</option>
+			</select>
+                <div data-role="fieldcontain">
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <a data-icon="flat-mail" data-iconpos="notext" data-role="button" data-theme="a" href="#">Yes</a> <a data-icon="flat-camera" data-iconpos="notext" data-role="button" data-theme="a" href="#">Yes</a> <a data-icon="flat-heart" data-iconpos="notext" data-role="button" data-theme="a" href="#">Yes</a> <a data-icon="flat-eye" data-iconpos="notext" data-role="button" data-theme="a" href="#">Yes</a>
+                    </div>
+                </div>
+                <div data-role="fieldcontain">
+                    <select data-native-menu="false" data-theme="a" id="select-choice-a" name="select-choice">
+					<option value="standard">Option 1</option>
+					<option value="rush">Option 2</option>
+					<option value="express">Option 3</option>
+					<option value="overnight">Option 4</option>
+				</select>
+                </div>
+                <input placeholder="Text Input" type="text">
+                <div data-role="fieldcontain">
+                    <input data-highlight="true" max="100" min="0" name="slider" type="range" value="50">
+                </div>
+            </div>
+        </div>
+        <div id="highlight"></div>
+        <script src="js/initOptions.js"></script>
+	<script src="js/FlatUIDemo.js"></script>
+	<script src="js/messages.js"></script>
+    </body>
+</html>
