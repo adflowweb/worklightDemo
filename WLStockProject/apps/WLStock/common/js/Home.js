@@ -18,6 +18,8 @@ function StocReqDetail(reqID) {
 //	alert("reqDetail::"+reqID);
 	$.mobile.changePage("#StocReqDetailPage");
 	
+	
+	
 	StocReqDetailLoad(reqID)
 
 	
