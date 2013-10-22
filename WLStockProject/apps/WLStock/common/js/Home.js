@@ -4,67 +4,77 @@ var branch = new Array(5);
 
 $("#reqListBtn").click(function requestList() {
 	
-	
-//	[{reqID:200001, branch:"����"}, {reqID:200002, branch:"����"},{reqID:200003, branch:"����"},{reqID:200004, branch:"����"}]
-
-// $.mobile.page
-	
-//	alert("aaaaaa:: "+ reqID.length);
 	$.mobile.changePage("#reqListPage");
 	
-	
-    for ( var i = 0; i < reqID.length; i++) {
-//    	alert("111::"+ i);
-    	reqID[i] = 2000 + i;
-    	branch[i] = "마포";
-	}
-    
-    
-	  	
-    for ( var i = 0; i < reqID.length ; i++) {
-//    	var li = 
-    	$('#reqlistview').append($('<li><a href="javascript:reqList('+reqID[i]+')">'+reqID[i]+'<a><p>'+branch[i]+'</p></li>'));
-//    	list.append($('<li>').append("aaa"));
-    	
-    	
-// 	  	var _li = $('<li>');
-// 	  	_li.append(reqID[i]);
-// 	  	_li.append($('<p>'+branch[i]+'</p>'));
+    loadStockReqList();
 
-
-//    	var list = $('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"> <a href="#home" class="ui-link-inherit">'+reqID[i]+'</a> <p class="ui-li-desc">'+ branch[i] + '</p></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>');
-    	
-// 	   _ul.append(_li);
- 	}
-    
-    
-//    $("#reqlistview" ).append(list);
-    
-    $( "#reqlistview" ).listview( "refresh" );
- 	  
-// 	  list.append(_ul);
- 	
-// 	  $("#reqlistview" ).append(list);
-	
-//    $( "#reqlistview" ).listview( "refresh" );
-    $.mobile.changePage('#reqList', { transition: "pop"} );
 });
 
 
 
-function reqDetail() {
+function StocReqDetail(reqID) {
 	
 	
-//	[{reqID:200001, branch:"����"}, {reqID:200002, branch:"����"},{reqID:200003, branch:"����"},{reqID:200004, branch:"����"}]
-
-
-	alert("reqDetail");
-	$.mobile.changePage("#reqDetail");
+//	alert("reqDetail::"+reqID);
+	$.mobile.changePage("#StocReqDetailPage");
+	
+	StocReqDetailLoad(reqID)
 
 	
 }
 
 $("#btn").click(function(){ alert("test")})
 
+function loadStockReqList() {
+
+	
+	WL.Logger.debug("..............try. to...something like that");
+
+	var invocationData = {
+		adapter : 'StockReq', // adapter name
+		procedure : 'getStockReqList',
+		parameters : []
+	// parameters if any
+	};
+	WL.Logger.debug("..............try. to...something like that");
+
+	WL.Client.invokeProcedure(invocationData, {
+		onSuccess : loadStockReqListSuccess,
+		onFailure : loadStockReqListFailure
+	});
+	
+	
+}
+
+function loadStockReqListSuccess(result) {
+	WL.Logger.debug("Retrieve success" + JSON.stringify(result));
+	
+	if (result.invocationResult.isSuccessful) {
+		
+		displayResult(result.invocationResult.resultSet);
+		
+	} else {
+
+	}
+//	displayFeeds(result.invocationResult.resultSet);
+}
+
+
+function loadStockReqListFailure(result) {
+	WL.Logger.debug("Retrieve failure");
+}
+
+function displayResult(items) {
+	
+	for ( var i = 0; i < items.length ; i++) {
+    	var list = $('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"> <a href="javascript:StocReqDetail(\''+items[i].REQID+'\')" class="ui-link-inherit">요청ID '+items[i].REQID+'</a> <p class="ui-li-desc">지점:'+ items[i].REQSTORE+' 입고요청날짜:'+items[i].RDELDATE + '</p></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>');
+    	
+    	$("#reqlistview" ).append(list);
+ 	}
+    
+    $( "#reqlistview" ).listview( "refresh" );
+	
+
+}
 
 
