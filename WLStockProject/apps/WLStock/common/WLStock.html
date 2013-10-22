@@ -20,8 +20,8 @@
     		    </div>
     			<div data-role="content" id="pagePort">
 					<div data-role="controlgroup">
-						<a href="#" data-role="button" id="reqListBtn" >Àç°í È®º¸ ¿äÃ» ¸®½ºÆ®</a>
-						<a href="#" data-role="button" id="orderListBtn">¹ßÁÖ ¸®½ºÆ®</a>
+						<a href="#" data-role="button" id="reqListBtn" >ìž¬ê³  í™•ë³´ ìš”ì²­ ë¦¬ìŠ¤íŠ¸</a>
+						<a href="#" data-role="button" id="orderListBtn">ë°œì£¼ ë¦¬ìŠ¤íŠ¸</a>
 					</div>
 
     			</div>
@@ -36,7 +36,7 @@
 	<div data-role="page" id="reqListPage">
 		<div data-role="header" data-position="fixed">
 			<div class="ui-bar ui-bar-b">
-				<h3>Àç°í È®º¸ ¿äÃ» ¸®½ºÆ®</h3>
+				<h3>ìž¬ê³  í™•ë³´ ìš”ì²­ ë¦¬ìŠ¤íŠ¸</h3>
 			</div>
 		</div>
 		
@@ -44,8 +44,7 @@
 		
 		
 			<div class="content-primary_one">	
-				<ul data-role="listview" id="reqlistview" class="ui-listview">
-					<li> <a href="#home">Colors</a></li>
+				<ul data-role="listview" id="reqlistview">
 				</ul>
 			</div><!--/content-primary -->	
 			
@@ -69,7 +68,7 @@
 <!-- ### Order List ### -->	
 	<div data-role="page" id="orderList">
 		<div data-role="header" data-position="fixed">
-			<h3>¹ßÁÖ ¸®½ºÆ®</h3>
+			<h3>ë°œì£¼ ë¦¬ìŠ¤íŠ¸</h3>
 		</div>
 		
 		<div data-role="content" style="padding: 15px">
@@ -109,17 +108,18 @@
 
 	
 <!-- ### Request Detail ### -->	
-	<div data-role="page" id="reqDetail">
+	<div data-role="page" id="StocReqDetailPage">
 		<div data-role="header" data-position="fixed">
-			<h3>¹ßÁÖID</h3>
+			<div class="ui-bar ui-bar-b">
+				<h3 id="ReqDetailHeader">ìš”ì²­ ID</h3>
+			</div>
 		</div>
-		<div data-role="content" style="padding: 15px">
-
-		
+		<div data-role="content"id="StocReqDetailContent" style="font-size:.8em;padding-top:0;font-family:'Trebuchet MS';" class="ui-content" role="main" >
+			
 		</div>
 		
 		<div data-role="footer" data-position="fixed" >
-			<a href="#" data-role="button" id="button">¹ßÁÖ ½ÂÀÎ</a>
+			<a href="#" data-role="button" id="orderOkBtn">ë°œì£¼ ìŠ¹ì¸</a>
 
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
@@ -135,11 +135,11 @@
 <!-- ### Order Detail ### -->
     <div data-role="page" id="orderDetail">
 		<div data-role="header" data-position="fixed">
-			<h3>¿äÃ»ID</h3>
+			<h3>ìš”ì²­ID</h3>
 		</div>
 		<div data-role="content" style="padding: 15px"></div>
 
-		<a href="#" data-role="button" >¿î¼Û »ó¼¼ Á¤º¸</a>
+		<a href="#" data-role="button" >ìš´ì†¡ ìƒì„¸ ì •ë³´</a>
 		<div data-role="footer" data-position="fixed" >
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
@@ -155,17 +155,17 @@
 <!-- ### Transport Detail ### -->	
 	<div data-role="page" id="TranDetail">
 		<div data-role="header" data-position="fixed">
-			<h3>¹ßÁÖID</h3>
+			<h3>ë°œì£¼ID</h3>
 		</div>
 		<div data-role="content" style="padding: 15px"></div>
 		
 		<div data-role="footer" data-position="fixed" >
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
-					<a href="#" data-role="button">À§Ä¡ È®ÀÎ</a>
+					<a href="#" data-role="button">ìœ„ì¹˜ í™•ì¸</a>
 				</div>
 				<div class="ui-block-b">
-					<a href="#home" data-role="button">ÀÛ¾÷ Áö½Ã</a>
+					<a href="#home" data-role="button">ìž‘ì—… ì§€ì‹œ</a>
 				</div>
 			</div>
 
@@ -184,12 +184,12 @@
 <!-- ### Request Detail ### -->	
 	<div data-role="page" id="jobOrder">
 		<div data-role="header" data-position="fixed">
-			<h3>Â÷·®¹øÈ£ ÀÛ¾÷Áö½Ã</h3>
+			<h3>ì°¨ëŸ‰ë²ˆí˜¸ ìž‘ì—…ì§€ì‹œ</h3>
 		</div>
 		<div data-role="content" style="padding: 15px"></div>
 		
 		<div data-role="footer" data-position="fixed" >
-			<a href="#" data-role="button" id="button">ÀÛ¾÷ Áö½Ã</a>
+			<a href="#" data-role="button" id="button">ìž‘ì—… ì§€ì‹œ</a>
 
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
@@ -225,5 +225,7 @@
     		<script src="js/initOptions.js"></script>
     		<script src="js/WLStock.js"></script>
     		<script src="js/messages.js"></script>
+    		<script src="js/Home.js"></script>
+    		<script src="js/StockReqDetail.js"></script>
     	</body>
 </html>
