@@ -8,4 +8,6 @@ function testList() {
 	    $("#shoppingList" ).append(list);
 	}
 	$( "#shoppingList" ).listview( "refresh" );
+	
+	alert("?");
 }	
