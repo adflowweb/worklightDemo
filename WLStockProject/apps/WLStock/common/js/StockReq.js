@@ -1,7 +1,6 @@
-var reqID = new Array(5);
-var branch = new Array(5);
 
 
+// 재고 확보 요청 리스트 호출
 $("#reqListBtn").click(function requestList() {
 	
 	$.mobile.changePage("#reqListPage");
@@ -12,6 +11,7 @@ $("#reqListBtn").click(function requestList() {
 
 
 
+
 function StocReqDetail(reqID) {
 	
 	
@@ -19,8 +19,9 @@ function StocReqDetail(reqID) {
 	$.mobile.changePage("#StocReqDetailPage");
 	
 	
-	
-	StocReqDetailLoad(reqID)
+//	alert("11111::");
+	StocReqDetailLoad(reqID);
+//	alert("11111::");
 
 	
 }
@@ -68,8 +69,12 @@ function loadStockReqListFailure(result) {
 
 function displayResult(items) {
 	
+	$( "#reqlistview" ).empty();
+	
+	var nameREQSTORE = mappingNameREQSTORE(items[0].REQSTORE);
+	
 	for ( var i = 0; i < items.length ; i++) {
-    	var list = $('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"> <a href="javascript:StocReqDetail(\''+items[i].REQID+'\')" class="ui-link-inherit">요청ID '+items[i].REQID+'</a> <p class="ui-li-desc">지점:'+ items[i].REQSTORE+' 입고요청날짜:'+items[i].RDELDATE + '</p></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>');
+    	var list = $('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"> <a href="javascript:StocReqDetail(\''+items[i].REQID+'\')" class="ui-link-inherit">요청ID '+items[i].REQID+'</a> <p class="ui-li-desc">지점:'+ nameREQSTORE+' 입고요청날짜:'+items[i].RDELDATE + '</p></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>');
     	
     	$("#reqlistview" ).append(list);
  	}

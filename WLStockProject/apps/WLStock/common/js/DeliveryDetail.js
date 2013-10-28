@@ -1,52 +1,53 @@
 /**
  * 
  */
+ 
+var WAREHOUS = "";
+var ASNDVCL = "";
+var STATUS = "";
+var REQSTORE = ""; 
 
-var REQID = "";
-
-function StocReqDetailLoad(reqID) {
+function deliveryDetail(delID) {
 	
-	 REQID = reqID;
-//	alert("reqDetail::"+reqID);
+//	alert("deliveryDetail::"+delID);
 
-	$.mobile.changePage("#StocReqDetailPage");
+  DELID = delID;
+
+	$.mobile.changePage("#deliveryDetailPage");
 	
-	loadStockReqDetail(reqID);
+	loadDeliveryDetail(delID);
 
 	
 }
 
 
 
-function loadStockReqDetail(reqID) {
-	
-	
-
-	
+function loadDeliveryDetail(delID) {
+		
 	WL.Logger.debug("..............try. to...something like that");
 
 	var invocationData = {
 		adapter : 'StockReq', // adapter name
-		procedure : 'getStockReqs',
-		parameters : [reqID]
+		procedure : 'getDeliveryDetail',
+		parameters : [delID]
 	// parameters if any
 	};
 	WL.Logger.debug("..............try. to...something like that");
 
 	WL.Client.invokeProcedure(invocationData, {
-		onSuccess : loadStockReqDetailSuccess,
-		onFailure : loadStockReqDetailFailure
+		onSuccess : loadDeliveryDetailSuccess,
+		onFailure : loadDeliveryDetailFailure
 	});
 	
 	
 }
 
-function loadStockReqDetailSuccess(result) {
+function loadDeliveryDetailSuccess(result) {
 	WL.Logger.debug("Retrieve success" + JSON.stringify(result));
 	
 	if (result.invocationResult.isSuccessful) {
 		
-		displayStockReqDetail(result.invocationResult.resultSet);
+		displayDeliveryDetail(result.invocationResult.resultSet);
 		
 	} else {
 
@@ -55,21 +56,30 @@ function loadStockReqDetailSuccess(result) {
 }
 
 
-function loadStockReqDetailFailure(result) {
+function loadDeliveryDetailFailure(result) {
 	WL.Logger.debug("Retrieve failure");
 }
 
-function displayStockReqDetail(items) {
+function displayDeliveryDetail(items) {
 	
 	
 //	alert("REQSTORE::"+items[0].REQSTORE);
 
 
-  $("#ReqDetailHeader").html("요청ID "+items[0].REQID);
+  WAREHOUS = items[0].WAREHOUS;
+  ASNDVCL = items[0].ASNDVCL;
+  STATUS = items[0].STATUS;
+  REQSTORE = items[0].REQSTORE;
+  
+//  alert("WAREHOUS::"+WAREHOUS);
+
+
+  $("#deliveryDetailHeader").html("발주ID "+items[0].DELID);
 
   var nameREQSTORE = mappingNameREQSTORE(items[0].REQSTORE);
   var nameREQUESTR = mappingNameREQUESTR(items[0].REQUESTR);
   var nameRECPNT = mappingNameREQUESTR(items[0].RECPNT);
+  var nameWAREHOUS = mappingNameWAREHOUS(items[0].WAREHOUS);
 
 
 	
@@ -77,6 +87,14 @@ function displayStockReqDetail(items) {
 	var detailContent ='		<h3 style="padding-left: 6px;">일반 정보</h3>                                                                                                 '
 	+'		<ul class="basicInfo ui-listview ui-listview-inset ui-corner-all ui-shadow" data-role="listview" data-inset="true" style="margin-top:-12px;">  '
 	+'			<li class="ui-li ui-li-static ui-btn-up-d ui-corner-top">                                                                                    '
+	+'				<table style="width: 100%;">                                                                                                               '
+	+'					<tbody><tr>                                                                                                                              '
+	+'						<td width="40%"><span>물류센터</span></td>                                                                                                 '
+	+'						<td align="right"><span class="name">'+nameWAREHOUS+'</span></td>                                                                    '
+	+'					</tr>                                                                                                                                    '
+	+'				</tbody></table>                                                                                                                           '
+	+'			</li>																																			'   
+	+'			<li class="ui-li ui-li-static ui-btn-up-d">                                                                                    '
 	+'				<table style="width: 100%;">                                                                                                               '
 	+'					<tbody><tr>                                                                                                                              '
 	+'						<td width="40%"><span>지점</span></td>                                                                                                 '
@@ -138,20 +156,13 @@ function displayStockReqDetail(items) {
 	+'			</li>                                                                                                                                        '
 	+'       </ul>                                                                                                                                       ';
 	
-	 $( "#StocReqDetailContent" ).empty();
+	 $( "#deliveryDetailContent" ).empty();
 	
-	$("#StocReqDetailContent").append(detailContent);  
+	$("#deliveryDetailContent").append(detailContent);  
 
 }
 
 
-
-
-$("#orderOkBtn").click(function(){
-	
-	 deliveryInit(REQID);
-	 
-})
 
 
 

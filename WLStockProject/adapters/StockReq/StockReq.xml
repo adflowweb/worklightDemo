@@ -36,6 +36,11 @@
 	<procedure name="updateStockReq"> </procedure>
 	<procedure name="deleteStockReq"> </procedure>
 	<procedure name="getStockReqList"> </procedure>
+	<procedure name="addDelivery"> </procedure>
+	<procedure name="getDeliveryList"> </procedure>
+	<procedure name="getDeliveryDetail"> </procedure>
+	<procedure name="getTransDetail"> </procedure>
+	<procedure name="addWorkOrder"> </procedure>
 	
 
 </wl:adapter>

@@ -41,7 +41,7 @@ function procedure2(param) {
  * 
  */
 
-var selectStatement = WL.Server.createSQLStatement("select * from STOCKREQ where REQID=? AND APPRVD <> 'Y'");
+var selectStatement = WL.Server.createSQLStatement("select * from STOCKREQ where REQID=?");
 
 function getStockReqs(reqID) {
 		
@@ -51,7 +51,7 @@ function getStockReqs(reqID) {
 	});
 }
 
-var selectStatementList = WL.Server.createSQLStatement("select REQID, REQSTORE, RDELDATE from STOCKREQ ORDER BY REQID ASC");
+var selectStatementList = WL.Server.createSQLStatement("select REQID, REQSTORE, RDELDATE from STOCKREQ where APPRVD <> 'Y' ORDER BY REQID ASC");
     
 function getStockReqList() {
 		
@@ -60,6 +60,21 @@ function getStockReqList() {
 		parameters : []
 	});
 }
+
+
+var addStatementDeli = WL.Server.createSQLStatement("insert into DELIVERY (DELID,STOCKREQ, WAREHOUS,ASNDVCL, STATUS ) values (?, ?, ?, ?, 'L')");
+
+
+//param1, param2, param3, param4
+function addDelivery(param1, param2, param3, param4) {
+		
+	return WL.Server.invokeSQLStatement({
+		preparedStatement : addStatementDeli,
+		parameters : [param1, param2, param3, param4]
+	});
+}
+
+
 
 var addStatement = WL.Server.createSQLStatement("insert into TABLE1 (COLUMN1, COLUMN2) values (?, ?)");
 
@@ -70,6 +85,8 @@ function addStockReq(param1) {
 		parameters : [param1]
 	});
 }
+
+
 	
 var updateStatement = WL.Server.createSQLStatement("update STOCKREQ set APPRVD='Y' where REQID=?");
 
@@ -88,5 +105,51 @@ function deleteStockReq(param1) {
 	return WL.Server.invokeSQLStatement({
 		preparedStatement : deleteStatement,
 		parameters : [param1]
+	});
+}
+
+
+// Delivery List
+var selectStatementDeliveryList = WL.Server.createSQLStatement("SELECT * FROM DELIVERY ORDER BY DELID ASC");
+    
+function getDeliveryList() {
+		
+	return WL.Server.invokeSQLStatement({
+		preparedStatement : selectStatementDeliveryList,
+		parameters : []
+	});
+}
+
+
+// select Delivery Detail
+var selectStatementDeliveryDetail = WL.Server.createSQLStatement("SELECT * FROM DELIVERY, STOCKREQ where DELIVERY.DELID = ? AND DELIVERY.STOCKREQ = STOCKREQ.REQID ");
+    
+function getDeliveryDetail(delID) {
+		
+	return WL.Server.invokeSQLStatement({
+		preparedStatement : selectStatementDeliveryDetail,
+		parameters : [delID]
+	});
+}
+
+// select Transport Detail
+var selectStatementTransDetail = WL.Server.createSQLStatement("SELECT * FROM DELIVERY, STOCKREQ where DELIVERY.DELID = ? AND DELIVERY.STOCKREQ = STOCKREQ.REQID ");
+    
+function getTransDetail(delID) {
+		
+	return WL.Server.invokeSQLStatement({
+		preparedStatement : selectStatementTransDetail,
+		parameters : [delID]
+	});
+}
+
+// Add Work Order
+var addStatementWorkOrder = WL.Server.createSQLStatement("insert into AHINST (DELID, INSTTEXT, TRSTAMP, ACKFLAG) values (?, ?, ?, 'N')");
+
+function addWorkOrder(param1, param2, param3) {
+		
+	return WL.Server.invokeSQLStatement({
+		preparedStatement : addStatementWorkOrder,
+		parameters : [param1, param2, param3]
 	});
 }
