@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed Materials - Property of IBM
+    5725-G92 (C) Copyright IBM Corp. 2011, 2013. All Rights Reserved.
+    US Government Users Restricted Rights - Use, duplication or
+    disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+-->
+<wl:adapter name="MallAdapter"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:wl="http://www.worklight.com/integration"
+	xmlns:sql="http://www.worklight.com/integration/sql">
+
+	<displayName>MallAdapter</displayName>
+	<description>MallAdapter</description>
+	<connectivity>
+		<connectionPolicy xsi:type="sql:SQLConnectionPolicy">
+			<dataSourceDefinition>
+				<driverClass>com.mysql.jdbc.Driver</driverClass>
+					<url>jdbc:mysql://192.168.0.170:3306/WLDEMO</url>					
+					  <user>worklight</user>
+    			<password>passw0rd</password>    	  
+			</dataSourceDefinition>
+		</connectionPolicy>
+		<loadConstraints maxConcurrentConnectionsPerNode="5" />
+	</connectivity>
+	<!--  for product page -->
+	<procedure name="getITEMs"> </procedure>
+	<procedure name="getProduct"> </procedure>
+	<!--  for wishlist -->
+	<procedure name="addWishList"> </procedure>
+	<procedure name="getWishList"> </procedure>
+	<procedure name="getWishDetail"> </procedure>
+	<procedure name="updateWish"> </procedure>
+	<procedure name="deleteWish"> </procedure>
+	<!--  for cartlist -->
+	<procedure name="getCartList"> </procedure>
+	<procedure name="getCartDetail"> </procedure>
+	<procedure name="deleteCart"> </procedure>
+	<procedure name="addCartList"> </procedure>
+	<procedure name="updateCart"> </procedure>
+</wl:adapter>
