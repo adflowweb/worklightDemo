@@ -51,6 +51,7 @@ function loadCartlistitemsFailure(result) {
 //////////////////////////////////////////////////////////
 
 function displayCartitemload(items) {
+//	alert("cartItem length :: "+items.length );
 	for ( var i = 0; i < items.length; i++) { 
 	////////////////////////////////////////////////////////////////////
 		if(!mycartlistCreated){	       
@@ -184,7 +185,7 @@ function modifycartdetail(){
 	
 	var updatequantity = null
 	if(changeselectVal=null){
-		alert("changeselectVal null "+ changeselectVal);
+//		alert("changeselectVal null "+ changeselectVal);
 		updatequantity = changeselectVal;
 	}else{
 		updatequantity = $("#quantityItem" ).val();
@@ -193,13 +194,13 @@ function modifycartdetail(){
 	var updateitem1 =$('input[name="cartUpdateitem"]').val();
 	var updateunitprc1 =$('input[name="cartUpdateprice"]').val();
 	
-	alert("modifycartdetail   .......................");
-	alert("updatequantity :: " +updatequantity);
+//	alert("modifycartdetail   .......................");
+//	alert("updatequantity :: " +updatequantity);
 	var updatecartid =$('input[name="cartid"]').val();
-	alert("updatecartid"+updatecartid);	
-	alert("hello");	
+//	alert("updatecartid"+updatecartid);	
+//	alert("hello");	
 	
-	alert("updatequantity :: "+updatequantity + "updateitem1 :: "+updateitem1 + "updateunitprc1 :: " +updateunitprc1 +"end");
+//	alert("updatequantity :: "+updatequantity + "updateitem1 :: "+updateitem1 + "updateunitprc1 :: " +updateunitprc1 +"end");
 	loadupdatecart(updateitem1, updatequantity, updateunitprc1, updatecartid);
 
 }
@@ -236,7 +237,7 @@ WL.Logger.debug("loadupdatecartFailure Retrieve failure");
 }
 
 function detailcartAfterupdate(items){
-	 alert("detailcartAfterupdate Sucess");
+//	 alert("detailcartAfterupdate Sucess");
 ///////////////////////////////////////////////////
 //	 cart select after saving
 	 	alert("plz login");
@@ -248,10 +249,10 @@ function detailcartAfterupdate(items){
 //*********************************
 //**********************************************************************************************************
 function deletecartdetail(){
-	alert("deletecartdetail............");
+//	alert("deletecartdetail............");
 	var deletecartid =$('input[name="cartid"]').val();
-	alert("deletecartid"+deletecartid);	
-	alert("hello");	
+//	alert("deletecartid"+deletecartid);	
+//	alert("hello");	
 	loaddelCartOnebyone(deletecartid);	
 }
 function loaddelCartOnebyone(deletecartid) {
@@ -281,7 +282,7 @@ var cartli = '';
 var delcartid ='';
 function deleteCartTagli(cartid,cartremoveli){	
 	  $(this).closest('li').remove();
-	  alert("cartid :: "+cartid);	
+//	  alert("cartid :: "+cartid);	
 	  cartli = cartremoveli;
 	  delcartid = cartid;
 	  $('#sterge_cart').popup("open");
@@ -301,7 +302,7 @@ function giveupCartbtn(){
 //////////////////////////////////////////////////////////////////////////
 //when saving delete   
 function saveCartlist_fordel(){
-	alert("btn_saveWishlist_fordel..................");
+//	alert("btn_saveWishlist_fordel..................");
 	var dataArray = $("#addDelete_cartlist input.getcartid").serializeArray();
 
 	console.log($("ul li input.delcartid"));	
@@ -320,7 +321,7 @@ function saveCartlist_fordel(){
 function loaddelCartlist(delCartlistArray) {
 	 for ( var int = 0; int < delCartlistArray.length; int++) {
 		 console.log("	delCartlistArray[int];"+	delCartlistArray[int]);
-		 alert("	delCartlistArray[int];"+	delCartlistArray[int]);
+//		 alert("	delCartlistArray[int];"+	delCartlistArray[int]);
 		 var cartid = delCartlistArray[int];
 		 WL.Logger.debug("....loaddelCartlist..........try. to...something like that");
 
@@ -389,13 +390,13 @@ function addCartbtn(){
 	alert("plz login");
 	loginid="000001";
 	var owner = loginid;
-	alert("hello");	
+//	alert("hello");	
 	var item1 =$('input[name="cartitem"]').val();
 	var unitprc1 =$('input[name="cartprice"]').val();
 //	var quantity = $( "#quantityItem" ).val();amountItem
 	var quantity = $( "#amountItem" ).val();
 	
-	alert("quantity :: "+quantity + "item1 :: "+item1 + "unitprc1 :: " +unitprc1 +"end");
+//	alert("quantity :: "+quantity + "item1 :: "+item1 + "unitprc1 :: " +unitprc1 +"end");
 	addCartitemload(owner, item1, quantity, unitprc1);
 } 
 
@@ -426,7 +427,7 @@ function addCartitemloadFailure(result) {
     WL.Logger.debug("addCartitemloadFailure Retrieve failure");
 }
 function addCartitemconfirm(items){
-	alert("success confirm add cart");
+//	alert("success confirm add cart");
 }
 
 

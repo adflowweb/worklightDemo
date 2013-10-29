@@ -6,6 +6,7 @@
  */
 
 var productlistCreated = false;    // main list_product empty check
+var salelistCreated = false;    // main list_product empty check
 //var imageurl = "http://127.0.0.1:8080/JqueryFun/images/";
 var imageurl = "http://192.168.0.171/WLShoppingMall/";
 var product_info;   // use between product detail and wish detail
@@ -54,7 +55,7 @@ function appendToProductList(items){
 	   for ( var i = 0; i < items.length; i++) {
    	/////////////////////////////////
 			    if(!productlistCreated){
-			        $(".content-primary_product").append("<ul id='list_product'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'></ul>");
+			        $(".content-primary_product").append("<ul id='list_product'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'  data-filter='true' data-filter-placeholder='제품명 검색'></ul>");
 			        productlistCreated = true;
 			        
 			        $(".content-primary_product").trigger("create");
@@ -172,3 +173,66 @@ $('.btn_goCartlistPage').click(function(){
 	loadCartlistitems(loginid);
 	
 });
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//salelist   //btn_gotoproduct" href="#pg_salelist"
+
+
+$('.btn_gotosale').click(function(){
+	loadSaleList();
+	});  
+
+
+	//load sale start
+function loadSaleList() {
+WL.Logger.debug(".........loadSaleList.....try. to...something like that");
+
+var invocationData = {
+	adapter : 'MallAdapter', // adapter name
+	procedure : 'getITEMs',
+	parameters : []
+//parameters if any
+};
+WL.Logger.debug(".........loadSaleList.....try. to...something like that");
+
+WL.Client.invokeProcedure(invocationData, {
+	onSuccess : loadSaleListSQLQuerySuccess,
+	onFailure : loadSaleListSQLQueryFailure
+});
+
+
+}
+//load item end
+
+	function loadSaleListSQLQuerySuccess(result) {
+	WL.Logger.debug("loadSaleListSQLQuerySuccess Retrieve success" + JSON.stringify(result));
+		appendToSaleList(result.invocationResult.resultSet);
+	}
+
+
+	function loadSaleListSQLQueryFailure(result) {
+	WL.Logger.debug("loadSaleListSQLQueryFailure Retrieve failure");
+	}
+
+	function appendToSaleList(items){
+		   $.mobile.changePage('#pg_shopping', { transition: "pop"} );
+		   $("#list_sale").empty();
+		//Create the listview if not created
+		   for ( var i = 0; i < items.length; i++) {
+	   	/////////////////////////////////
+				    if(!salelistCreated){
+				        $(".content-primary_sale").append("<ul id='list_sale'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'  data-filter='true' data-filter-placeholder='제품명 검색'></ul>");
+				        salelistCreated = true;
+				        
+				        $(".content-primary_sale").trigger("create");
+				        $("#list_sale").append('<li data-role="list-divider"><h3>상품 리스트</h3></li>');
+				    }
+				    
+				    $("#list_sale").append('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="javascript:gotoDetailPage('+items[i].ITEMCODE+');" class="ui-link-inherit "> <img border="0" height="100" src="'+imageurl+items[i].ITEMPIC1+'" width="100" class="ui-li-thumb"><h3 class="ui-li-heading">'+items[i].ITEMNAME+'</h3><h4 class="ui-li-heading">'+items[i].UNITPRC+'</h4><p class="ui-li-desc">'+items[i].ITEMDESC+'</p></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>');
+//				    $("#list_product").append('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="javascript:gotoDetailPage('+items[i].ITEMCODE+');return false;" class="ui-link-inherit "> <img border="0" height="100" src="http://192.168.0.171/WLShoppingMall/'+items[i].ITEMPIC1+'" width="100" class="ui-li-thumb"><h3 class="ui-li-heading">'+items[i].ITEMNAME+'</h3><h4 class="ui-li-heading">'+items[i].UNITPRC+'</h4><p class="ui-li-desc">'+items[i].ITEMDESC+'</p></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>');
+				    $("#list_sale").listview("refresh");
+		//////////////////////////////
+		   }
+
+		}

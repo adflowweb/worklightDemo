@@ -48,7 +48,7 @@ $('.btn_addWishlist').click(function(){
 	var wish_title =$('input[name="wishlist_t_form"]').val();
 	var wish_desc=$('input[name="wishlist_d_form"]').val();
 	
-	alert("desc, wish_desc, conid, itemcode1" +wish_title+ wish_desc+conid+itemcode1);
+//	alert("desc, wish_desc, conid, itemcode1" +wish_title+ wish_desc+conid+itemcode1);
 	addWishitemload(wish_title, wish_desc, conid, itemcode1);
 
 }
@@ -86,7 +86,7 @@ function addWishitemconfirm(items){
 ////////////////////////////////////////////////////////////////////////////
 //wishlist  listview page
 function loadWishlistitems(conid){
-
+	var conid = '00001'; 
 	 WL.Logger.debug(".........loadWishlistitems.....try. to...something like that");
 	    var invocationData = {
 	            adapter : 'MallAdapter', // adapter name
@@ -119,6 +119,8 @@ function loadWishlistitemsFailure(result) {
 //////////////////////////////////////////////////////////
 
 function displayaddWishitemload(items) {
+//	alert("hello........................");
+//	alert("displayaddWishitemload length :: "+items.length );
 	for ( var i = 0; i < items.length; i++) { 
 	////////////////////////////////////////////////////////////////////
 		if(!mywishlistCreated){	       
@@ -230,7 +232,7 @@ function displayWishDetail(items) {
 		$('#wishmodificationform').append('<h3 class="mywishInfo_title">wishlist 제목 : '+wname+' </h3><h3 class="mywishInfo_desc">wishlist 설명 : '+descr+'</h3><input type="hidden" class="wlid" name="wlid" value="'+wlid+'">');
 		$("#wishmodificationform").trigger("create");
 //		$('#udforwish').show();
-		alert("pwlid sdf:: "+wlid);
+//		alert("pwlid sdf:: "+wlid);
 	
 //		$.mobile.changePage('#wishdetailPage', { transition: "slide"});	
 		$.mobile.changePage('#wishmodificationPage', { transition: "slide"});
@@ -255,14 +257,14 @@ function modifywishdetail(){
 	}
 }
 function updatewishdetail(){
-	alert("updatewishdetail............");
+//	alert("updatewishdetail............");
 var modid =$('input[name="wlid"]').val();
 	
 	console.log("modid"+modid);
-	alert("wlid :: "+modid);
+//	alert("wlid :: "+modid);
 	var modtitle =$('input[name="wishlist_mt_form"]').val();
 	var moddesc =$('input[name="wishlist_md_form"]').val();
-	alert("modtitle :: "+modtitle +"  ::   moddesc   " +moddesc);
+//	alert("modtitle :: "+modtitle +"  ::   moddesc   " +moddesc);
 	loadupdatewish(modtitle,moddesc,modid);
 }
 
@@ -298,7 +300,7 @@ WL.Logger.debug("loadupdatewishFailure Retrieve failure");
 }
 
 function detailwishAfterupdate(items){
-	 alert("detailwishAfterupdate");
+//	 alert("detailwishAfterupdate");
 ///////////////////////////////////////////////////
 //	 wishlist select after saving
 	 	alert("plz login");
@@ -317,7 +319,7 @@ var li = '';
 var delpwlid ='';
 function deleteWishTagli(pwlid,removeli){	
 	  $(this).closest('li').remove();
-	  alert("pwlid :: "+pwlid);	
+//	  alert("pwlid :: "+pwlid);	
 	  li = removeli;
 	  delpwlid = pwlid;
 	  $('#sterge_wish').popup("open");
@@ -339,7 +341,7 @@ function giveupWishbtn(){
 //////////////////////////////////////////////////////////////////////////
 // when saving delete
 function saveWishlist_fordel(){
-	alert("btn_saveWishlist_fordel..................");
+//	alert("btn_saveWishlist_fordel..................");
 	var dataArray = $("#addDelete_wishlist input.getpwlid").serializeArray();
 
 	console.log($("ul li input.pwlid"));	
