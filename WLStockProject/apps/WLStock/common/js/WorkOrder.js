@@ -18,16 +18,37 @@ function workOrderLoad(delID) {
 
 	$.mobile.changePage("#workOrderPage");
 	
-
+		  subscribe();
+	
 	
 }
 
 // ## 발송 버튼
 $("#workOrderSendBtn").click(function(){
 	
-	 $('#workOrderSendOkPopup').popup("open");
+//	 $('#workOrderSendOkPopup').popup("open");
+
+
+	msgSend();
+	
+
+  
 	 
 })
+
+function msgSend() {
+	var msg = $("#msgSendText").val();
+	
+
+	
+	mqttSend(msg);
+	$("#workOrderTextarea").append('<p style="color: purple; text-align: right">'+msg+'</p>');
+	$("#msgSendText").html('');
+	$("#msgSendText").empty();
+	
+	
+}
+
 
 
 // 발송 OK 버튼
@@ -96,3 +117,79 @@ function displayAddWorkOrder() {
 	//다시 발주 리스트 화면으로.
 	deliveryListInit();
  }
+ 
+ 
+ 
+//#### MQTT TEST ######
+
+
+$("#loginBtn").click(function(){
+	
+	 mqttConnect();
+	 
+})
+
+
+function mqttConnect(){
+	
+	// Make connection to the server.
+	client = new Messaging.Client("192.168.0.171", 1883, "clientId");
+
+	// Set up a callBacks used when the connection is completed, 
+	// when a message arrives for this client and when the connection is lost. 
+	client.onConnectionLost = onConnectionLost;
+	client.onMessageArrived = onMessageArrived;
+	client.connect({onSuccess:onConnect});
+
+	 
+}
+
+	function onConnect() {
+	  // Once a connection has been made, make a subscription and send a message.
+	  console.log("onConnect");
+	  
+	  
+//	  var subscribeTopicName = "/inventory/delivery/"+ASNDVCL+"/instruction";
+//	  client.subscribe("/World");
+//	  message = new Messaging.Message("Hello");
+//	  message.destinationName = "/World";
+//	  client.send(message); 
+	}
+	function onConnectionLost(responseObject) {
+	  if (responseObject.errorCode !== 0)
+	    console.log("onConnectionLost:"+responseObject.errorMessage);
+	}
+	function onMessageArrived(message) {
+	  console.log("onMessageArrived:"+message.payloadString);
+	  $("#workOrderTextarea").append('<p style="color: blue; text-align: left">'+message.payloadString+'</p>');
+	  
+//	  client.disconnect(); 
+	  
+//	  console.log("disconnect");
+	}	
+	
+function subscribe() {
+	try {
+		  var subscribeTopicName = "/inventory/delivery/"+ASNDVCL+"/instruction/response";
+      var options = {qos:0, 
+                     onFailure: function(responseObject) {alert(responseObject.errorMessage + subscribeTopicName);}};
+      client.subscribe(subscribeTopicName, options);
+    } catch (error) {
+      alert(error.message);
+    } 
+}
+
+function mqttSend(msg) {
+	try {
+		 	var publishTopicName = "/inventory/delivery/"+ASNDVCL+"/instruction";
+//	  	client.subscribe("/World");
+		 	console.log("publishTopicName::"+publishTopicName);
+	  	message = new Messaging.Message(msg);
+	  	message.destinationName = publishTopicName;
+	  	client.send(message); 
+	  	
+	  	
+    } catch (error) {
+      alert(error.message);
+    } 
+}
