@@ -1,6 +1,6 @@
 
 // Initialize Login Form.
-//$("#frm_Login").popup();
+$("#frm_Login").popup();
 
 
 
@@ -25,8 +25,8 @@ WLShoppersChallengeHandler.isCustomResponse = function(response) {
 
 WLShoppersChallengeHandler.handleChallenge = function(response) {
 
-	//$('#frm_Login').popup('open');
-	$('#frm_Login').show();
+	$('#frm_Login').popup('open');
+	//$('#frm_Login').show();
 	$('#frm_Login').appendTo(".ui-page").trigger('create');
 	$('#WL_password').val('');
 			
@@ -54,8 +54,8 @@ $('#btn_Submit').bind('click', function() {
 
 $('#btn_Cancel').bind('click', function() {
 
-	//$('#frm_Login').popup('close');
-	$('#frm_Login').hide();
+	$('#frm_Login').popup('close');
+	//$('#frm_Login').hide();
 	WLShoppersChallengeHandler.submitFailure();
 	
 });
@@ -69,8 +69,8 @@ WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
 	if (res) {
 		WLShoppersChallengeHandler.handleChallenge(response);
 	} else {
-		//$('#frm_Login').popup('close');
-		$('#frm_login').hide();
+		$('#frm_Login').popup('close');
+		//$('#frm_login').hide();
 		WLShoppersChallengeHandler.submitSuccess();
 	}
 
