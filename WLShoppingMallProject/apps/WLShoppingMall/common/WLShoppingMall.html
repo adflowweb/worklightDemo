@@ -7,8 +7,10 @@
     		<link rel="shortcut icon" href="images/favicon.png">
     		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     		<link href="jqueryMobile/jquery.mobile-1.3.0.css" rel="stylesheet">
+    		<!--
     		<link href="jqueryMobile/jquery.mobile.structure-1.3.0.css" rel="stylesheet">
     		<link href="jqueryMobile/jquery.mobile.theme-1.3.0.css" rel="stylesheet">
+    		-->
     		<link rel="stylesheet" href="css/WLShoppingMall.css">
     		<script>window.$ = window.jQuery = WLJQ;</script>
     		<script src="jqueryMobile/jquery.mobile-1.3.0.js"></script>
@@ -60,7 +62,31 @@
 	</div>
 	<!-- close pg_home -->
     		
+
+
+
+
+	<!-- WL Authentication Form by GPKWON -->
+
+	<div data-role="popup" id="frm_Login" style="display:none">
+
+		<input id="WL_username" placeholder="Enter your username" type="text">
+		<input id="WL_password" placeholder="Enter your password" type="password">
+
+		<div id="AuthInfo" class="ui-body ui-body-d ui-corner-all">
+			Login required.
+		</div>
+
+		<fieldset class="ui-grid-a">
+			<div class="ui-block-a"><a href="#" data-role="button" data-theme="a" id="btn_Submit">Submit</a></div>
+			<div class="ui-block-b"><a href="#" data-role="button" data-theme="d" id="btn_Cancel">Cancel</a></div>
+   		</fieldset>
+
+	</div>
+
+
     		
+
     		
     		<!-- 쇼핑하기 리스트-->
 	<div data-role="page" id="pg_shopping">
@@ -660,6 +686,7 @@
     		
     		<script src="js/initOptions.js"></script>
     		<script src="js/WLShoppingMall.js"></script>
+    		<script src="js/WLShoppersChalleneHandler.js"></script>
     		<script src="js/messages.js"></script>
     		<script src="js/main_menu.js"></script>
     		<script src="js/wishlist_detail.js"></script>

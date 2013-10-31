@@ -24,18 +24,18 @@
 		<loadConstraints maxConcurrentConnectionsPerNode="5" />
 	</connectivity>
 	<!--  for product page -->
-	<procedure name="getITEMs"> </procedure>
-	<procedure name="getProduct"> </procedure>
+	<procedure name="getITEMs"/>
+	<procedure name="getProduct"/>
 	<!--  for wishlist -->
-	<procedure name="addWishList"> </procedure>
-	<procedure name="getWishList"> </procedure>
-	<procedure name="getWishDetail"> </procedure>
-	<procedure name="updateWish"> </procedure>
-	<procedure name="deleteWish"> </procedure>
+	<procedure securityTest="WLShoppersSecurityTest" name="addWishList"/>
+	<procedure securityTest="WLShoppersSecurityTest" name="getWishList"/>
+	<procedure securityTest="WLShoppersSecurityTest" name="getWishDetail"/>
+	<procedure securityTest="WLShoppersSecurityTest" name="updateWish"/>
+	<procedure securityTest="WLShoppersSecurityTest" name="deleteWish"/>
 	<!--  for cartlist -->
-	<procedure name="getCartList"> </procedure>
-	<procedure name="getCartDetail"> </procedure>
-	<procedure name="deleteCart"> </procedure>
-	<procedure name="addCartList"> </procedure>
-	<procedure name="updateCart"> </procedure>
+	<procedure securityTest="WLShoppersSecurityTest" name="getCartList"/>
+	<procedure securityTest="WLShoppersSecurityTest" name="getCartDetail"/>
+	<procedure securityTest="WLShoppersSecurityTest" name="deleteCart"/>
+	<procedure securityTest="WLShoppersSecurityTest" name="addCartList"/>
+	<procedure securityTest="WLShoppersSecurityTest" name="updateCart"/>
 </wl:adapter>
