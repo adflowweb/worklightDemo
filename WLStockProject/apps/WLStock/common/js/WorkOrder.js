@@ -122,12 +122,31 @@ function displayAddWorkOrder() {
  
 //#### MQTT TEST ######
 
-
+// Login butten click
 $("#loginBtn").click(function(){
 	
-	 mqttConnect();
+	
+	$("#loginPopup").popup();
+	$("#loginPopup").popup("open");
+	$("#passwordInputField").val("");
+	
+//	mqttConnect();
 	 
 })
+
+
+
+// LogOut butten click
+$("#logOutBtn").click(function(){
+	
+	WL.Client.logout('LDAPRealm',{onSuccess: WL.Client.reloadApp});
+	
+  client.disconnect(); 
+  console.log("disconnect");
+	 
+})
+
+
 
 
 function mqttConnect(){
@@ -171,6 +190,11 @@ function mqttConnect(){
 function subscribe() {
 	try {
 		  var subscribeTopicName = "/inventory/delivery/"+ASNDVCL+"/instruction/response";
+      var options = {qos:0, 
+                     onFailure: function(responseObject) {alert(responseObject.errorMessage + subscribeTopicName);}};
+      client.subscribe(subscribeTopicName, options);
+      
+      subscribeTopicName = "/inventory/delivery/"+ASNDVCL+"/instruction/response2";
       var options = {qos:0, 
                      onFailure: function(responseObject) {alert(responseObject.errorMessage + subscribeTopicName);}};
       client.subscribe(subscribeTopicName, options);

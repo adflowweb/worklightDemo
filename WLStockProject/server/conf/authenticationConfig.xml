@@ -22,6 +22,12 @@
 		 Attention: if using <testAppAuthenticity/> test below ,<publicSigningKey> element must be added to application-descriptor.xml as well. -->   
          
 	 <securityTests>
+	 	
+	 	<customSecurityTest name="LDAPSecurityTest">
+			<test isInternalUserID="true" realm="LDAPRealm"/>
+		</customSecurityTest>
+		
+		
        	<!-- 
        	<customSecurityTest name="WorklightConsole">
        		<test realm="WorklightConsole" isInternalUserID="true"/>
@@ -52,6 +58,11 @@
 	</securityTests> 
 	
 	<realms>
+		<realm loginModule="LDAPLoginModule" name="LDAPRealm">
+			<className>com.worklight.core.auth.ext.FormBasedAuthenticator</className>
+			<onLoginUrl>/console</onLoginUrl>
+		</realm>
+		
 		<realm name="SampleAppRealm" loginModule="StrongDummy">
 			<className>com.worklight.core.auth.ext.FormBasedAuthenticator</className>
 		</realm>
@@ -73,6 +84,18 @@
 	</realms>
 
 	<loginModules>
+		<loginModule name="LDAPLoginModule">
+			<className>com.worklight.core.auth.ext.LdapLoginModule</className>
+			<parameter name="ldapProviderUrl" value="ldap://192.168.0.171"/>
+			<parameter name="ldapTimeoutMs" value="2000"/>
+			<parameter name="ldapSecurityAuthentication" value="simple"/>
+			<parameter name="validationType" value="searchPattern"/>
+			<parameter name="ldapSecurityPrincipalPattern" value="cn={username},ou=developers,dc=acmeshop,dc=com"/>
+			<!-- parameter name="ldapSearchFilterPattern" value="(&amp;(objectClass=inetOrgPerson)(sAMAccountName={username})(memberof=cn=admin,ou=groups,dc=ibm,dc=com))"/-->
+			<parameter name="ldapSearchFilterPattern" value="(&amp;(objectClass=inetOrgPerson))"/>						
+			<parameter name="ldapSearchBase" value="dc=acmeshop,dc=com"/>
+		</loginModule>
+		
 		<loginModule name="StrongDummy">
 			<className>com.worklight.core.auth.ext.NonValidatingLoginModule</className>
 		</loginModule>

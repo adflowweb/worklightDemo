@@ -24,6 +24,7 @@
 						<a href="#" data-role="button" id="reqListBtn" style="color: black">재고 확보 요청 리스트</a>
 						<a href="#" data-role="button" id="deliveryListBtn" style="color: black">발주 리스트</a>
 						<a href="#" data-role="button" id="loginBtn" style="color: black">로그인</a>
+						<a href="#" data-role="button" id="logOutBtn" style="color: black">로그 아웃</a>
 					</div>
 
     			</div>
@@ -53,6 +54,25 @@
 			
 				
 		</div><!--/content-end-->
+		
+		
+		<!-- ### PopUp ### start -->	
+		<div data-role="popup" id="loginPopup" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+				<div data-role="header" data-theme="a" class="ui-corner-top">
+					<h1>로그인</h1>
+				</div>
+				<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+					<label for="usernameInputField" class="ui-hidden-accessible">사용자 ID:</label>
+		          	<input type="text" name="usernameInputField" id="usernameInputField" value="" placeholder="" data-theme="a" />
+
+		          	<label for="passwordInputField" class="ui-hidden-accessible">패스워드:</label>
+		          	<input type="password" name="passwordInputField" id="passwordInputField" value="" placeholder="" data-theme="a" />
+					<p></p>
+					<a href="#" id="loginButton" data-role="button" data-inline="true" data-rel="ok" data-theme="a">로그인</a>    
+					<a href="#" id="cancelButton" data-role="button" data-inline="true" data-rel="ok" data-transition="flow" data-theme="b">취소</a>  
+				</div>
+			</div>
+		<!-- ### PopUp ### end -->
 		
 		<div data-role="footer" data-position="fixed">
 			<div class="ui-grid-a">
@@ -302,6 +322,7 @@
     		<script src="js/TransDetail.js"></script>
     		<script src="js/WorkOrder.js"></script>
     		<script src="js/mqttws31.js"></script>
+    		<script src="js/LDAPRealmChallengeHandler.js"></script>
  
     	</body>
 </html>
