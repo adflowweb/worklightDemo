@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    Licensed Materials - Property of IBM
-    5725-G92 (C) Copyright IBM Corp. 2011, 2013. All Rights Reserved.
-    US Government Users Restricted Rights - Use, duplication or
-    disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
--->
-<wl:adapter name="MallAdapter"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:wl="http://www.worklight.com/integration"
-	xmlns:sql="http://www.worklight.com/integration/sql">
+<!-- Licensed Materials - Property of IBM 5725-G92 (C) Copyright IBM Corp. 
+	2011, 2013. All Rights Reserved. US Government Users Restricted Rights - 
+	Use, duplication or disclosure restricted by GSA ADP Schedule Contract with 
+	IBM Corp. -->
+<wl:adapter name="MallAdapter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:wl="http://www.worklight.com/integration" xmlns:sql="http://www.worklight.com/integration/sql">
 
 	<displayName>MallAdapter</displayName>
 	<description>MallAdapter</description>
@@ -16,26 +12,33 @@
 		<connectionPolicy xsi:type="sql:SQLConnectionPolicy">
 			<dataSourceDefinition>
 				<driverClass>com.mysql.jdbc.Driver</driverClass>
-					<url>jdbc:mysql://192.168.0.170:3306/WLDEMO</url>					
-					  <user>worklight</user>
-    			<password>passw0rd</password>    	  
+				<url>jdbc:mysql://192.168.0.170:3306/WLDEMO</url>
+				<user>worklight</user>
+				<password>passw0rd</password>
 			</dataSourceDefinition>
 		</connectionPolicy>
 		<loadConstraints maxConcurrentConnectionsPerNode="5" />
 	</connectivity>
-	<!--  for product page -->
-	<procedure name="getITEMs"> </procedure>
-	<procedure name="getProduct"> </procedure>
-	<!--  for wishlist -->
-	<procedure name="addWishList"> </procedure>
-	<procedure name="getWishList"> </procedure>
-	<procedure name="getWishDetail"> </procedure>
-	<procedure name="updateWish"> </procedure>
-	<procedure name="deleteWish"> </procedure>
-	<!--  for cartlist -->
-	<procedure name="getCartList"> </procedure>
-	<procedure name="getCartDetail"> </procedure>
-	<procedure name="deleteCart"> </procedure>
-	<procedure name="addCartList"> </procedure>
-	<procedure name="updateCart"> </procedure>
+	<!-- for product page -->
+	<procedure name="getITEMs">
+	</procedure>
+	<procedure name="getProduct">
+	</procedure>
+	<!-- for wishlist -->
+	<procedure securityTest="WLShoppersSecurityTest" name="addWishList" />
+	<procedure securityTest="WLShoppersSecurityTest" name="getWishList" />
+	<procedure securityTest="WLShoppersSecurityTest" name="getWishDetail" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateWish" />
+	<procedure securityTest="WLShoppersSecurityTest" name="deleteWish" />
+	<!-- for cartlist -->
+	<procedure securityTest="WLShoppersSecurityTest" name="getCartList" />
+	<procedure securityTest="WLShoppersSecurityTest" name="getCartDetail" />
+	<procedure securityTest="WLShoppersSecurityTest" name="deleteCart" />
+	<procedure securityTest="WLShoppersSecurityTest" name="addCartList" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateCart" />	
+	<!--  for authentication -->
+	<procedure securityTest="WLShoppersSecurityTest" name="getDummy" />
+	<!--  for tranhist -->
+	<procedure securityTest="WLShoppersSecurityTest" name="addTranHist" />
+	<procedure securityTest="WLShoppersSecurityTest" name="getTranHist" />
 </wl:adapter>

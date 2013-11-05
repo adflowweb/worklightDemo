@@ -17,8 +17,8 @@ var productlistCreated = false;
 var mycartlistCreated = false;
 var mycartmodified = false; // wishlist modify /delete view form
 function loadCartlistitems(conid){
-	alert("plz login!!!!!!!!!!!!!!!!!!!");
-	var user = '000001';
+
+	var user = conid;
 	 WL.Logger.debug(".........loadCartlistitems.....try. to...something like that");
 	    var invocationData = {
 	            adapter : 'MallAdapter', // adapter name
@@ -51,7 +51,7 @@ function loadCartlistitemsFailure(result) {
 //////////////////////////////////////////////////////////
 
 function displayCartitemload(items) {
-//	alert("cartItem length :: "+items.length );
+//	console.log("cartItem length :: "+items.length );
 	for ( var i = 0; i < items.length; i++) { 
 	////////////////////////////////////////////////////////////////////
 		if(!mycartlistCreated){	       
@@ -77,7 +77,7 @@ function displayCartitemload(items) {
 		cartid = items[i].CARTID; 
 		cartamt= items[i].AMT1;
 		cartprice = items[i].UNITPRC1;		
-		$("#list_cart").append('<li id="cartremoveli'+i+'"+ ><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><span class="tabone"><p><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+cartprice+'won</p></span><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"></a> <a class="del_cart" onclick="deleteCartTagli('+cartid+''+',cartremoveli'+i+')"   data-iconpos="notext" data-icon="delete" >Delete</a></li>');
+		$("#list_cart").append('<li id="cartremoveli'+i+'"+ ><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><span class="tabone"><p><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+cartprice+'won</p></span><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"></a> <a class="del_cart" onclick="deleteCartTagli('+cartid+''+',cartremoveli'+i+')"   data-iconpos="notext" data-icon="delete" >Delete</a></li>');
 		//		
 		$("#list_cart").listview("refresh");		
 		}
@@ -157,7 +157,7 @@ function displayCartDetail(items) {
 	//$('#display_product').append('<img src="http://192.168.0.171/WLShoppingMall/'+ITEMPIC1+'" width="200" height="200"><h3 id="Title">'+ITEMCODE+'</h3><label id="label">가격 : '+UNITPRC+'</label><p>'+ITEMDESC+'</p>');
 		$('#display_cartModDetail').append('<h3 id="Title">'+itemname +'</h3><img src="'+imageurl+itempic1 +'" width="200" height="200"><h5 id="itemcode">'+itemdesc+'</h5><label id="label">금액 : '+cartprice +'</label><p>'+cartamt+'</p>');
 		$("#display_cartModDetail").trigger("create");
-		$('#cartmodificationform').append('<h3 class="mycart_amt">수량 : '+cartamt +' </h3><h3 class="mycart_price">금액 : '+(total)+'won</h3><input type="hidden" class="cartid " name="cartid" value="'+cartid+'">');
+		$('#cartmodificationform').append('<h3 class="mycart_amt">수량 : '+cartamt +' </h3><h3 class="mycart_price">금액 : '+(total)+'won</h3><input type="hidden" class="cartid " name="cartid" value="'+cartid+'"><input type="hidden" class="orderitem " name="orderitem" value="'+itemname+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+itempic1+'">');
 		$("#cartmodificationform").trigger("create");
 		$('#updateforcart').append('<input type="hidden" class="cartUpdateitem" id="cartUpdateitem" name="cartUpdateitem" value="'+itemcode+'"><input type="hidden" class="cartUpdateprice" id="cartUpdateprice" name="cartUpdateprice" value="'+cartprice+'">');
 		$("#updateforcart").trigger("create");
@@ -179,30 +179,36 @@ $('#quantityItem').on("change",function() {
 
 //goto the modify page
 function modifycartdetail(){
-	alert("plz login");
-	loginid="000001";
-	var owner = loginid;
+
 	
-	var updatequantity = null
-	if(changeselectVal=null){
-//		alert("changeselectVal null "+ changeselectVal);
-		updatequantity = changeselectVal;
-	}else{
-		updatequantity = $("#quantityItem" ).val();
+	
+	var conid = getCookie("username");
+	WL.Logger.debug("hello getCookie username :: " + conid);
+
+	if (conid == null || conid == "") {
+		console.log(" username null check , and before loadDummy() " + conid);
+		loadDummy();
+
+	} else {
+		console.log(" username null check , and before loadDummy() " + conid);
+		console.log("else....username with go..after dummy " + conid);
+		console.log("modifycartdetail inside.....");
+		var updatequantity = null;
+		if(changeselectVal=null){
+
+			updatequantity = changeselectVal;
+		}else{
+			updatequantity = $("#quantityItem" ).val();
+		}
+		
+		var updateitem1 =$('input[name="cartUpdateitem"]').val();
+		var updateunitprc1 =$('input[name="cartUpdateprice"]').val();
+		
+		var updatecartid =$('input[name="cartid"]').val();
+		loadupdatecart(updateitem1, updatequantity, updateunitprc1, updatecartid);
+
 	}
 	
-	var updateitem1 =$('input[name="cartUpdateitem"]').val();
-	var updateunitprc1 =$('input[name="cartUpdateprice"]').val();
-	
-//	alert("modifycartdetail   .......................");
-//	alert("updatequantity :: " +updatequantity);
-	var updatecartid =$('input[name="cartid"]').val();
-//	alert("updatecartid"+updatecartid);	
-//	alert("hello");	
-	
-//	alert("updatequantity :: "+updatequantity + "updateitem1 :: "+updateitem1 + "updateunitprc1 :: " +updateunitprc1 +"end");
-	loadupdatecart(updateitem1, updatequantity, updateunitprc1, updatecartid);
-
 }
 
 
@@ -237,13 +243,27 @@ WL.Logger.debug("loadupdatecartFailure Retrieve failure");
 }
 
 function detailcartAfterupdate(items){
-//	 alert("detailcartAfterupdate Sucess");
-///////////////////////////////////////////////////
-//	 cart select after saving
-	 	alert("plz login");
-		var loginid="00001";
+	
+	var conid = getCookie("username");
+	WL.Logger.debug("hello getCookie username :: " + conid);
+
+	if (conid == null || conid == "") {
+		console.log(" username null check , and before loadDummy() " + conid);
+		loadDummy();
+
+	} else {
+		console.log(" username null check , and before loadDummy() " + conid);
+		console.log("else....username with go..after dummy " + conid);
+
+		loadCartlistitems(conid);
+	}
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////
 		
-		loadCartlistitems(loginid);
+//		loadCartlistitems(loginid);
 }
 //	 the end!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //*********************************
@@ -359,9 +379,27 @@ function loaddelCartlistFailure(result) {
 
 
 function displayloaddelCartlist(items) {
-	alert("plz login");
-	var loginid="000001";
-	loadCartlistitems(loginid);
+
+	
+	var conid = getCookie("username");
+	WL.Logger.debug("hello getCookie username :: " + conid);
+
+	if (conid == null || conid == "") {
+		console.log(" username null check , and before loadDummy() " + conid);
+		loadDummy();
+
+	} else {
+		console.log(" username null check , and before loadDummy() " + conid);
+		console.log("else....username with go..after dummy " + conid);
+
+		loadCartlistitems(conid);
+
+	}
+	
+	
+	
+	/////////////////////////////////////////////////////////////////////
+//	loadCartlistitems(loginid);
 
 }
 
@@ -387,17 +425,34 @@ function displayloaddelCartlist(items) {
 
 /////////////////////////////////////////////////////////////
 function addCartbtn(){
-	alert("plz login");
-	loginid="000001";
-	var owner = loginid;
-//	alert("hello");	
-	var item1 =$('input[name="cartitem"]').val();
-	var unitprc1 =$('input[name="cartprice"]').val();
-//	var quantity = $( "#quantityItem" ).val();amountItem
-	var quantity = $( "#amountItem" ).val();
+
 	
-//	alert("quantity :: "+quantity + "item1 :: "+item1 + "unitprc1 :: " +unitprc1 +"end");
-	addCartitemload(owner, item1, quantity, unitprc1);
+	var conid = getCookie("username");
+	WL.Logger.debug("hello getCookie username :: " + conid);
+
+	if (conid == null || conid == "") {
+		console.log(" username null check , and before loadDummy() " + conid);
+		loadDummy();
+
+	} else {
+		console.log(" username null check , and before loadDummy() " + conid);
+		console.log("else....username with go..after dummy " + conid);
+		
+		
+
+//		alert("hello");	
+		var item1 =$('input[name="cartitem"]').val();
+		var unitprc1 =$('input[name="cartprice"]').val();
+//		var quantity = $( "#quantityItem" ).val();amountItem
+		var quantity = $( "#amountItem" ).val();
+		
+//		alert("quantity :: "+quantity + "item1 :: "+item1 + "unitprc1 :: " +unitprc1 +"end");
+		addCartitemload(conid, item1, quantity, unitprc1);
+
+	}
+	
+	
+	
 } 
 
 function addCartitemload(owner, item1, quantity, unitprc1){
