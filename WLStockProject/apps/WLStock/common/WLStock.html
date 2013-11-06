@@ -10,18 +10,21 @@
     		<link href="jqueryMobile/jquery.mobile.structure-1.3.0.css" rel="stylesheet">
     		<link href="jqueryMobile/jquery.mobile.theme-1.3.0.css" rel="stylesheet">
     		<link rel="stylesheet" href="css/WLStock.css">
+    		<link rel="stylesheet" href="css/jquery-mobile-fluid960.css">
     		<script>window.$ = window.jQuery = WLJQ;</script>
     		<script src="jqueryMobile/jquery.mobile-1.3.0.js"></script>
     	</head>
     	<body id="content" style="display: none;">
     		<div data-role="page" id="home">
     		    <div data-role="header" id="header" data-position="fixed">
-    		       Header
+    		       
     		    </div>
     			<div data-role="content" id="pagePort">
 					<div data-role="controlgroup">
 						<a href="#" data-role="button" id="reqListBtn" style="color: black">재고 확보 요청 리스트</a>
 						<a href="#" data-role="button" id="deliveryListBtn" style="color: black">발주 리스트</a>
+						<a href="#" data-role="button" id="loginBtn" style="color: black">로그인</a>
+						<a href="#" data-role="button" id="logOutBtn" style="color: black">로그 아웃</a>
 					</div>
 
     			</div>
@@ -51,6 +54,25 @@
 			
 				
 		</div><!--/content-end-->
+		
+		
+		<!-- ### PopUp ### start -->	
+		<div data-role="popup" id="loginPopup" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+				<div data-role="header" data-theme="a" class="ui-corner-top">
+					<h1>로그인</h1>
+				</div>
+				<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+					<label for="usernameInputField" class="ui-hidden-accessible">사용자 ID:</label>
+		          	<input type="text" name="usernameInputField" id="usernameInputField" value="" placeholder="" data-theme="a" />
+
+		          	<label for="passwordInputField" class="ui-hidden-accessible">패스워드:</label>
+		          	<input type="password" name="passwordInputField" id="passwordInputField" value="" placeholder="" data-theme="a" />
+					<p></p>
+					<a href="#" id="loginButton" data-role="button" data-inline="true" data-rel="ok" data-theme="a">로그인</a>    
+					<a href="#" id="cancelButton" data-role="button" data-inline="true" data-rel="ok" data-transition="flow" data-theme="b">취소</a>  
+				</div>
+			</div>
+		<!-- ### PopUp ### end -->
 		
 		<div data-role="footer" data-position="fixed">
 			<div class="ui-grid-a">
@@ -187,17 +209,7 @@
 		<div data-role="header" data-position="fixed">
 			<h3 id="workOrderHeader">차량번호 작업 지시</h3>
 		</div>
-		<div data-role="content" style="padding: 15px">
-			<textarea name="textarea" id="workOrderTextarea">
-			
-			
-			
-			
-			
-			
-			
-			</textarea>
-
+		<div data-role="content" id="workOrderTextarea" style="padding: 15px">
 		</div>
 		
 		<!-- ### PopUp ### start -->	
@@ -215,9 +227,11 @@
 		<!-- ### PopUp ### end -->
 		
 		<div data-role="footer" data-position="fixed" >
-			<div>
-				<a href="#" data-role="button" id="workOrderSendBtn" data-theme="b">보내기</a>
-			</div>
+		
+		<fieldset class="container_12">
+			<div class="grid_10"><input type="text" name="text"	id="msgSendText" style="background-color: white; color: black"></div>
+			<div class="grid_2"><a href="#" data-role="button" id="workOrderSendBtn" data-theme="b">보내기</a></div>	   
+    	</fieldset>
 
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
@@ -307,6 +321,8 @@
     		<script src="js/DeliveryListPage.js"></script>
     		<script src="js/TransDetail.js"></script>
     		<script src="js/WorkOrder.js"></script>
+    		<script src="js/mqttws31.js"></script>
+    		<script src="js/LDAPRealmChallengeHandler.js"></script>
  
     	</body>
 </html>
