@@ -414,6 +414,7 @@
 
 		<!-- header end -->
 		<div data-role="content">
+		
 			<div id="cartmodificationform"></div>
 
 			<div id="display_cartModDetail"></div>
@@ -708,6 +709,8 @@
 
 		<!-- header end -->
 		<div data-role="content" style="padding-top: 0px" data-scroll="true">
+			<div id="orderUser">my order</div>
+			<br/>
 			<div class="ui-grid-d" id="orderdetail">
 				<div class="ui-block-a" style="float:left;width:120px;">
 					<p id="orderinfo_left">
@@ -719,8 +722,7 @@
 					<div  id="order_right_col" >
 					<p id="orderinfo">
 					<!--  start -->
-					주문 내역  <br/>
-					해볼라구 200000won
+				
 					<!--  end -->
 					</p>
 					</div>
@@ -728,7 +730,7 @@
 			</div>
 
 		
-		<form action="" method="POST" id="payment-form">
+		<form action="orderResultPage" method="POST" id="payment-form">
 			<span class="payment-errors"></span>
 
 			<div class="form-row">
@@ -743,7 +745,7 @@
 				</label>
 			</div>
 
-			<div class="form-row">
+			<div class="form-row" id="expireForm">
 				<label> <span  >Expiration (MM/YYYY)</span> <input type="text"
 					size="2" data-stripe="exp-month" data-inline="true"  />
 				</label> <span> / </span> <input type="text" size="4" data-stripe="exp-year" data-inline="true" />
@@ -773,6 +775,52 @@
 	</div>
 	<!--  end page -->
 
+
+
+
+
+	<div data-role="page" id="orderResultPage">
+		<div id="left-panel" data-role="panel" id="panel" data-position="left"
+			data-theme="c" data-display="push">
+			<ul data-role="listview" data-theme="d">
+				<li style="height: 90px" data-icon="false"><a href="#"
+					data-rel="close"></a></li>
+				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
+				<li><a class="btn_goCartlistPage">장바구니</a></li>
+			</ul>
+
+		</div>
+
+		<div data-role="header" data-position="fixed" id="header">
+			<h1>WL shopping</h1>
+			<a data-iconpos="notext" href="#panel" data-role="button"
+				data-icon="star"></a>
+		</div>
+
+		<!-- header end -->
+		<div data-role="content" style="padding-top: 0px" data-scroll="true">
+		
+
+	</div>
+	<!--  end content -->
+	<!--  start footer -->
+		<div data-role="footer" data-position="fixed" data-id="foot1"
+			class="ui-btn-active ui-state-persist">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a class="btn_goCartlistPage" data-iconpos="top"
+						data-icon="arrow-d">Cart</a></li>
+					<li><a href="#" data-rel="back" data-iconpos="top"
+						data-icon="back">back</a></li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+		</div>
+		<!--  end footer -->
+	</div>
+	<!--  end page -->
 
 	<script src="js/initOptions.js"></script>
 	<script src="js/WLShoppingMall.js"></script>
