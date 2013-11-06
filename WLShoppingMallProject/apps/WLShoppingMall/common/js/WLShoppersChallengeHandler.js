@@ -2,6 +2,8 @@
  * 
  */
 
+
+
 var WLShoppersChallengeHandler = WL.Client
 		.createChallengeHandler("WLShoppersRealm");
 var cookiename;
