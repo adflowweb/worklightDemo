@@ -133,31 +133,41 @@ function displayCartDetail(items) {
 	$.map(items[0], function(value, key) {
 		console.log(key, value);
 	});
-  
-	  var itemcode = items[0].ITEMCODE;
-	  var itempic1 = items[0].ITEMPIC1;
-	  var itemcatm = items[0].ITEMCATM;
-	  var itemname = items[0].ITEMNAME;
-	  var itemdesc = items[0].ITEMDESC;
-	  var cartprice = items[0].UNITPRC1;
-	  var cartid = items[0].CARTID;
-	  var cartitem= items[0].ITEM1;
-	  var cartamt = items[0].AMT1;	
-	  var total = cartamt * cartprice;
+	$('#display_cartModDetail').empty();
+	$('#cartmodificationform').empty();
+	$('#updateforcart').empty();
+	var itemcode = null;
+	var itempic1= null;
+	var itemcatm= null;
+	var itemname= null;
+	var itemdesc= null;
+	var cartprice= null;
+	var cartid= null;
+	var cartitem= null;
+	var cartamt= null;
+	 var total = null;
+	  itemcode = items[0].ITEMCODE;
+	itempic1 = items[0].ITEMPIC1;
+	 itemcatm = items[0].ITEMCATM;
+	 itemname = items[0].ITEMNAME;
+	 itemdesc = items[0].ITEMDESC;
+	 cartprice = items[0].UNITPRC1;
+	  cartid = items[0].CARTID;
+	 cartitem= items[0].ITEM1;
+	 cartamt = items[0].AMT1;	
+	  total = cartamt * cartprice;
 	//  product_info=new Object();
 	//  product_info.name = ITEMNAME;
 	//  product_info.code = ITEMCODE;
 	//  product_info.desc = ITEMDESC;
 	//  product_info.img = ITEMPIC1;
 	//  product_info.price = UNITPRC;  
-		$('#display_cartModDetail').empty();
-		$('#cartmodificationform').empty();
-		$('#updateforcart').empty();
+		
 		
 	//$('#display_product').append('<img src="http://192.168.0.171/WLShoppingMall/'+ITEMPIC1+'" width="200" height="200"><h3 id="Title">'+ITEMCODE+'</h3><label id="label">가격 : '+UNITPRC+'</label><p>'+ITEMDESC+'</p>');
-		$('#display_cartModDetail').append('<h3 id="Title">'+itemname +'</h3><img src="'+imageurl+itempic1 +'" width="200" height="200"><h5 id="itemcode">'+itemdesc+'</h5><label id="label">금액 : '+cartprice +'</label><p>'+cartamt+'</p>');
+		$('#display_cartModDetail').append('<h3 id="Title">'+itemname +'</h3><img src="'+imageurl+itempic1 +'" width="200" height="200"><h5 id="itemcode">'+itemdesc+'</h5><label id="label">금액 : '+cartprice +'</label><p>'+cartamt+'</p><input type="hidden" class="orderitemwithcart " name="orderitemwithcart" value="'+itemname+'"><input type="hidden" class="orderpricewithcart" name="orderpricewithcart" value="'+cartprice+'"><input type="hidden" class="itempic1withcart " name="itempic1withcart" value="'+itempic1+'"><input type="hidden" class="itemcodewithcart " name="itemcodewithcart" value="'+itemcode+'">');
 		$("#display_cartModDetail").trigger("create");
-		$('#cartmodificationform').append('<h3 class="mycart_amt">수량 : '+cartamt +' </h3><h3 class="mycart_price">금액 : '+(total)+'won</h3><input type="hidden" class="cartid " name="cartid" value="'+cartid+'"><input type="hidden" class="orderitem " name="orderitem" value="'+itemname+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+itempic1+'">');
+		$('#cartmodificationform').append('<h3 class="mycart_amt">수량 : '+cartamt +' </h3><h3 class="mycart_price">금액 : '+(total)+'won</h3><input type="hidden" class="cartid " name="cartid" value="'+cartid+'">');
 		$("#cartmodificationform").trigger("create");
 		$('#updateforcart').append('<input type="hidden" class="cartUpdateitem" id="cartUpdateitem" name="cartUpdateitem" value="'+itemcode+'"><input type="hidden" class="cartUpdateprice" id="cartUpdateprice" name="cartUpdateprice" value="'+cartprice+'">');
 		$("#updateforcart").trigger("create");
@@ -200,11 +210,13 @@ function modifycartdetail(){
 		}else{
 			updatequantity = $("#quantityItem" ).val();
 		}
+		var updateitem1 = null;
+		var updateunitprc1 = null;
+		var updatecartid  = null;
+		updateitem1 =$('input[name="cartUpdateitem"]').val();
+		updateunitprc1 =$('input[name="cartUpdateprice"]').val();
 		
-		var updateitem1 =$('input[name="cartUpdateitem"]').val();
-		var updateunitprc1 =$('input[name="cartUpdateprice"]').val();
-		
-		var updatecartid =$('input[name="cartid"]').val();
+		updatecartid =$('input[name="cartid"]').val();
 		loadupdatecart(updateitem1, updatequantity, updateunitprc1, updatecartid);
 
 	}
@@ -270,7 +282,8 @@ function detailcartAfterupdate(items){
 //**********************************************************************************************************
 function deletecartdetail(){
 //	alert("deletecartdetail............");
-	var deletecartid =$('input[name="cartid"]').val();
+	var deletecartid = null;
+	deletecartid =$('input[name="cartid"]').val();
 //	alert("deletecartid"+deletecartid);	
 //	alert("hello");	
 	loaddelCartOnebyone(deletecartid);	
@@ -441,10 +454,13 @@ function addCartbtn(){
 		
 
 //		alert("hello");	
-		var item1 =$('input[name="cartitem"]').val();
-		var unitprc1 =$('input[name="cartprice"]').val();
+		var item1 = null;
+		var unitprc1= null;
+		var quantity = null;
+		item1 =$('input[name="cartitem"]').val();
+		unitprc1 =$('input[name="cartprice"]').val();
 //		var quantity = $( "#quantityItem" ).val();amountItem
-		var quantity = $( "#amountItem" ).val();
+		quantity = $( "#amountItem" ).val();
 		
 //		alert("quantity :: "+quantity + "item1 :: "+item1 + "unitprc1 :: " +unitprc1 +"end");
 		addCartitemload(conid, item1, quantity, unitprc1);

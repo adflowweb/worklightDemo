@@ -322,9 +322,7 @@ function displayWishDetail(items) {
 					+ ITEMPIC1
 					+ '" width="200" height="200"><h5 id="itemcode">'
 					+ ITEMCODE + '</h5><label id="label">가격 : ' + UNITPRC
-					+ '</label><p>' + ITEMDESC + '<input type="hidden" class="cartitem" id="cartitem" name="cartitem" value="'
-					+ ITEMCODE
-					+ '"><input type="hidden" class="orderitem " name="orderitem" value="'+ITEMNAME+'"><input type="hidden" class="orderprice " name="orderprice" value="'+UNITPRC+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+ITEMPIC1+'"></p>');
+					+ '</label><p>' + ITEMDESC + '</p><input type="hidden" class="orderitemwithwish " name="orderitemwithwish" value="'+ITEMNAME+'"><input type="hidden" class="orderpricewithwish" name="orderpricewithwish" value="'+UNITPRC+'"><input type="hidden" class="itempic1withwish " name="itempic1withwish" value="'+ITEMPIC1+'"><input type="hidden" class="itemcodewithwish " name="itemcodewithwish" value="'+ITEMCODE+'">');
 	$("#display_wishModDetail").trigger("create");
 	$('#wishmodificationform')
 			.append(

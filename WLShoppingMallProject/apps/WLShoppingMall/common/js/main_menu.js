@@ -195,13 +195,18 @@ function displayProductDetail(items) {
 	//
 	$("#display_product").empty();
 	$('#addcartform').empty();
-
-	var ITEMCODE = items[0].ITEMCODE;
-	var ITEMPIC1 = items[0].ITEMPIC1;
-	var ITEMCATM = items[0].ITEMCATM;
-	var ITEMNAME = items[0].ITEMNAME;
-	var ITEMDESC = items[0].ITEMDESC;
-	var UNITPRC = items[0].UNITPRC;
+	var ITEMCODE = null;
+	var ITEMPIC1 = null;
+	var ITEMCATM= null;
+	var ITEMNAME= null;
+	var ITEMDESC = null;
+	var UNITPRC = null;
+	ITEMCODE = items[0].ITEMCODE;
+	ITEMPIC1 = items[0].ITEMPIC1;
+	ITEMCATM = items[0].ITEMCATM;
+	ITEMNAME = items[0].ITEMNAME;
+	ITEMDESC = items[0].ITEMDESC;
+	 UNITPRC = items[0].UNITPRC;
 	product_info = new Object();
 	product_info.name = ITEMNAME;
 	product_info.code = ITEMCODE;
@@ -209,23 +214,20 @@ function displayProductDetail(items) {
 	product_info.img = ITEMPIC1;
 	product_info.price = UNITPRC;
 
-	// $('#display_product').append('<img
-	// src="http://192.168.0.171/WLShoppingMall/'+ITEMPIC1+'" width="200"
-	// height="200"><h3 id="Title">'+ITEMCODE+'</h3><label id="label">가격 :
-	// '+UNITPRC+'</label><p>'+ITEMDESC+'</p>');
+	
 	$('#display_product').append(
 			'<h3 id="Title">' + ITEMNAME + '</h3><img src="' + imageurl
 					+ ITEMPIC1
 					+ '" width="200" height="200"><h5 id="itemcode">'
 					+ ITEMCODE + '</h5><label id="itemPrice">가격 : ' + UNITPRC
-					+ '</label><p>' + ITEMDESC + '</p>');
+					+ '</label><p>' + ITEMDESC + '</p><input type="hidden" class="orderitem " name="orderitem" value="'+ITEMNAME+'"><input type="hidden" class="orderprice " name="orderprice" value="'+UNITPRC+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+ITEMPIC1+'"><input type="hidden" class="cartprice" id="cartprice" name="cartprice" value="'
+					+ UNITPRC + '">');
 	$("#display_product").trigger("create");
 	$('#addcartform')
 			.append(
 					'<input type="hidden" class="cartitem" id="cartitem" name="cartitem" value="'
 							+ ITEMCODE
-							+ '"><input type="hidden" class="orderitem " name="orderitem" value="'+ITEMNAME+'"><input type="hidden" class="orderprice " name="orderprice" value="'+UNITPRC+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+ITEMPIC1+'"><input type="hidden" class="cartprice" id="cartprice" name="cartprice" value="'
-							+ UNITPRC + '">');
+							+ '">');
 	$("#addcartform").trigger("create");
 
 }
