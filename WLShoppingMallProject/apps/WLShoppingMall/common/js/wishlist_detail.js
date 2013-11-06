@@ -91,7 +91,7 @@ function insertwishdetail() {
 function addWishitemload(wish_title, wish_desc, conid, itemcode1) {
 	WL.Logger
 			.debug(".........addWishitemload.....try. to...something like that");
-	WL.Logger.error("addWishitemload   conid " + conid);
+	WL.Logger.debug("addWishitemload   conid " + conid);
 	var invocationData = {
 		adapter : 'MallAdapter',
 		procedure : 'addWishList',

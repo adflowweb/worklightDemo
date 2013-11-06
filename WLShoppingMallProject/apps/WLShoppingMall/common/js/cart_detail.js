@@ -92,7 +92,7 @@ function displayCartitemload(items) {
 
 //***************************************************************************************************
 
-$('selectedCartlist').bind("click", {"cartid":cartid}, readCartitemload);
+$('selectedCartlist').bind("click", readCartitemload);
 function readCartitemload(cartid){
 
 	loadCartDetail(cartid);

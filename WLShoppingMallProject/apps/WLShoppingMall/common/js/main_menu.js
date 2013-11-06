@@ -46,7 +46,7 @@ function loadmainSQLQueryFailure(result) {
 	WL.Logger.debug("loadITEMSList Retrieve failure");
 }
 
-var happyCodeHT;
+
 function appendToProductList(items) {
 	$.mobile.changePage('#pg_shopping', {
 		transition : "pop"
@@ -267,7 +267,7 @@ $('.btn_goWishlistPage').click(function() {
 // ///////////////////////////////////////////////////////////////////////////////
 // dummy start
 function loadDummy() {
-	WL.Logger.error(".........getDummy.....try. to...something like that");
+	WL.Logger.debug(".........getDummy.....try. to...something like that");
 	var invocationData = {
 		adapter : 'MallAdapter', // adapter name
 		procedure : 'getDummy',

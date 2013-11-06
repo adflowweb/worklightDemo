@@ -81,6 +81,7 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a id="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -123,6 +124,7 @@
 
 
 	<div data-role="page" id="pg_salelist">
+		<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -131,8 +133,8 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a id="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
-
 			</ul>
 
 		</div>
@@ -311,6 +313,7 @@
 	<!-- close page -->
 
 	<div data-role="page" id="wishlistPage">
+		<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -319,10 +322,12 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a id="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
 		</div>
+		<!-- panel div end -->
 
 
 		<div data-role="header" data-position="fixed" id="header">
@@ -470,7 +475,7 @@
 	<!-- close page -->
 
 	<div data-role="page" id="cartlistPage">
-		<!-- panel div -->
+	<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -479,6 +484,7 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a id="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -559,6 +565,7 @@
 	</div>
 	<!--  end page -->
 	<div data-role="page" id="loginformPage">
+		<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -567,10 +574,12 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a id="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
 		</div>
+		<!-- panel div end -->
 
 		<div data-role="header" data-position="fixed" id="header">
 			<h1>WL shopping</h1>
@@ -621,6 +630,7 @@
 
 
 	<div data-role="page" id="registerPage">
+		<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -629,10 +639,12 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a id="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
 		</div>
+		<!-- panel div end -->
 
 		<div data-role="header" data-position="fixed" id="header">
 			<h1>WL shopping</h1>
@@ -697,9 +709,11 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
 		</div>
+		<!-- panel div end -->
 
 		<div data-role="header" data-position="fixed" id="header">
 			<h1>WL shopping</h1>
@@ -730,30 +744,28 @@
 			</div>
 
 		
-		<form action="orderResultPage" method="POST" id="payment-form">
-			<span class="payment-errors"></span>
-
-			<div class="form-row">
-				<label> <span>Card Number</span> <input type="text"
-					size="20" data-stripe="number" />
+		<div  id="payment_div">			
+			<div class="payment_row">
+				<label> <span>Card Number</span>
+				 <input type="text"  size="20" data-stripe="number" name="payment_card" id="payment_card" />
+				</label>
+			</div>
+			<div class="payment_row">
+				<label> <span>CVC</span> 
+				<input type="text" size="4"  data-stripe="cvc" name="payment_cvc" id="payment_cvc"  />
 				</label>
 			</div>
 
-			<div class="form-row">
-				<label> <span>CVC</span> <input type="text" size="4"
-					data-stripe="cvc" />
-				</label>
+			<div class="payment_row" id="expireForm">
+				<label> <span  >Expiration (MM/YYYY)</span> 
+				<input type="text" size="2" data-stripe="exp-month" data-inline="true" name="payment_expMon" id="payment_expMon"  />
+				</label> <span> / </span>
+			   <input type="text" size="4" data-stripe="exp-year" data-inline="true" name="payment_expYear" id="payment_expYear"/>
 			</div>
 
-			<div class="form-row" id="expireForm">
-				<label> <span  >Expiration (MM/YYYY)</span> <input type="text"
-					size="2" data-stripe="exp-month" data-inline="true"  />
-				</label> <span> / </span> <input type="text" size="4" data-stripe="exp-year" data-inline="true" />
-			</div>
-
-			<button type="submit">Submit Payment</button>
-		</form>
-
+							
+		</div>
+		<a href="#" data-role="button" id="btn_order"  data-theme="b">Submit Payment</a> 
 
 	</div>
 	<!--  end content -->
@@ -780,6 +792,7 @@
 
 
 	<div data-role="page" id="orderResultPage">
+		<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -788,9 +801,12 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a id="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
 		</div>
+		<!-- panel div end -->
 
 		<div data-role="header" data-position="fixed" id="header">
 			<h1>WL shopping</h1>
@@ -801,6 +817,30 @@
 		<!-- header end -->
 		<div data-role="content" style="padding-top: 0px" data-scroll="true">
 		
+		
+		<div id="orderReturnUser">my order</div>
+			<br/>
+			<div class="ui-grid-d" id="orderReturndetail">
+				<div class="ui-block-a" style="float:left;width:120px;">
+					<p id="orderReturninfo_left">
+					<!--  start -->
+					<!--  end -->
+					</p>
+				</div>
+				<div class="ui-block-b" style="width:50%" >
+					<div  id="orderReturn_right_col" >
+					<p id="orderReturninfo">
+					<!--  start -->
+				
+					<!--  end -->
+					</p>
+					</div>
+				</div>
+			</div>
+			<br/>
+		<div id="orderPaymentInfo"></div>		
+		
+		<a href="#" data-role="button" id="btn_orderList"  data-theme="b">주문내역리스트</a> 
 
 	</div>
 	<!--  end content -->
@@ -821,6 +861,58 @@
 		<!--  end footer -->
 	</div>
 	<!--  end page -->
+	
+	<div data-role="page" id="orderlistPage">
+		<!-- panel div -->
+		<div id="left-panel" data-role="panel" id="panel" data-position="left"
+			data-theme="c" data-display="push">
+			<ul data-role="listview" data-theme="d">
+				<li style="height: 90px" data-icon="false"><a href="#"
+					data-rel="close"></a></li>
+				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
+				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a id="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_logout">로그아웃</a></li>
+			</ul>
+
+		</div>
+		<!-- panel div end -->
+
+		<div data-role="header" data-position="fixed" id="header">
+			<h1>WL shopping</h1>
+			<a data-iconpos="notext" href="#panel" data-role="button"
+				data-icon="star"></a>
+		</div>
+
+		<!-- header end -->
+
+		<div data-role="content">
+
+			<!-- listview thumnail -->
+			<div class="content-orderlist"></div>
+
+
+		</div>
+		<!--  start footer -->
+		<div data-role="footer" data-position="fixed" data-id="foot1"
+			class="ui-btn-active ui-state-persist">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a class="btn_goCartlistPage" data-iconpos="top"
+						data-icon="arrow-d">Cart</a></li>
+					<li><a href="#" data-rel="back" data-iconpos="top"
+						data-icon="back">back</a></li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+		</div>
+		<!--  end footer -->
+	</div>
+	<!-- close page -->
+	
+	
 
 	<script src="js/initOptions.js"></script>
 	<script src="js/WLShoppingMall.js"></script>

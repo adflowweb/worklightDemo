@@ -176,11 +176,11 @@ function getDummy() {
 // <procedure securityTest="WLShoppersSecurityTest" name="addTranHist" />
 // <procedure securityTest="WLShoppersSecurityTest" name="getTranHist" />
 
-var getTranHistquery = "SELECT * FROM WLDEMO.TRANHIST where CONID=?";
-var getTranHistStatement = WL.Server.createSQLStatement(getProductquery);
+var getTranHistquery = "select * from WLDEMO.TRANHIST th, WLDEMO.ITEMS i  where th.itemcode1=i.itemcode and th.conid=?";
+var getTranHistStatement = WL.Server.createSQLStatement(getTranHistquery);
 
 function getTranHist(conid) {
-	WL.Logger.info("getTranHistStatement" + getTranHistStatement);
+//	WL.Logger.debug("getTranHistStatement" + getTranHistStatement);
 	return WL.Server.invokeSQLStatement({
 		preparedStatement : getTranHistStatement,
 		parameters : [ conid ]
