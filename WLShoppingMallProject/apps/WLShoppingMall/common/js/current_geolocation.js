@@ -9,7 +9,7 @@
 
 // Cordova is ready
 //
-var autoGeolocation  = setInterval(getGeolocation, 1000);
+//var autoGeolocation  = setInterval(getGeolocation, 1000);
 var i=0;
 
 //$('.btn_getGeolocation').click(function( ) {  
@@ -22,7 +22,7 @@ $('.btn_clearGeolocation').click(function( ) {
 	
 });
 
-function getGeolocation(){
+function getGeolocation(clientforgps){
 	WL.Logger.error("getGeolocation");
 	$("#destination_i").append(i++);
 			

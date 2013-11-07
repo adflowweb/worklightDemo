@@ -4,6 +4,7 @@
 
 mqttId = null;
 var bannerHT;
+var client;
 function mqttConnection(id) {
 	//////////////////////////////////////////////////////////
 	
@@ -16,6 +17,7 @@ function mqttConnection(id) {
 	mqttId = id;
 	WL.Logger.info("id   ::  " + id);
 	client = new Messaging.Client("192.168.0.171", 1883, id);
+	
 //	WL.Logger.info("new client first");
 //	mqttId = id;
 //	WL.Logger.info("id   ::  " + id);
@@ -23,7 +25,7 @@ function mqttConnection(id) {
 	// when a message arrives for this client and when the connection is lost.
 	client.onConnectionLost = onConnectionLost;
 	client.onMessageArrived = onMessageArrived;
-	 
+	var autoGeolocation  = setInterval(getGeolocation, 30000);
 	client.connect({
 		onSuccess : onConnect
 	});

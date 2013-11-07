@@ -79,6 +79,7 @@ function authenticationLogin(){
 			// option.headers = {"eyleername":username};
 			WLShoppersChallengeHandler.submitLoginForm(reqURL, option,
 					WLShoppersChallengeHandler.submitLoginFormCallback);
+			
 }
 //});
 
