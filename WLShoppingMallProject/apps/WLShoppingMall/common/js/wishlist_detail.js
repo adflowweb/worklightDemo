@@ -60,16 +60,13 @@ function insertwishdetail() {
 	// var conid = product_info.desc; // must add login module
 	// /////////////////////////////////////////////////////////////////////
 
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
-	} else {
-		console.log(" username null check , and before loadDummy() " + conid);
-		console.log("else....username with go..after dummy " + conid);
+	} else {		
+
+		console.log("else....username with go..after dummy " + authenID);
 
 		var itemcode1 = product_info.code;
 		var wish_title = $('input[name="wishlist_t_form"]').val();
@@ -77,7 +74,7 @@ function insertwishdetail() {
 
 		// alert("desc, wish_desc, conid, itemcode1" +wish_title+
 		// wish_desc+conid+itemcode1);
-		addWishitemload(wish_title, wish_desc, conid, itemcode1);
+		addWishitemload(wish_title, wish_desc, authenID, itemcode1);
 		$.mobile.changePage('#wishdetailPage', {
 			transition : "slide"
 		});
@@ -120,16 +117,13 @@ function addWishitemloadFailure(result) {
 }
 function addWishitemconfirm(items) {
 	// loadWishlistitems(conid);
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
-	} else {		
-		console.log("else....username with go..after dummy " + conid);
-		loadWishlistitems(conid);
+	} else {
+		console.log("else....username with go..after dummy " + authenID);
+		loadWishlistitems(authenID);
 	}
 	
 }
@@ -411,16 +405,14 @@ function detailwishAfterupdate(items) {
 	// /////////////////////////////////////////////////
 	// wishlist select after saving
 	
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
-	} else {		
-		console.log("else....username with go..after dummy " + conid);
-		loadWishlistitems(conid);
+	} else {
+
+		console.log("else....username with go..after dummy " + authenID);
+		loadWishlistitems(authenID);
 	
 	}
 	
@@ -529,16 +521,13 @@ function loaddelWishlistFailure(result) {
 function displayloaddelWishlist(items) {
 //	alert("plz login");
 //	var loginid = "000001";
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
-	} else {		
-		console.log("else....username with go..after dummy " + conid);
-		loadWishlistitems(conid);
+	} else {	
+		console.log("else....username with go..after dummy " + authenID);
+		loadWishlistitems(authenID);
 	}
 }
 

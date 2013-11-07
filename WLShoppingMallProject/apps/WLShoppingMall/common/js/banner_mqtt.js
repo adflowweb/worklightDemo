@@ -3,8 +3,10 @@
  */
 
 mqttId = null;
+var bannerHT;
 function mqttConnection(id) {
 	//////////////////////////////////////////////////////////
+	
 	
 	
 	var mqttResult = false;
@@ -54,7 +56,8 @@ function bannerSubscribe(id) {
 
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	var subscribeBannerTopic = "/dmarketing/consumers/" + clientId;
+
+	var subscribeBannerTopic = "dirMarketing/msg/on/" + clientId;
 	WL.Logger.info("userid  subscribeBannerTopic.....inside subscribe:: "
 			+ subscribeBannerTopic);
 	subscribeBannerTopic.trim();
@@ -86,14 +89,95 @@ function onMessageArrived(message) {
 			+ message.qos);
 
 	WL.Logger.info("onMessageArrived method inside  message.payloadString ..............."+ message.payloadString );
-	loadWishlistBanner(message.payloadString);
+//	loadWishlistBanner(message.payloadString);
+	
+	
+		
+	var admessage = JSON.parse(message.payloadString);
+	WL.Logger.error("contact.dirMMsg.headLineText , " + admessage.dirMMsg.headLineText);
+	var headLineText =  admessage.dirMMsg.headLineText;
+	var adItem = admessage.dirMMsg.adItem;  
+	var adText = admessage.dirMMsg.adText;
+	var adTarget = admessage.dirMMsg.adTarget;
+	
+	loadBannerDetail(headLineText, adItem, adText,adTarget);
 
 }
 
 
-function loadWishlistBanner(str){
+function loadBannerDetail(headLineText, adItem, adText, adTarget){
 	
+	WL.Logger.info("str  ::..................................."+adItem+headLineText+adText);
+	bannerHT = {};
+	
+	bannerHT["headLineText"] =  headLineText;	 
+	bannerHT["adItem"] = adItem;	
+	bannerHT["adText"] = adText;	
+	bannerHT["adTarget"] = adTarget ;	
+	
+	
+	var finderadItem = adItem;
 
-	WL.Logger.info("str  ::..................................."+str);
-	$("#mqttTextBanner").html(str);
+	WL.Logger
+			.debug("....loadBannerDetail..........try. to...something like that :: finderadItem"+finderadItem);
+
+	var invocationData = {
+		adapter : 'MallAdapter', // adapter name
+		procedure : 'getProduct',
+		parameters : [ finderadItem ]
+	};
+	WL.Logger
+			.debug("......loadBannerDetail........try. to...something like that :: finderadItem"+finderadItem);
+
+	WL.Client.invokeProcedure(invocationData, {
+		onSuccess : loadBannerDetailSuccess,
+		onFailure : loadBannerDetaillFailure
+	});
+
+}
+
+function loadBannerDetailSuccess(result) {
+	WL.Logger.debug("loadBannerDetailSuccess Retrieve success"
+			+ JSON.stringify(result));
+
+	if (result.invocationResult.isSuccessful) {
+		console.log("loadBannerDetailSuccess");
+		console.log(result.invocationResult.resultSet);
+		displayBanner(result.invocationResult.resultSet);
+
+	} else {
+
+	}
+}
+
+function loadBannerDetaillFailure(result) {
+	WL.Logger.debug("loadBannerDetaillFailure Retrieve failure");
+}
+
+function displayBanner(items) {
+		
+	
+	var headLineText = bannerHT["headLineText"];
+	var adItem = bannerHT["adItem"];	
+	var adText = bannerHT["adText"] ;	
+	var adTarget = bannerHT["adTarget"];		
+
+	$('#wishlistheader').empty();
+	var ITEMCODE = null;
+	var ITEMPIC1 = null;
+	
+	ITEMCODE = items[0].ITEMCODE;
+	ITEMPIC1 = items[0].ITEMPIC1;		
+
+	$('#wishlistheader').attr('onclick', 'javascript:gotoAdsProduct();');
+	$('#wishlistheader').append('<div id="bannerUser"><h3>'+ adTarget +'님이 좋아하실 상품</h3></div>');
+	$('#wishlistheader').append('<div id="bannerAdvertisefor" class="ui-grid-d"><div style="float:left;width:120px;" class="ui-block-a"><p id="orderReturninfo_left"><a class="goAdsProduct"><img width="100" height="100" class="img_order" src="'+ imageurl+ ITEMPIC1+'"></p></div><div style="width:50%" class="ui-block-b"><div id="banner_right_col"><br/><p id="bannerinfo">'+headLineText+'<br><h7 id="banneradtxt">'+adText+'</h7></p></div></div></div>');
+	$("#wishlistheader").trigger("create");
+
+}
+
+function gotoAdsProduct(){
+//	alert("livedasdf");
+	var adItem = bannerHT["adItem"];	
+	gotoProductPage(adItem);
 }

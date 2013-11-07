@@ -1,20 +1,16 @@
 /**
  * 11.5. eylee order get delete add
  */
-
+var orderlistCreated =false;
 // ///////////////////////////////////////////////////////////
 function buyItembtn() {
 
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
 	} else {
-		console.log(" username null check , and before loadDummy() " + conid);
-		console.log("else....username with go..after dummy " + conid);
+		console.log("else....username with go..after dummy " + authenID);
 		var item1 = null;
 		var unitprc1 = null;
 		var quantity = null;
@@ -27,24 +23,20 @@ function buyItembtn() {
 		quantity = $("#amountItem").val();
 		itempic1 = $('input[name="itempic1"]').val();
 		orderitem = $('input[name="orderitem"]').val();
-		displayOrderPage(item1, unitprc1, itempic1, orderitem, conid);
+		displayOrderPage(item1, unitprc1, itempic1, orderitem, authenID);
 
 	}
 }
 
 function buyItembtnwithcart() {
 
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
 
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
 	} else {
-		console.log(" username null check , and before loadDummy() " + conid);
-		console.log("else....username with go..after dummy " + conid);
-		var item1 = null;
+		console.log("else....username with go..after dummy " + authenID);
 		var unitprc1 = null;
 		var quantity = null;
 		var itempic1 = null;
@@ -56,23 +48,18 @@ function buyItembtnwithcart() {
 		quantity = $("#amountItem").val();
 		itempic1 = $('input[name="itempic1withcart"]').val();
 		orderitem = $('input[name="orderitemwithcart"]').val();
-		displayOrderPage(item1, unitprc1, itempic1, orderitem, conid);
+		displayOrderPage(item1, unitprc1, itempic1, orderitem, authenID);
 
 	}
 }
 
 function buyItembtnwithwish() {
-
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
 	} else {
-		console.log(" username null check , and before loadDummy() " + conid);
-		console.log("else....username with go..after dummy " + conid);
+		console.log("else....username with go..after dummy " + authenID);
 		var item1 = null;
 		var unitprc1 = null;
 		var quantity = null;
@@ -85,7 +72,7 @@ function buyItembtnwithwish() {
 		quantity = $("#amountItem").val();
 		itempic1 = $('input[name="itempic1withwish"]').val();
 		orderitem = $('input[name="orderitemwithwish"]').val();
-		displayOrderPage(item1, unitprc1, itempic1, orderitem, conid);
+		displayOrderPage(item1, unitprc1, itempic1, orderitem, authenID);
 
 	}
 }
@@ -188,17 +175,13 @@ function addTranHistoryloadFailure(result) {
 	WL.Logger.debug("addTranHistoryloadFailure Retrieve failure");
 }
 function addTranHistoryconfirm(items) {
-	// loadWishlistitems(conid);
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
-	} else {		
-		console.log("else....username with go..after dummy " + conid);
-		loadTranHistoryDetail(conid);
+	} else {
+		console.log("else....username with go..after dummy " + authenID);
+		loadTranHistoryDetail(authenID);
 	}
 	
 }
@@ -237,18 +220,15 @@ function loadTranHistoryDetail(conid) {
 }
 
 
-$('#btn_orderList').click(function (){
+$('.btn_orderList').click(function (){
 	
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
-	} else {		
-		console.log("else....username with go..after dummy " + conid);
-		loadOrderlistitems(conid);
+	} else {
+		console.log("else....username with go..after dummy " + authenID);
+		loadOrderlistitems(authenID);
 	}
 	
 	
@@ -294,16 +274,15 @@ function appendToOrderList(items) {
 	for ( var i = 0; i < items.length; i++) {
 		// ///////////////////////////////
 		
-		if (!productlistCreated) {
+		if (!orderlistCreated) {
 			
 			$(".content-orderlist")
 					.append(
-							"<ul id='list_order'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'  data-filter='true' data-filter-placeholder='제품명 검색'></ul>");
-			productlistCreated = true;
+							"<ul id='list_order'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r' ></ul>");
+			orderlistCreated = true;
 
 			$(".content-orderlist").trigger("create");
-			$("#list_order").append(
-					'<li data-role="list-divider"><h3>구매 리스트</h3></li>');
+		
 		}
 
 		$("#list_order")

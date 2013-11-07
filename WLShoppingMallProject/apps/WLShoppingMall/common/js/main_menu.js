@@ -131,6 +131,7 @@ function gotoSalePage(itemCode) {
 }
 
 
+
 // for order
 function gotoProductPage(itemCode) {
 	
@@ -236,27 +237,23 @@ function displayProductDetail(items) {
 // ///////////////////////////////////////////////////////////////
 // go to wishlist
 //
+
 $('.btn_goWishlistPage').click(function() {
 	
+//	helloId = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+//	alert("helloId :: "+helloId);
+	console.log("authenID :: "+authenID);	
 	
-	var username = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + username);
-	
-	if (username == null || username == "") {
-		console.log(" username null check , and before loadDummy() " + username);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		sucNum = loadDummy();
 
 	} else {
-		console.log("else....username with go..before dummy " + username);
+		console.log("else....username with go..before dummy " + authenID);
 		//mqttConnection call
-		if (!mqttConnection(username) == true) {
-			console.log("mqtt true ");
+		mqttConnection(authenID);
 
-		} else {
-			console.log("mqtt false");
-		}
-
-		loadWishlistitems(username);
+		loadWishlistitems(authenID);
 		// loadWishlistitems(username);
 	}
 
@@ -306,24 +303,22 @@ $('.btn_goCartlistPage').click(function() {
 //	loadCartlistitems(loginid);
 //	
 	
-	var username = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + username);
-	
-	if (username == null || username == "") {
-		console.log(" username null check , and before loadDummy() " + username);
-		 loadDummy();
+
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
+		loadDummy();
 
 	} else {
-		console.log("else....username with go..before dummy " + username);
+		console.log("else....username with go..before dummy " + authenID);
 		//mqttConnection call
-		if (!mqttConnection(username) == true) {
+		if (!mqttConnection(authenID) == true) {
 			console.log("mqtt true ");
 
 		} else {
 			console.log("mqtt false");
 		}
 
-		loadCartlistitems(username);
+		loadCartlistitems(authenID);
 		// loadWishlistitems(username);
 	}
 
@@ -467,3 +462,26 @@ function eraseCookie(c_name) {
 		document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	}
 }
+
+////////////////////////////////////////////////////
+
+//gotoLogin
+
+$('.btn_loginformPag').click(function() {
+
+	console.log("authenID :: "+authenID);	
+	
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
+		sucNum = loadDummy();
+
+	} else {
+		console.log("else....username with go..before dummy " + authenID);
+		$.mobile.changePage('#loginformPage', {
+			transition : "pop"
+		});
+	}
+	
+	
+	
+});

@@ -32,8 +32,8 @@
 					<div data-role="controlgroup"
 						class="ui-btn-active ui-state-persist">
 						<a data-role="button" data-theme="b" style="height: 200px"
-							class="btn_gotoproduct">쇼핑하기</a> <a href="#loginformPage"
-							data-role="button" data-theme="a" style="height: 200px">로그인</a>
+							class="btn_gotoproduct">쇼핑하기</a> <a 
+							class="btn_loginformPag" data-role="button" data-theme="a" style="height: 200px">로그인</a>
 					</div>
 				</div>
 				<div class="ui-block-b">
@@ -72,7 +72,7 @@
 
 	<!-- 쇼핑하기 리스트-->
 	<div data-role="page" id="pg_shopping">
-		<!-- panel div -->
+	<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -81,7 +81,7 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a id="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -124,7 +124,7 @@
 
 
 	<div data-role="page" id="pg_salelist">
-		<!-- panel div -->
+	<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -133,13 +133,12 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a id="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
 		</div>
 		<!-- panel div end -->
-
 		<div data-role="header" data-position="fixed" id="header">
 			<h1>WL shopping</h1>
 			<a data-iconpos="notext" href="#panel" data-role="button"
@@ -182,10 +181,12 @@
 			<div id="display_product"></div>
 			<div id="addcartform"></div>
 			<!-- checkbox for quantity start -->
+			
 			<form id="getAmt">
 				<div data-role="fieldcontain">
-					<label for="amountItem">QUANTITY</label> <select id="amountItem"
-						data-theme="e" data-mini="true" name="amountItem">
+					<label for="amountItem">수량:</label> <select
+						id="amountItem" data-theme="e" data-mini="true"
+						name="amountItem">
 						<option value="1" selected="selected">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
@@ -322,15 +323,14 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a id="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
 		</div>
 		<!-- panel div end -->
 
-
-		<div data-role="header" data-position="fixed" id="header">
+		<div data-role="header"  id="wishlistheader">
 			<h1 id="mqttTextBanner">WL shopping</h1>
 			<a data-iconpos="notext" href="#panel" data-role="button"
 				data-icon="star"></a>
@@ -431,7 +431,7 @@
 			<!-- checkbox for quantity start -->
 			<form id="getQuantity">
 				<div data-role="fieldcontain">
-					<label for="quantityItem">QUANTITY:</label> <select
+					<label for="quantityItem">수량:</label> <select
 						id="quantityItem" data-theme="e" data-mini="true"
 						name="quantityItem">
 						<option value="1" selected="selected">1</option>
@@ -484,7 +484,7 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a id="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -574,7 +574,7 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a id="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -589,8 +589,16 @@
 
 		<!-- header end -->
 		<div data-role="content" style="padding-top: 60px" data-scroll="true">
-
-			<form id="login" action="#myPage">
+	
+	<div>
+		
+		<a class="btn_getGeolocation" data-iconpos="top"
+						data-icon="arrow-d">btn_getGeolocation</a>
+		<a class="btn_clearGeolocation" data-iconpos="top"
+		data-icon="arrow-d">btn_clearGeolocation</a>
+  	    <p id="destination_i">i value</p>
+	    <p id="geolocation">Finding geolocation...</p>
+			<!-- form id="login" action="#myPage">
 				<label for="login_email">아이디: </label> <input type="text"
 					name="login_email" id="login_email" placeholder="아이디"> <label
 					for="login_password">비밀번호: </label> <input type="password"
@@ -608,7 +616,7 @@
 					<a href="#registerPage" data-role="button" data-mini="true"
 						data-inline="true">Create account</a>
 				</div>
-			</div>
+			</div>  -->
 		</div>
 		<!--  start footer -->
 		<div data-role="footer" data-position="fixed" data-id="foot1"
@@ -639,7 +647,7 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a id="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -701,6 +709,7 @@
 
 
 	<div data-role="page" id="orderPage">
+		<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -709,6 +718,7 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -792,7 +802,7 @@
 
 
 	<div data-role="page" id="orderResultPage">
-		<!-- panel div -->
+	<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -801,7 +811,7 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a id="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -840,7 +850,7 @@
 			<br/>
 		<div id="orderPaymentInfo"></div>		
 		
-		<a href="#" data-role="button" id="btn_orderList"  data-theme="b">주문내역리스트</a> 
+		<a href="#" data-role="button" class="btn_orderList"  data-theme="b">주문내역리스트</a> 
 
 	</div>
 	<!--  end content -->
@@ -872,7 +882,7 @@
 				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a id="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -888,7 +898,7 @@
 		<!-- header end -->
 
 		<div data-role="content">
-
+			<h3>구매 리스트</h3>
 			<!-- listview thumnail -->
 			<div class="content-orderlist"></div>
 
@@ -924,5 +934,8 @@
 	<script src="js/banner_mqtt.js"></script>
 	<script src="js/mqttws31.js"></script>
 	<script src="js/WLShoppersChallengeHandler.js"></script>
+	<script src="js/current_geolocation.js"></script>
+	<script type="text/javascript" src="js/mqttCordovaAndroidClient.js"></script>
+	<!-- script src="js/cordova.js"></script-->
 </body>
 </html>

@@ -23,7 +23,7 @@ function loadCartlistitems(conid){
 	    var invocationData = {
 	            adapter : 'MallAdapter', // adapter name
 	            procedure : 'getCartList',
-	            parameters : [user]
+	            parameters : [conid]
 	    };
 	    WL.Logger.debug("...loadCartlistitems...........try. to...something like that");
 
@@ -52,13 +52,16 @@ function loadCartlistitemsFailure(result) {
 
 function displayCartitemload(items) {
 //	console.log("cartItem length :: "+items.length );
+	$.mobile.changePage('#cartlistPage', { transition: "pop"} );
+	$("#list_cart").empty();
 	for ( var i = 0; i < items.length; i++) { 
 	////////////////////////////////////////////////////////////////////
 		if(!mycartlistCreated){	       
-			$(".content-primary_two").append("<ul id='list_cart'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'></ul>");
+			$(".content-primary_two").append("<fieldset data-role='controlgroup1'><ul id='list_cart'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'></ul>");
 			mycartlistCreated = true;			
+			$(".content-primary_two").trigger("create");	
 			}	
-//		$(".content-primary_one").trigger("create");		
+			
 		var  punitprc = null;
 		var pname = null;
 		var pdesc = null;
@@ -66,8 +69,8 @@ function displayCartitemload(items) {
 		var pwname = null;
 		var pwdescr = null;
 		var cartid = null;
-		$("#list_cart").empty();
-		$.mobile.changePage('#cartlistPage', { transition: "pop"} );
+		
+	
 
 		for ( var i = 0; i < items.length; i++) { 
 		pname = items[i].ITEMNAME;
@@ -77,14 +80,14 @@ function displayCartitemload(items) {
 		cartid = items[i].CARTID; 
 		cartamt= items[i].AMT1;
 		cartprice = items[i].UNITPRC1;		
-		$("#list_cart").append('<li id="cartremoveli'+i+'"+ ><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><span class="tabone"><p><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+cartprice+'won</p></span><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"></a> <a class="del_cart" onclick="deleteCartTagli('+cartid+''+',cartremoveli'+i+')"   data-iconpos="notext" data-icon="delete" >Delete</a></li>');
+		$("#list_cart").append('<li><input type="checkbox" name="'+cartid+'" id="'+cartid+'" class="check_cart" value="FALSE" /><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><span class="tabone"><p><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+cartprice+'won</p></span><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"></a> <a class="del_cart"   data-iconpos="notext" data-icon="delete" >Delete</a></li>');
 		//		
 		$("#list_cart").listview("refresh");		
 		}
 		///////////////////////end for	
     //////////////////////////////////////////////////////////////////////////				
 	}		 //end for
-	$.mobile.changePage('#cartlistPage', { transition: "pop"} );
+	
 //
 }
 
@@ -188,20 +191,14 @@ $('#quantityItem').on("change",function() {
 });
 
 //goto the modify page
-function modifycartdetail(){
-
+function modifycartdetail(){	
 	
-	
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
 	} else {
-		console.log(" username null check , and before loadDummy() " + conid);
-		console.log("else....username with go..after dummy " + conid);
+		console.log("else....username with go..after dummy " + authenID);
 		console.log("modifycartdetail inside.....");
 		var updatequantity = null;
 		if(changeselectVal=null){
@@ -256,18 +253,14 @@ WL.Logger.debug("loadupdatecartFailure Retrieve failure");
 
 function detailcartAfterupdate(items){
 	
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
 	} else {
-		console.log(" username null check , and before loadDummy() " + conid);
-		console.log("else....username with go..after dummy " + conid);
+		console.log("else....username with go..after dummy " + authenID);
 
-		loadCartlistitems(conid);
+		loadCartlistitems(authenID);
 	}
 	
 	
@@ -310,27 +303,53 @@ function loaddelCartOnebyone(deletecartid) {
 //******************************************************************************************
 //wish list pop up of list delete button start (for delete)
 
-var cartli = '';
 
 var delcartid ='';
-function deleteCartTagli(cartid,cartremoveli){	
-	  $(this).closest('li').remove();
-//	  alert("cartid :: "+cartid);	
-	  cartli = cartremoveli;
-	  delcartid = cartid;
-	  $('#sterge_cart').popup("open");
+
+$('#vehicleChkBox').change(function(){
+
+    if($(this).attr('checked')){
+          $(this).val('TRUE');
+     }else{
+          $(this).val('FALSE');
+     }
+    
+    alert($(this).val());
+    
+});
+$("#controlgroup1").click(function () {
+    // the checkbox state can be correctly retrieved
+    alert("Group checked? "+$('#group_control').is(':checked'));
+    $("INPUT[class='check_cart']").attr(
+        'checked', $('#group_control').is(':checked')
+    ).checkboxradio("refresh");
+});
+function deleteCartTagli(){	
+	 
+	  alert("cartid :: ");	
+	 
+//	  delcartid = cartid;
+//	  $('#sterge_cart').popup("open");
+//	  $('#sterge_cart').popup('open', {
+//			x : 10,
+//			y : 10,
+//			positionTo : "window"
+//		});
 //	  alert("popup open");	 
 }
 function pushCartDelbtn(){	
 	$('#sterge_cart').popup("close");
 //	  addDelete_wishlist
-  $('#addDelete_cartlist').append('<input type="hidden" value="'+delcartid+'" id="getcartid" name="getcartid" class="getcartid">');
-  cartli.remove();
+//  $('#addDelete_cartlist').append('<input type="hidden" value="'+delcartid+'" id="getcartid" name="getcartid" class="getcartid">');
+  $('#'+delcartid).remove();  // remove only web li
+	loaddelCartOnebyone(delcartid);	
+//  $('#').
 }
 
 function giveupCartbtn(){
 	$('#sterge_cart').popup("close");	
 }
+
 //popup of list delete button end  
 //////////////////////////////////////////////////////////////////////////
 //when saving delete   
@@ -394,18 +413,16 @@ function loaddelCartlistFailure(result) {
 function displayloaddelCartlist(items) {
 
 	
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
 
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
 	} else {
-		console.log(" username null check , and before loadDummy() " + conid);
-		console.log("else....username with go..after dummy " + conid);
+	
+		console.log("else....username with go..after dummy " + authenID);
 
-		loadCartlistitems(conid);
+		loadCartlistitems(authenID);
 
 	}
 	
@@ -440,17 +457,12 @@ function displayloaddelCartlist(items) {
 function addCartbtn(){
 
 	
-	var conid = getCookie("username");
-	WL.Logger.debug("hello getCookie username :: " + conid);
-
-	if (conid == null || conid == "") {
-		console.log(" username null check , and before loadDummy() " + conid);
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
 		loadDummy();
 
 	} else {
-		console.log(" username null check , and before loadDummy() " + conid);
-		console.log("else....username with go..after dummy " + conid);
-		
+		console.log("else....username with go..after dummy " + authenID);
 		
 
 //		alert("hello");	
@@ -463,7 +475,7 @@ function addCartbtn(){
 		quantity = $( "#amountItem" ).val();
 		
 //		alert("quantity :: "+quantity + "item1 :: "+item1 + "unitprc1 :: " +unitprc1 +"end");
-		addCartitemload(conid, item1, quantity, unitprc1);
+		addCartitemload(authenID, item1, quantity, unitprc1);
 
 	}
 	
