@@ -126,13 +126,46 @@ function displayAddWorkOrder() {
 $("#loginBtn").click(function(){
 	
 	
-	$("#loginPopup").popup();
-	$("#loginPopup").popup("open");
-	$("#passwordInputField").val("");
+	  loadLoginDummy();
+//	LDAPRealmChallengeHandler.handleChallenge();
+	
+//	$("#loginPopup").popup();
+//	$("#loginPopup").popup("open");
+//	$("#passwordInputField").val("");
 	
 //	mqttConnect();
 	 
 })
+
+// Login Dummy call
+function loadLoginDummy() {
+		
+	WL.Logger.debug("..............try. to...something like that");
+
+	var invocationData = {
+		adapter : 'StockReq', // adapter name
+		procedure : 'loginDummy',
+		parameters : []
+	// parameters if any
+	};
+	WL.Logger.debug("..............try. to...something like that");
+
+	WL.Client.invokeProcedure(invocationData, {
+		onSuccess : loadLoginDummySuccess,
+		onFailure : loadLoginDummyFailure
+	});
+	
+	
+}
+
+function loadLoginDummySuccess(result) {
+	WL.Logger.debug("Retrieve success" + JSON.stringify(result));
+}
+
+
+function loadLoginDummyFailure(result) {
+	WL.Logger.debug("Retrieve failure");
+}
 
 
 
@@ -141,8 +174,9 @@ $("#logOutBtn").click(function(){
 	
 	WL.Client.logout('LDAPRealm',{onSuccess: WL.Client.reloadApp});
 	
-  client.disconnect(); 
-  console.log("disconnect");
+  client.disconnect();
+  loginCheck = true; 
+  WL.Logger.debug("disconnect");
 	 
 })
 
@@ -151,6 +185,7 @@ $("#logOutBtn").click(function(){
 
 function mqttConnect(){
 	
+	//#####   MQTT Web Socket start ########
 	// Make connection to the server.
 	client = new Messaging.Client("192.168.0.171", 1883, "clientId");
 
@@ -160,12 +195,16 @@ function mqttConnect(){
 	client.onMessageArrived = onMessageArrived;
 	client.connect({onSuccess:onConnect});
 
+  //#####   MQTT Web Socket end ########
+
+
+
 	 
 }
 
 	function onConnect() {
 	  // Once a connection has been made, make a subscription and send a message.
-	  console.log("onConnect");
+	  WL.Logger.debug("onConnect");
 	  
 	  
 //	  var subscribeTopicName = "/inventory/delivery/"+ASNDVCL+"/instruction";
@@ -176,25 +215,50 @@ function mqttConnect(){
 	}
 	function onConnectionLost(responseObject) {
 	  if (responseObject.errorCode !== 0)
-	    console.log("onConnectionLost:"+responseObject.errorMessage);
+	    WL.Logger.debug("onConnectionLost:"+responseObject.errorMessage);
 	}
 	function onMessageArrived(message) {
-	  console.log("onMessageArrived:"+message.payloadString);
-	  $("#workOrderTextarea").append('<p style="color: blue; text-align: left">'+message.payloadString+'</p>');
+	  WL.Logger.error("message.destinationName:"+message.destinationName);
+	  
+	  var json_mes = JSON.parse(message.payloadString);
+	  
+
+		if (message.destinationName.indexOf("coord")) {
+			
+			Lat =  json_mes.vehLocation.curCoord.lat;
+			
+			Lng =  json_mes.vehLocation.curCoord.long;
+			
+			WL.Logger.error("onMessageArrived .Lat, Lng:"+Lat+", "+ Lng);
+			
+			carUnsubscribe();
+			
+			
+		} else if (message.destinationName.indexOf("adHocInst")) {
+			
+			
+	  
+//	  WL.Logger.error("onMessageArrived:"+message.payloadString);
+	  
+	  	var respCodeName = mappingNamerespCode(json_mes.instResp.respDetails.respCode);
+	  
+	  	alert( "[차량번호]:"+ json_mes.instResp.vehId +"\n"+json_mes.instResp.respDetails.origInstId+"에 대한 응답"+"\n"+"[발주번호]:"+json_mes.instResp.respDetails.origInstId+"\n"+ "[상태]:"+ respCodeName +"\n"+ "[Msg]:"+ json_mes.instResp.respDetails.respBody+"\n"+"[응답시간]:"+json_mes.instResp.respDetails.instTStamp);
+			
+				
+		}
+	  
+	  
+	  
+//	  $("#workOrderTextarea").append('<p style="color: blue; text-align: left">'+message.payloadString+'</p>');
 	  
 //	  client.disconnect(); 
 	  
-//	  console.log("disconnect");
+//	  WL.Logger.debug("disconnect");
 	}	
 	
 function subscribe() {
 	try {
-		  var subscribeTopicName = "/inventory/delivery/"+ASNDVCL+"/instruction/response";
-      var options = {qos:0, 
-                     onFailure: function(responseObject) {alert(responseObject.errorMessage + subscribeTopicName);}};
-      client.subscribe(subscribeTopicName, options);
-      
-      subscribeTopicName = "/inventory/delivery/"+ASNDVCL+"/instruction/response2";
+		  var subscribeTopicName = "invenReq/delivery/adHocInst/+/resp";
       var options = {qos:0, 
                      onFailure: function(responseObject) {alert(responseObject.errorMessage + subscribeTopicName);}};
       client.subscribe(subscribeTopicName, options);
@@ -205,10 +269,22 @@ function subscribe() {
 
 function mqttSend(msg) {
 	try {
-		 	var publishTopicName = "/inventory/delivery/"+ASNDVCL+"/instruction";
-//	  	client.subscribe("/World");
-		 	console.log("publishTopicName::"+publishTopicName);
-	  	message = new Messaging.Message(msg);
+		 	var publishTopicName = "invenReq/delivery/adHocInst/"+ASNDVCL+"/send";
+
+		 	WL.Logger.debug("publishTopicName::"+publishTopicName);
+		 	var respCode = "2";
+		 	
+		 	var t = new Date();
+			var _Year = 1900 + t.getYear() ;
+			var _Month = 1 + t.getMonth();
+		 	
+		 	var instTStamp = "" + _Year + _Month + t.getDate() + t.getHours() + t.getMinutes()+ t.getSeconds();
+		 	
+		 	var sendMsg = '{"instResp": {"vehId": "'+ASNDVCL+'","respDetails": {"origInstId":"'+ASNDVCL+'-'+instTStamp+'","delId":"'+DELID+'", "sReqId":"'+REQID+'","respCode":"'+respCode+'", "respBody":"'+msg+'","instTStamp":"'+instTStamp+'"}}}'
+
+		 	
+		 	
+	  	message = new Messaging.Message(sendMsg);
 	  	message.destinationName = publishTopicName;
 	  	client.send(message); 
 	  	
@@ -217,3 +293,14 @@ function mqttSend(msg) {
       alert(error.message);
     } 
 }
+
+//// ##  MQTT Android Loging start ##
+//function subscribeSucceeded(result) {
+//	WL.Client.logout("Subscribed to " + result.invocationContext.filter + "Ok");
+//
+//}
+//
+//function subscribeFailed(result) {
+//	WL.Client.logout("Subscribe to " + result.invocationContext.filter + " failed");
+//}
+

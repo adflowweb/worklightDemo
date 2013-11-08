@@ -224,3 +224,28 @@ function mappingNameSTATUS(_id){
 		return nameSTATUS
 	
 }
+
+
+function mappingNamerespCode(_id){
+	    var nameSTATUS
+  	switch (_id) {
+			case "1":
+				nameSTATUS = "확인";
+				break;
+
+			case "2":	
+				nameSTATUS = "작업 지시 정정 요청";
+				break;
+				
+			case "3":	
+				nameSTATUS = "이행 불가";
+				break;
+
+			default:
+			  nameSTATUS = _id;
+				break;
+		}
+		
+		return nameSTATUS
+	
+}

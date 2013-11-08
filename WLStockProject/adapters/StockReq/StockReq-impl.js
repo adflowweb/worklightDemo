@@ -153,3 +153,8 @@ function addWorkOrder(param1, param2, param3) {
 		parameters : [param1, param2, param3]
 	});
 }
+
+function loginDummy() {
+	WL.Logger.debug("loginDummy.............");
+	return {};
+	}

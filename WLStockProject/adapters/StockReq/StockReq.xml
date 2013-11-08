@@ -41,6 +41,7 @@
 	<procedure name="getDeliveryDetail" securityTest="LDAPSecurityTest"> </procedure>
 	<procedure name="getTransDetail" securityTest="LDAPSecurityTest"> </procedure>
 	<procedure name="addWorkOrder" securityTest="LDAPSecurityTest"> </procedure>
+	<procedure name="loginDummy" securityTest="LDAPSecurityTest"> </procedure>
 	
 
 </wl:adapter>

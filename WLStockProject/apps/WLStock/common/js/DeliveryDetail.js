@@ -71,6 +71,13 @@ function displayDeliveryDetail(items) {
   STATUS = items[0].STATUS;
   REQSTORE = items[0].REQSTORE;
   
+  
+  // 좌표 초기화
+  Lat = 0;
+	Lng = 0;
+  // 해당 차량의 좌표를 수신
+  carSubscribe();
+  
 //  alert("WAREHOUS::"+WAREHOUS);
 
 

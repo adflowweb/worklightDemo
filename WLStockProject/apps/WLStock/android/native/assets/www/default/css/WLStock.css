@@ -1,0 +1,1042 @@
+
+/* Stylesheet content from css/WLStock.css in folder common */
+/**
+ * Licensed Materials - Property of IBM
+ * 5725-G92 (C) Copyright IBM Corp. 2012, 2013. All Rights Reserved.
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+/*Worklight container div */
+#content {
+	height: 460px;
+	margin: 0 auto;
+	width: 320px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+.template {
+	display: none;
+}
+
+.ui-page {
+	/*
+	background: -webkit-gradient(linear, left top, left bottom, from(#096093),
+		to(#ffffff) ) !important;
+		*/
+	background: url("../images/bg-grey.png");
+}
+
+#mainPage.ui-page {
+	background: url("../images/bg-home.png") no-repeat left top;
+    background-size: 100% auto;
+}
+
+.ui-page div[data-role='fieldcontain'] {
+	border: none;
+}
+
+.ui-mobile .ui-header .ui-title {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.slide.in,.slide.out {
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-duration: 200ms;
+}
+
+.slidefade.in,.slidefade.out {
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-duration: 150ms;
+}
+
+.fade.in,.fade.out {
+    -webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-duration: 50ms;
+}
+
+.pop.in,.pop.out {
+    -webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-duration: 150ms;
+}
+
+.ui-header.blue {
+    background: -webkit-gradient(linear, left top, left bottom, from(#0089c7), to(#006eb6)) !important;
+    border-top: 1px solid #33a1d2;
+    height: 42px;
+}
+
+.ui-header .ui-title {
+	font-size: 1.1em;
+}
+
+@media (min-width: 450px) {
+	.ui-field-contain .ui-btn {
+		width: 78%;
+		display: inline-block;
+	}
+}
+
+a.ui-btn[data-role="button"],#flightResult a.ui-btn,a[data-rel="back"] {
+	color: white;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+}
+
+a.ui-btn .ui-btn-inner {
+	border: none;
+}
+
+#menuList .ui-btn {
+	margin: 1em auto;
+}
+
+.login .header .ui-btn, .dialog .ui-header .ui-btn {
+	display: none;
+}
+
+#closePopupBtn .ui-btn{
+	display: block;
+}
+
+#tripTypeField label:not(.ui-btn-active) {
+	color: #A0A0A0;
+}
+
+.ui-radio input {
+	display: none;
+}
+
+.ui-radio .ui-btn-text {
+	white-space: nowrap;
+	font-size: .8em;
+}
+
+.ui-radio .ui-btn-inner {
+	padding-bottom: .3em;
+	padding-top: .3em;
+}
+
+.ui-link-inherit {
+	padding-bottom: .3em;
+	padding-top: .3em;
+	font-size: .8em;
+}
+
+.right-arrow {
+	background: url("../images/right_arrow.png") no-repeat 99% 51%;
+	background-size: auto 15%;
+}
+
+.left-arrow {
+	background: url("../images/left_arrow.png") no-repeat 1% 50%;
+	background-size: auto 15%;
+}
+
+.ui-input-datebox {
+	display: none;
+}
+
+#departDay,#destDay {
+	font-size: 2.5em;
+	font-weight: bold;
+}
+
+#departDay {
+	margin-right: -4px;
+}
+
+.label {
+	text-align: left;
+	float: left;
+	color: #666;
+}
+
+label.active {
+	background: '#eee';
+	background-image: linear-gradient(#eee, #fff);
+}
+
+.popup-options label {
+	padding: .5em;
+}
+
+.popup-options label .ui-btn-text {
+	font-size: 1.1em;
+}
+
+.ui-header .ui-btn {
+	top: center;
+}
+
+#airportSelectPage form.ui-listview-filter {
+	border-bottom: 1px solid #AAA;
+	position: fixed;
+	top: 57px;
+    width: 100%;
+    z-index: 1000;
+}
+
+#airportList {
+	margin-top: 31px;
+}
+
+#flightList li:first-child {
+	border-top: none;
+}
+
+#flightList li:last-child {
+	border-bottom: none;
+}
+
+.ui-input-text.ui-focus {
+    box-shadow: none;
+}
+
+#passengerInfoUL li, #contactInfoUL li, #cardInfo li {
+	padding-left: 8px;
+}
+
+#passengerInfoUL li a, #contactInfoUL li a, #cardInfo li a {
+	padding-left: 0;
+}
+
+#passengerInfoUL label, #passengerInfoUL .label, #contactInfoUL label, #contactInfoUL .label, #cardInfo label, #cardInfo .label {
+	font-family: Helvetica, Arial, sans-serif; 
+	font-weight: bold;
+	font-size: 13px;
+	width: 115px;
+}
+
+#passengerInfoUL label, #contactInfoUL label, #cardInfo label {
+	height: 40px;
+	line-height: 40px;
+}
+
+#passengerInfoUL input, #contactInfoUL input, #cardInfo input {
+	font-size: 13px;
+	border: none;
+	width: 100%;
+	margin: 0;
+}
+
+#bookTicketPage .ui-header .ui-btn-icon-right .ui-icon {
+	right: 10px;
+}
+
+#orderBtn {
+	text-align: center;
+	font-size: 1.2em;
+}
+
+#orderList .ui-li-divider {
+	text-align: center;
+}
+
+.seat.vacant, .seat.booked, .seat.selected {
+	background: url("../images/sofa_grey.png") no-repeat center center;
+	background-size: contain;
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	margin: 1px;
+}
+
+.seat.booked {
+	background: url("../images/sofa_bluegrey_man.png") no-repeat center center;
+}
+
+.seat.selected {
+	background: url("../images/sofa_blue_man.png") no-repeat center center;
+}
+
+.seat.corridor {
+	width: 35px;
+}
+
+#profilePage .ui-li {
+	padding-left: 8px;
+	padding-right: 8px;
+/* 	font-family:'Trebuchet MS'; */
+}
+
+#boardingPassPage .ui-content {
+	font-size:.8em;
+/* 	font-family:'Trebuchet MS'; */
+}
+
+#boardingPassPage .ui-content .ui-li {
+/* 	font-family:'Trebuchet MS'; */
+	font-size:.9em;
+}
+
+.photo-slide-box {
+	text-align: center; 
+	height: 180px;
+	position: relative;
+	overflow: hidden;
+}
+
+.photo-slide {
+	position: absolute;
+}
+
+.photo-slide-box .index {
+	position: absolute; 
+	bottom: 0;
+	width: 100%;
+}
+
+.index span {
+	display:inline-block;
+	width:12px;
+	height:12px;
+	border-radius:12px;
+	margin-left: 3px;
+	margin-right: 3px;
+	background-color: rgba(255,255,255,.8);
+}
+
+.index span.select {
+	background-color: rgba(0, 0, 0,.8);
+}
+
+.star {
+	background: url("../images/star.png");
+	background-size: auto 100%;
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+}
+
+.smallstar {
+	background: url("../images/star.png");
+	background-size: auto 100%;
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+}
+
+.favorite {
+    background: url("../images/favorite.png") no-repeat left center;
+	background-size: 15px 15px;
+    padding-left: 22px;
+}
+
+.favorite1 {
+	background-size: 20px 20px;
+    padding-left: 22px;
+    margin-bottom: -.1em;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+
+.wifi, .gym, .vote, .vote-grey {
+    background: url("../images/wifi.png") no-repeat left center;
+	background-size: auto 100%;
+    padding-left: 22px;
+    padding-right: 8px;
+}
+
+.gym {
+	background-image: url("../images/gym.png");
+}
+
+.vote {
+	background-image: url("../images/vote.png");
+	padding-right: 0;
+}
+
+.vote.grey {
+	background-image: url("../images/vote_grey.png");
+}
+
+.message .ui-li {
+    background-color: #595959;
+	border-top: 1px solid #707070;
+	border-bottom: 1px solid #2e2e2e;
+	border-left: 3px solid #73c400;
+    padding-top: 5px;
+}
+
+.message[message-type="flight_delayed"] .ui-li {
+	border-left-color: #ff9600;
+}
+
+.message[message-type="checkin_reminder"] .ui-li {
+	border-left-color: #47b4e7;
+}
+
+.message .messageText {
+    color: white;
+    font-size: 1.1em;
+    margin-left: 15px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.message .messageTime {
+    text-align: right;
+    font-size: .8em;
+    color: #AAA;
+    padding: .5em;
+}
+
+.message .ui-link-inherit {
+    position: relative;
+}
+
+.message .unread, .message .remove {
+    position: absolute;
+    top: 0;
+    background: url("../images/unread.png") no-repeat left center;
+	background-size: auto 100%;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+
+.message .unread {
+    left: 0;
+    margin-left: 5px;
+}
+
+.message .remove {
+    right: 0;
+    margin-right: 5px;
+    background-image: url("../images/del.png");
+    width: 25px;
+	height: 25px;
+}
+
+.message p.expand {
+    white-space: normal;
+}
+
+.message .flight_delayed, .message .checkin_reminder {
+	display: none;
+	margin-left: 2em;
+	margin-right: 1em;
+}
+
+.message .flight_delayed .ui-btn, .message .checkin_reminder .ui-btn {
+	background: -webkit-linear-gradient(top, #f1f1f1 0%, #b2b2b2 100%);
+	border: 1px solid white;
+	box-shadow: 0px 1px 3px #171717;
+}
+
+.message .flight_delayed .ui-btn-inner, .message .checkin_reminder .ui-btn-inner {
+	color: black;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+/*
+	Overall style change 
+*/
+.backBtn {
+	background: url('../images/back.png') no-repeat left center;
+	background-size: auto 100%;
+	width: 28px;
+	height: 28px;
+	border: none;
+}
+
+.nextBtn {
+	background: url('../images/next.png') no-repeat left center;
+	background-size: auto 100%;
+	width: 28px;
+	height: 28px;
+	border: none;
+}
+
+.prev-btn {
+	background: url('../images/arrow-left-blue.png') no-repeat left center;
+	background-size: auto 100%;
+	height: 28px;
+	border: none;
+}
+
+.next-btn {
+	background: url('../images/arrow-right-blue.png') no-repeat left center;
+	background-size: auto 100%;
+	height: 28px;
+	border: none;
+}
+
+a.ui-btn.home {
+	background: url('../images/topbar-home.png') no-repeat left center;
+	background-size: auto 100%;
+	width: 28px;
+	height: 28px;
+	border: none;
+}
+
+a.ui-btn.notification {
+	background: url('../images/notification.png') no-repeat left center;
+	background-size: 100% auto;
+	width: 28px;
+	height: 28px;
+	border: none;
+}
+
+a.ui-btn.social-share {
+	background: url('../images/topbar-social.png') no-repeat left center;
+	background-size: 100% auto;
+	width: 28px;
+	height: 28px;
+	border: none;
+}
+
+a.ui-btn.search {
+	background: url('../images/topbar-search.png') no-repeat left center;
+	background-size: 100% auto;
+	width: 28px;
+	height: 28px;
+	border: none;
+}
+
+a.ui-btn.close {
+	background: url('../images/topbar-close.png') no-repeat left center;
+	background-size: 100% auto;
+	width: 28px;
+	height: 28px;
+	border: none;
+}
+
+.ui-btn.add-passenger {
+	background: url('../images/topbar-addpassenger.png') no-repeat left center;
+	background-size: 100% auto;
+	width: 28px;
+	height: 28px;
+	border: none;
+}
+
+.backBtn.ui-shadow, .nextBtn.ui-shadow, .prev-btn.ui-shadow, .next-btn.ui-shadow, .ui-btn.home.ui-shadow, .ui-btn.notification.ui-shadow, .ui-btn.social-share.ui-shadow, .ui-btn.search.ui-shadow, .ui-btn.add-passenger.ui-shadow, .ui-btn.close.ui-shadow {
+    -webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.backBtn .ui-btn-inner, .nextBtn .ui-btn-inner, .prev-btn .ui-btn-inner, .next-btn .ui-btn-inner, .ui-btn.home .ui-btn-inner, .ui-btn.notification .ui-btn-inner, .ui-btn.social-share .ui-btn-inner, .ui-btn.search .ui-btn-inner, .ui-btn.close .ui-btn-inner, .ui-btn.add-passenger .ui-btn-inner{
+	border: none;
+}
+
+a.ui-btn.blue {
+	background: -webkit-linear-gradient(top, #55b6e3 0%, #0995d6 2%, #007cd3 100%);
+}
+
+a.ui-btn.red {
+	background: -webkit-linear-gradient(top, #f38880 0%, #ed5147 2%, #e82b2d 100%);
+}
+
+#menuList .ui-grid-a a {
+	background: url("../images/home-book.png") no-repeat left center;
+    background-size: auto 100%;
+    width: 115px;
+    height: 115px;
+    border: none;
+    margin-top: 0;
+    margin-bottom: 4px;
+}
+
+#menuList .ui-grid-a .ui-block-a a {
+	margin-right: 2px;
+}
+
+#menuList .ui-grid-a .ui-block-b a {
+	margin-left: 2px;
+}
+
+#menuList .ui-grid-a a.home-myflights {
+	background-image: url("../images/home-myflights.png");
+}
+
+#menuList .ui-grid-a a.home-status {
+	background-image: url("../images/home-status.png");
+}
+
+#menuList .ui-grid-a a.home-special {
+	background-image: url("../images/home-special.png");
+}
+
+#menuList .ui-grid-a a.home-mycenter {
+	background-image: url("../images/home-mycenter.png");
+}
+
+#menuList .ui-grid-a a.home-travel-assistant {
+	background-image: url("../images/home-travel-assistant.png");
+}
+
+#loginContent .ui-field-contain {
+	margin-left:12px;
+	margin-right:12px;
+}
+
+#loginContent .ui-field-contain input {
+	box-shadow: inset 0 0 3px #bcbcbc;
+}
+
+#loginContent a.login {
+	background: -webkit-linear-gradient(top, #55b6e3 0%, #0995d6 2%, #007cd3 100%);
+	border: 1px solid #0c71ba;
+	box-shadow: 0px 1px 2px #bcbcbc;
+}
+
+#signup {
+	color: #dee9f3;
+	font-size: .9em;
+	border-radius: 6px;
+	border: 1px solid #12537c;
+	background: -webkit-linear-gradient(top, #3496ce 0%, #1084c5 2%, #0c70b9 100%); 
+}
+
+#loginContent .hr-spliter {
+	border-top:1px solid #868686;
+	display:inline-block;
+	width:35%;
+	height:0;
+	margin-bottom:.25em;
+}
+
+.weibo, .facebook, .twitter {
+	font-weight: bold;
+	border: 1px solid #0c71ba;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.otherAccounts .ui-btn-inner {
+	background-size: auto 100%;
+}
+
+.otherAccounts .ui-btn-text {
+	display: inline-block;
+	width: 100%;
+	text-align: left;
+	padding-left: 3em;;
+}
+
+.weibo .ui-btn-inner {
+	background: url("../images/logo-weibo.png") no-repeat 5% center;
+}
+
+.facebook .ui-btn-inner {
+	background: url("../images/logo-fb.png") no-repeat 5% center;
+}
+
+.twitter .ui-btn-inner {
+	background: url("../images/logo-twitter.png") no-repeat 5% center;
+}
+
+.weibo {
+	background: -webkit-linear-gradient(top, #f38880 0%, #ed5147 2%, #e82b2d 100%);
+	border: 1px solid #c16869;
+	box-shadow: 0px 1px 2px #bcbcbc; 
+}
+
+.facebook {
+	background: -webkit-linear-gradient(top, #8aa0cd 0%, #5676b6 2%, #496491 100%);
+	border: 1px solid #3d5f99;
+	box-shadow: 0px 1px 2px #bcbcbc;
+}
+
+.twitter {
+	background: -webkit-linear-gradient(top, #5dc6f7 0%, #14acf2 2%, #008fd2 100%);
+	border: 1px solid #118cba;
+	box-shadow: 0px 1px 2px #bcbcbc; 
+}
+
+#searchFields .ui-icon {
+    background: url("../images/right-arrow.png") no-repeat left center;
+    background-size: auto 100%;
+}
+
+#searchFields img.ui-li-icon {
+	max-width: 2em;
+	max-height: 2em;
+	margin-top: -3px;
+}
+
+#tripTypeField label.ui-btn {
+    background: -webkit-linear-gradient(top, #d3d3d3 0%, #e1e1e1 100%);
+    box-shadow: inset 0px 1px 2px #bcbcbc;
+}
+
+#tripTypeField label.ui-btn .ui-btn-text {
+    color: #757575;
+    font-size: 16px;
+    display: inline-block;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#tripTypeField label.ui-btn.ui-btn-active {
+    background: -webkit-linear-gradient(top, #ffffff 0%, #e9e9e9 100%);
+    border: 1px solid #919191;
+    box-shadow: none;
+}
+
+#tripTypeField label.ui-btn.ui-btn-active .ui-btn-text {
+    color: #0b6bb1;
+}
+
+.flight-info {
+	background-color: white;
+	margin-bottom: 1em;
+}
+
+.flight-info .header, .boarding-pass .header {
+	color: white;
+	background-color: #007abe;
+	font-weight: bold;
+	position: relative;
+	height: 34px;
+}
+
+.header .flight-number {
+	position: absolute;
+	left: .5em;
+	line-height: 34px;
+}
+
+.header .ui-btn.notification {
+	position: absolute;
+	right: .5em;
+	margin: 0;
+	height: 34px;
+}
+
+.flight-info .flight-details .departDate {
+	text-align: center;
+	color: #0b6bb1;
+	margin: 1em;
+	margin-bottom: .6em;
+}
+
+.flight-info .flight-details .outbound, .boarding-pass .departDestAP > div {
+	background: url('../images/plane-blue.png') no-repeat center top;
+	background-size: auto 35px;
+	position: relative;
+	height: 50px;
+}
+
+.flight-info .flight-details .outbound>span {
+	display: inline-block;
+	width: 40%;
+	position: absolute;
+}
+
+.boarding-pass {
+	background-color: white;
+	border-left: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+}
+
+.boarding-pass .small-text {
+	color: #828282;
+	font-size: .8em;
+	font-weight: bold;
+}
+
+.boarding-pass .departDestAP > div {
+	background-image: url('../images/plane-white.png');
+}
+
+.boarding-pass .departDestAP {
+	background-color: #1c976a;
+	color: white;
+}
+
+.boarding-pass .departDestAP > div {
+	height: 50px;
+	font-size: 1.5em;
+}
+
+.departDestAP > div {
+	background: url('../images/plane-blue.png') no-repeat center top;
+	background-size: auto 35px;
+	height: 35px;
+	line-height: 35px;
+}
+
+.departDestAP > div {
+	position: relative;
+}
+
+.departDestAP .depart-airport, .departDestAP .dest-airport {
+	position: absolute;
+	display: inline-block;
+	width: 50%;
+}
+
+.boarding-info {
+	background-color: #F5F5F5;
+	position: relative;
+	height: 68px;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.departReachTime {
+	background-color: white;
+	position: relative;
+	height: 90px;
+	border-bottom: 1px dashed #dfdfdf;
+}
+
+.boarding-info > div, .departReachTime > div {
+	position: absolute;
+	margin: .3em .6em;
+}
+
+.boarding-pass .footer {
+	margin-top: .8em;
+	height: 10px;
+	background-color: #1c976a;
+}
+
+.hotel-info {
+	margin:15px -15px;
+	background-color: white;
+}
+
+.hotel-info .name {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.hotel-info .price {
+	color: #0f6eaf;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.hotel-info .address {
+	font-size: 12px;
+}
+
+.hotelTable{
+	margin-top:8px;
+}
+
+.hotelTable .hotelImg{
+	margin-left:-7px;
+	max-height:80px;
+	max-width:80px;
+}
+
+.hotelTable .name{
+	font-size:14px;
+	font-weight:bold;
+	color: black;
+}
+
+.hotelTable .price{
+	font-size:20px;
+	font-weight:bold;
+	color: black;
+}
+
+.hotelTable .perday{
+	font-size:12px;
+	color:#4f4f4f;
+}
+
+.hotelTable .wifi,.hotelTable .gym{
+	font-size:12px;
+	color:black;
+}
+
+.hotelTable .rating{
+	font-size:13px;
+	font-weight:bold;
+	color:#73b0d7;	
+	margin-top:6px;
+	background: url("../images/vote.png") no-repeat left center;
+	background-size: auto 100%;
+    padding-left: 22px;
+    padding-right: 8px;
+}
+
+.bookBefore{
+	background: #73b0d7;
+	color:white;
+	font-size:12px;
+	padding-left:1px;
+	padding-right:1px;
+}
+
+#hotelAssist .bookBefore{
+	position: absolute;
+	top:0;
+	left:0;
+	background: #73b0d7;
+	color:white;
+	font-size:12px;
+}
+
+#bookedFlight{
+	height:68px;
+	border-bottom:1px solid #c0c0c0;
+	background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#ebebeb)) !important;
+	text-align:center;
+}
+
+.flightChoose .flightSegId, .flightChoose .departDate{
+	color:#0f6eaf;
+	font-size:15px;
+	font-weight:bold;
+}
+
+.flightChoose .departAP, .flightChoose .destAP{
+	font-weight:bold;
+}
+
+#nearHotel .unselect{
+	background: -webkit-linear-gradient(top, #ffffff 0%, #e9e9e9 100%);
+	color:black;
+}
+
+#nearHotel .select {
+    background: -webkit-linear-gradient(top, #55b6e3 0%, #0995d6 2%, #007cd3 100%);
+    color:white;
+}
+
+#socialSharePage .vote {
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	padding: 0;
+}
+
+#selectFlightHeader, #selectReturnFlightHeader {
+	height: 68px;
+	background: -webkit-linear-gradient(top, white 0%, #ebebeb 100%);
+	border-bottom: 1px solid #c0c0c0;
+}
+
+#selectFlightHeader .flight-date, #selectReturnFlightHeader .flight-date {
+	text-align: center;
+	font-size: 22px;
+	font-weight: bold;
+	color: #0f6eaf;
+	position: relative;
+}
+
+.flight-date .prev-btn, .flight-date .next-btn {
+	position: absolute;
+	top: 0;
+	margin: 0 .5em;
+	margin-top: -1px;
+}
+
+.flight-date .prev-btn {
+	left: 0;
+}
+
+.flight-date .next-btn {
+	right: 0;
+}
+
+.ui-li .flight-number {
+	font: bold .8em;
+	color: #929292;
+}
+
+#orderPage .departDate {
+	font: bold 16px;
+	color: #0f6eaf;
+}
+
+.ui-li .depart-reach-time, .ui-li .depart-dest-airport {
+	font-size: 20px;
+	color: black;
+	font-weight: normal;
+	position: relative;
+}
+
+.ui-li .depart-dest-airport {
+	font-size: 18px;
+}
+
+.ui-li .depart-reach-time > span, .ui-li .depart-dest-airport > span {
+	display: inline-block;
+}
+
+.ui-li .depart-reach-time .departTime, .ui-li .depart-reach-time .reachTime, .ui-li .depart-dest-airport .departAP, .ui-li .depart-dest-airport .destAP {
+	background: url('../images/depart-grey.png') no-repeat left center;
+	background-size: auto 135%;
+	border: none;
+	padding-left: 35px;
+	padding-right: .5em;
+}
+
+.ui-li .depart-reach-time .reachTime, .ui-li .depart-dest-airport .destAP {
+	background-image: url('../images/arrive-grey.png');
+}
+
+#selectOutboundFlightPage .ui-li .price, #selectReturnFlightPage .ui-li .price {
+	color: #0f6eaf;
+	position: absolute;
+	right: 0;
+}
+
+#selectSeatPage .ui-popup-container .ui-btn-text {
+	color: black;
+}
+
+.ui-shadow,
+.ui-btn-up-a,
+.ui-btn-hover-a,
+.ui-btn-down-a,
+.ui-body-b,
+.ui-btn-up-b,
+.ui-btn-hover-b,
+.ui-btn-down-b,
+.ui-bar-c,
+.ui-body-c,
+.ui-btn-up-c,
+.ui-btn-hover-c,
+.ui-btn-down-c,
+.ui-bar-c,
+.ui-body-d,
+.ui-btn-up-d,
+.ui-btn-hover-d,
+.ui-btn-down-d,
+.ui-bar-d,
+.ui-body-e,
+.ui-btn-up-e,
+.ui-btn-hover-e,
+.ui-btn-down-e,
+.ui-bar-e,
+.ui-overlay-shadow,
+.ui-shadow,
+.ui-btn-active,
+.ui-body-a,
+.ui-bar-a {
+ text-shadow: none;
+ box-shadow: none;
+ -webkit-box-shadow: none;
+}
+
+/* Stylesheet content from css/WLStock.css in folder android */
+
+/* this CSS file extends the application CSS file found under common\css */
+
+/* body should stretch in an Android application */
+body {
+	height: auto;
+	min-height: 100%;
+	overflow: auto;
+}
+
+/*Worklight container div */
+#content {
+	height: auto;
+	min-height: 100%;
+	width: 100%;
+}

@@ -14,7 +14,6 @@ $("#reqListBtn").click(function requestList() {
 
 function StocReqDetail(reqID) {
 	
-	
 //	alert("reqDetail::"+reqID);
 	$.mobile.changePage("#StocReqDetailPage");
 	

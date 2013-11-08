@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-		<!-- Licensed Materials - Property of IBM
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Licensed Materials - Property of IBM
 			 5725-G92 (C) Copyright IBM Corp. 2006, 2013. All Rights Reserved.
 			 US Government Users Restricted Rights - Use, duplication or
-             disclosure restricted by GSA ADP Schedule Contract with IBM Corp. -->
-
-<!-- Attribute "id" must be identical to application folder name -->
-<application id="WLStock" platformVersion="6.0.0"
-	xmlns="http://www.worklight.com/application-descriptor" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-	<displayName>WLStock</displayName>
-	<description>WLStock</description>
-	<author>
-		<name>application's author</name>
-		<email>application author's e-mail</email>
-		<copyright>Copyright My Company</copyright>
-		<homepage>http://mycompany.com</homepage>
-	</author>
-	<mainFile>WLStock.html</mainFile>
-	<thumbnailImage>common/images/thumbnail.png</thumbnailImage> 
-	<features>
-	</features>
+             disclosure restricted by GSA ADP Schedule Contract with IBM Corp. --><!-- Attribute "id" must be identical to application folder name --><application xmlns="http://www.worklight.com/application-descriptor" id="WLStock" platformVersion="6.0.0">
+    <displayName>WLStock</displayName>
+    <description>WLStock</description>
+    <author>
+        <name>application's author</name>
+        <email>application author's e-mail</email>
+        <homepage>http://mycompany.com</homepage>
+        <copyright>Copyright My Company</copyright>
+    </author>
+    <mainFile>WLStock.html</mainFile>
+    <features/>
+    <thumbnailImage>common/images/thumbnail.png</thumbnailImage>
+    <android version="1.0">
+        <worklightSettings include="true"/>
+        <security>
+            <encryptWebResources enabled="false"/>
+            <testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3"/>
+            <publicSigningKey>Replace this text with the actual public signing key of the certificate used to sign the APK, available by using the 'Extract public signing key' wizard.</publicSigningKey>
+        </security>
+    </android>
 </application>
