@@ -22,7 +22,7 @@ $('.btn_clearGeolocation').click(function( ) {
 	
 });
 
-function getGeolocation(clientforgps){
+function getGeolocation(client){
 	WL.Logger.error("getGeolocation");
 	$("#destination_i").append(i++);
 			

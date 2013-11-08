@@ -74,7 +74,7 @@
 			<parameter name="ldapSecurityPrincipalPattern"
 				value="cn={username},ou=developers,dc=acmeshop,dc=com" />
 			<parameter name="ldapSearchFilterPattern" value="(&amp;(objectClass=inetOrgPerson))" />
-			<parameter name="ldapSearchBase" value="dc=acmeshop,dc=com" />
+			<parameter name="ldapSearchBase" value=	"dc=acmeshop,dc=com" />
 		</loginModule>
 	</loginModules>
 
