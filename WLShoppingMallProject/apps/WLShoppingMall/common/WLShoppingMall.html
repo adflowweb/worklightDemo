@@ -32,8 +32,8 @@
 					<div data-role="controlgroup"
 						class="ui-btn-active ui-state-persist">
 						<a data-role="button" data-theme="b" style="height: 200px"
-							class="btn_gotoproduct">쇼핑하기</a> <a 
-							class="btn_loginformPag" data-role="button" data-theme="a" style="height: 200px">로그인</a>
+							class="btn_gotoproduct">쇼핑하기</a> <a class="btn_loginformPag"
+							data-role="button" data-theme="a" style="height: 200px">로그인</a>
 					</div>
 				</div>
 				<div class="ui-block-b">
@@ -72,7 +72,7 @@
 
 	<!-- 쇼핑하기 리스트-->
 	<div data-role="page" id="pg_shopping">
-	<!-- panel div -->
+		<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -124,7 +124,7 @@
 
 
 	<div data-role="page" id="pg_salelist">
-	<!-- panel div -->
+		<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -181,12 +181,11 @@
 			<div id="display_product"></div>
 			<div id="addcartform"></div>
 			<!-- checkbox for quantity start -->
-			
+
 			<form id="getAmt">
 				<div data-role="fieldcontain">
-					<label for="amountItem">수량:</label> <select
-						id="amountItem" data-theme="e" data-mini="true"
-						name="amountItem">
+					<label for="amountItem">수량:</label> <select id="amountItem"
+						data-theme="e" data-mini="true" name="amountItem">
 						<option value="1" selected="selected">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
@@ -289,13 +288,14 @@
 						data-inline="true" data-mini="true">수정</a> <a
 						class="result_updatewishdetail" data-role="button"
 						onclick="updatewishdetail();" data-inline="true" data-mini="true">저장</a>
-					<a class="orderBtn" onclick="buyItembtnwithwish()" data-role="button"
-						data-theme="b" data-inline="true" data-mini="true">구매</a>
+					<a class="orderBtn" onclick="buyItembtnwithwish()"
+						data-role="button" data-theme="b" data-inline="true"
+						data-mini="true">구매</a>
 				</div>
 			</div>
 
 		</div>
-	<!--  start footer -->
+		<!--  start footer -->
 		<div data-role="footer" data-position="fixed" data-id="foot1"
 			class="ui-btn-active ui-state-persist">
 			<div data-role="navbar">
@@ -330,7 +330,7 @@
 		</div>
 		<!-- panel div end -->
 
-		<div data-role="header"  id="wishlistheader">
+		<div data-role="header" id="wishlistheader">
 			<h1 id="mqttTextBanner">WL shopping</h1>
 			<a data-iconpos="notext" href="#panel" data-role="button"
 				data-icon="star"></a>
@@ -419,7 +419,7 @@
 
 		<!-- header end -->
 		<div data-role="content">
-		
+
 			<div id="cartmodificationform"></div>
 
 			<div id="display_cartModDetail"></div>
@@ -431,9 +431,8 @@
 			<!-- checkbox for quantity start -->
 			<form id="getQuantity">
 				<div data-role="fieldcontain">
-					<label for="quantityItem">수량:</label> <select
-						id="quantityItem" data-theme="e" data-mini="true"
-						name="quantityItem">
+					<label for="quantityItem">수량:</label> <select id="quantityItem"
+						data-theme="e" data-mini="true" name="quantityItem">
 						<option value="1" selected="selected">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
@@ -450,8 +449,9 @@
 						data-inline="true" data-mini="true">수정</a> <a
 						class="result_updatecartdetail" data-role="button"
 						onclick="deletecartdetail();" data-inline="true" data-mini="true">삭제</a>
-					<a class="orderBtn" onclick="buyItembtnwithcart()" data-role="button"
-						data-theme="b" data-inline="true" data-mini="true">구매</a>
+					<a class="orderBtn" onclick="buyItembtnwithcart()"
+						data-role="button" data-theme="b" data-inline="true"
+						data-mini="true">구매</a>
 				</div>
 			</div>
 
@@ -475,7 +475,7 @@
 	<!-- close page -->
 
 	<div data-role="page" id="cartlistPage">
-	<!-- panel div -->
+		<!-- panel div -->
 		<div id="left-panel" data-role="panel" id="panel" data-position="left"
 			data-theme="c" data-display="push">
 			<ul data-role="listview" data-theme="d">
@@ -589,353 +589,282 @@
 
 		<!-- header end -->
 		<div data-role="content" style="padding-top: 60px" data-scroll="true">
-	
-	<div>
-		
-		<a class="btn_getGeolocation" data-iconpos="top"
-						data-icon="arrow-d">btn_getGeolocation</a>
-		<a class="btn_clearGeolocation" data-iconpos="top"
-		data-icon="arrow-d">btn_clearGeolocation</a>
-  	    <p id="destination_i">i value</p>
-	    <p id="geolocation">Finding geolocation...</p>
-			<!-- form id="login" action="#myPage">
-				<label for="login_email">아이디: </label> <input type="text"
-					name="login_email" id="login_email" placeholder="아이디"> <label
-					for="login_password">비밀번호: </label> <input type="password"
-					name="login_password" id="login_password" placeholder="비밀번호">
-				<button type="submit" data-role="button" data-theme="b">Login</button>
 
-			</form>
-
-			<div class="ui-grid-a">
-				<div class="ui-block-a">
-					<a href="#registerPage" data-role="button" data-mini="true"
-						data-theme="e" data-inline="true">Forgot password</a>
-				</div>
-				<div class="ui-block-b">
-					<a href="#registerPage" data-role="button" data-mini="true"
-						data-inline="true">Create account</a>
-				</div>
-			</div>  -->
-		</div>
-		<!--  start footer -->
-		<div data-role="footer" data-position="fixed" data-id="foot1"
-			class="ui-btn-active ui-state-persist">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
-					<li><a class="btn_goCartlistPage" data-iconpos="top"
-						data-icon="arrow-d">Cart</a></li>
-					<li><a href="#" data-rel="back" data-iconpos="top"
-						data-icon="back">back</a></li>
-				</ul>
+			
 			</div>
-			<!-- /navbar -->
-		</div>
-		<!--  end footer -->
-	</div>
-	<!-- end page -->
-
-
-	<div data-role="page" id="registerPage">
-		<!-- panel div -->
-		<div id="left-panel" data-role="panel" id="panel" data-position="left"
-			data-theme="c" data-display="push">
-			<ul data-role="listview" data-theme="d">
-				<li style="height: 90px" data-icon="false"><a href="#"
-					data-rel="close"></a></li>
-				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
-				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
-				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a class="btn_orderList">주문내역리스트</a></li>
-				<li><a class="btn_logout">로그아웃</a></li>
-			</ul>
-
-		</div>
-		<!-- panel div end -->
-
-		<div data-role="header" data-position="fixed" id="header">
-			<h1>WL shopping</h1>
-			<a data-iconpos="notext" href="#panel" data-role="button"
-				data-icon="star"></a>
-		</div>
-
-		<!-- header end -->
-		<div data-role="content">
-			<form id="form" action="">
-				<label for="register_email">이름</label> <input type="text"
-					name="register_email" id="register_email"> <label
-					for="register_first_name">주민번호</label> <input type="text"
-					name="register_first_name" id="register_first_name"> <label
-					for="register_last_name">이메일</label> <input type="text"
-					name="register_last_name" id="register_last_name"> <label
-					for="register_password">비밀번호</label> <input type="password"
-					name="register_password" id="register_password"> <label
-					for="register_repeat_password">비밀번호 확인</label> <input
-					type="password" name="register_repeat_password"
-					id="register_repeat_password">
-				<div data-role="fieldcontain">
-					<label for="slider2">성별:</label> <select name="slider2"
-						id="slider2" data-role="slider">
-						<option value="male">남자</option>
-						<option value="female">여자</option>
-					</select>
+			<!--  start footer -->
+			<div data-role="footer" data-position="fixed" data-id="foot1"
+				class="ui-btn-active ui-state-persist">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
+						<li><a class="btn_goCartlistPage" data-iconpos="top"
+							data-icon="arrow-d">Cart</a></li>
+						<li><a href="#" data-rel="back" data-iconpos="top"
+							data-icon="back">back</a></li>
+					</ul>
 				</div>
-				<div class="ui-grid-a">
-					<button type="submit" data-role="button" data-theme="b">등록하기</button>
-				</div>
-			</form>
-		</div>
-		<!--  start footer -->
-		<div data-role="footer" data-position="fixed" data-id="foot1"
-			class="ui-btn-active ui-state-persist">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
-					<li><a class="btn_goCartlistPage" data-iconpos="top"
-						data-icon="arrow-d">Cart</a></li>
-					<li><a href="#" data-rel="back" data-iconpos="top"
-						data-icon="back">back</a></li>
-				</ul>
+				<!-- /navbar -->
 			</div>
-			<!-- /navbar -->
+			<!--  end footer -->
 		</div>
-		<!--  end footer -->
-	</div>
-	<!--  end page -->
+		<!-- end page -->
 
 
+		<div data-role="page" id="registerPage">
+			<!-- panel div -->
+			<div id="left-panel" data-role="panel" id="panel"
+				data-position="left" data-theme="c" data-display="push">
+				<ul data-role="listview" data-theme="d">
+					<li style="height: 90px" data-icon="false"><a href="#"
+						data-rel="close"></a></li>
+					<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+					<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
+					<li><a class="btn_goCartlistPage">장바구니</a></li>
+					<li><a class="btn_orderList">주문내역리스트</a></li>
+					<li><a class="btn_logout">로그아웃</a></li>
+				</ul>
 
+			</div>
+			<!-- panel div end -->
 
+			<div data-role="header" data-position="fixed" id="header">
+				<h1>WL shopping</h1>
+				<a data-iconpos="notext" href="#panel" data-role="button"
+					data-icon="star"></a>
+			</div>
 
-	<div data-role="page" id="orderPage">
-		<!-- panel div -->
-		<div id="left-panel" data-role="panel" id="panel" data-position="left"
-			data-theme="c" data-display="push">
-			<ul data-role="listview" data-theme="d">
-				<li style="height: 90px" data-icon="false"><a href="#"
-					data-rel="close"></a></li>
-				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
-				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
-				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a class="btn_orderList">주문내역리스트</a></li>
-				<li><a class="btn_logout">로그아웃</a></li>
-			</ul>
-
-		</div>
-		<!-- panel div end -->
-
-		<div data-role="header" data-position="fixed" id="header">
-			<h1>WL shopping</h1>
-			<a data-iconpos="notext" href="#panel" data-role="button"
-				data-icon="star"></a>
-		</div>
-
-		<!-- header end -->
-		<div data-role="content" style="padding-top: 0px" data-scroll="true">
-			<div id="orderUser">my order</div>
-			<br/>
-			<div class="ui-grid-d" id="orderdetail">
-				<div class="ui-block-a" style="float:left;width:120px;">
-					<p id="orderinfo_left">
-					<!--  start -->
-					<!--  end -->
-					</p>
+			<!-- header end -->
+			<div data-role="content">
+				<form id="form" action="">
+					<label for="register_email">이름</label> <input type="text"
+						name="register_email" id="register_email"> <label
+						for="register_first_name">주민번호</label> <input type="text"
+						name="register_first_name" id="register_first_name"> <label
+						for="register_last_name">이메일</label> <input type="text"
+						name="register_last_name" id="register_last_name"> <label
+						for="register_password">비밀번호</label> <input type="password"
+						name="register_password" id="register_password"> <label
+						for="register_repeat_password">비밀번호 확인</label> <input
+						type="password" name="register_repeat_password"
+						id="register_repeat_password">
+					<div data-role="fieldcontain">
+						<label for="slider2">성별:</label> <select name="slider2"
+							id="slider2" data-role="slider">
+							<option value="male">남자</option>
+							<option value="female">여자</option>
+						</select>
+					</div>
+					<div class="ui-grid-a">
+						<button type="submit" data-role="button" data-theme="b">등록하기</button>
+					</div>
+				</form>
+			</div>
+			<!--  start footer -->
+			<div data-role="footer" data-position="fixed" data-id="foot1"
+				class="ui-btn-active ui-state-persist">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
+						<li><a class="btn_goCartlistPage" data-iconpos="top"
+							data-icon="arrow-d">Cart</a></li>
+						<li><a href="#" data-rel="back" data-iconpos="top"
+							data-icon="back">back</a></li>
+					</ul>
 				</div>
-				<div class="ui-block-b" style="width:50%" >
-					<div  id="order_right_col" >
-					<p id="orderinfo">
-					<!--  start -->
+				<!-- /navbar -->
+			</div>
+			<!--  end footer -->
+		</div>
+		<!--  end page -->
+
+
+
+		<div data-role="page" id="doOrderPage">
+			
+			<div data-role="header" data-position="fixed" id="header">
+				<h1>WL shopping</h1>
+				<a data-iconpos="notext" href="#panel" data-role="button"
+					data-icon="star"></a>
+			</div>
+			<!-- header end -->
+			<div data-role="content" style="padding-top: 0px" data-scroll="true">
+			<div id="order_primary"></div>
+				<div id="orderUser"></div>
 				
-					<!--  end -->
-					</p>
+				<div id="odercontent">
+					<label> <span>Card Number</span> <input type="text"
+						size="20"name="payment_card"
+						id="payment_card" />
+					</label> <label> <span>CVC</span> <input type="text" size="4"
+						name="payment_cvc" id="payment_cvc" />
+					</label> <label> <span>Expiration (MM/YYYY)</span> <input
+						type="text" size="2" 
+						name="payment_expMon" id="payment_expMon" />
+					</label> <span> / </span> <input type="text" size="4"
+						name="payment_expYear"
+						id="payment_expYear" />
+				</div>
+
+
+				<a href="#" data-role="button" id="btn_order" data-theme="b">Submit
+					Payment</a>
+
+			</div>
+			<!--  end content -->
+			<!--  start footer -->
+			<div data-role="footer" data-position="fixed" data-id="foot1"
+				class="ui-btn-active ui-state-persist">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
+						<li><a class="btn_goCartlistPage" data-iconpos="top"
+							data-icon="arrow-d">Cart</a></li>
+						<li><a href="#" data-rel="back" data-iconpos="top"
+							data-icon="back">back</a></li>
+					</ul>
+				</div>
+				<!-- /navbar -->
+			</div>
+			<!--  end footer -->
+		</div>
+		<!--  end page -->
+		
+		<div data-role="page" id="orderResultPage">
+			<!-- panel div -->
+			<div id="left-panel" data-role="panel" id="panel"
+				data-position="left" data-theme="c" data-display="push">
+				<ul data-role="listview" data-theme="d">
+					<li style="height: 90px" data-icon="false"><a href="#"
+						data-rel="close"></a></li>
+					<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+					<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
+					<li><a class="btn_goCartlistPage">장바구니</a></li>
+					<li><a class="btn_orderList">주문내역리스트</a></li>
+					<li><a class="btn_logout">로그아웃</a></li>
+				</ul>
+
+			</div>
+			<!-- panel div end -->
+
+			<div data-role="header" data-position="fixed" id="header">
+				<h1>WL shopping</h1>
+				<a data-iconpos="notext" href="#panel" data-role="button"
+					data-icon="star"></a>
+			</div>
+
+			<!-- header end -->
+			<div data-role="content" style="padding-top: 0px" data-scroll="true">
+
+
+				<div id="orderReturnUser">my order</div>
+				<br />
+				<div class="ui-grid-d" id="orderReturndetail">
+					<div class="ui-block-a" style="float: left; width: 120px;">
+						<p id="orderReturninfo_left">
+							<!--  start -->
+							<!--  end -->
+						</p>
+					</div>
+					<div class="ui-block-b" style="width: 50%">
+						<div id="orderReturn_right_col">
+							<p id="orderReturninfo">
+								<!--  start -->
+
+								<!--  end -->
+							</p>
+						</div>
 					</div>
 				</div>
+				<br />
+				<div id="orderPaymentInfo"></div>
+
+				<a href="#" data-role="button" class="btn_orderList" data-theme="b">주문내역리스트</a>
+
 			</div>
-
-		
-		<div  id="payment_div">			
-			<div class="payment_row">
-				<label> <span>Card Number</span>
-				 <input type="text"  size="20" data-stripe="number" name="payment_card" id="payment_card" />
-				</label>
-			</div>
-			<div class="payment_row">
-				<label> <span>CVC</span> 
-				<input type="text" size="4"  data-stripe="cvc" name="payment_cvc" id="payment_cvc"  />
-				</label>
-			</div>
-
-			<div class="payment_row" id="expireForm">
-				<label> <span  >Expiration (MM/YYYY)</span> 
-				<input type="text" size="2" data-stripe="exp-month" data-inline="true" name="payment_expMon" id="payment_expMon"  />
-				</label> <span> / </span>
-			   <input type="text" size="4" data-stripe="exp-year" data-inline="true" name="payment_expYear" id="payment_expYear"/>
-			</div>
-
-							
-		</div>
-		<a href="#" data-role="button" id="btn_order"  data-theme="b">Submit Payment</a> 
-
-	</div>
-	<!--  end content -->
-	<!--  start footer -->
-		<div data-role="footer" data-position="fixed" data-id="foot1"
-			class="ui-btn-active ui-state-persist">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
-					<li><a class="btn_goCartlistPage" data-iconpos="top"
-						data-icon="arrow-d">Cart</a></li>
-					<li><a href="#" data-rel="back" data-iconpos="top"
-						data-icon="back">back</a></li>
-				</ul>
-			</div>
-			<!-- /navbar -->
-		</div>
-		<!--  end footer -->
-	</div>
-	<!--  end page -->
-
-
-
-
-
-	<div data-role="page" id="orderResultPage">
-	<!-- panel div -->
-		<div id="left-panel" data-role="panel" id="panel" data-position="left"
-			data-theme="c" data-display="push">
-			<ul data-role="listview" data-theme="d">
-				<li style="height: 90px" data-icon="false"><a href="#"
-					data-rel="close"></a></li>
-				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
-				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
-				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a class="btn_orderList">주문내역리스트</a></li>
-				<li><a class="btn_logout">로그아웃</a></li>
-			</ul>
-
-		</div>
-		<!-- panel div end -->
-
-		<div data-role="header" data-position="fixed" id="header">
-			<h1>WL shopping</h1>
-			<a data-iconpos="notext" href="#panel" data-role="button"
-				data-icon="star"></a>
-		</div>
-
-		<!-- header end -->
-		<div data-role="content" style="padding-top: 0px" data-scroll="true">
-		
-		
-		<div id="orderReturnUser">my order</div>
-			<br/>
-			<div class="ui-grid-d" id="orderReturndetail">
-				<div class="ui-block-a" style="float:left;width:120px;">
-					<p id="orderReturninfo_left">
-					<!--  start -->
-					<!--  end -->
-					</p>
+			<!--  end content -->
+			<!--  start footer -->
+			<div data-role="footer" data-position="fixed" data-id="foot1"
+				class="ui-btn-active ui-state-persist">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
+						<li><a class="btn_goCartlistPage" data-iconpos="top"
+							data-icon="arrow-d">Cart</a></li>
+						<li><a href="#" data-rel="back" data-iconpos="top"
+							data-icon="back">back</a></li>
+					</ul>
 				</div>
-				<div class="ui-block-b" style="width:50%" >
-					<div  id="orderReturn_right_col" >
-					<p id="orderReturninfo">
-					<!--  start -->
-				
-					<!--  end -->
-					</p>
-					</div>
+				<!-- /navbar -->
+			</div>
+			<!--  end footer -->
+		</div>
+		<!--  end page -->
+
+		<div data-role="page" id="orderlistPage">
+			<!-- panel div -->
+			<div id="left-panel" data-role="panel" id="panel"
+				data-position="left" data-theme="c" data-display="push">
+				<ul data-role="listview" data-theme="d">
+					<li style="height: 90px" data-icon="false"><a href="#"
+						data-rel="close"></a></li>
+					<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+					<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
+					<li><a class="btn_goCartlistPage">장바구니</a></li>
+					<li><a class="btn_orderList">주문내역리스트</a></li>
+					<li><a class="btn_logout">로그아웃</a></li>
+				</ul>
+
+			</div>
+			<!-- panel div end -->
+
+			<div data-role="header" data-position="fixed" id="header">
+				<h1>WL shopping</h1>
+				<a data-iconpos="notext" href="#panel" data-role="button"
+					data-icon="star"></a>
+			</div>
+
+			<!-- header end -->
+
+			<div data-role="content">
+				<h3>구매 리스트</h3>
+				<!-- listview thumnail -->
+				<div id="content-orderlist"></div>
+
+
+			</div>
+			<!--  start footer -->
+			<div data-role="footer" data-position="fixed" data-id="foot1"
+				class="ui-btn-active ui-state-persist">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
+						<li><a class="btn_goCartlistPage" data-iconpos="top"
+							data-icon="arrow-d">Cart</a></li>
+						<li><a href="#" data-rel="back" data-iconpos="top"
+							data-icon="back">back</a></li>
+					</ul>
 				</div>
+				<!-- /navbar -->
 			</div>
-			<br/>
-		<div id="orderPaymentInfo"></div>		
-		
-		<a href="#" data-role="button" class="btn_orderList"  data-theme="b">주문내역리스트</a> 
-
-	</div>
-	<!--  end content -->
-	<!--  start footer -->
-		<div data-role="footer" data-position="fixed" data-id="foot1"
-			class="ui-btn-active ui-state-persist">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
-					<li><a class="btn_goCartlistPage" data-iconpos="top"
-						data-icon="arrow-d">Cart</a></li>
-					<li><a href="#" data-rel="back" data-iconpos="top"
-						data-icon="back">back</a></li>
-				</ul>
-			</div>
-			<!-- /navbar -->
+			<!--  end footer -->
 		</div>
-		<!--  end footer -->
-	</div>
-	<!--  end page -->
-	
-	<div data-role="page" id="orderlistPage">
-		<!-- panel div -->
-		<div id="left-panel" data-role="panel" id="panel" data-position="left"
-			data-theme="c" data-display="push">
-			<ul data-role="listview" data-theme="d">
-				<li style="height: 90px" data-icon="false"><a href="#"
-					data-rel="close"></a></li>
-				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
-				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
-				<li><a class="btn_goCartlistPage">장바구니</a></li>
-				<li><a class="btn_orderList">주문내역리스트</a></li>
-				<li><a class="btn_logout">로그아웃</a></li>
-			</ul>
-
-		</div>
-		<!-- panel div end -->
-
-		<div data-role="header" data-position="fixed" id="header">
-			<h1>WL shopping</h1>
-			<a data-iconpos="notext" href="#panel" data-role="button"
-				data-icon="star"></a>
-		</div>
-
-		<!-- header end -->
-
-		<div data-role="content">
-			<h3>구매 리스트</h3>
-			<!-- listview thumnail -->
-			<div class="content-orderlist"></div>
+		<!-- close page -->
 
 
-		</div>
-		<!--  start footer -->
-		<div data-role="footer" data-position="fixed" data-id="foot1"
-			class="ui-btn-active ui-state-persist">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
-					<li><a class="btn_goCartlistPage" data-iconpos="top"
-						data-icon="arrow-d">Cart</a></li>
-					<li><a href="#" data-rel="back" data-iconpos="top"
-						data-icon="back">back</a></li>
-				</ul>
-			</div>
-			<!-- /navbar -->
-		</div>
-		<!--  end footer -->
-	</div>
-	<!-- close page -->
-	
-	
 
-	<script src="js/initOptions.js"></script>
-	<script src="js/WLShoppingMall.js"></script>
-	<script src="js/messages.js"></script>
-	<script src="js/main_menu.js"></script>
-	<script src="js/wishlist_detail.js"></script>
-	<script src="js/cart_detail.js"></script>
-	<script src="js/order_detail.js"></script>
-	<script src="js/banner_mqtt.js"></script>
-	<script src="js/mqttws31.js"></script>
-	<script src="js/WLShoppersChallengeHandler.js"></script>
-	<script src="js/current_geolocation.js"></script>
-	<script type="text/javascript" src="js/mqttCordovaAndroidClient.js"></script>
-	<!-- script src="js/cordova.js"></script-->
+		<script src="js/initOptions.js"></script>
+		<script src="js/WLShoppingMall.js"></script>
+		<script src="js/messages.js"></script>
+		<script src="js/main_menu.js"></script>
+		<script src="js/wishlist_detail.js"></script>
+		<script src="js/cart_detail.js"></script>
+		<script src="js/order_detail.js"></script>
+		<script src="js/banner_mqtt.js"></script>
+		<script src="js/mqttws31.js"></script>
+		<script src="js/WLShoppersChallengeHandler.js"></script>
+		<script src="js/current_geolocation.js"></script>
+		<script type="text/javascript" src="js/mqttCordovaAndroidClient.js"></script>
+		<script src="js/cordova.js"></script>
 </body>
 </html>

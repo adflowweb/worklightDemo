@@ -2,15 +2,19 @@
  * 11.5. eylee order get delete add
  */
 var orderlistCreated =false;
+var myOrderHT;
+var goorder = false;
 // ///////////////////////////////////////////////////////////
+
 function buyItembtn() {
 
+//	WL.Logger.error("press buyItembtn");
 	if (authenID == null || authenID == "") {
-		console.log(" username null check , and before loadDummy() " + authenID);
+		
 		loadDummy();
 
 	} else {
-		console.log("else....username with go..after dummy " + authenID);
+		
 		var item1 = null;
 		var unitprc1 = null;
 		var quantity = null;
@@ -24,7 +28,7 @@ function buyItembtn() {
 		itempic1 = $('input[name="itempic1"]').val();
 		orderitem = $('input[name="orderitem"]').val();
 		displayOrderPage(item1, unitprc1, itempic1, orderitem, authenID);
-
+		
 	}
 }
 
@@ -78,26 +82,54 @@ function buyItembtnwithwish() {
 }
 
 function displayOrderPage(item1, unitprc1, itempic1, orderitem, conid) {
-	console.log("item1 :: " + item1 + "unitprc1 :: " + unitprc1 + "end");
-	// addCartitemload(conid, item1, quantity, unitprc1);
-	lefthtml = '<a onclick="gotoProductPage(' + item1 + ')" >'
-			+ '<img width="100" height="100" src="' + imageurl + itempic1
-			+ '" class="img_order">' + '</a>';
-	$.mobile.changePage('#orderPage', {
-		transition : "slide"
+	WL.Logger.error("press orderPage before");
+	$.mobile.changePage('#doOrderPage', {
+		transition : "pop"
 	});
-	$('#orderUser').empty();
-	$('#orderinfo').empty();
-	$('#orderinfo_left').empty();
-	$('#orderUser').html('<h3>' + conid + '님의 주문하실 상품</h3>');
-	$('#orderUser').append('<input type="hidden" class="paymentitem1 " name="paymentitem1" value="'+item1+'"><input type="hidden" class="paymentunitprc1" name="paymentunitprc1" value="'+unitprc1+'"><input type="hidden" class="paymentitempic1" name="paymentitempic1" value="'+itempic1+'"><input type="hidden" class="paymentitem " name="paymentitem" value="'+orderitem+'"><input type="hidden" class="paymentconid " name="paymentconid" value="'+conid+'">');
-	$('#orderinfo').html(
+	$("#list_order").empty();
+	var item1= item1;
+	var unitprc1 = unitprc1;
+	var itempic1 =itempic1;
+	var orderitem = orderitem;
+	var conid = conid;
+	
+	$("#list_order").empty();
+	// Create the listview if not created
+
+		
+		if (!goorder) {	
+			
+			$("#order_primary").append("<ul id='list_order'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r' ></ul>");
+			goorder = true;
+                      
+			$("#order_primary").trigger("create");
+			$("#orderUser").trigger("create");
+			
+		}
+	
+		
+		
+	WL.Logger.error("press orderPage after :: " + item1 +unitprc1 + itempic1 +orderitem +conid);
+//	$('#orderUser').empty();
+//	$('#orderinfo').empty();
+//	$('#orderinfo_left').empty();
+////	$("#orderUser").trigger("create");
+////	$("#orderinfo").trigger("create");
+////	("#orderinfo_left").trigger("create");
+	$("#list_order")
+	.append('<li><a onclick="gotoProductPage(' + item1 + ')" >'
+	+ '<img width="100" height="100" src="' + imageurl + itempic1
+	+ '" class="img_order">' + '</a></li>');
+	$("#list_order").append('<h3>' + conid + '님의 주문하실 상품</h3>');
+	
+	$("#orderUser").append('<input type="hidden" class="paymentitem1 " name="paymentitem1" value="'+item1+'"><input type="hidden" class="paymentunitprc1" name="paymentunitprc1" value="'+unitprc1+'"><input type="hidden" class="paymentitempic1" name="paymentitempic1" value="'+itempic1+'"><input type="hidden" class="paymentitem " name="paymentitem" value="'+orderitem+'"><input type="hidden" class="paymentconid " name="paymentconid" value="'+conid+'">');
+	$("#orderUser").append(
 			"제품코드 :: <br/>" + item1 + "<br/>제품명 :: <br/>" + orderitem
 					+ "<br/>가격 :: <br/>" + unitprc1);
-	$('#orderinfo_left').html(lefthtml);
-
+	$("#list_product").listview("refresh");
+	
 }
-var myOrderHT;
+
 $('#btn_order').bind('click', function() {
 	myOrderHT = {};
 		
@@ -265,40 +297,53 @@ function loadOrderlistSQLQueryFailure(result) {
 
 
 function appendToOrderList(items) {
-	$.mobile.changePage('#orderlistPage', {
-		transition : "pop"
+
+	if (authenID == null || authenID == "") {
+		console.log(" username null check , and before loadDummy() " + authenID);
+		loadDummy();
+
+	} else {
+		console.log("else....username with go..before dummy " + authenID);
+		//mqttConnection call
+		
+		
+		$.mobile.changePage('#orderlistPage', {
+	        transition : "pop"
 	});
-	$("#list_order").empty();
+	$("#listTo_order").empty();
 	// Create the listview if not created
-	
+
 	for ( var i = 0; i < items.length; i++) {
-		// ///////////////////////////////
-		
-		if (!orderlistCreated) {
-			
-			$(".content-orderlist")
-					.append(
-							"<ul id='list_order'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r' ></ul>");
-			orderlistCreated = true;
+	        // ///////////////////////////////
+	        
+	        if (!orderlistCreated) {
+	                
+	                $("#content-orderlist")
+	                                .append(
+	                                                "<ul id='listTo_order'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r' ></ul>");
+	                orderlistCreated = true;
 
-			$(".content-orderlist").trigger("create");
-		
-		}
+	                $("#content-orderlist").trigger("create");
+	        
+	        }
 
-		$("#list_order")
-				.append(
-						'<li ><img border="0" height="100" src="'
-						+ imageurl 	+ items[i].ITEMPIC1 + '"class="img_thumnail_order ui-li-thumb"><span class="tabone"><p><h7>'
-						+ items[i].ITEMNAME
-						+ '</h7></p><p><h8>'
-						+ items[i].UNITPRC
-						+ '</h8></p><p>구매일:'
-						+ items[i].TRSTAMP
-						+ '</p></span></li>');
-		
-		$("#list_order").listview("refresh");
-		// ////////////////////////////
+	        $("#listTo_order")
+	                        .append(
+	                                        '<li ><img border="0" height="100" src="'
+	                                        + imageurl    + items[i].ITEMPIC1 + '"class="img_thumnail_order ui-li-thumb"><span class="tabone"><p><h7>'
+	                                        + items[i].ITEMNAME
+	                                        + '</h7></p><p><h8>'
+	                                        + items[i].UNITPRC
+	                                        + '</h8></p><p>구매일:'
+	                                        + items[i].TRSTAMP
+	                                        + '</p></span></li>');
+	        
+	        $("#listTo_order").listview("refresh");
+	        // ////////////////////////////
 	}
+		
+	}
+	
 
 }
 // //go tp shoppinglistpage end

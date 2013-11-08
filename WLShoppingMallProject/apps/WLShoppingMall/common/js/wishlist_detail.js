@@ -178,16 +178,17 @@ function loadWishlistitemsFailure(result) {
 // start function displayMywishlist()
 // ////////////////////////////////////////////////////////
 function displayaddWishitemload(items) {
-	
+	$.mobile.changePage('#wishlistPage', { transition: "pop"} );
+	$("#list_wish").empty();
+	if(!mywishlistCreated){	 	
+		$(".content-primary_one").trigger("create");
+		$(".content-primary_one")
+				.append(
+						"<ul id='list_wish'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'></ul>");
+		mywishlistCreated = true;		
+	}
 	for ( var i = 0; i < items.length; i++) {
-		// //////////////////////////////////////////////////////////////////
-		if (!mywishlistCreated) {
-			$(".content-primary_one")
-					.append(
-							"<ul id='list_wish'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'></ul>");
-			wishlistCreated = true;
-		}
-		// $(".content-primary_one").trigger("create");
+		
 		var punitprc = null;
 		var pname = null;
 		var pdesc = null;
@@ -195,12 +196,8 @@ function displayaddWishitemload(items) {
 		var pwname = null;
 		var pwdescr = null;
 		var pwlid = null;
-		$("#list_wish").empty();
-		$.mobile.changePage('#wishlistPage', {
-			transition : "pop"
-		});
-
-		for ( var i = 0; i < items.length; i++) {
+		
+			for ( var i = 0; i < items.length; i++) {
 			pname = items[i].ITEMNAME;
 			punitprc = items[i].UNITPRC;
 			pdesc = items[i].ITEMDESC;
@@ -211,39 +208,25 @@ function displayaddWishitemload(items) {
 			// $('input[name=pwlid]').val(pwlid);
 			$("#list_wish")
 					.append(
-							'<li id="removeli'
-									+ i
-									+ '"+ ><a onclick="readWishitemload('
-									+ pwlid
-									+ ')" class="ui-link-inherit selectedWishlist"><img src="'
-									+ imageurl
-									+ pimg
-									+ '" class="img_thumnail_wish ui-li-thumb"><span class="tabone"><p><h7>'
-									+ pwname
-									+ "</p><p>( "
-									+ pname
-									+ " ) "
-									+ '</h7></p><p><h8>'
-									+ pwdescr
-									+ '</h8></p><p>'
-									+ punitprc
-									+ 'won</p></span><input type="hidden" name="pwlid" class="pwlid" value="'
-									+ pwlid
-									+ '"></a> <a class="del_wish" onclick="deleteWishTagli('
-									+ pwlid
-									+ ''
-									+ ',removeli'
-									+ i
-									+ ')"   data-iconpos="notext" data-icon="delete" >Delete</a></li>');
+							'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" > <input type="checkbox" name="checkbox_wishid" id="'+pwlid+'" class="checkbox_wishid" value="'+pwlid+'" /><a onclick="readWishitemload('+pwlid+')" class="ui-link-inherit selectedCartlist"><div class="ui-btn-inner ui-li" ><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><div class="ui-btn-text"><span class="tabone"><label  style="padding:10px 0px 0px 10px;"><h7>'+ pwname
+							+ "</p><p>( "
+							+ pname
+							+ " ) "
+							+ '</h7></p><p><h8>'
+							+ pwdescr
+							+ '</h8></p><p>'
+							+ punitprc
+							+ 'won</h8></p></label></span></div></a><input type="hidden" name="pwlid" class="pwlid" value="'
+							+ pwlid
+							+ '"><span data-iconpos="notext" data-icon="arrow-r" class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span></div></li>');
 			//		
-			$("#list_wish").listview("refresh");
+		
 		}
 		// /////////////////////end for
 		// ////////////////////////////////////////////////////////////////////////
 	} // end for
-	$.mobile.changePage('#wishlistPage', {
-		transition : "pop"
-	});
+	 $('#wishlistPage').find("#list_wish").listview("refresh");	
+	
 	//
 }
 
@@ -421,47 +404,25 @@ function detailwishAfterupdate(items) {
 // //go tp shoppinglistpage end
 // *********************************
 
-// delete wishlist
 // ******************************************************************************************
 // wish list pop up of list delete button start (for delete)
 
-var li = '';
-
-var delpwlid = '';
-function deleteWishTagli(pwlid, removeli) {
-	$(this).closest('li').remove();
-	// alert("pwlid :: "+pwlid);
-	li = removeli;
-	delpwlid = pwlid;
-	$('#sterge_wish').popup("open");
-	// alert("delpwlid one:: "+delpwlid );
-	// alert("popup open");
-}
-function pushDelbtn() {
-	// alert("delpwlid two:: "+delpwlid );
-	$('#sterge_wish').popup("close");
-	// addDelete_wishlist
-	$('#addDelete_wishlist').append(
-			'<input type="hidden" value="' + delpwlid
-					+ '" id="getpwlid" name="getpwlid" class="getpwlid">');
-	li.remove();
-}
-
-function giveupWishbtn() {
-	$('#sterge_wish').popup("close");
-}
-// popup of list delete button end
 // ////////////////////////////////////////////////////////////////////////
 // when saving delete
 function saveWishlist_fordel() {
 	// alert("btn_saveWishlist_fordel..................");
-	var dataArray = $("#addDelete_wishlist input.getpwlid").serializeArray();
-
-	console.log($("ul li input.pwlid"));
 	var delWishlistArray = [];
-	$(dataArray).each(function(i, field) {
-		delWishlistArray.push(field.value);
+	
+	
+	$("input[name=checkbox_wishid]:checked").each(function() {
+		var test = $(this).val();
+//		WL.Logger.error("helllo");
+		console.log(test);
+		delWishlistArray.push(test);
 	});
+
+	
+	
 	len = delWishlistArray.length;
 	// for ( var int = 0; int < len; int++) {
 	// console.log(" delWishlistArray[int];"+ delWishlistArray[int]);
@@ -470,13 +431,7 @@ function saveWishlist_fordel() {
 	loaddelWishlist(delWishlistArray);
 
 }
-// var deleteWishStatement = WL.Server.createSQLStatement(deleteWishquery);
-// function deleteWish(wlid){
-// return WL.Server.invokeSQLStatement({
-// preparedStatement : deleteWishStatement,
-// parameters : [wlid]
-// });
-// }
+
 function loaddelWishlist(delWishlistArray) {
 	for ( var int = 0; int < delWishlistArray.length; int++) {
 		console.log("	delWishlistArray[int];" + delWishlistArray[int]);

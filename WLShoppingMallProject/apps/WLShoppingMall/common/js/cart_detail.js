@@ -54,14 +54,15 @@ function displayCartitemload(items) {
 //	console.log("cartItem length :: "+items.length );
 	$.mobile.changePage('#cartlistPage', { transition: "pop"} );
 	$("#list_cart").empty();
+	if(!mycartlistCreated){	 	
+		$(".content-primary_two").trigger("create");
+		$(".content-primary_two")
+				.append(
+						"<ul id='list_cart'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'></ul>");
+		mycartlistCreated = true;		
+	}
 	for ( var i = 0; i < items.length; i++) { 
-	////////////////////////////////////////////////////////////////////
-		if(!mycartlistCreated){	       
-			$(".content-primary_two").append("<fieldset data-role='controlgroup1'><ul id='list_cart'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'></ul>");
-			mycartlistCreated = true;			
-			$(".content-primary_two").trigger("create");	
-			}	
-			
+	////////////////////////////////////////////////////////////////////		
 		var  punitprc = null;
 		var pname = null;
 		var pdesc = null;
@@ -69,8 +70,7 @@ function displayCartitemload(items) {
 		var pwname = null;
 		var pwdescr = null;
 		var cartid = null;
-		
-	
+		var totalprice = null;	
 
 		for ( var i = 0; i < items.length; i++) { 
 		pname = items[i].ITEMNAME;
@@ -79,16 +79,20 @@ function displayCartitemload(items) {
 		pimg = items[i].ITEMPIC1;
 		cartid = items[i].CARTID; 
 		cartamt= items[i].AMT1;
-		cartprice = items[i].UNITPRC1;		
-		$("#list_cart").append('<li><input type="checkbox" name="'+cartid+'" id="'+cartid+'" class="check_cart" value="FALSE" /><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><span class="tabone"><p><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+cartprice+'won</p></span><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"></a> <a class="del_cart"   data-iconpos="notext" data-icon="delete" >Delete</a></li>');
-		//		
-		$("#list_cart").listview("refresh");		
-		}
-		///////////////////////end for	
-    //////////////////////////////////////////////////////////////////////////				
-	}		 //end for
+		cartprice = items[i].UNITPRC1;	
+		totalprice = cartprice * cartamt;
+		$("#list_cart")
+		.append(
+//				'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" ><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><div class="ui-btn-inner ui-li" ><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><div class="ui-btn-text"><span class="tabone"><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+totalprice+'won</p></span></div></a><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"><span data-iconpos="notext" data-icon="arrow-r" class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span></div></li>');
+//				'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" > <fieldset data-role="controlgroup_cart" ><input id="SelectedSensors_0__Value" name="SelectedSensors[0].Value" type="checkbox" value="true" /><input id="SelectedSensors_0__Id" name="SelectedSensors[0].Id" type="hidden" value="16" /><label for="SelectedSensors_0__Value" style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;"></label></fieldset></label><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><div class="ui-btn-inner ui-li" ><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><div class="ui-btn-text"><span class="tabone"><label  style="padding:10px 0px 0px 10px;"><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+totalprice+'won</p></label></span></div></a><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"><span data-iconpos="notext" data-icon="arrow-r" class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span></div></li>');
+				'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" > <input type="checkbox" name="checkbox_cartid" id="'+cartid+'" class="checkbox_cartid" value="'+cartid+'" /><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><div class="ui-btn-inner ui-li" ><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><div class="ui-btn-text"><span class="tabone"><label  style="padding:10px 0px 0px 10px;"><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+totalprice+'won</p></label></span></div></a><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"><span data-iconpos="notext" data-icon="arrow-r" class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span></div></li>');
+		}   //end for
 	
-//
+
+	}		 //end for
+		
+    $('#cartlistPage').find("#list_cart").listview("refresh");	
+
 }
 
 //end function displayCartitemload() 
@@ -304,69 +308,33 @@ function loaddelCartOnebyone(deletecartid) {
 //wish list pop up of list delete button start (for delete)
 
 
-var delcartid ='';
 
-$('#vehicleChkBox').change(function(){
 
-    if($(this).attr('checked')){
-          $(this).val('TRUE');
-     }else{
-          $(this).val('FALSE');
-     }
-    
-    alert($(this).val());
-    
-});
-$("#controlgroup1").click(function () {
-    // the checkbox state can be correctly retrieved
-    alert("Group checked? "+$('#group_control').is(':checked'));
-    $("INPUT[class='check_cart']").attr(
-        'checked', $('#group_control').is(':checked')
-    ).checkboxradio("refresh");
-});
-function deleteCartTagli(){	
-	 
-	  alert("cartid :: ");	
-	 
-//	  delcartid = cartid;
-//	  $('#sterge_cart').popup("open");
-//	  $('#sterge_cart').popup('open', {
-//			x : 10,
-//			y : 10,
-//			positionTo : "window"
-//		});
-//	  alert("popup open");	 
-}
-function pushCartDelbtn(){	
-	$('#sterge_cart').popup("close");
-//	  addDelete_wishlist
-//  $('#addDelete_cartlist').append('<input type="hidden" value="'+delcartid+'" id="getcartid" name="getcartid" class="getcartid">');
-  $('#'+delcartid).remove();  // remove only web li
-	loaddelCartOnebyone(delcartid);	
-//  $('#').
-}
 
-function giveupCartbtn(){
-	$('#sterge_cart').popup("close");	
-}
 
-//popup of list delete button end  
-//////////////////////////////////////////////////////////////////////////
+
 //when saving delete   
 function saveCartlist_fordel(){
 //	alert("btn_saveWishlist_fordel..................");
-	var dataArray = $("#addDelete_cartlist input.getcartid").serializeArray();
-
-	console.log($("ul li input.delcartid"));	
 	var delCartlistArray = [];
-	$(dataArray).each(function(i, field){
-		delCartlistArray.push(field.value);
+	$("input[name=checkbox_cartid]:checked").each(function() {
+		var test = $(this).val();
+//		WL.Logger.error("helllo");
+		console.log(test);
+		delCartlistArray.push(test);
 	});
+//	if($("input:checkbox[name='checkbox_cartid']").is(":checked")){
+//		 alert("hello");
+//		 var desc =$('input[name="checkbox_cartid"]').val();
+//		 alert("desc"+desc);
+//	 }
+	
 	 len = delCartlistArray.length;
 //	 for ( var int = 0; int < len; int++) {
-//		 console.log("	delWishlistArray[int];"+	delWishlistArray[int]);
-//		 alert("	delWishlistArray[int];"+	delWishlistArray[int]);
+//		 console.log("	delCartlistArray[int];"+	delCartlistArray[int]);
+//		 alert("	delCartlistArray[int];"+	delCartlistArray[int]);
 //	}	
+	 
 	 loaddelCartlist(delCartlistArray);
 }
 

@@ -473,13 +473,13 @@ $('.btn_loginformPag').click(function() {
 	
 	if (authenID == null || authenID == "") {
 		console.log(" username null check , and before loadDummy() " + authenID);
-		sucNum = loadDummy();
+		loadDummy();
+		alert("로그인 되었습니다.");
 
 	} else {
 		console.log("else....username with go..before dummy " + authenID);
-		$.mobile.changePage('#loginformPage', {
-			transition : "pop"
-		});
+		
+		
 	}
 	
 	
