@@ -68,9 +68,12 @@ function authenticationLogin(){
 //			setCookie("username", cookiename, 365);
 //			var username = getCookie("username");
 			// /////////////////////////////////////////////////////////////////////
+			
+		
 			var reqURL = '/j_security_check';
 			var option = {};
 			var WL_username = $('input[name="WL_username"]').val();
+			WL.Logger.error("logIN:::::"+ WL_username +"' "+WL_password);
 			option.parameters = {
 				j_username : WL_username,
 				j_password : WL_password

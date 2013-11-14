@@ -60,36 +60,34 @@ function displayCartitemload(items) {
 				.append(
 						"<ul id='list_cart'  data-role='listview'  data-inset='true' data-split-theme='c' data-split-icon='arrow-r'></ul>");
 		mycartlistCreated = true;		
-	}
-	for ( var i = 0; i < items.length; i++) { 
-	////////////////////////////////////////////////////////////////////		
-		var  punitprc = null;
-		var pname = null;
-		var pdesc = null;
-		var pimg = null;
-		var pwname = null;
-		var pwdescr = null;
-		var cartid = null;
-		var totalprice = null;	
+	}	
 
 		for ( var i = 0; i < items.length; i++) { 
-		pname = items[i].ITEMNAME;
-		punitprc = items[i].UNITPRC;
-		pdesc = items[i].ITEMDESC;
-		pimg = items[i].ITEMPIC1;
-		cartid = items[i].CARTID; 
-		cartamt= items[i].AMT1;
-		cartprice = items[i].UNITPRC1;	
-		totalprice = cartprice * cartamt;
-		$("#list_cart")
-		.append(
-//				'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" ><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><div class="ui-btn-inner ui-li" ><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><div class="ui-btn-text"><span class="tabone"><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+totalprice+'won</p></span></div></a><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"><span data-iconpos="notext" data-icon="arrow-r" class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span></div></li>');
-//				'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" > <fieldset data-role="controlgroup_cart" ><input id="SelectedSensors_0__Value" name="SelectedSensors[0].Value" type="checkbox" value="true" /><input id="SelectedSensors_0__Id" name="SelectedSensors[0].Id" type="hidden" value="16" /><label for="SelectedSensors_0__Value" style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;"></label></fieldset></label><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><div class="ui-btn-inner ui-li" ><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><div class="ui-btn-text"><span class="tabone"><label  style="padding:10px 0px 0px 10px;"><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+totalprice+'won</p></label></span></div></a><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"><span data-iconpos="notext" data-icon="arrow-r" class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span></div></li>');
-				'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" > <input type="checkbox" name="checkbox_cartid" id="'+cartid+'" class="checkbox_cartid" value="'+cartid+'" /><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><div class="ui-btn-inner ui-li" ><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><div class="ui-btn-text"><span class="tabone"><label  style="padding:10px 0px 0px 10px;"><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+totalprice+'won</p></label></span></div></a><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"><span data-iconpos="notext" data-icon="arrow-r" class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span></div></li>');
+			var  punitprc = null;
+			var pname = null;
+			var pdesc = null;
+			var pimg = null;
+			var pwname = null;
+			var pwdescr = null;
+			var cartid = null;
+			var totalprice = null;	
+			
+			pname = items[i].ITEMNAME;
+			punitprc = items[i].UNITPRC;
+			pdesc = items[i].ITEMDESC;
+			pimg = items[i].ITEMPIC1;
+			cartid = items[i].CARTID; 
+			cartamt= items[i].AMT1;
+			cartprice = items[i].UNITPRC1;	
+			totalprice = cartprice * cartamt;
+			$("#list_cart")
+			.append(
+	//				'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" ><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><div class="ui-btn-inner ui-li" ><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><div class="ui-btn-text"><span class="tabone"><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+totalprice+'won</p></span></div></a><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"><span data-iconpos="notext" data-icon="arrow-r" class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span></div></li>');
+	//				'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" > <fieldset data-role="controlgroup_cart" ><input id="SelectedSensors_0__Value" name="SelectedSensors[0].Value" type="checkbox" value="true" /><input id="SelectedSensors_0__Id" name="SelectedSensors[0].Id" type="hidden" value="16" /><label for="SelectedSensors_0__Value" style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;"></label></fieldset></label><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><div class="ui-btn-inner ui-li" ><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><div class="ui-btn-text"><span class="tabone"><label  style="padding:10px 0px 0px 10px;"><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+totalprice+'won</p></label></span></div></a><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"><span data-iconpos="notext" data-icon="arrow-r" class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span></div></li>');
+					'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" > <input type="checkbox" name="checkbox_cartid" id="'+cartid+'" class="checkbox_cartid" value="'+cartid+'" /><a onclick="readCartitemload('+cartid+')" class="ui-link-inherit selectedCartlist"><div class="ui-btn-inner ui-li" ><img src="'+imageurl+pimg+'" class="img_thumnail_wish ui-li-thumb"><div class="ui-btn-text"><span class="tabone"><label  style="padding:10px 0px 0px 10px;"><h7>'+pname+"</p><p>( "+pdesc+" ) "+'</h7></p><p><h8>total : '+cartamt  +'</h8></p><p>'+totalprice+'won</p></label></span></div></a><input type="hidden" name="cartid" class="cartid" value="'+cartid+'"><input type="hidden" class="orderprice " name="orderprice" value="'+cartprice+'"><input type="hidden" class="orderitem " name="orderitem" value="'+pname+'"><input type="hidden" class="itempic1 " name="itempic1" value="'+pimg+'"><span data-iconpos="notext" data-icon="arrow-r" class="ui-icon ui-icon-arrow-r ui-icon-shadow"> </span></div></li>');
 		}   //end for
 	
 
-	}		 //end for
 		
     $('#cartlistPage').find("#list_cart").listview("refresh");	
 
@@ -197,13 +195,20 @@ $('#quantityItem').on("change",function() {
 //goto the modify page
 function modifycartdetail(){	
 	
-	if (authenID == null || authenID == "") {
-		console.log(" username null check , and before loadDummy() " + authenID);
-		loadDummy();
-
+	
+	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+	
+	if (wlid == null || wlid == "") {
+		console.log("wlid :: null? .....if..username null check , and before loadDummy()........ :: "+wlid);
+		loadDummy();		
 	} else {
-		console.log("else....username with go..after dummy " + authenID);
-		console.log("modifycartdetail inside.....");
+		console.log("else....modifycartdetail inside  with go..before dummy " + wlid);		
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
+		
+		WL.Logger.debug("modifycartdetail inside :: "+conid+name+loginid);
+		
 		var updatequantity = null;
 		if(changeselectVal=null){
 
@@ -219,9 +224,8 @@ function modifycartdetail(){
 		
 		updatecartid =$('input[name="cartid"]').val();
 		loadupdatecart(updateitem1, updatequantity, updateunitprc1, updatecartid);
-
 	}
-	
+		
 }
 
 
@@ -257,22 +261,24 @@ WL.Logger.debug("loadupdatecartFailure Retrieve failure");
 
 function detailcartAfterupdate(items){
 	
-	if (authenID == null || authenID == "") {
-		console.log(" username null check , and before loadDummy() " + authenID);
-		loadDummy();
-
+	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+	
+	if (wlid == null || wlid == "") {
+		console.log("wlid :: null? .....if..username null check , and before loadDummy()........ :: "+wlid);
+		loadDummy();		
 	} else {
-		console.log("else....username with go..after dummy " + authenID);
-
-		loadCartlistitems(authenID);
-	}
+		console.log("else....modifycartdetail inside  with go..before dummy " + authenID);		
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
+		
+		WL.Logger.debug("detailcartAfterupdate inside :: "+conid+name+loginid);
+		loadCartlistitems(conid);
 	
-	
-	
-	
+	}	
 	////////////////////////////////////////////////////////////////////////////////////////////
 		
-//		loadCartlistitems(loginid);
+//		loadCartlistitems(conid);
 }
 //	 the end!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //*********************************
@@ -323,18 +329,10 @@ function saveCartlist_fordel(){
 		console.log(test);
 		delCartlistArray.push(test);
 	});
-//	if($("input:checkbox[name='checkbox_cartid']").is(":checked")){
-//		 alert("hello");
-//		 var desc =$('input[name="checkbox_cartid"]').val();
-//		 alert("desc"+desc);
-//	 }
+
 	
 	 len = delCartlistArray.length;
-//	 for ( var int = 0; int < len; int++) {
-//		 console.log("	delCartlistArray[int];"+	delCartlistArray[int]);
-//		 alert("	delCartlistArray[int];"+	delCartlistArray[int]);
-//	}	
-	 
+
 	 loaddelCartlist(delCartlistArray);
 }
 
@@ -380,22 +378,21 @@ function loaddelCartlistFailure(result) {
 
 function displayloaddelCartlist(items) {
 
+	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
 	
-
-	if (authenID == null || authenID == "") {
-		console.log(" username null check , and before loadDummy() " + authenID);
-		loadDummy();
-
+	if (wlid == null || wlid == "") {
+		console.log("wlid :: null? .....if..username null check , and before loadDummy()........ :: "+wlid);
+		loadDummy();		
 	} else {
+		console.log("else....modifycartdetail inside  with go..before dummy " + authenID);		
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
+		
+		WL.Logger.debug("detailcartAfterupdate inside :: "+conid+name+loginid);
+		loadCartlistitems(conid);
 	
-		console.log("else....username with go..after dummy " + authenID);
-
-		loadCartlistitems(authenID);
-
-	}
-	
-	
-	
+	}	
 	/////////////////////////////////////////////////////////////////////
 //	loadCartlistitems(loginid);
 
@@ -423,17 +420,20 @@ function displayloaddelCartlist(items) {
 
 /////////////////////////////////////////////////////////////
 function addCartbtn(){
-
 	
-	if (authenID == null || authenID == "") {
-		console.log(" username null check , and before loadDummy() " + authenID);
-		loadDummy();
 
+	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+	
+	if (wlid == null || wlid == "") {
+		console.log("wlid :: null? .....if..username null check , and before loadDummy()........ :: "+wlid);
+		loadDummy();		
 	} else {
-		console.log("else....username with go..after dummy " + authenID);
+		console.log("else....addCartbtn inside  with go..before dummy " + authenID);		
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
 		
-
-//		alert("hello");	
+		WL.Logger.debug("detailcartAfterupdate inside :: "+conid+name+loginid);
 		var item1 = null;
 		var unitprc1= null;
 		var quantity = null;
@@ -443,11 +443,8 @@ function addCartbtn(){
 		quantity = $( "#amountItem" ).val();
 		
 //		alert("quantity :: "+quantity + "item1 :: "+item1 + "unitprc1 :: " +unitprc1 +"end");
-		addCartitemload(authenID, item1, quantity, unitprc1);
-
+		addCartitemload(conid, item1, quantity, unitprc1);	
 	}
-	
-	
 	
 } 
 

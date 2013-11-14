@@ -67,14 +67,20 @@
 		</loginModule>
 		<loginModule name="LDAPLoginModule">
 			<className>com.worklight.core.auth.ext.LdapLoginModule</className>
+
 			<parameter name="ldapProviderUrl" value="ldap://192.168.0.171" />
 			<parameter name="ldapTimeoutMs" value="2000" />
 			<parameter name="ldapSecurityAuthentication" value="simple" />
 			<parameter name="validationType" value="searchPattern" />
 			<parameter name="ldapSecurityPrincipalPattern"
-				value="cn={username},ou=developers,dc=acmeshop,dc=com" />
-			<parameter name="ldapSearchFilterPattern" value="(&amp;(objectClass=inetOrgPerson))" />
-			<parameter name="ldapSearchBase" value=	"dc=acmeshop,dc=com" />
+				value="cn={username},ou=consumers,dc=acmeshop,dc=com" />
+			<parameter name="ldapSearchFilterPattern"
+				value="(&amp;(objectClass=groupOfUniqueNames)(uniqueMember=cn={username},ou=consumers,dc=acmeshop,dc=com))" />
+			<parameter name="ldapSearchBase" value="dc=acmeshop,dc=com" />
+			<!-- parameter name="ldapSecurityPrincipalPattern" value="cn={username},ou=developers,dc=acmeshop,dc=com" 
+				/> <parameter name="ldapSearchFilterPattern" value="(&amp;(objectClass=inetOrgPerson))" 
+				/ -->
+			<parameter name="ldapSearchBase" value="dc=acmeshop,dc=com" />
 		</loginModule>
 	</loginModules>
 

@@ -10,8 +10,8 @@ var salelistCreated = false; // main list_product empty check
 // var imageurl = "http://127.0.0.1:8080/JqueryFun/images/";
 var imageurl = "http://192.168.0.171/WLShoppingMall/";
 var product_info; // use between product detail and wish detail
-var happyCodeHT;
-var saleCodeHT;
+var userRealmht;
+
 // gp tp btn_gotoproduct start
 $('.btn_gotoproduct').click(function() {
 	loadITEMSList();
@@ -53,12 +53,12 @@ function appendToProductList(items) {
 	});
 	$("#list_product").empty();
 	// Create the listview if not created
-	happyCodeHT = {};
+	
 	for ( var i = 0; i < items.length; i++) {
 		// ///////////////////////////////
-		var happyCode;
-		happyCode = items[i].ITEMCODE;
-		happyCodeHT[i] = happyCode;
+	var itemid = items[i].ITEMCODE;
+	var happitemcode = "'" + itemid +"'";
+		
 		
 		if (!productlistCreated) {
 			
@@ -75,7 +75,7 @@ function appendToProductList(items) {
 		$("#list_product")
 				.append(
 						'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" ><div class="ui-btn-inner ui-li" ><div class="ui-btn-text"><a onclick="gotoDetailPage('
-								+ i+ ')" class="ui-link-inherit finderItemcode"> <img border="0" height="100" src="'
+								+ happitemcode+ ')" class="ui-link-inherit finderItemcode"> <img border="0" height="100" src="'
 								+ imageurl
 								+ items[i].ITEMPIC1
 								+ '" width="100" class="ui-li-thumb"><h3 class="ui-li-heading">'
@@ -96,17 +96,16 @@ function appendToProductList(items) {
 // go to detail page0
 function gotoDetailPage(itemCode) {
 	
-	var happyCode = happyCodeHT[itemCode];	 	
-//	alert("happyCode"+happyCode );
-	console.log("gotoDetailPage(itemCode)"+happyCode );
+	WL.Logger.debug("gotoDetailPage(itemCode)"+itemCode );
 
 	$.mobile.changePage('#pg_detail', {
 		transition : "pop"
 	});
 
+	var happycode = itemCode;
 	WL.Logger
-	.debug("....gotoDetailPage..........try. to...something like that :: happyCode "+happyCode);
-	loadProductDetail(happyCode);
+	.debug("....gotoDetailPage..........try. to...something like that :: happyCode "+happycode);
+	loadProductDetail(happycode);
 
 
 }
@@ -114,19 +113,17 @@ function gotoDetailPage(itemCode) {
 //gotoSalePage
 
 function gotoSalePage(itemCode) {
-	
-	var happyCode = saleCodeHT[itemCode];	 	
-//	alert("happyCode"+happyCode );
-	console.log("gotoDetailPage(itemCode)"+happyCode );
+
+	WL.Logger.debug("gotoDetailPage(itemCode)"+itemCode );
 
 	$.mobile.changePage('#pg_detail', {
 		transition : "pop"
 	});
 
+	var happycode = itemCode;
 	WL.Logger
-	.debug("....gotoDetailPage..........try. to...something like that :: happyCode "+happyCode);
-	loadProductDetail(happyCode);
-
+	.debug("....gotoDetailPage..........try. to...something like that :: happyCode "+happycode);
+	loadProductDetail(happycode);
 
 }
 
@@ -172,8 +169,7 @@ function loadProductDetailSuccess(result) {
 	WL.Logger.debug("loadProductDetail Retrieve success"
 			+ JSON.stringify(result));
 
-	if (result.invocationResult.isSuccessful) {
-		console.log("hahahloadProductDetailFailure");
+	if (result.invocationResult.isSuccessful) {		
 		console.log(result.invocationResult.resultSet);
 		displayProductDetail(result.invocationResult.resultSet);
 
@@ -240,21 +236,25 @@ function displayProductDetail(items) {
 
 $('.btn_goWishlistPage').click(function() {
 	
-//	helloId = WL.Client.getUserInfo("WLShoppersRealm", "userId");
-//	alert("helloId :: "+helloId);
-	console.log("authenID :: "+authenID);	
 	
-	if (authenID == null || authenID == "") {
-		console.log(" username null check , and before loadDummy() " + authenID);
-		sucNum = loadDummy();
+	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+	
+	if (wlid == null || wlid == "") {		
+		WL.Logger.debug(" if..btn_goWishlistPage username null check , and before loadDummy() " + wlid);
+		loadDummy();
 
 	} else {
-		console.log("else....username with go..before dummy " + authenID);
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
+		
+		WL.Logger.debug("btn_goWishlistPage inside :: "+conid+name+loginid);
+		
 		//mqttConnection call
-		mqttConnection(authenID);
+//		mqttConnection(conid);
 
-		loadWishlistitems(authenID);
-		// loadWishlistitems(username);
+		loadWishlistMenuitems(conid);
+	
 	}
 
 	
@@ -290,7 +290,7 @@ function loadDummy() {
 							WL.Logger.debug("onFailure loadDummyFailure");
 						}
 					});
-	return "0";
+	
 }
 // dummy end
 // /////////////////////////////////////////////////////////////////////////////////
@@ -303,26 +303,23 @@ $('.btn_goCartlistPage').click(function() {
 //	loadCartlistitems(loginid);
 //	
 	
-
-	if (authenID == null || authenID == "") {
-		console.log(" username null check , and before loadDummy() " + authenID);
-		loadDummy();
+	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+	
+	if (wlid == null || wlid == "") {
+		console.log("wlid :: null? .....if..username null check , and before loadDummy()........ :: "+wlid);		
+		loadDummy();	
+		
 
 	} else {
-		console.log("else....username with go..before dummy " + authenID);
-		//mqttConnection call
-		if (!mqttConnection(authenID) == true) {
-			console.log("mqtt true ");
+		console.log("else....username with go..before dummy " + authenID);		
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
+		
+		WL.Logger.debug("btn_loginformPag :: "+conid+name+loginid);
+		loadCartlistitems(conid);
 
-		} else {
-			console.log("mqtt false");
-		}
-
-		loadCartlistitems(authenID);
-		// loadWishlistitems(username);
 	}
-
-
 });
 
 // //////////////////////////////////////////////////////////////////////////////////////////////
@@ -370,9 +367,8 @@ function appendToSaleList(items) {
 	// Create the listview if not created
 	for ( var i = 0; i < items.length; i++) {
 		// ///////////////////////////////
-		var happyCode;
-		happyCode = items[i].ITEMCODE;
-		saleCodeHT[i] = happyCode;
+		var itemid = items[i].ITEMCODE;
+		var happitemcode = "'" + itemid +"'";
 		
 		if (!salelistCreated) {
 			$(".content-primary_sale")
@@ -388,7 +384,7 @@ function appendToSaleList(items) {
 		$("#list_sale")
 			.append(
 						'<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-hover-c ui-btn-up-c" ><div class="ui-btn-inner ui-li" ><div class="ui-btn-text"><a onclick="gotoSalePage('
-								+ i+ ')" class="ui-link-inherit finderItemcode"> <img border="0" height="100" src="'
+								+ happitemcode+ ')" class="ui-link-inherit finderItemcode"> <img border="0" height="100" src="'
 								+ imageurl
 								+ items[i].ITEMPIC1
 								+ '" width="100" class="ui-li-thumb"><h3 class="ui-li-heading">'
@@ -468,18 +464,19 @@ function eraseCookie(c_name) {
 //gotoLogin
 
 $('.btn_loginformPag').click(function() {
-
-	console.log("authenID :: "+authenID);	
 	
-	if (authenID == null || authenID == "") {
-		console.log(" username null check , and before loadDummy() " + authenID);
-		loadDummy();
-		alert("로그인 되었습니다.");
-
+	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+		
+	if (wlid == null || wlid == "") {
+		console.log("wlid :: null? .....if..username null check , and before loadDummy()........ :: "+wlid);
+		loadDummy();		
 	} else {
-		console.log("else....username with go..before dummy " + authenID);
+		console.log("else....username with go..before dummy " + authenID);		
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
 		
-		
+		WL.Logger.debug("btn_loginformPag :: "+conid+name+loginid);
 	}
 	
 	

@@ -25,15 +25,15 @@
 			<h1>WL shopping</h1>
 		</div>
 
-		<div data-role="content" id="main_layout">
+		<div data-role="content" id="pg_home_content">
 
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
 					<div data-role="controlgroup"
 						class="ui-btn-active ui-state-persist">
 						<a data-role="button" data-theme="b" style="height: 200px"
-							class="btn_gotoproduct">쇼핑하기</a> <a class="btn_loginformPag"
-							data-role="button" data-theme="a" style="height: 200px">로그인</a>
+							class="btn_gotoproduct">쇼핑하기</a> <span id="nowconnection"><a class="btn_loginformPag"
+							data-role="button" data-theme="a" style="height: 200px" >로그인</a></span>
 					</div>
 				</div>
 				<div class="ui-block-b">
@@ -96,7 +96,7 @@
 
 		<!-- header end -->
 
-		<div data-role="content" id="shopping_layout">
+		<div data-role="content" id="pg_shopping_content">
 
 			<!-- listview thumnail -->
 			<div class="content-primary_product"></div>
@@ -146,7 +146,7 @@
 		</div>
 
 		<!-- header end -->
-		<div data-role="content">
+		<div data-role="content" id="pg_salelist_content">
 
 			<!-- listview thumnail -->
 			<div class="content-primary_sale"></div>
@@ -177,7 +177,7 @@
 		</div>
 
 		<!-- header end -->
-		<div data-role="content">
+		<div data-role="content" id="pg_detail_content">
 			<div id="display_product"></div>
 			<div id="addcartform"></div>
 			<!-- checkbox for quantity start -->
@@ -202,9 +202,19 @@
 					data-theme="b" data-inline="true" data-mini="true">구매</a-->
 				<a class="orderBtn" onclick="buyItembtn()" data-role="button"
 					data-theme="b" data-inline="true" data-mini="true">구매</a> <a
-					class="btn_addWishlist" data-role="button" data-icon="star"
+					class="btn_addMultiWishlist" data-role="button" data-icon="star"
 					data-inline="true" data-mini="true">Wishlist</a>
 			</div>
+		</div>
+		<!--  content end -->
+		<div data-role="popup" id="popupwishMenu">
+		<!-- 
+		    <ul data-role="listview" data-inset="true" >
+		            <li data-role="divider" data-theme="a">Edit Element</li>
+		            <li><a href="#">Edit</a></li>
+		             <li><a href="#">hello</a></li>
+		    </ul>
+		     -->
 		</div>
 		<!--  start footer -->
 		<div data-role="footer" data-position="fixed" data-id="foot1"
@@ -234,15 +244,20 @@
 		</div>
 
 		<!-- header end -->
-		<div data-role="content">
-			<div id="wishform"></div>
+		<div data-role="content" id="wishdetailPage_content">
+			
 
 			<div id="display_wishDetail"></div>
-
+			<br/>
+			
 			<div id="addforwish">
+			
 				<a class="btn_result_insertwishdetail"
-					href="javascript:insertwishdetail();" data-role="button"
-					data-theme="e" data-icon="del">저장</a>
+					id="modifybyselectedWL"  data-role="button"
+					data-theme="b">수정</a>
+				<a class="btn_result_insertwishdetail"
+					id="deletebyselectedWL" data-role="button"
+					data-theme="e" data-icon="del">삭제</a>
 			</div>
 
 		</div>
@@ -270,27 +285,20 @@
 		</div>
 
 		<!-- header end -->
-		<div data-role="content">
-			<div id="wishmodificationform"></div>
-
-			<div id="display_wishModDetail"></div>
-			<div id="wishmodform"></div>
-			<!--	<div id="modforwish"></div>
-			<div id="addforwish"></div>
-			-->
-
-
+		<div data-role="content" id="wishmodificationPage_content">
+			<div id="wishform"></div>
+			<div id="display_wishModDetail"></div>		
 
 			<div id="modifybutton_set">
 				<div data-role="controlgroup" data-type="horizontal">
-					<a class="btn_result_modifywishdetail" data-role="button"
-						data-icon="del" data-theme="e" onclick="modifywishdetail();"
-						data-inline="true" data-mini="true">수정</a> <a
-						class="result_updatewishdetail" data-role="button"
-						onclick="updatewishdetail();" data-inline="true" data-mini="true">저장</a>
-					<a class="orderBtn" onclick="buyItembtnwithwish()"
+					
+							<input onclick="updatewishdetail();" 
+					data-icon="check" type="button" value="저장" /> <a  href="#"
+					 data-rel="back" data-theme="b" data-role="button">취소</a>
+						
+					<!-- a class="orderBtn" onclick="buyItembtnwithwish()"
 						data-role="button" data-theme="b" data-inline="true"
-						data-mini="true">구매</a>
+						data-mini="true">구매</a-->
 				</div>
 			</div>
 
@@ -337,8 +345,8 @@
 		</div>
 
 		<!-- header end -->
-		<div data-role="content" style="padding: 0px">
-			<h3 name="wishlist_title" id="wishlist_title" value="">위시 리스트</h3>
+		<div data-role="content" style="padding: 0px" id="wishlistPage_content">
+			<div id="wishlist_title"></div>
 
 			<!-- listview thumnail -->
 			<div class="content-primary_one"></div>
@@ -411,6 +419,141 @@
 	</div>
 	<!--  end page -->
 
+
+
+
+<div data-role="page" id="addwishlistPage">
+
+		<div data-role="header" data-position="fixed" id="header">
+			<h1>WL shopping</h1>
+		</div>
+
+		<!-- header end -->
+		<div data-role="content" id="addwishlistPage">
+			<div id="addwishform"></div>
+			<div id="display_wishaddDetail"></div>		
+
+			<div id="addbutton_set">
+				<div data-role="controlgroup" data-type="horizontal">
+					
+							<input onclick="addwishlist();" 
+					data-icon="check" type="button" value="저장" /> <a  href="#"
+					 data-rel="back" data-theme="b" data-role="button">취소</a>				
+				</div>
+			</div>
+
+		</div>
+		<!--  start footer -->
+		<div data-role="footer" data-position="fixed" data-id="foot1"
+			class="ui-btn-active ui-state-persist">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a class="btn_goCartlistPage" data-iconpos="top"
+						data-icon="arrow-d">Cart</a></li>
+					<li><a href="#" data-rel="back" data-iconpos="top"
+						data-icon="back">back</a></li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+		</div>
+		<!--  end footer -->
+	</div>
+	<!-- close page -->
+
+
+
+
+
+<div data-role="page" id="multiwishlistPage">
+		<!-- panel div -->
+		<div id="left-panel" data-role="panel" id="panel" data-position="left"
+			data-theme="c" data-display="push">
+			<ul data-role="listview" data-theme="d">
+				<li style="height: 90px" data-icon="false"><a href="#"
+					data-rel="close"></a></li>
+				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
+				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_logout">로그아웃</a></li>
+			</ul>
+
+		</div>
+		<!-- panel div end -->
+
+		<div data-role="header" id="multiwishlistheader">
+			<h1 id="mqttTextBanner">WL shopping</h1>
+			<a data-iconpos="notext" href="#panel" data-role="button"
+				data-icon="star"></a>
+		</div>
+
+		<!-- header end -->
+		<div data-role="content" style="padding: 0px" id="multiwishlistPage_content">
+		
+
+			<!-- listview thumnail -->
+			<div class="content-primary_multi"></div>
+
+
+			<!--  listview end -->
+
+			<!-- wishlist generated part start       -->
+			<div data-role="controlgroup" data-type="horizontal"
+				style="width: 100%; text-align: center;">
+				<a data-role="button" data-theme="e" 
+					onclick="addnewWishlist()" data-inline="true">위시리스트 만들기</a>
+				<!-- 	<a  data-role="button"  data-rel="back" class="btn_saveWishlist_cancel" >취소</a>  -->
+				<a class="btn_gotoproduct" data-role="button">쇼핑하기</a>
+			</div>
+			<!-- wishlist generated part end            -->
+
+		
+		</div>
+		<!--  end content -->
+		<!--  start footer -->
+		<div data-role="footer" data-position="fixed" data-id="foot1"
+			class="ui-btn-active ui-state-persist">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a class="btn_goCartlistPage" data-iconpos="top"
+						data-icon="arrow-d">Cart</a></li>
+					<li><a href="#" data-rel="back" data-iconpos="top"
+						data-icon="back">back</a></li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+		</div>
+		<!--  end footer -->
+	</div>
+	<!--  end page -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<div data-role="page" id="cartmodificationPage">
 
 		<div data-role="header" data-position="fixed" id="header">
@@ -418,7 +561,7 @@
 		</div>
 
 		<!-- header end -->
-		<div data-role="content">
+		<div data-role="content" id="cartmodificationPage_content">
 
 			<div id="cartmodificationform"></div>
 
@@ -498,7 +641,7 @@
 		</div>
 
 		<!-- header end -->
-		<div data-role="content" style="padding: 0px">
+		<div data-role="content" style="padding: 0px" id="cartlistPage_content">
 			<h3>장바구니</h3>
 
 			<!-- listview thumnail -->
@@ -588,7 +731,7 @@
 		</div>
 
 		<!-- header end -->
-		<div data-role="content" style="padding-top: 60px" data-scroll="true">
+		<div data-role="content" style="padding-top: 60px" data-scroll="true" id="loginformPage_content">
 
 			
 			</div>
@@ -635,7 +778,8 @@
 			</div>
 
 			<!-- header end -->
-			<div data-role="content">
+			<div data-role="content" id="registerPage_content">
+			
 				<form id="form" action="">
 					<label for="register_email">이름</label> <input type="text"
 						name="register_email" id="register_email"> <label
@@ -688,7 +832,8 @@
 					data-icon="star"></a>
 			</div>
 			<!-- header end -->
-			<div data-role="content" style="padding-top: 0px" data-scroll="true">
+			<div data-role="content" style="padding-top: 0px" data-scroll="true" id="doOrderPage_content">
+			
 			<div id="order_primary"></div>
 				<div id="orderUser"></div>
 				
@@ -754,7 +899,7 @@
 			</div>
 
 			<!-- header end -->
-			<div data-role="content" style="padding-top: 0px" data-scroll="true">
+			<div data-role="content" style="padding-top: 0px" data-scroll="true" id="orderResultPage_content">
 
 
 				<div id="orderReturnUser">my order</div>
@@ -826,7 +971,7 @@
 
 			<!-- header end -->
 
-			<div data-role="content">
+			<div data-role="content" id="orderlistPage_content">
 				<h3>구매 리스트</h3>
 				<!-- listview thumnail -->
 				<div id="content-orderlist"></div>
@@ -856,14 +1001,15 @@
 		<script src="js/initOptions.js"></script>
 		<script src="js/WLShoppingMall.js"></script>
 		<script src="js/messages.js"></script>
-		<script src="js/main_menu.js"></script>
-		<script src="js/wishlist_detail.js"></script>
+		<script src="js/main_menu.js"></script>		
+		<script src="js/wishlist_multi.js"></script>
+		<script src="js/wishlist_menu.js"></script>
 		<script src="js/cart_detail.js"></script>
 		<script src="js/order_detail.js"></script>
 		<script src="js/banner_mqtt.js"></script>
-		<script src="js/mqttws31.js"></script>
-		<script src="js/WLShoppersChallengeHandler.js"></script>
+		<script src="js/mqttws31.js"></script>	
 		<script src="js/current_geolocation.js"></script>
+		<script src="js/login_challengehandler.js"></script>
 		<script type="text/javascript" src="js/mqttCordovaAndroidClient.js"></script>
 		
 		

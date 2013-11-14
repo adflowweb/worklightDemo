@@ -12,7 +12,7 @@
 		<connectionPolicy xsi:type="sql:SQLConnectionPolicy">
 			<dataSourceDefinition>
 				<driverClass>com.mysql.jdbc.Driver</driverClass>
-				<url>jdbc:mysql://192.168.0.170:3306/WLDEMO</url>
+				<url>jdbc:mysql://192.168.0.171:3306/WLDEMO</url>
 				<user>worklight</user>
 				<password>passw0rd</password>
 			</dataSourceDefinition>
@@ -26,10 +26,27 @@
 	</procedure>
 	<!-- for wishlist -->
 	<procedure securityTest="WLShoppersSecurityTest" name="addWishList" />
-	<procedure securityTest="WLShoppersSecurityTest" name="getWishList" />
 	<procedure securityTest="WLShoppersSecurityTest" name="getWishDetail" />
 	<procedure securityTest="WLShoppersSecurityTest" name="updateWish" />
 	<procedure securityTest="WLShoppersSecurityTest" name="deleteWish" />
+	
+	<!-- for multi wishlist -->
+	<procedure securityTest="WLShoppersSecurityTest" name="updateWLbyselected" />
+	<procedure securityTest="WLShoppersSecurityTest" name="getItemsInfobyWL" />
+	<procedure securityTest="WLShoppersSecurityTest" name="getWLManageList" />
+	<procedure securityTest="WLShoppersSecurityTest" name="getMultiWishList" />
+	<procedure securityTest="WLShoppersSecurityTest" name="getWListByselected" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateSelectedWL1" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateSelectedWL2" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateSelectedWL3" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateSelectedWL4" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateSelectedWL5" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateSelectedWL6" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateSelectedWL7" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateSelectedWL8" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateSelectedWL9" />
+	<procedure securityTest="WLShoppersSecurityTest" name="updateSelectedWL10" />
+	
 	<!-- for cartlist -->
 	<procedure securityTest="WLShoppersSecurityTest" name="getCartList" />
 	<procedure securityTest="WLShoppersSecurityTest" name="getCartDetail" />
@@ -41,4 +58,6 @@
 	<!--  for tranhist -->
 	<procedure securityTest="WLShoppersSecurityTest" name="addTranHist" />
 	<procedure securityTest="WLShoppersSecurityTest" name="getTranHist" />
+		<!-- for login -->
+	<procedure name="getUser" />
 </wl:adapter>
