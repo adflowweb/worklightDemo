@@ -18,9 +18,10 @@ function mqttConnection(wlid) {
 		var mqttResult = false;
 		// Make connection to the server.
 		WL.Logger.info("mqttConnection      method...inside....................");
-		WL.Logger.info("new client first");		
-		client = new Messaging.Client("192.168.0.171", 1883, conid);
 		
+		client = new Messaging.Client("192.168.0.171", 1883, conid);
+		WL.Logger.debug("mqttConnection client" + client);
+	
 	//	WL.Logger.info("new client first");
 	//	mqttId = id;
 	//	WL.Logger.info("id   ::  " + id);
@@ -28,7 +29,8 @@ function mqttConnection(wlid) {
 		// when a message arrives for this client and when the connection is lost.
 		client.onConnectionLost = onConnectionLost;
 		client.onMessageArrived = onMessageArrived;
-		autoGeolocation  = setInterval(getGeolocation, 30000);
+        autoGeolocation  = setInterval(getGeolocation, 10000);
+        
 		client.connect({
 			onSuccess : onConnect
 		});
@@ -178,19 +180,21 @@ function displayBanner(items) {
 		var adText = bannerHT["adText"] ;	
 		var adTarget = bannerHT["adTarget"];		
 	
-		$('#wishlistheader').empty();
+		$('#multiwishlistheader').empty();
 		var ITEMCODE = null;
 		var ITEMPIC1 = null;
 		
 		ITEMCODE = items[0].ITEMCODE;
 		ITEMPIC1 = items[0].ITEMPIC1;		
-	
-		$('#wishlistheader').attr('onclick', 'javascript:gotoAdsProduct();');
-		$('#wishlistheader').append('<div id="bannerUser"><h3>'+ adTarget +'님이 좋아하실 상품</h3></div>');
-		$('#wishlistheader').append('<div id="bannerAdvertisefor" class="ui-grid-d"><div style="float:left;width:120px;" class="ui-block-a"><p id="orderReturninfo_left"><a class="goAdsProduct"><img width="100" height="100" class="img_order" src="'+ imageurl+ ITEMPIC1+'"></p></div><div style="width:50%" class="ui-block-b"><div id="banner_right_col"><br/><p id="bannerinfo">'+headLineText+'<br><h7 id="banneradtxt">'+adText+'</h7></p></div></div></div>');
-		$("#wishlistheader").trigger("create");
+	    WL.Logger.error("$('#multiwishlistheader').empty(); after " + ITEMCODE+  ITEMPIC1);
+		$('#multiwishlistheader').attr('onclick', 'javascript:gotoAdsProduct();');
+		$('#multiwishlistheader').append('<div id="bannerUser"><h3>'+ adTarget +'님이 좋아하실 상품</h3></div>');
+		$('#multiwishlistheader').append('<div id="bannerAdvertisefor" class="ui-grid-d"><div style="float:left;width:120px;" class="ui-block-a"><p id="orderReturninfo_left"><a class="goAdsProduct"><img width="100" height="100" class="img_order" src="'+ imageurl+ ITEMPIC1+'"></p></div><div style="width:50%" class="ui-block-b"><div id="banner_right_col"><br/><p id="bannerinfo">'+headLineText+'<br><h7 id="banneradtxt">'+adText+'</h7></p></div></div></div>');
+		$("#multiwishlistheader").trigger("create");
 	
 }
+//{"dirMMsg":{"hotDealType":"off","headLineText":"파격 할인 소식","adText":"바이크 투어링을 위한 노스페이스 콤포트 텐트 50% 할인 특가!","adDetails":"2013년 12월 31일까지 노스페이스 텐트 이월 전품목에 대해 50% 할인 특가를 실시합니다. 매장 한정 이벤트이며 재고 소진 시까지 진행합니다.","adLoc":{"longitude":127.056023,"latitude":37.491732},"adItem":"0000000031","adTarget":"한지름"}}
+
 
 function gotoAdsProduct(){
 //	alert("livedasdf");

@@ -3,7 +3,7 @@
  */
 
 var checkPopup = false;
-
+var authenID;
 
 var WLShoppersChallengeHandler = WL.Client
 		.createChallengeHandler("WLShoppersRealm");
@@ -49,7 +49,7 @@ function authenticationLogin(){
 
 		
 			// ////////////////////////////////////////////////////////////////////////////
-			
+			authenID = $('input[name="WL_username"]').val();
 			var WL_password = $('input[name="WL_password"]').val();
 
 			var reqURL = '/j_security_check';
@@ -94,12 +94,14 @@ WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
 		 $('#'+pageId).find('#frm_LoginPopup').remove();
 
 	} else {
-		var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
-		var userId = wlid;
-		 loadUserId(wlid);
+		
+		
+		var userId = authenID;
+		loadUserId(userId);
 		$('#frm_LoginPopup').popup('close');
-
+	
 		WLShoppersChallengeHandler.submitSuccess();
+		var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");		
 		
 		var isConnectionbtn = '<a onclick="logout()" style="height: 200px" data-theme="a" data-role="button" class="btn_logout ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그아웃</span></span></a>';
 		$('#nowconnection').html(isConnectionbtn);
@@ -184,22 +186,28 @@ function loadUserIdFailure(result) {
 //////////////////////////////////////////////////////////
 
 function displayUserIdload(items) {
-	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
-	 WL.Logger.debug("wlid :: "+wlid);
-	 WL.Logger.debug("displayUserIdload(items)");
+	
+	 WL.Logger.error("displayUserIdload(items)..entry point");
+	 WL.Logger.error("displayUserIdload(items)..entry point" + items[0]);
+	 var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+	 WL.Logger.error("displayUserIdload wlid :: "+wlid);
 	var conidwithdb = items[0].conid;
 	var cnamewithdb = items[0].cname;
 	
 	
-	//////////////////////////////////////////////////////
-	mqttConnection(conidwithdb);
-	/////////////////////////////////////////////////////
+	
 
 	userRealmht = {};
 	userRealmht["conid"] = conidwithdb;
+	 WL.Logger.error('displayUserIdload userRealmht[conid] :: '+userRealmht["conid"]);
+
 	userRealmht["name"] = cnamewithdb;
+	 WL.Logger.error('displayUserIdload  hana userRealmht["name"] :: '+userRealmht["name"]);
 	userRealmht["loginid"] = wlid;
-	
+	 WL.Logger.error('displayUserIdload duuulll userRealmht["loginid"] :: '+userRealmht["loginid"]);
+//////////////////////////////////////////////////////
+	mqttConnection(conidwithdb);
+		/////////////////////////////////////////////////////
 }
 
 //end function displayUserIdload() 

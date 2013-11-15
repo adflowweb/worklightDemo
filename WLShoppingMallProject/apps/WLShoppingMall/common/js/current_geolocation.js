@@ -9,7 +9,18 @@
 
 // Cordova is ready
 //
-//var autoGeolocation  = setInterval(getGeolocation, 1000);
+//var autoGeolocation;
+
+    // Cordova is ready
+    //
+
+//function onDeviceReady() {
+//    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+//    autoGeolocation  = setInterval(getGeolocation, 30000);   
+//    autoGeolocation  = setInterval(getGeolocation, 10000);
+//}
+
+//var autoGeolocation  = setInterval(getGeolocation, 30000);
 var i=0;
 
 //$('.btn_getGeolocation').click(function( ) {  
@@ -22,20 +33,26 @@ $('.btn_clearGeolocation').click(function( ) {
 	
 });
 
-function getGeolocation(client){
-	WL.Logger.error("getGeolocation");
-	$("#destination_i").append(i++);
-			
+//function getGeolocation(client){
+function getGeolocation(){
+	WL.Logger.debug("getGeolocation entry point");
+//	$("#destination_i").append(i++);
+	
 	navigator.geolocation.getCurrentPosition(onSuccess, onError);
+	WL.Logger.debug("navigator.geolocation.getCurrentPosition after .........");		
+	WL.Logger.debug("getGeolocation client" + client);
+	
 }
 // onSuccess Geolocation
 //
-function onSuccess(position) {
+function onSuccess(position) {	
+	WL.Logger.debug("nonSuccessCallback after .........");		
+
 	
-	var element = document.getElementById('geolocation');
-	element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />'
-			+ 'Longitude: ' + position.coords.longitude + '<br />';
-	WL.Logger.error("onSuccess ");
+//	$("#geolocation").append('Latitude: ' + position.coords.latitude + '<br />'
+//			+ 'Longitude: ' + position.coords.longitude + '<br />');
+	WL.Logger.error("onSuccess entry point......Latitude: "+ position.coords.latitude	+ "    Longitude: "  + position.coords.longitude);
+	WL.Logger.debug("onSuccess inside i count (i++) : "+ i++);
 	sendMqtt(position.coords.latitude, position.coords.longitude );
 			
 }
@@ -43,58 +60,52 @@ function onSuccess(position) {
 // onError Callback receives a PositionError object
 //
 function onError(error) {
-	WL.Logger.error('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+	WL.Logger.debug("onErrorCallback after .........");		
+	WL.Logger.debug('onError code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+//	$("#geolocation").append('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+	
 }
-
 
 function sendMqtt(latitude, longitude) {
 	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
 	
-	if (wlid == null || wlid == "") {
-		console.log("wlid :: null? .....if..username null check , and before loadDummy()........ :: "+wlid);		
-		loadDummy();	
-		
+	WL.Logger.error("sendMqtt(latitude, longitude) entry point ...................  " + wlid);		
+	var conid = userRealmht["conid"];
+	WL.Logger.error("sendMqtt(latitude, longitude) entry point  conid ...................  " + conid );		
+	var name = userRealmht["name"];
+	var loginid = userRealmht["loginid"];	
+	WL.Logger.error("btn_loginformPag :: "+conid+name+loginid);
 
-	} else {
-		console.log("else....username with go..before dummy " + wlid);		
-		var conid = userRealmht["conid"];
-		var name = userRealmht["name"];
-		var loginid = userRealmht["loginid"];
-		
-		WL.Logger.debug("btn_loginformPag :: "+conid+name+loginid);
+	var sendlatitude = latitude;
+	var sendlongitude = longitude;
+	/////////////////////////////////////////////////////////////////////////
+//	make json data
+	var t = new Date();
+	var _Year = 1900 + t.getYear() ;
+	var _Month = 1 + t.getMonth();
+ 	
+ 	var locTStamp = "" + _Year + _Month + t.getDate() + t.getHours() + t.getMinutes()+ t.getSeconds();
+ 	
+	var sendJson = '{"mobConLocation": {"userId": "'+conid+'","curCoord": {"lat":'+sendlatitude+', "long":'+sendlongitude+'},"locTStamp":"'+locTStamp+'"}}';
+	WL.Logger.error("sendMqtt json format  sendJson :: "+sendJson);
+    WL.Logger.error("geoLocationTopicName   hellllllllllllllllllllllo   ::");
+    WL.Logger.error("hahahahahahah   hellllllllllllllllllllllo   ::");
+	 var geoLocationTopicName = "dirMarketing/tracking/coord/"+conid;
+     WL.Logger.error("geoLocationTopicName      ::"+geoLocationTopicName);
+     WL.Logger.error("geoLocationTopicName   hellllllllllllllllllllllo   ::");
+
+    try {
+       
+         message = new Messaging.Message(sendJson);
+         message.destinationName = geoLocationTopicName;       
+         client.send(message);   
+         WL.Logger.error("sendMqtt send suc!!!!!!!!!!!!!!!!!!:: ");
+        
+         
+    	} catch (error) {
+    		WL.Logger.error("send mqtt failed ..."+error.message);
+    	} 
 	
 	
-	
-	
-	//	var username = getCookie("username");
-		console.log("conid  :: "+conid);
-		var latitude = latitude;
-		var longitude = longitude;
-		/////////////////////////////////////////////////////////////////////////
-	//	make json data
-		var t = new Date();
-		var _Year = 1900 + t.getYear() ;
-		var _Month = 1 + t.getMonth();
-	 	
-	 	var locTStamp = "" + _Year + _Month + t.getDate() + t.getHours() + t.getMinutes()+ t.getSeconds();
-	 	
-		var sendJson = '{"mobConLocation": {"userId": "'+loginid+'","curCoord": {"lat":'+latitude+', "long":'+longitude+'},"locTStamp":"'+locTStamp+'"}}';
-	    WL.Logger.error("senJson :: "+sendJson);
-		
-	
-	    try {
-	        var geoLocationTopicName = "dirMarketing/tracking/coord/"+conid;
-	        console.log("geoLocationTopicName::"+geoLocationTopicName);
-	         message = new Messaging.Message(sendJson);
-	         message.destinationName = geoLocationTopicName;
-	         WL.Logger.error("sendMqtt send suc!!!!!!!!!!!!!!!!!!:: ");
-	         client.send(message);     
-	        
-	         
-	    	} catch (error) {
-	    	alert(error.message);
-	    	} 
-	
-	}   //////////////////// else end	
 }
 
