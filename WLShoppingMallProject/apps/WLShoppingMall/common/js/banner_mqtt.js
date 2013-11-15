@@ -2,42 +2,52 @@
  * mqtt connection and push banner
  */
 
-mqttId = null;
+
 var bannerHT;
 var client;
-function mqttConnection(id) {
+var autoGeolocation;
+function mqttConnection(wlid) {
 	//////////////////////////////////////////////////////////
 	
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
+		
+		WL.Logger.debug("btn_loginformPag :: "+conid+name+loginid);
 	
+		var mqttResult = false;
+		// Make connection to the server.
+		WL.Logger.info("mqttConnection      method...inside....................");
+		WL.Logger.info("new client first");		
+		client = new Messaging.Client("192.168.0.171", 1883, conid);
+		
+	//	WL.Logger.info("new client first");
+	//	mqttId = id;
+	//	WL.Logger.info("id   ::  " + id);
+		// Set up a callBacks used when the connection is completed,
+		// when a message arrives for this client and when the connection is lost.
+		client.onConnectionLost = onConnectionLost;
+		client.onMessageArrived = onMessageArrived;
+		autoGeolocation  = setInterval(getGeolocation, 30000);
+		client.connect({
+			onSuccess : onConnect
+		});
 	
-	var mqttResult = false;
-	// Make connection to the server.
-	WL.Logger.info("mqttConnection      method...inside....................");
-	WL.Logger.info("new client first");
-	mqttId = id;
-	WL.Logger.info("id   ::  " + id);
-	client = new Messaging.Client("192.168.0.171", 1883, id);
-	
-//	WL.Logger.info("new client first");
-//	mqttId = id;
-//	WL.Logger.info("id   ::  " + id);
-	// Set up a callBacks used when the connection is completed,
-	// when a message arrives for this client and when the connection is lost.
-	client.onConnectionLost = onConnectionLost;
-	client.onMessageArrived = onMessageArrived;
-	var autoGeolocation  = setInterval(getGeolocation, 30000);
-	client.connect({
-		onSuccess : onConnect
-	});
 
 }
 function onConnect() {
 	// Once a connection has been made, make a subscription and send a
 	// message.
-	mqttResult = true;
-	console.log("onConnect");
-	WL.Logger.info("onConnect method inside ...............");
-	bannerSubscribe(mqttId);
+			
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
+		
+		WL.Logger.debug("btn_loginformPag :: "+conid+name+loginid);
+		console.log("onConnect");
+		WL.Logger.info("onConnect method inside ...............");
+		bannerSubscribe(conid);
+	
 
 }
 
@@ -51,8 +61,8 @@ function onConnectionLost(responseObject) {
 
 
 
-function bannerSubscribe(id) {
-	var clientId = id;
+function bannerSubscribe(conid) {
+	var clientId = conid;
 	WL.Logger.info("clientId  banner.....inside subscribe:: " + clientId);
 	
 
@@ -158,24 +168,28 @@ function loadBannerDetaillFailure(result) {
 
 function displayBanner(items) {
 		
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
+		
+		WL.Logger.debug("btn_loginformPag :: "+conid+name+loginid);
+		var headLineText = bannerHT["headLineText"];
+		var adItem = bannerHT["adItem"];	
+		var adText = bannerHT["adText"] ;	
+		var adTarget = bannerHT["adTarget"];		
 	
-	var headLineText = bannerHT["headLineText"];
-	var adItem = bannerHT["adItem"];	
-	var adText = bannerHT["adText"] ;	
-	var adTarget = bannerHT["adTarget"];		
-
-	$('#wishlistheader').empty();
-	var ITEMCODE = null;
-	var ITEMPIC1 = null;
+		$('#wishlistheader').empty();
+		var ITEMCODE = null;
+		var ITEMPIC1 = null;
+		
+		ITEMCODE = items[0].ITEMCODE;
+		ITEMPIC1 = items[0].ITEMPIC1;		
 	
-	ITEMCODE = items[0].ITEMCODE;
-	ITEMPIC1 = items[0].ITEMPIC1;		
-
-	$('#wishlistheader').attr('onclick', 'javascript:gotoAdsProduct();');
-	$('#wishlistheader').append('<div id="bannerUser"><h3>'+ adTarget +'님이 좋아하실 상품</h3></div>');
-	$('#wishlistheader').append('<div id="bannerAdvertisefor" class="ui-grid-d"><div style="float:left;width:120px;" class="ui-block-a"><p id="orderReturninfo_left"><a class="goAdsProduct"><img width="100" height="100" class="img_order" src="'+ imageurl+ ITEMPIC1+'"></p></div><div style="width:50%" class="ui-block-b"><div id="banner_right_col"><br/><p id="bannerinfo">'+headLineText+'<br><h7 id="banneradtxt">'+adText+'</h7></p></div></div></div>');
-	$("#wishlistheader").trigger("create");
-
+		$('#wishlistheader').attr('onclick', 'javascript:gotoAdsProduct();');
+		$('#wishlistheader').append('<div id="bannerUser"><h3>'+ adTarget +'님이 좋아하실 상품</h3></div>');
+		$('#wishlistheader').append('<div id="bannerAdvertisefor" class="ui-grid-d"><div style="float:left;width:120px;" class="ui-block-a"><p id="orderReturninfo_left"><a class="goAdsProduct"><img width="100" height="100" class="img_order" src="'+ imageurl+ ITEMPIC1+'"></p></div><div style="width:50%" class="ui-block-b"><div id="banner_right_col"><br/><p id="bannerinfo">'+headLineText+'<br><h7 id="banneradtxt">'+adText+'</h7></p></div></div></div>');
+		$("#wishlistheader").trigger("create");
+	
 }
 
 function gotoAdsProduct(){

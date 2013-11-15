@@ -311,7 +311,7 @@ $('.btn_goCartlistPage').click(function() {
 		
 
 	} else {
-		console.log("else....username with go..before dummy " + authenID);		
+		console.log("else....username with go..before dummy " + wlid);		
 		var conid = userRealmht["conid"];
 		var name = userRealmht["name"];
 		var loginid = userRealmht["loginid"];

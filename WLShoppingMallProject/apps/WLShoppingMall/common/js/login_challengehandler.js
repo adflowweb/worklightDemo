@@ -100,6 +100,7 @@ WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
 		$('#frm_LoginPopup').popup('close');
 
 		WLShoppersChallengeHandler.submitSuccess();
+		
 		var isConnectionbtn = '<a onclick="logout()" style="height: 200px" data-theme="a" data-role="button" class="btn_logout ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그아웃</span></span></a>';
 		$('#nowconnection').html(isConnectionbtn);
 		
@@ -188,13 +189,16 @@ function displayUserIdload(items) {
 	 WL.Logger.debug("displayUserIdload(items)");
 	var conidwithdb = items[0].conid;
 	var cnamewithdb = items[0].cname;
-
+	
+	
+	//////////////////////////////////////////////////////
+	mqttConnection(conidwithdb);
+	/////////////////////////////////////////////////////
 
 	userRealmht = {};
 	userRealmht["conid"] = conidwithdb;
 	userRealmht["name"] = cnamewithdb;
 	userRealmht["loginid"] = wlid;
-	
 	
 }
 

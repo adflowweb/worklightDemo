@@ -48,42 +48,52 @@ function onError(error) {
 
 
 function sendMqtt(latitude, longitude) {
-	if (authenID == null || authenID == "") {
-		console.log(" username null check , and before loadDummy() " + authenID);
-		loadDummy();
-
-	} 
-	else {
-		console.log("else....username with go..before dummy " + authenID);
-		
-//	var username = getCookie("username");
-	console.log("authenID  :: "+authenID);
-	var latitude = latitude;
-	var longitude = longitude;
-	/////////////////////////////////////////////////////////////////////////
-//	make json data
-	var t = new Date();
-	var _Year = 1900 + t.getYear() ;
-	var _Month = 1 + t.getMonth();
- 	
- 	var locTStamp = "" + _Year + _Month + t.getDate() + t.getHours() + t.getMinutes()+ t.getSeconds();
- 	
-	var sendJson = '{"mobConLocation": {"userId": "'+authenID+'","curCoord": {"lat":'+latitude+', "long":'+longitude+'},"locTStamp":"'+locTStamp+'"}}';
-    WL.Logger.error("senJson :: "+sendJson);
+	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
 	
+	if (wlid == null || wlid == "") {
+		console.log("wlid :: null? .....if..username null check , and before loadDummy()........ :: "+wlid);		
+		loadDummy();	
+		
 
-    try {
-        var geoLocationTopicName = "dirMarketing/tracking/coord/"+authenID;
-        console.log("geoLocationTopicName::"+geoLocationTopicName);
-         message = new Messaging.Message(sendJson);
-         message.destinationName = geoLocationTopicName;
-         WL.Logger.error("sendMqtt send suc!!!!!!!!!!!!!!!!!!:: ");
-         client.send(message);     
-        
-         
-    	} catch (error) {
-    	alert(error.message);
-    	} 
+	} else {
+		console.log("else....username with go..before dummy " + wlid);		
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
+		
+		WL.Logger.debug("btn_loginformPag :: "+conid+name+loginid);
+	
+	
+	
+	
+	//	var username = getCookie("username");
+		console.log("conid  :: "+conid);
+		var latitude = latitude;
+		var longitude = longitude;
+		/////////////////////////////////////////////////////////////////////////
+	//	make json data
+		var t = new Date();
+		var _Year = 1900 + t.getYear() ;
+		var _Month = 1 + t.getMonth();
+	 	
+	 	var locTStamp = "" + _Year + _Month + t.getDate() + t.getHours() + t.getMinutes()+ t.getSeconds();
+	 	
+		var sendJson = '{"mobConLocation": {"userId": "'+loginid+'","curCoord": {"lat":'+latitude+', "long":'+longitude+'},"locTStamp":"'+locTStamp+'"}}';
+	    WL.Logger.error("senJson :: "+sendJson);
+		
+	
+	    try {
+	        var geoLocationTopicName = "dirMarketing/tracking/coord/"+conid;
+	        console.log("geoLocationTopicName::"+geoLocationTopicName);
+	         message = new Messaging.Message(sendJson);
+	         message.destinationName = geoLocationTopicName;
+	         WL.Logger.error("sendMqtt send suc!!!!!!!!!!!!!!!!!!:: ");
+	         client.send(message);     
+	        
+	         
+	    	} catch (error) {
+	    	alert(error.message);
+	    	} 
 	
 	}   //////////////////// else end	
 }
