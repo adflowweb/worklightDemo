@@ -115,40 +115,44 @@ WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
 // //////////////////////////////////////////////////////////////////
 // logout
 $('.btn_logout').bind('click', function() {
-
-	WL.Client.logout('WLShoppersRealm', {
-		onSuccess : WL.Client.reloadApp
-	});
-
-	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
-	WL.Logger.debug("after btn_logout').bind('click', function() :: " +wlid);
-
-	var isConnectionbtn = '<a style="height: 200px" data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그인</span></span></a>';
-	$('#nowconnection').html(isConnectionbtn);
-	$.mobile.changePage('#pg_home', {
-		transition : "pop"
-	});
-
-	WL.Logger.debug("logout after.............");
+	var logoutwlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+	WL.Logger.error("logout entry point:: " +logoutwlid);
+	WL.Client.logout('WLShoppersRealm');
+	
+//	WL.Client.logout("WLShoppersRealm");
+	gotoLandingPage();
 });
 
 function logout(){
-	WL.Client.logout('WLShoppersRealm', {
-		onSuccess : WL.Client.reloadApp
-	});
-
-	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
-	WL.Logger.debug("after btn_logout').bind('click', function() :: " +wlid);
-
-	var isConnectionbtn = '<a style="height: 200px" data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그인</span></span></a>';
-	$('#nowconnection').html(isConnectionbtn);
-	$.mobile.changePage('#pg_home', {
-		transition : "pop"
-	});
-
-	WL.Logger.debug("logout after.............");
+	
+	
+	var logoutwlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+	WL.Logger.error("logout entry point:: " +logoutwlid);
+//	WL.Client.logout('WLShoppersRealm', {onSuccess : WL.Client.reloadApp});
+	WL.Client.logout('WLShoppersRealm');	
+//	WL.Client.logout("WLShoppersRealm");
+	gotoLandingPage();
 }
 
+
+function gotoLandingPage(){
+	WL.Client.reloadApp();  // restart session
+//	  WL.Client.connect();
+
+	var logoutwlid2 = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+		
+		WL.Logger.error("gotoLandingPage entrypoint" +logoutwlid2);
+
+		var isConnectionbtn = '<a style="height: 200px" data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그인</span></span></a>';
+//
+		$('#nowconnection').html(isConnectionbtn);
+
+		$.mobile.changePage('#pg_home', {
+			transition : "slide"
+		});		
+		 
+		
+	}
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 function loadUserId(conid){

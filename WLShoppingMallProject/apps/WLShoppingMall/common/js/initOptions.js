@@ -12,13 +12,15 @@
 	
 	// # Should application automatically attempt to connect to Worklight Server on application start up
 	// # The default value is true, we are overriding it to false here.
-    connectOnStartup : false,
+    connectOnStartup : true,     
 	
 	// # The callback function to invoke in case application fails to connect to Worklight Server
-	//onConnectionFailure: function (){},
+	onConnectionFailure: function (data){
+		
+	},
 	
 	// # Worklight server connection timeout
-	//timeout: 30000,
+	timeout: 30000,
 	
 	// # How often heartbeat request will be sent to Worklight Server
 	//heartBeatIntervalInSecs: 20 * 60,

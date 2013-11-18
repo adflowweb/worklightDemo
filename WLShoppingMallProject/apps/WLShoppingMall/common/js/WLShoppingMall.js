@@ -27,7 +27,7 @@ function wlCommonInit(){
 	 *     
 	 */
 	
-	
+ 
 	// Common initialization code goes here
 
 }
