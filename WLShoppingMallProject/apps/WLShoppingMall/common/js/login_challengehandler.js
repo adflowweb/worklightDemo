@@ -206,8 +206,11 @@ function displayUserIdload(items) {
 	userRealmht["loginid"] = wlid;
 	 WL.Logger.error('displayUserIdload duuulll userRealmht["loginid"] :: '+userRealmht["loginid"]);
 //////////////////////////////////////////////////////
+	 
+	 
 	mqttConnection(conidwithdb);
 		/////////////////////////////////////////////////////
+	
 }
 
 //end function displayUserIdload() 

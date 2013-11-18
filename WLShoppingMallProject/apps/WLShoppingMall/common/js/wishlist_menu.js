@@ -418,8 +418,7 @@ function addnewWishlist(){
 }
 
 function addwishlist(){
-	alert("aaddwishlist");
-
+	
 	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
 	
 	if (wlid == null || wlid == "") {

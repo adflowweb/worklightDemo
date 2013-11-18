@@ -104,7 +104,7 @@ function show_wlistpopupmenu(items){
 function addWishlistbyselected(wishlistid){
 	WL.Logger.debug("addWishlistbyselected  :: "+ wishlistid);
 	var wlid = wishlistid;
-	alert("wlid :: "+wlid);
+	WL.Logger.debug("wlid :: "+wlid);
 	item1 =$('input[name="cartitem"]').val();
 	WL.Logger.debug("show_wlistpopupmenu    item1 :: "+item1);
 //	var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");

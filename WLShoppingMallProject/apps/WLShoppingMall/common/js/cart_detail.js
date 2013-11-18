@@ -476,6 +476,7 @@ function addCartitemloadFailure(result) {
 }
 function addCartitemconfirm(items){
 //	alert("success confirm add cart");
+	alert("추가되었습니다.");	
 }
 
 

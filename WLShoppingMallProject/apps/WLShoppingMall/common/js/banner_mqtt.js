@@ -5,7 +5,8 @@
 
 var bannerHT;
 var client;
-var autoGeolocation;
+var mqttResult = false;
+
 function mqttConnection(wlid) {
 	//////////////////////////////////////////////////////////
 	
@@ -15,22 +16,17 @@ function mqttConnection(wlid) {
 		
 		WL.Logger.debug("btn_loginformPag :: "+conid+name+loginid);
 	
-		var mqttResult = false;
+		
 		// Make connection to the server.
 		WL.Logger.info("mqttConnection      method...inside....................");
 		
 		client = new Messaging.Client("192.168.0.171", 1883, conid);
 		WL.Logger.debug("mqttConnection client" + client);
 	
-	//	WL.Logger.info("new client first");
-	//	mqttId = id;
-	//	WL.Logger.info("id   ::  " + id);
-		// Set up a callBacks used when the connection is completed,
-		// when a message arrives for this client and when the connection is lost.
+	
 		client.onConnectionLost = onConnectionLost;
 		client.onMessageArrived = onMessageArrived;
-        autoGeolocation  = setInterval(getGeolocation, 10000);
-        
+       
 		client.connect({
 			onSuccess : onConnect
 		});
@@ -49,7 +45,8 @@ function onConnect() {
 		console.log("onConnect");
 		WL.Logger.info("onConnect method inside ...............");
 		bannerSubscribe(conid);
-	
+		// for gps, mqttconnection check mqttResult
+		mqttResult = true;
 
 }
 
@@ -57,6 +54,7 @@ function onConnect() {
 function onConnectionLost(responseObject) {
 	if (responseObject.errorCode !== 0)
 		console.log("onConnectionLost:" + responseObject.errorMessage);
+	mqttResult = false;
 }
 
 
