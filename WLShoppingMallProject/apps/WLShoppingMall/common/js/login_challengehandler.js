@@ -35,15 +35,16 @@ WLShoppersChallengeHandler.handleChallenge = function(response) {
 
 	var popup;
 
-	popup = $('<div data-role="popup" id="frm_LoginPopup" data-overlay-theme="a" data-theme="c" style="max-width: 400px;" class="ui-corner-all"><div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner"><h1 class="ui-title" role="heading" aria-level="1">Login</h1></div><div data-role="content" data-theme="d"class="ui-corner-bottom ui-content"><h3 class="ui-title">Login required</h3><p><input id="WL_username" name="WL_username" placeholder="Enter your username"	type="text"> <input id="WL_password" name="WL_password" placeholder="Enter your password" type="password"></p><a onclick="javascript:login_cancel();"  data-role="button" data-inline="true" data-theme="a">취소</a> <a onclick="javascript:authenticationLogin();"  id="frm_LoginPopupBtn"	data-role="button" data-inline="true" data-rel="ok"	data-transition="flow" data-theme="b">보내기</a></div>');
+	popup = $('<div data-role="popup" id="frm_LoginPopup" data-overlay-theme="a" data-theme="c" style="max-width: 400px;" class="ui-corner-all" ><div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner"><h1 class="ui-title" role="heading" aria-level="1">Login</h1></div><div data-role="content" data-theme="d"class="ui-corner-bottom ui-content"><h3 class="ui-title">Login required</h3><p><input id="WL_username" name="WL_username" placeholder="Enter your username"	type="text"> <input id="WL_password" name="WL_password" placeholder="Enter your password" type="password"></p><a onclick="javascript:login_cancel();"  data-role="button" data-inline="true" data-theme="a">취소</a> <a onclick="javascript:authenticationLogin();"  id="frm_LoginPopupBtn"	data-role="button" data-inline="true" data-rel="ok"	data-transition="flow" data-theme="b">보내기</a></div>');
 	 $('#'+pageId).append(popup);
 	 $('#'+pageId).find('#frm_LoginPopup').popup();
-
+	 $('#popupBasic').css({position:'fixed',top:'10px',left:'30px'});
 	 $('#frm_LoginPopup').popup('open', {
 			x : 10,
 			y : 10,
 			positionTo : "window"
 		});
+	 $('#frm_LoginPopup').css({position:'fixed',top:'10px',left:'30px'});
 	 $('#'+pageId).find('#frm_LoginPopup').trigger('create');
 
 };
@@ -106,7 +107,7 @@ WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
 		WLShoppersChallengeHandler.submitSuccess();
 		var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");		
 		
-		var isConnectionbtn = '<a onclick="logout()" style="height: 200px" data-theme="a" data-role="button" class="btn_logout ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그아웃</span></span></a>';
+		var isConnectionbtn = '<a onclick="logout()" data-theme="a" data-role="button" class="btn_logout ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그아웃</span></span></a>';
 		$('#nowconnection').html(isConnectionbtn);
 		
 
@@ -146,7 +147,7 @@ function gotoLandingPage(){
 		
 		WL.Logger.error("gotoLandingPage entrypoint" +logoutwlid2);
 
-		var isConnectionbtn = '<a style="height: 200px" data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그인</span></span></a>';
+		var isConnectionbtn = '<a data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그인</span></span></a>';
 //
 		$('#nowconnection').html(isConnectionbtn);
 
