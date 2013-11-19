@@ -39,8 +39,11 @@ WLShoppersChallengeHandler.handleChallenge = function(response) {
 	 $('#'+pageId).append(popup);
 	 $('#'+pageId).find('#frm_LoginPopup').popup();
 
-	 $('#frm_LoginPopup').popup('open');
-
+	 $('#frm_LoginPopup').popup('open', {
+			x : 10,
+			y : 10,
+			positionTo : "window"
+		});
 	 $('#'+pageId).find('#frm_LoginPopup').trigger('create');
 
 };

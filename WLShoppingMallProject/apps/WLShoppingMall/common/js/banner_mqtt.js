@@ -9,7 +9,7 @@ var mqttResult = false;
 
 function mqttConnection(wlid) {
 	//////////////////////////////////////////////////////////
-	
+	   
 		var conid = userRealmht["conid"];
 		var name = userRealmht["name"];
 		var loginid = userRealmht["loginid"];
@@ -22,7 +22,7 @@ function mqttConnection(wlid) {
 		
 		client = new Messaging.Client("192.168.0.171", 1883, conid);
 		WL.Logger.debug("mqttConnection client" + client);
-	
+	    
 	
 		client.onConnectionLost = onConnectionLost;
 		client.onMessageArrived = onMessageArrived;

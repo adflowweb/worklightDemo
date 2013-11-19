@@ -477,8 +477,27 @@ $('.btn_loginformPag').click(function() {
 		var loginid = userRealmht["loginid"];
 		
 		WL.Logger.debug("btn_loginformPag :: "+conid+name+loginid);
-	}
+	}	
 	
-	
+});
+
+$(function(){   
+//	var h = $("#viewport").height();
+	var h = $(window).height();   // 546px - 400px ...about 150px
+	var height = h - 138;
+	var one = height / 2;
+	var two = height / 2;
+	var three = height / 4;
+	var four = height / 4;
+	var five = height / 2;
+
+	 $('#layout_one').css({'height':one+'px'});
+	 $('#layout_two').css({'height':two+'px'});
+	 $('#layout_three').css({'height':three+'px'});
+	 $('#layout_four').css({'height':four+'px'});
+	 $('#layout_five').css({'height':five+'px'});
+	WL.Logger.debug("one :: "+one + " two :: " +two + " three :: "+three + " four :: " +four +" five :: " +five);
+	WL.Logger.debug("viewport h "+h);
+//	 id="layout_one"
 	
 });
