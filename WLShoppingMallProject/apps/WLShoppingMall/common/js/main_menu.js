@@ -360,7 +360,8 @@ function loadSaleListSQLQueryFailure(result) {
 }
 
 function appendToSaleList(items) {
-	$.mobile.changePage('#pg_shopping', {
+	WL.Logger.error("appendToSaleList endtrypoint"+items);
+	$.mobile.changePage('#pg_salelist', {
 		transition : "pop"
 	});
 	$("#list_sale").empty();
@@ -493,6 +494,7 @@ $(function(){
 
 	 $('#layout_one').css({'height':one+'px'});
 	 $('#layout_two').css({'height':two+'px'});
+	 $('#layout_two_re').css({'height':two+'px'});
 	 $('#layout_three').css({'height':three+'px'});
 	 $('#layout_four').css({'height':four+'px'});
 	 $('#layout_five').css({'height':five+'px'});

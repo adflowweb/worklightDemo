@@ -9,7 +9,7 @@ var WLShoppersChallengeHandler = WL.Client
 		.createChallengeHandler("WLShoppersRealm");
 
 WLShoppersChallengeHandler.isCustomResponse = function(response) {
-
+	WL.Logger.debug("isCustomResponse entrypoint...............response.responseText"+response.responseText);
 	if (!response || !response.responseText) {
 		return false;
 		
@@ -25,7 +25,7 @@ WLShoppersChallengeHandler.isCustomResponse = function(response) {
 };
 
 WLShoppersChallengeHandler.handleChallenge = function(response) {
-
+	WL.Logger.debug("WLShoppersChallengeHandler entrypoint...............");
 	var pageId = $.mobile.activePage.attr("id");
 
 	var page = $('#'+pageId);	
@@ -35,16 +35,16 @@ WLShoppersChallengeHandler.handleChallenge = function(response) {
 
 	var popup;
 
-	popup = $('<div data-role="popup" id="frm_LoginPopup" data-overlay-theme="a" data-theme="c" style="max-width: 400px;" class="ui-corner-all" ><div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner"><h1 class="ui-title" role="heading" aria-level="1">Login</h1></div><div data-role="content" data-theme="d"class="ui-corner-bottom ui-content"><h3 class="ui-title">Login required</h3><p><input id="WL_username" name="WL_username" placeholder="Enter your username"	type="text"> <input id="WL_password" name="WL_password" placeholder="Enter your password" type="password"></p><a onclick="javascript:login_cancel();"  data-role="button" data-inline="true" data-theme="a">취소</a> <a onclick="javascript:authenticationLogin();"  id="frm_LoginPopupBtn"	data-role="button" data-inline="true" data-rel="ok"	data-transition="flow" data-theme="b">보내기</a></div>');
+	popup = $('<div data-role="popup" id="frm_LoginPopup"  data-overlay-theme="a" data-theme="c" style="left:10px;top:10px;position:fixed;" class="ui-corner-all"><div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner"><h1 class="ui-title" role="heading" aria-level="1">Login</h1></div><div data-role="content" data-theme="d"class="ui-corner-bottom ui-content"><h3 class="ui-title">Login required</h3><p><input id="WL_username" name="WL_username" placeholder="Enter your username"	type="text"> <input id="WL_password" name="WL_password" placeholder="Enter your password" type="password"></p><a onclick="javascript:login_cancel();"  data-role="button" data-inline="true" data-theme="a">취소</a> <a onclick="javascript:authenticationLogin();"  id="frm_LoginPopupBtn"	data-role="button" data-inline="true" data-rel="ok"	data-transition="flow" data-theme="b">로그인</a></div>');
 	 $('#'+pageId).append(popup);
-	 $('#'+pageId).find('#frm_LoginPopup').popup();
-	 $('#popupBasic').css({position:'fixed',top:'10px',left:'30px'});
-	 $('#frm_LoginPopup').popup('open', {
-			x : 10,
-			y : 10,
-			positionTo : "window"
-		});
-	 $('#frm_LoginPopup').css({position:'fixed',top:'10px',left:'30px'});
+	 WL.Logger.debug("popup open...............");
+	 $('#'+pageId).find('#frm_LoginPopup').popup();	
+	 $('#frm_LoginPopup').popup('open');
+//	  $('#frm_LoginPopup').popup('open', {
+//          x : 10,
+//          y : 10,
+//          positionTo : '#'+pageId
+//	  });
 	 $('#'+pageId).find('#frm_LoginPopup').trigger('create');
 
 };
@@ -72,6 +72,7 @@ function authenticationLogin(){
 }
 
 function login_cancel(){
+	
 	$('#frm_LoginPopup').popup('close');
 
 	WLShoppersChallengeHandler.submitFailure(); // history back...
@@ -83,14 +84,19 @@ function login_cancel(){
 
 
 WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
-	
+	WL.Logger.debug("WLShoppersChallengeHandler.submitLoginFormCallback  entrypoint...............");
 
 	var res = WLShoppersChallengeHandler.isCustomResponse(response);
-
+	
+	WL.Logger.debug("WLShoppersChallengeHandler.submitLoginFormCallback  res ::"+res);
+	
+	
 	if (res) {
 
-//		WLShoppersChallengeHandler.handleChallenge(response);
+		
+//			WLShoppersChallengeHandler.handleChallenge(response);
 		alert("인증에 실패하였습니다.");
+		$('#frm_LoginPopup').css({"display":"none","position":"relative"});
 		$('#frm_LoginPopup').popup('close');
 		WLShoppersChallengeHandler.submitFailure(); // history back...
 		
@@ -102,13 +108,24 @@ WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
 		
 		var userId = authenID;
 		loadUserId(userId);
+		 var pageId = $.mobile.activePage.attr("id");
+		 $('#frm_LoginPopup').css({"display":"none","position":"relative"});
+		 
 		$('#frm_LoginPopup').popup('close');
-	
-		WLShoppersChallengeHandler.submitSuccess();
-		var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");		
+		WL.Logger.debug("popup close...............");
+
 		
-		var isConnectionbtn = '<a onclick="logout()" data-theme="a" data-role="button" class="btn_logout ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그아웃</span></span></a>';
+		WLShoppersChallengeHandler.submitSuccess();
+		var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");			
+		var isConnectionbtn = '<a id="layout_two_re" data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-hover-a ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" onclick="logout()"><span class="ui-btn-inner"><span class="ui-btn-text">로그아웃</span></span></a>';
 		$('#nowconnection').html(isConnectionbtn);
+		
+		var h = $(window).height();   
+		var height = h - 138;	
+		var two = height / 2;				
+		
+		WL.Logger.debug("hello height...:: "+two);
+		$('#layout_two_re').css({'height':two+'px'});	
 		
 
 		
@@ -120,7 +137,7 @@ WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
 // logout
 $('.btn_logout').bind('click', function() {
 	var logoutwlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
-	WL.Logger.error("logout entry point:: " +logoutwlid);
+	WL.Logger.debug("logout entry point:: " +logoutwlid);
 	WL.Client.logout('WLShoppersRealm');
 	
 //	WL.Client.logout("WLShoppersRealm");
@@ -131,7 +148,7 @@ function logout(){
 	
 	
 	var logoutwlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
-	WL.Logger.error("logout entry point:: " +logoutwlid);
+	WL.Logger.debug("logout entry point:: " +logoutwlid);
 //	WL.Client.logout('WLShoppersRealm', {onSuccess : WL.Client.reloadApp});
 	WL.Client.logout('WLShoppersRealm');	
 //	WL.Client.logout("WLShoppersRealm");
@@ -145,15 +162,24 @@ function gotoLandingPage(){
 
 	var logoutwlid2 = WL.Client.getUserInfo("WLShoppersRealm", "userId");
 		
-		WL.Logger.error("gotoLandingPage entrypoint" +logoutwlid2);
+		WL.Logger.debug("gotoLandingPage entrypoint" +logoutwlid2);
 
-		var isConnectionbtn = '<a data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그인</span></span></a>';
+		var isConnectionbtn = '<a id="layout_two"  data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그인</span></span></a>';
 //
+		
 		$('#nowconnection').html(isConnectionbtn);
+		var h = $(window).height();   // 546px - 400px ...about 150px
+		var height = h - 138;	
+		var two = height / 2;	
+		
+		
+		WL.Logger.debug(" gotoLandingPage hello height...:: "+two);
+		$('#layout_two').css({'height':two+'px'});	
 
 		$.mobile.changePage('#pg_home', {
 			transition : "slide"
-		});		
+		});	
+		
 		 
 		
 	}
@@ -195,10 +221,10 @@ function loadUserIdFailure(result) {
 
 function displayUserIdload(items) {
 	
-	 WL.Logger.error("displayUserIdload(items)..entry point");
-	 WL.Logger.error("displayUserIdload(items)..entry point" + items[0]);
+	 WL.Logger.debug("displayUserIdload(items)..entry point");
+	 WL.Logger.debug("displayUserIdload(items)..entry point" + items[0]);
 	 var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
-	 WL.Logger.error("displayUserIdload wlid :: "+wlid);
+	 WL.Logger.debug("displayUserIdload wlid :: "+wlid);
 	var conidwithdb = items[0].conid;
 	var cnamewithdb = items[0].cname;
 	
@@ -207,12 +233,12 @@ function displayUserIdload(items) {
 
 	userRealmht = {};
 	userRealmht["conid"] = conidwithdb;
-	 WL.Logger.error('displayUserIdload userRealmht[conid] :: '+userRealmht["conid"]);
+	 WL.Logger.debug('displayUserIdload userRealmht[conid] :: '+userRealmht["conid"]);
 
 	userRealmht["name"] = cnamewithdb;
-	 WL.Logger.error('displayUserIdload  hana userRealmht["name"] :: '+userRealmht["name"]);
+	 WL.Logger.debug('displayUserIdload  hana userRealmht["name"] :: '+userRealmht["name"]);
 	userRealmht["loginid"] = wlid;
-	 WL.Logger.error('displayUserIdload duuulll userRealmht["loginid"] :: '+userRealmht["loginid"]);
+	 WL.Logger.debug('displayUserIdload duuulll userRealmht["loginid"] :: '+userRealmht["loginid"]);
 //////////////////////////////////////////////////////
 	 
 	 
@@ -231,6 +257,6 @@ window.onbeforeunload = function() {
     WL.Client.logout('WLShoppersRealm', {
 		onSuccess : WL.Client.reloadApp
 	});
-    var isConnectionbtn = '<a class="btn_loginformPag" data-role="button" data-theme="a" style="height: 200px" >로그인</a>';
+    var isConnectionbtn = '<a id="layout_two"  data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그인</span></span></a>';
 	$('#nowconnection').html(isConnectionbtn);
 };

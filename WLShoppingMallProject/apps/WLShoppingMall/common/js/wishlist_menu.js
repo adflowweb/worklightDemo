@@ -236,34 +236,33 @@ function show_wlistmanagePage(items){
 	WL.Logger.debug("null value add  ......... i :: " +countItem);
 	var lastItemcode = 10 - countItem;
 	WL.Logger.debug("itemcount ......... lastItemcode :: " +lastItemcode);
-	if (!mywishdetailCreated) {
-		$("#display_wishDetail").empty();
-		$('#display_wishModDetail').empty();
+	$.mobile.changePage('#wishdetailPage', {
+		transition : "slide"
+	});
+	$("#display_wishDetail").empty();
+	$('#display_wishModDetail').empty();
 	
-
-	} else {
-		mywishdetailCreated = true;
-	}// end of if mywishdetailCreated
-	$('#display_wishDetail')
-			.append(
-					'<a onclick="goToselectedWL()" ><h3 id="Title">'
-							+ wname +'( ' + lastItemcode + ') 보러가기 '
-							+ '</h3><label id="labeldesc">설명 : '
-							+ descr
-							+ '</label><input type="hidden" class="mywlid " name="mywlid" value="'+mywlid+'"><input type="hidden" class="mywlname " name="mywlname" value="'+wname+'"></a>' );
-	$("#display_wishDetail").trigger("create");
+	
+    $('#display_wishDetail').append('<a onclick="goToselectedWL()" data-theme="e" ><div class="ui-corner-all custom-corners" data-theme="c"><div class="ui-bar ui-bar-a"><h3>'+ wname +'( ' + lastItemcode + ') 보러가기 </h3></div><div class="ui-body ui-body-a"><p>설명 : '
+					+ descr+'</p></div><input type="hidden" class="mywlid " name="mywlid" value="'+mywlid+'"><input type="hidden" class="mywlname " name="mywlname" value="'+wname+'"></div><input type="hidden" class="mywldescr " name="mywldescr" value="'+descr+'"></div>');
+		
+		
+	
+	
 	$('#display_wishModDetail').append(
 			'<a onclick="goToselectedWL()" ><h3 id="Title">'
 			+ wname +'( ' + length + ') 보러가기 '
 			+ '</h3><label id="labeldesc">설명 : '
 			+ descr
 			+ '</label><input type="hidden" class="mywlid " name="mywlid" value="'+mywlid+'"></a>' );
+	
 	$("#display_wishModDetail").trigger("create");
+	$("#display_wishDetail").trigger("create");
+	
+	
 	
 
-	$.mobile.changePage('#wishdetailPage', {
-		transition : "slide"
-	});
+	
 }
 $('#deletebyselectedWL').click(function (){
 	//mywlid
@@ -273,10 +272,14 @@ $('#deletebyselectedWL').click(function (){
 
 
 $('#modifybyselectedWL').click(function (){	
-	$('#wishform').empty();	
+
+	var mywlname = $('input[name="mywlname"]').val();
+	var mywldescr = $('input[name="mywldescr"]').val();
+	$('#wishform').empty();
+	
 	$('#wishform')
 	.append(
-			'<label for="wishlist_mt_form" class="ui-input-text">wishlist 제목</label><div><input type="text" name="wishlist_mt_form" id="wishlist_mt_form" ></div><label for="wishlist_md_form" class="ui-input-text">wishlist 설명</label><div ><input type="text" name="wishlist_md_form" id="wishlist_md_form" ></div>');
+			'<label for="wishlist_mt_form" class="ui-input-text">wishlist 제목</label><div><input type="text" name="wishlist_mt_form" id="wishlist_mt_form" placeholder="'+mywlname+'"></div><label for="wishlist_md_form" class="ui-input-text">wishlist 설명</label><div ><input type="text" name="wishlist_md_form" id="wishlist_md_form"  placeholder="'+mywldescr+'"><input type="hidden" class="wlname " name="wlname" value="'+mywlname+'"></div><input type="hidden" class="wldescr " name="wldescr" value="'+mywldescr+'"></div></div>');
 	$("#wishform").trigger("create");	
 	
 	$.mobile.changePage('#wishmodificationPage', {
@@ -286,12 +289,21 @@ $('#modifybyselectedWL').click(function (){
 
 function updatewishdetail() {
 	var modifyid = $('input[name="mywlid"]').val();
-	
+
+	var mywlname = $('input[name="wlname"]').val();
+	var mywldescr = $('input[name="wldescr"]').val();
 	WL.Logger.debug("modifyid" +modifyid);
 
 	var modtitle = $('input[name="wishlist_mt_form"]').val();
+	if(modtitle==null || modtitle==""){		
+		modtitle = mywlname;
+		WL.Logger.debug("mywlname :: "+mywlname);		
+	}
 	var moddesc = $('input[name="wishlist_md_form"]').val();
-
+	if(moddesc==null || moddesc==""){		
+		moddesc = mywldescr;
+		WL.Logger.debug("mywldescr :: "+moddesc);		
+	}
 	WL.Logger.debug("modtitle :: "+modtitle +" :: moddesc " +moddesc +modifyid);
 	loadupdatewish(modtitle, moddesc, modifyid);
 }
