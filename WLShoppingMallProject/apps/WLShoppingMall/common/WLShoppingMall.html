@@ -242,11 +242,27 @@
 	<!-- second part..eylee   -->
 
 	<div data-role="page" id="wishdetailPage">
+<!-- panel div -->
+		<div id="left-panel" data-role="panel" id="panel" data-position="left"
+			data-theme="c" data-display="push">
+			<ul data-role="listview" data-theme="d">
+				<li style="height: 90px" data-icon="false"><a href="#"
+					data-rel="close"></a></li>
+				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
+				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_logout">로그아웃</a></li>
+			</ul>
 
+		</div>
+		<!-- panel div end -->
+		
 		<div data-role="header" data-position="fixed" id="header">
 			<h1>WL shopping</h1>
+			<a data-iconpos="notext" href="#panel" data-role="button"
+				data-icon="star"></a>
 		</div>
-
 		<!-- header end -->
 		<div data-role="content" id="wishdetailPage_content">
 			
@@ -262,6 +278,8 @@
 				<a class="btn_result_insertwishdetail"
 					id="deletebyselectedWL" data-role="button"
 					data-theme="e" data-icon="del">삭제</a>
+				<a class="btn_goWishlistPage"  data-role="button"
+					data-icon="star">위시리스트</a>
 			</div>
 
 		</div>
@@ -283,11 +301,27 @@
 	</div>
 	<!-- close page -->
 	<div data-role="page" id="wishmodificationPage">
+	<!-- panel div -->
+		<div id="left-panel" data-role="panel" id="panel" data-position="left"
+			data-theme="c" data-display="push">
+			<ul data-role="listview" data-theme="d">
+				<li style="height: 90px" data-icon="false"><a href="#"
+					data-rel="close"></a></li>
+				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
+				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_logout">로그아웃</a></li>
+			</ul>
 
+		</div>
+		<!-- panel div end -->
+		
 		<div data-role="header" data-position="fixed" id="header">
 			<h1>WL shopping</h1>
+			<a data-iconpos="notext" href="#panel" data-role="button"
+				data-icon="star"></a>
 		</div>
-
 		<!-- header end -->
 		<div data-role="content" id="wishmodificationPage_content">
 			<div id="wishform"></div>

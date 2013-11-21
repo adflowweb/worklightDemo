@@ -82,6 +82,9 @@ function login_cancel(){
 
 }
 
+// window height modify
+var window_height = $(window).height();   
+
 
 WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
 	WL.Logger.debug("WLShoppersChallengeHandler.submitLoginFormCallback  entrypoint...............");
@@ -117,15 +120,18 @@ WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
 		
 		WLShoppersChallengeHandler.submitSuccess();
 		var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");			
-		var isConnectionbtn = '<a id="layout_two_re" data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-hover-a ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" onclick="logout()"><span class="ui-btn-inner"><span class="ui-btn-text">로그아웃</span></span></a>';
+		var isConnectionbtn = '<a id="layout_two" data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-hover-a ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" onclick="logout()"><span class="ui-btn-inner"><span class="ui-btn-text">로그아웃</span></span></a>';
 		$('#nowconnection').html(isConnectionbtn);
+//		var h = null;
+//		h = $(window).height();   
+		WL.Logger.debug("window_height :: "+window_height);
+		var height = null;
+		height = window_height - 138;	
+		var layout_two_re_two = null;
+		layout_two_re_two = height / 2;				
 		
-		var h = $(window).height();   
-		var height = h - 138;	
-		var two = height / 2;				
-		
-		WL.Logger.debug("hello height...:: "+two);
-		$('#layout_two_re').css({'height':two+'px'});	
+		WL.Logger.debug("hello height...:: "+layout_two_re_two);
+		$('#layout_two').css({'height':layout_two_re_two+'px'});	
 		
 
 		
@@ -172,7 +178,7 @@ function gotoLandingPage(){
 		var height = h - 138;	
 		var two = height / 2;	
 		
-		
+		WL.Logger.debug("gotoLandingPage hello height....:: "+two);
 		WL.Logger.debug(" gotoLandingPage hello height...:: "+two);
 		$('#layout_two').css({'height':two+'px'});	
 
