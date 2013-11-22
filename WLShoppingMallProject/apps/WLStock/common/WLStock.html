@@ -1,0 +1,352 @@
+<!DOCTYPE HTML>
+<html>
+    	<head>
+    		<meta charset="UTF-8">
+    		<title>WLStock</title>
+    		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    		<link rel="shortcut icon" href="images/favicon.png">
+    		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    		<link href="jqueryMobile/jquery.mobile-1.3.0.css" rel="stylesheet">
+    		<link href="jqueryMobile/jquery.mobile.structure-1.3.0.css" rel="stylesheet">
+    		<link href="jqueryMobile/jquery.mobile.theme-1.3.0.css" rel="stylesheet">
+    		<link rel="stylesheet" href="css/WLStock.css">
+    		<link rel="stylesheet" href="css/jquery-mobile-fluid960.css">
+    		<link rel="stylesheet" href="css/openlayers/mapstyle.css">
+    		<script>window.$ = window.jQuery = WLJQ;</script>
+    		<script src="jqueryMobile/jquery.mobile-1.3.0.js"></script>
+    	</head>
+    	<body id="content" style="display: none;">
+    		<div data-role="page" id="home">
+    		    <div data-role="header" id="header" data-position="fixed">
+    		       
+    		    </div>
+    			<div data-role="content" id="pagePort">
+					<div data-role="controlgroup">
+						<a href="#" data-role="button" id="reqListBtn" style="color: black">재고 확보 요청 리스트</a>
+						<a href="#" data-role="button" id="deliveryListBtn" style="color: black">발주 리스트</a>
+						<a href="#" data-role="button" id="loginBtn" style="color: black">로그인</a>
+						<a href="#" data-role="button" id="logOutBtn" style="color: black">로그 아웃</a>
+					</div>
+
+    			</div>
+
+				<div data-role="footer" id="footer" data-position="fixed">
+
+    		    </div>
+    		</div>
+    		
+
+<!-- ### Request List ### -->    		
+	<div data-role="page" id="reqListPage">
+		<div data-role="header" data-position="fixed">
+			<div class="ui-bar ui-bar-b">
+				<h3>재고 확보 요청 리스트</h3>
+			</div>
+		</div>
+		
+		<div data-role="content">
+		
+		
+			<div class="content-primary_one">	
+				<ul data-role="listview" id="reqlistview">
+				</ul>
+			</div>	
+			
+			
+				
+		</div><!--/content-end-->
+		
+		
+		<!-- ### PopUp ### start -->	
+		<div data-role="popup" id="loginPopup" style="max-width:400px;" class="ui-corner-all">
+				<div  data-theme="d" class="ui-corner-bottom ui-content">
+					<label>사용자 ID:</label>
+					<p></p>
+		          	<input type="text" name="usernameInputField" id="usernameInputField" value="" placeholder="" data-theme="a" />
+                    <p></p>
+		          	<label>패스워드:</label>
+		          	<p></p>
+		          	<input type="password" name="passwordInputField" id="passwordInputField" value="" placeholder="" data-theme="a" />
+					<p></p>
+					<button type="button" id="loginButton" >로그인</button>
+					<button type="button" id="cancelButton" >취소</button>
+				</div>
+			</div>
+		<!-- ### PopUp ### end -->
+		
+		<div data-role="footer" data-position="fixed">
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" data-role="button" data-rel="back" data-icon="back">BACK</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#home" data-role="button" data-icon="home">HOME</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+<!-- ### Delivery List Page ### -->	
+	<div data-role="page" id="deliveryListPage">
+		<div data-role="header" data-position="fixed">
+			<h3>발주 리스트</h3>
+		</div>
+		
+		<div data-role="content" style="padding: 15px">
+			<div class="content-primary_one">	
+				<ul data-role="listview" id="deliveryListView">
+				</ul>
+			</div>
+		</div><!--/content-end -->	
+				
+		
+		<div data-role="footer" data-position="fixed">
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" data-role="button" data-rel="back" data-icon="back">BACK</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#home" data-role="button" data-icon="home">HOME</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+<!-- ### Stoc Request Detail Page ### -->	
+	<div data-role="page" id="StocReqDetailPage">
+		<div data-role="header" data-position="fixed">
+			<div class="ui-bar ui-bar-b">
+				<h3 id="ReqDetailHeader">요청 ID</h3>
+			</div>
+		</div>
+		<div data-role="content"id="StocReqDetailContent" style="font-size:.8em;padding-top:0;font-family:'Trebuchet MS';" class="ui-content" role="main" >
+			
+
+			
+		</div>
+			
+		
+		<div data-role="footer" data-position="fixed"  >
+			<div>
+				<a href="#" data-role="button" id="orderOkBtn" data-theme="b">발주 승인</a>
+			</div>
+
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" data-role="button" data-rel="back" data-icon="back">BACK</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#home" data-role="button" data-icon="home">HOME</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+<!-- ### Delivery Detail Page ### -->
+    <div data-role="page" id="deliveryDetailPage">
+		<div data-role="header" data-position="fixed">
+			<div class="ui-bar ui-bar-b">
+				<h3 id="deliveryDetailHeader">발주 ID</h3>
+			</div>
+		</div>
+		<div data-role="content"id="deliveryDetailContent" style="font-size:.8em;padding-top:0;font-family:'Trebuchet MS';" class="ui-content" role="main" >
+			
+		</div>
+
+		<div data-role="footer" data-position="fixed" >
+			<div>
+				<a href="#" data-role="button" id="transDetailBtn" data-theme="b">운송 상세 정보</a>
+			</div>
+			
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" data-role="button" data-rel="back" data-icon="back">BACK</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#home" data-role="button" data-icon="home">HOME</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- ### Transport Detail ### -->	
+	<div data-role="page" id="TransDetailPage">
+		<div data-role="header" data-position="fixed">
+			<h3 id="TransDetailHeader">발주ID</h3>
+		</div>
+		<div data-role="content"id="TransDetailContent" style="font-size:.8em;padding-top:0;font-family:'Trebuchet MS';" class="ui-content" role="main" >
+			
+		</div>
+		
+		<div data-role="footer" data-position="fixed" >
+			<div class="ui-grid-a" style="background-color: white">
+				<div class="ui-block-a">
+					<a href="#" id="carLocationBtn" data-role="button" data-theme="b">위치 확인</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#" id="workOrderBtn" data-role="button" data-theme="b">작업 지시</a>
+				</div>
+			</div>
+
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" data-role="button" data-rel="back" data-icon="back">BACK</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#home" data-role="button" data-icon="home">HOME</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<!-- ### Car Location Page ### -->
+    <div data-role="page" id="carLocationPage">
+		<div data-role="header" data-position="fixed">
+			<div class="ui-bar ui-bar-b">
+				<h3 id="carLocationPageHeader">현재 위치</h3>
+			</div>
+		</div>
+		<div data-role="content"id="carLocationPageContent">
+			<div id="map" style="width: 300px; height: 500px;""></div> 
+		</div>
+
+		<div data-role="footer" data-position="fixed" >
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" data-role="button" data-rel="back" data-icon="back">BACK</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#home" data-role="button" data-icon="home">HOME</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+<!-- ### Work Order Page ### -->	
+	<div data-role="page" id="workOrderPage">
+		<div data-role="header" data-position="fixed">
+			<h3 id="workOrderHeader">차량번호 작업 지시</h3>
+		</div>
+		<div data-role="content" id="workOrderTextarea" style="padding: 15px">
+		</div>
+		
+		<!-- ### PopUp ### start -->	
+		<div data-role="popup" id="workOrderSendOkPopup" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+				<div data-role="header" data-theme="a" class="ui-corner-top">
+					<h1>작업지시 확인</h1>
+				</div>
+				<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+					<h3 class="ui-title">작업 지시를 보내겠습니까 ?</h3>
+					<p></p>
+					<a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">취소</a>    
+					<a href="#" id="workOrderSendOkBtn" data-role="button" data-inline="true" data-rel="ok" data-transition="flow" data-theme="b">보내기</a>  
+				</div>
+			</div>
+		<!-- ### PopUp ### end -->
+		
+		<div data-role="footer" data-position="fixed" >
+		
+		<fieldset class="container_12">
+			<div class="grid_10"><input type="text" name="text"	id="msgSendText" style="background-color: white; color: black"></div>
+			<div class="grid_2"><a href="#" data-role="button" id="workOrderSendBtn" data-theme="b">보내기</a></div>	   
+    	</fieldset>
+
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" data-role="button" data-rel="back" data-icon="back">BACK</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#home" data-role="button" data-icon="home">HOME</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+<!-- ### Delivery Page ### -->	
+	<div data-role="page" id="deliveryOkPage">
+		<div data-role="header" data-position="fixed">
+			<h3>발주 승인</h3>
+		</div>
+		<div data-role="content" style="padding: 15px">
+
+	    	<h3 id="deliveryId" >발주 ID</h3>
+
+			<div data-role="fieldcontain">
+   				<label for="select-WAREHOUS" class="select">물류 센터:</label>
+			   	<select name="select-WAREHOUS" id="select-WAREHOUS">
+			      <option value="000001">이천 센터</option>
+			      <option value="000002">파주 센터</option>
+			      <option value="000003">원주 센터</option>
+			      <option value="000004">용인 센터</option>
+			      <option value="000005">기흥 센터</option>
+			      <option value="000006">평택 센터</option>
+			   	</select>
+			</div>
+
+			<div data-role="fieldcontain">
+   				<label for="select-ASNDVCL" class="select">화물 차량 ID :</label>
+			   	<select name="select-ASNDVCL" id="select-ASNDVCL">
+			      <option value="000001">000001</option>
+			      <option value="000002">000002</option>
+			      <option value="000003">000003</option>
+			      <option value="000004">000004</option>
+			      <option value="000005">000005</option>
+			      <option value="000006">000006</option>
+			   	</select>
+			</div>
+
+			<a href="#" data-role="button" id="deliBtn" data-theme="b" >승  인</a>
+
+		</div>
+		
+		<!-- ### PopUp ### start -->	
+		<div data-role="popup" id="delOkPopup" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+				<div data-role="header" data-theme="a" class="ui-corner-top">
+					<h1>발주 승인</h1>
+				</div>
+				<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+					<h3 class="ui-title">정말로 발주 승인 하시겠습니까 ?</h3>
+					<p></p>
+					<a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">취소</a>    
+					<a href="#" id="deliOkBtn" data-role="button" data-inline="true" data-rel="ok" data-transition="flow" data-theme="b">승인</a>  
+				</div>
+			</div>
+		<!-- ### PopUp ### end -->	
+
+		<div data-role="footer" data-position="fixed" >
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" data-role="button" data-rel="back" data-icon="back">BACK</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#home" data-role="button" data-icon="home">HOME</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+			<script type="text/javascript" src="js/mqttCordovaAndroidClient.js"></script>		
+    		<script src="js/initOptions.js"></script>
+    		<script src="js/WLStock.js"></script>
+    		<script src="js/messages.js"></script>
+    		<script src="js/StockReq.js"></script>
+    		<script src="js/StockReqDetail.js"></script>
+    		<script src="js/Code.js"></script>
+    		<script src="js/Delivery.js"></script>
+    		<script src="js/DeliveryDetail.js"></script>
+    		<script src="js/DeliveryListPage.js"></script>
+    		<script src="js/TransDetail.js"></script>
+    		<script src="js/WorkOrder.js"></script>
+    		<script src="js/LDAPRealmChallengeHandler.js"></script>
+    		<script src="js/CarLocation.js"></script>
+    		<script src="js/openlayers/OpenLayers.js"></script>
+ 
+    	</body>
+</html>
