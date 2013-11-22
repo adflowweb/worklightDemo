@@ -1,6 +1,8 @@
 /**
  * 
  */
+ 
+var ClientId = "C111";
 
 $("#workOrderBtn").click(function(){
 	
@@ -176,7 +178,7 @@ $("#logOutBtn").click(function(){
 	
   client.disconnect();
   loginCheck = true; 
-  WL.Logger.debug("disconnect");
+  WL.Logger.debug("disconnectaa");
 	 
 })
 
@@ -187,7 +189,7 @@ function mqttConnect(){
 	
 	//#####   MQTT Web Socket start ########
 	// Make connection to the server.
-	client = new Messaging.Client("192.168.0.171", 1883, "clientId");
+	client = new Messaging.Client("192.168.0.171", 1883, ClientId);
 
 	// Set up a callBacks used when the connection is completed, 
 	// when a message arrives for this client and when the connection is lost. 
@@ -244,6 +246,7 @@ function mqttConnect(){
 	  
 	  	alert( "[차량번호]:"+ json_mes.instResp.vehId +"\n"+json_mes.instResp.respDetails.origInstId+"에 대한 응답"+"\n"+"[발주번호]:"+json_mes.instResp.respDetails.origInstId+"\n"+ "[상태]:"+ respCodeName +"\n"+ "[Msg]:"+ json_mes.instResp.respDetails.respBody+"\n"+"[응답시간]:"+json_mes.instResp.respDetails.instTStamp);
 			
+//			$("#workOrderTextarea").append('<p style="color: purple; text-align: left">'+json_mes.instResp.respDetails.respBody+'</p>');
 				
 		}
 	  
@@ -281,6 +284,8 @@ function mqttSend(msg) {
 		 	var instTStamp = "" + _Year + _Month + t.getDate() + t.getHours() + t.getMinutes()+ t.getSeconds();
 		 	
 		 	var sendMsg = '{"instResp": {"vehId": "'+ASNDVCL+'","respDetails": {"origInstId":"'+ASNDVCL+'-'+instTStamp+'","delId":"'+DELID+'", "sReqId":"'+REQID+'","respCode":"'+respCode+'", "respBody":"'+msg+'","instTStamp":"'+instTStamp+'"}}}'
+		 	
+		 	
 
 		 	
 		 	

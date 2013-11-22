@@ -90,9 +90,10 @@
 			<parameter name="ldapTimeoutMs" value="2000"/>
 			<parameter name="ldapSecurityAuthentication" value="simple"/>
 			<parameter name="validationType" value="searchPattern"/>
-			<parameter name="ldapSecurityPrincipalPattern" value="cn={username},ou=developers,dc=acmeshop,dc=com"/>
+			<parameter name="ldapSecurityPrincipalPattern" value="cn={username},ou=consumers,dc=acmeshop,dc=com"/>
 			<!-- parameter name="ldapSearchFilterPattern" value="(&amp;(objectClass=inetOrgPerson)(sAMAccountName={username})(memberof=cn=admin,ou=groups,dc=ibm,dc=com))"/-->
-			<parameter name="ldapSearchFilterPattern" value="(&amp;(objectClass=inetOrgPerson))"/>						
+			<!-- <parameter name="ldapSearchFilterPattern" value="(&amp;(objectClass=inetOrgPerson))"/>	-->
+			<parameter name="ldapSearchFilterPattern" value="(&amp;(objectClass=groupOfUniqueNames)(uniqueMember=cn={username},ou=consumers,dc=acmeshop,dc=com))"/>					
 			<parameter name="ldapSearchBase" value="dc=acmeshop,dc=com"/>
 		</loginModule>
 		

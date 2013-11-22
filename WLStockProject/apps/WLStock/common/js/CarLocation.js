@@ -35,7 +35,7 @@ function loadmap() {
            
 	
 	map = new OpenLayers.Map('map');
-	size = new OpenLayers.Size(300, 400);
+	size = new OpenLayers.Size(300, 500);
 	map.size = size;
 
 	var position = new OpenLayers.LonLat(fLng, fLat);
