@@ -27,6 +27,9 @@
 		<customSecurityTest name="WLShoppersSecurityTest">
 			<test isInternalUserID="true" realm="WLShoppersRealm" />
 		</customSecurityTest>
+		<customSecurityTest name="LDAPSecurityTest">
+			<test isInternalUserID="true" realm="LDAPRealm"/>
+		</customSecurityTest>
 		<customSecurityTest name="SubscribeServlet">
 			<test realm="SubscribeServlet" isInternalUserID="true" />
 		</customSecurityTest>
@@ -36,6 +39,10 @@
 	<realms>
 		<realm name="WLShoppersRealm" loginModule="LDAPLoginModule">
 			<className>com.worklight.core.auth.ext.FormBasedAuthenticator</className>
+		</realm>
+		<realm loginModule="LDAPLoginModule" name="LDAPRealm">
+			<className>com.worklight.core.auth.ext.FormBasedAuthenticator</className>
+			<onLoginUrl>/console</onLoginUrl>
 		</realm>
 		<realm name="SampleAppRealm" loginModule="StrongDummy">
 			<className>com.worklight.core.auth.ext.FormBasedAuthenticator</className>
