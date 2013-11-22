@@ -279,7 +279,7 @@ $('#modifybyselectedWL').click(function (){
 	
 	$('#wishform')
 	.append(
-			'<label for="wishlist_mt_form" class="ui-input-text">wishlist 제목</label><div><input type="text" name="wishlist_mt_form" id="wishlist_mt_form" placeholder="'+mywlname+'"></div><label for="wishlist_md_form" class="ui-input-text">wishlist 설명</label><div ><input type="text" name="wishlist_md_form" id="wishlist_md_form"  placeholder="'+mywldescr+'"><input type="hidden" class="wlname " name="wlname" value="'+mywlname+'"></div><input type="hidden" class="wldescr " name="wldescr" value="'+mywldescr+'"></div></div>');
+			'<label for="wishlist_mt_form" class="ui-input-text">wishlist 제목</label><div><input type="text" name="wishlist_mt_form" id="wishlist_mt_form" value="'+mywlname+'" placeholder="'+mywlname+'"></div><label for="wishlist_md_form" class="ui-input-text">wishlist 설명</label><div ><input type="text" name="wishlist_md_form" id="wishlist_md_form"  placeholder="'+mywldescr+'"  value="'+mywldescr+'"><input type="hidden" class="wlname " name="wlname" value="'+mywlname+'"></div><input type="hidden" class="wldescr " name="wldescr" value="'+mywldescr+'"></div></div>');
 	$("#wishform").trigger("create");	
 	
 	$.mobile.changePage('#wishmodificationPage', {
