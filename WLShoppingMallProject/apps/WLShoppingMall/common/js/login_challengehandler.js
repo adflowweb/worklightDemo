@@ -263,6 +263,8 @@ window.onbeforeunload = function() {
     WL.Client.logout('WLShoppersRealm', {
 		onSuccess : WL.Client.reloadApp
 	});
+    client.disconnect();
+    mqttResult = false;
     var isConnectionbtn = '<a id="layout_two"  data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner"><span class="ui-btn-text">로그인</span></span></a>';
 	$('#nowconnection').html(isConnectionbtn);
 };
