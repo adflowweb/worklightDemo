@@ -1,4 +1,6 @@
 
+/* JavaScript content from js/mqttCordovaAndroidClient.js in folder android */
+
 /* JavaScript content from js/mqttCordovaAndroidClient.js in folder common */
 /*
 ============================================================================ 
