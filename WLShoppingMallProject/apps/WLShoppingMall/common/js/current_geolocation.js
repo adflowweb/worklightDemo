@@ -12,7 +12,7 @@
 var autoGeolocation;
 var i=0;
 
-$('#btn_sendGps').click(function() {
+$('.btn_sendGps').click(function() {
 var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
 	
 	if (wlid == null || wlid == "") {		
