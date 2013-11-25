@@ -1,3 +1,5 @@
+
+/* JavaScript content from js/LDAPRealmChallengeHandler.js in folder common */
        /*
         *  Licensed Materials - Property of IBM
         *  5725-G92 (C) Copyright IBM Corp. 2011, 2013. All Rights Reserved.

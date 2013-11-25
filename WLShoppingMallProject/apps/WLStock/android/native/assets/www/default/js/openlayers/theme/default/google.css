@@ -1,0 +1,11 @@
+
+/* Stylesheet content from js/openlayers/theme/default/google.css in folder common */
+.olLayerGoogleCopyright {
+    right: 3px;
+    bottom: 2px;
+    left: auto;  
+}
+.olLayerGooglePoweredBy {
+    left: 2px;
+    bottom: 2px;   
+}

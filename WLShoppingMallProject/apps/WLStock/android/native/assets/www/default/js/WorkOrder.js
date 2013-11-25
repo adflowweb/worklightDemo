@@ -1,3 +1,5 @@
+
+/* JavaScript content from js/WorkOrder.js in folder common */
 /**
  * 
  */

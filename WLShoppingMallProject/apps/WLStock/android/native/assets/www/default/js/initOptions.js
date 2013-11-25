@@ -1,3 +1,5 @@
+
+/* JavaScript content from js/initOptions.js in folder common */
 /**
 * @license
 * Licensed Materials - Property of IBM
