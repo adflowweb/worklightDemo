@@ -26,7 +26,7 @@
 		</div>
 
 		<div data-role="content" id="pg_home_content">
-
+			<div  class="loginuser"></div>
 
 			
 			<div class="ui-grid-a">
@@ -86,6 +86,7 @@
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
 				<li><a class="btn_orderList">주문내역리스트</a></li>
+				<li><a id="btn_sendGps">gps 전송</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -138,6 +139,7 @@
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
 				<li><a class="btn_orderList">주문내역리스트</a></li>
+					<li><a id="btn_sendGps">gps 전송</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -252,6 +254,7 @@
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
 				<li><a class="btn_orderList">주문내역리스트</a></li>
+					<li><a id="btn_sendGps">gps 전송</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -311,6 +314,7 @@
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
 				<li><a class="btn_orderList">주문내역리스트</a></li>
+					<li><a id="btn_sendGps">gps 전송</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -370,6 +374,7 @@
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
 				<li><a class="btn_orderList">주문내역리스트</a></li>
+					<li><a id="btn_sendGps">gps 전송</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -514,6 +519,7 @@
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
 				<li><a class="btn_orderList">주문내역리스트</a></li>
+					<li><a id="btn_sendGps">gps 전송</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -666,6 +672,7 @@
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
 				<li><a class="btn_orderList">주문내역리스트</a></li>
+					<li><a id="btn_sendGps">gps 전송</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -756,6 +763,7 @@
 				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 				<li><a class="btn_goCartlistPage">장바구니</a></li>
 				<li><a class="btn_orderList">주문내역리스트</a></li>
+					<li><a id="btn_sendGps">gps 전송</a></li>
 				<li><a class="btn_logout">로그아웃</a></li>
 			</ul>
 
@@ -803,6 +811,7 @@
 					<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 					<li><a class="btn_goCartlistPage">장바구니</a></li>
 					<li><a class="btn_orderList">주문내역리스트</a></li>
+						<li><a id="btn_sendGps">gps 전송</a></li>
 					<li><a class="btn_logout">로그아웃</a></li>
 				</ul>
 
@@ -924,6 +933,7 @@
 					<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 					<li><a class="btn_goCartlistPage">장바구니</a></li>
 					<li><a class="btn_orderList">주문내역리스트</a></li>
+						<li><a id="btn_sendGps">gps 전송</a></li>
 					<li><a class="btn_logout">로그아웃</a></li>
 				</ul>
 
@@ -995,6 +1005,7 @@
 					<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
 					<li><a class="btn_goCartlistPage">장바구니</a></li>
 					<li><a class="btn_orderList">주문내역리스트</a></li>
+						<li><a id="btn_sendGps">gps 전송</a></li>
 					<li><a class="btn_logout">로그아웃</a></li>
 				</ul>
 
@@ -1035,6 +1046,74 @@
 		<!-- close page -->
 
 
+
+
+<!-- gps send page-->
+	<div data-role="page" id="gpsSendPage">
+		<!-- panel div -->
+		<div id="left-panel" data-role="panel" id="panel" data-position="left"
+			data-theme="c" data-display="push">
+			<ul data-role="listview" data-theme="d">
+				<li style="height: 90px" data-icon="false"><a href="#"
+					data-rel="close"></a></li>
+				<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+				<li data-theme="e"><a class="btn_goWishlistPage">위시리스트</a></li>
+				<li><a class="btn_goCartlistPage">장바구니</a></li>
+				<li><a class="btn_orderList">주문내역리스트</a></li>
+				<li><a class="btn_sendGps">gps 전송</a></li>
+				<li><a class="btn_logout">로그아웃</a></li>
+			</ul>
+
+		</div>
+		<!-- panel div end -->
+
+		<div data-role="header" data-position="fixed" id="header">
+			<h1>WL shopping</h1>
+			<a data-iconpos="notext" href="#panel" data-role="button"
+				data-icon="star"></a>
+		</div>
+
+		<!-- header end -->
+
+		<div data-role="content" id="gpsSendPage_content">
+		
+			<label for="sendMygps">현재 gps 위치 정보 송신</label>
+			<a href="#" data-role="button" id="sendMygps">send my gps location</a>
+			<label for="btn_clearGeolocation">gps 위치 정보 송신 end</label>
+			<a href="#" data-role="button" class="btn_clearGeolocation">stop sharing my gps location</a>
+			<br/>
+			<br/>
+			<br/>
+			
+			
+			<label for="sendInputgps">input gps 위치  정보 송신</label>
+			<a href="#" data-role="button" id="sendInputgps">send gps input location</a>
+			
+			<label for="inputLatitude">위도</label>
+			<input type="text" name="inputLatitude" class="inputLatitude" id="inputLatitude">
+			
+			<label for="inputLongitude">경도</label>
+			<input type="text" name="inputLongitude" class="inputLongitude"  id="inputLongitude">
+			
+
+		</div>
+		<!--  start footer -->
+		<div data-role="footer" data-position="fixed" data-id="foot1"
+			class="ui-btn-active ui-state-persist">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#pg_home" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a class="btn_goCartlistPage" data-iconpos="top"
+						data-icon="arrow-d">Cart</a></li>
+					<li><a href="#" data-rel="back" data-iconpos="top"
+						data-icon="back">back</a></li>
+				</ul>
+			</div>
+			<!-- /navbar -->
+		</div>
+		<!--  end footer -->
+	</div>
+	<!-- close page -->
 
 		<script src="js/initOptions.js"></script>
 		<script src="js/WLShoppingMall.js"></script>

@@ -30,7 +30,8 @@ function mqttConnection(wlid) {
 		client.onMessageArrived = onMessageArrived;
        
 		client.connect({
-			onSuccess : onConnect
+			onSuccess : onConnect,
+			onFailure : onConnectFailure
 		});
 	
 
@@ -51,6 +52,13 @@ function onConnect() {
 		mqttResult = true;
 
 }
+
+function onConnectFailure(responseObject) {
+	 console.log("onFailure:"+responseObject.ivocationContext+" "+responseObject.errorCode+" "+responseObject.errorMessage);
+	 
+}
+
+
 
 
 function onConnectionLost(responseObject) {

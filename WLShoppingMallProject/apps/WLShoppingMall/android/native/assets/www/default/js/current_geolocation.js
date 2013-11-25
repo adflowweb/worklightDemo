@@ -7,26 +7,68 @@
 
 // Wait for Cordova to load
 //
-document.addEventListener("deviceready", onDeviceReady, false);
 
+//btn_sendGps
 // Cordova is ready
 //
 var autoGeolocation;
-
-
-function onDeviceReady() {
-
-//    autoGeolocation  = setInterval(getGeolocation, 30000);   
-    autoGeolocation  = setInterval(getGeolocation, 10000);
-}
-
-//var autoGeolocation  = setInterval(getGeolocation, 30000);
 var i=0;
+
+$('#btn_sendGps').click(function() {
+var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");
+	
+	if (wlid == null || wlid == "") {		
+		WL.Logger.debug(" if..btn_goWishlistPage username null check , and before loadDummy() " + wlid);
+		loadDummy();
+
+	} else {
+		var conid = userRealmht["conid"];
+		var name = userRealmht["name"];
+		var loginid = userRealmht["loginid"];
+		
+		WL.Logger.debug("btn_goWishlistPage inside :: "+conid+name+loginid);
+		
+		//mqttConnection call
+//		mqttConnection(conid);
+
+		WL.Logger.error("btn_sendGps click ");
+		$.mobile.changePage('#gpsSendPage', {
+			transition : "pop"
+		});
+	
+	}
+
+	
+	
+});
+$('#sendMygps').click(function() {
+	WL.Logger.error("sendMygps click ");
+//  autoGeolocation  = setInterval(getGeolocation, 30000);   
+	 autoGeolocation  = setInterval(getGeolocation, 10000);
+});
+
+$('#sendInputgps').click(function() {
+	WL.Logger.error("sendInputgps click ");
+	var inputLatitude;
+	inputLatitude = $('input[name="inputLatitude"]').val();
+
+	var inputLongitude;
+	inputLongitude = $('input[name="inputLongitude"]').val();
+
+	WL.Logger.error("#sendInputgps click.....inputLatitude: "+ inputLatitude	+ "    inputLongitude: "  + inputLongitude);
+	isConnectionMqttforSend(inputLatitude, inputLongitude);
+	
+});
 
 $('.btn_clearGeolocation').click(function( ) {
 	clearInterval(autoGeolocation);
+	WL.Logger.error("btn_clearGeolocation click  ::   clearInterval  ");
 	
 });
+
+
+
+
 
 function getGeolocation(){
 	WL.Logger.debug("getGeolocation entry point");

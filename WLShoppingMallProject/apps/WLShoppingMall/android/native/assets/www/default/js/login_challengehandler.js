@@ -124,6 +124,7 @@ WLShoppersChallengeHandler.submitLoginFormCallback = function(response) {
 		var wlid = WL.Client.getUserInfo("WLShoppersRealm", "userId");			
 		var isConnectionbtn = '<a id="layout_two" data-theme="a" data-role="button" class="btn_loginformPag ui-btn ui-shadow ui-btn-corner-all ui-last-child ui-btn-hover-a ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" onclick="logout()"><span class="ui-btn-inner"><span class="ui-btn-text">로그아웃</span></span></a>';
 		$('#nowconnection').html(isConnectionbtn);
+		
 //		var h = null;
 //		h = $(window).height();   
 		WL.Logger.debug("window_height :: "+window_height);
@@ -249,6 +250,9 @@ function displayUserIdload(items) {
 	 WL.Logger.debug('displayUserIdload duuulll userRealmht["loginid"] :: '+userRealmht["loginid"]);
 //////////////////////////////////////////////////////
 	 
+	 var name = userRealmht["name"];
+	$('.loginuser').append('<h3>hello, '+ name +'</h3>');
+	$(".loginuser").trigger("create");
 	 
 	mqttConnection(conidwithdb);
 		/////////////////////////////////////////////////////
