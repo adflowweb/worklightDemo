@@ -1,0 +1,28 @@
+* the way to get our demo project
+
+1. in eclipse / open Git Repository Exploring / 
+
+2. click Clone Git Repository / input Location URI - https://github.com/adflowweb/worklightDemo.git 
+
+3. Authentication input user /password - tick Store in Secure Store  / click next button
+
+4. only tick master / click next button / click finish
+
+5. click directory : WorklightDemo-Working Directory-WLShoppingMallProject
+
+6. Click right mouse button at WLShoppingMallProject directory /  and select import Projects
+
+7. Wizard for project import - > select import exiting projects / click next button
+
+8. tick three projects( WLShoppingMallProject / WLShoppingMallProjectWLShoppingMallAndroid / WLShoppingMallProjectWLStockAndroid_
+
+9. click finish button
+
+10. Open Perspective java EE (or Design) 
+
+11. Done!~
+
+
+
+
+
