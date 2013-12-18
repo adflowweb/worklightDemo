@@ -13,10 +13,10 @@ window.DetailView = Backbone.View.extend({
 		// load dashBoard view
 		navigation.load('views/detail.html', function() {
 			$('.detailBtn').on('click', function() {
-				if (!window.loginView) {
-					window.loginView = new window.LoginView;
+				if (!window.iscrollView) {
+					window.iscrollView = new window.IscrollView;
 				}
-				navigation.pushView(window.loginView, 'typeB');
+				navigation.pushView(window.iscrollView, 'typeA');
 			});
 		});
 	},

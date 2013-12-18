@@ -9,7 +9,7 @@ var wlInitOptions = {
 	// # Should application automatically attempt to connect to Worklight Server
 	// on application start up
 	// # The default value is true, we are overriding it to false here.
-	connectOnStartup : false,
+	connectOnStartup : true,
 
 	// # The callback function to invoke in case application fails to connect to
 	// Worklight Server
@@ -113,3 +113,33 @@ else if (window.attachEvent)
 	window.attachEvent("onload", detailJSAtOnload);
 else
 	window.onload = detailJSAtOnload;
+
+// Add a script element as a child of the body
+function iscrollJSAtOnload() {
+	var element = document.createElement("script");
+	element.src = "js/iscroll/iscroll-lite.js";
+	document.body.appendChild(element);
+}
+
+// Check for browser support of event handling capability
+if (window.addEventListener)
+	window.addEventListener("load", iscrollJSAtOnload, false);
+else if (window.attachEvent)
+	window.attachEvent("onload", iscrollJSAtOnload);
+else
+	window.onload = iscrollJSAtOnload;
+
+// Add a script element as a child of the body
+function iscrollViewJSAtOnload() {
+	var element = document.createElement("script");
+	element.src = "views/test/iscroll.js";
+	document.body.appendChild(element);
+}
+
+// Check for browser support of event handling capability
+if (window.addEventListener)
+	window.addEventListener("load", iscrollViewJSAtOnload, false);
+else if (window.attachEvent)
+	window.attachEvent("onload", iscrollViewJSAtOnload);
+else
+	window.onload = iscrollViewJSAtOnload;
