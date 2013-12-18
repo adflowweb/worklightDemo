@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>postion</title>
+<style type=""text/css">
+div {
+	width: 150px;
+	height: 150px;
+}
+
+.box1 {
+	background-color: yellow;
+	position: fixed;
+	z-index:1;
+}
+
+.box2 {
+	background-color: pink;
+	position: relative;
+	left: 30px;
+	top: -90px;
+	z-index:2;
+}
+/* position:fixed 로 변경해서도 실행 해보세요!*/
+.box3 {
+	background-color: aqua;
+	position: relative;
+	left: 40px;
+	top: -160px;
+	z-index:1;
+}
+
+</style>
+
+</head>
+
+<body>
+	<h2>position:relative</h2>
+	<div class="box1">box1</div>
+	<div class="box2">box2</div>
+	<div class="box3">box3</div>
+
+
+</body>
+</html>
