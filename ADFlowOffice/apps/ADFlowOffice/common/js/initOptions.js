@@ -143,3 +143,23 @@ else if (window.attachEvent)
 	window.attachEvent("onload", iscrollViewJSAtOnload);
 else
 	window.onload = iscrollViewJSAtOnload;
+
+
+////////////////////////////////////////////////////////////////////////////////
+//add scheduler by eylee
+
+function schedulerJSAtOnload() {
+	WL.Logger.debug("schedulerJSAtOnload schedulerJSAtOnload inside................");
+	var element = document.createElement("script");
+	element.src = "views/scheduler.js";
+	document.body.appendChild(element);
+}
+
+//Check for browser support of event handling capability
+if (window.addEventListener)
+	window.addEventListener("load", schedulerJSAtOnload, false);
+else if (window.attachEvent)
+	window.attachEvent("onload", schedulerJSAtOnload);
+else
+	window.onload = schedulerJSAtOnload;
+////////////////////////////////////////////////////////////////////////////////

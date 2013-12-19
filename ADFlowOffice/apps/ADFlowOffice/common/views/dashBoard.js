@@ -17,6 +17,13 @@ window.DashBoardView = Backbone.View.extend({
 				}
 				navigation.pushView(window.detailView, 'typeA');
 			});
+			$('.loadscheduler').on('click', function() {
+				console.log("loadscheduler loadschedulerloadscheduler " + this);
+				if (!window.schedulerView) {
+					window.schedulerView = new window.SchedulerView;
+				}
+				navigation.pushView(window.schedulerView, 'typeA');
+			});
 		});
 	},
 
