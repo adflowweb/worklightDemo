@@ -1,0 +1,46 @@
+/* Worklight container div */
+#content {
+	height: 100%;
+	width: 100%;
+}
+
+/*******************************/
+/*       LOGIN                 */
+/*******************************/
+.login {
+	width: 30%;
+	margin: 30px auto;
+}
+
+@media ( max-width : 767px) {
+	.login {
+		width: 70%;
+	}
+}
+
+.page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	rigit: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-transform: translate3d(0, 0, 0);
+	text-align: left;
+}
+
+.page.left {
+	-webkit-transform: translate3d(-100%, 0, 0);
+}
+
+.page.center {
+	-webkit-transform: translate3d(0, 0, 0);
+}
+
+.page.right {
+	-webkit-transform: translate3d(100%, 0, 0);
+}
+
+.page.transition {
+	-webkit-transition-duration: .3s;
+}

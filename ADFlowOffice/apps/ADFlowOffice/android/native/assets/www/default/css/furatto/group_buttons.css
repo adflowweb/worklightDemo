@@ -1,0 +1,93 @@
+
+/* Stylesheet content from css/furatto/group_buttons.css in folder common */
+/*------------------------------------*\
+    $Group buttons
+\*------------------------------------*/
+/**
+ * Basic group buttons structural styling. 
+ * 
+ * Designed and built @kurenn  
+ */
+.btn-group {
+  list-style: none;
+  margin: 0;
+}
+.btn-group:before, .btn-group:after {
+  display: table;
+  content: "";
+}
+.btn-group:after {
+  clear: both;
+}
+.btn-group li {
+  float: left;
+}
+.btn-group li .btn {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+}
+.btn-group li .btn [class*="icon-"] {
+  margin-right: 0px;
+}
+.btn-group li:first-child .btn {
+  -moz-border-radius-topleft: 4px;
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.btn-group li:last-child .btn {
+  -moz-border-radius-topright: 4px;
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.btn-group.btn-group-radius li:first-child .btn {
+  -moz-border-radius-topleft: 1000px;
+  -webkit-border-top-left-radius: 1000px;
+  border-top-left-radius: 1000px;
+  -moz-border-radius-bottomleft: 1000px;
+  -webkit-border-bottom-left-radius: 1000px;
+  border-bottom-left-radius: 1000px;
+}
+.btn-group.btn-group-radius li:last-child .btn {
+  -moz-border-radius-topright: 1000px;
+  -webkit-border-top-right-radius: 1000px;
+  border-top-right-radius: 1000px;
+  -moz-border-radius-bottomright: 1000px;
+  -webkit-border-bottom-right-radius: 1000px;
+  border-bottom-right-radius: 1000px;
+}
+.btn-group.btn-group-square li:first-child .btn {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+}
+.btn-group.btn-group-square li:last-child .btn {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+}
+
+@media (max-width: 480px) {
+  .btn-group li {
+/*    float: none;   
+eylee because of button ....care about...media
+*/
+	  float: left;
+    display: block;
+  }
+  .btn-group li .btn {
+    display: block;
+  }
+}
