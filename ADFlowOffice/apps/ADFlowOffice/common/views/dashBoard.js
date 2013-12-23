@@ -31,10 +31,11 @@ ADF.view.DashBoard = Backbone.View.extend({
 				
 				if (!ADF.view.contantList) {
 					console.log("contantList contantList ");
-					ADF.view.contantList = new ADF.view.ContantList;
+					ADF.view.contactList = new ADF.view.ContactList;
+
 //					ADF.view.contantList = new ADF.view.Scheduler;
 				}
-				navigation.pushView(ADF.view.contantList, 'typeA');
+				navigation.pushView(ADF.view.contactList, 'typeA');
 			});
 		});
 		WL.App.overrideBackButton(backFunc);
