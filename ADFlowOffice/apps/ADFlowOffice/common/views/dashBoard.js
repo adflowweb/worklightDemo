@@ -27,6 +27,15 @@ ADF.view.DashBoard = Backbone.View.extend({
 						}
 						navigation.pushView(ADF.view.scheduler, 'typeA');
 					});
+			$('.contantsList').on('click', function() {
+				
+				if (!ADF.view.contantList) {
+					console.log("contantList contantList ");
+					ADF.view.contantList = new ADF.view.ContantList;
+//					ADF.view.contantList = new ADF.view.Scheduler;
+				}
+				navigation.pushView(ADF.view.contantList, 'typeA');
+			});
 		});
 		WL.App.overrideBackButton(backFunc);
 		function backFunc() {

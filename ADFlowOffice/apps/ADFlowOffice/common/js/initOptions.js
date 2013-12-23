@@ -67,6 +67,7 @@ var wlInitOptions = {
 ADF = {};
 ADF.view = {};
 ADF.model = {};
+ADF.collection = {};
 
 if (window.addEventListener) {
 	window.addEventListener('load', function() {
@@ -171,4 +172,20 @@ else if (window.attachEvent)
 	window.attachEvent("onload", schedulerJSAtOnload);
 else
 	window.onload = schedulerJSAtOnload;
-// //////////////////////////////////////////////////////////////////////////////
+
+//add contactList by kicho
+function contactListJSAtOnload() {
+	WL.Logger.debug("contactListJSAtOnload inside................");
+	var element = document.createElement("script");
+	element.src = "js/contactList.js";
+	document.body.appendChild(element);
+}
+
+//Check for browser support of event handling capability
+if (window.addEventListener)
+	window.addEventListener("load", contactListJSAtOnload, false);
+else if (window.attachEvent)
+	window.attachEvent("onload", contactListJSAtOnload);
+else
+	window.onload = contactListJSAtOnload;
+
