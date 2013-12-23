@@ -24,7 +24,9 @@ ADF.view.Iscroll = Backbone.View
 
 									var str = '';
 									for (i = 0; i < 100; i++) {
-										str += '<li style="border-color:black;border-style:solid none none none;border-width:1px;height:81px;background-color:white;"><div style="color:black;"><img width=80 height=80 src="images/'
+										str += '<li id="'
+												+ i
+												+ '" style="border-color:black;border-style:solid none none none;border-width:1px;height:81px;background-color:white;"><div style="color:black;"><img width=80 height=80 src="images/'
 												+ lists[Math.floor(Math
 														.random() * 10)]
 												+ '.jpg">'
@@ -32,11 +34,21 @@ ADF.view.Iscroll = Backbone.View
 												+ '</div></li>';
 									}
 									$('#thelist').append(str);
-									var myScroll;
-									myScroll = new iScroll('wrapper', {
+									var myScroll = new iScroll('wrapper', {
 										hScrollbar : false,
 										vScrollbar : true
 									});
+
+									$('#thelist').on({
+
+										click : function() {
+											// alert($(this).text());
+											console.log($(this));
+											console.log($(this).attr("id"));
+
+										}
+
+									}, 'li');
 
 									// $('.back').on('click', function() {
 									// if (!window.detailView) {
