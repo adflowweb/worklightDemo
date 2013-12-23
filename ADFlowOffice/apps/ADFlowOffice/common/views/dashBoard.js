@@ -28,5 +28,12 @@ ADF.view.DashBoard = Backbone.View.extend({
 						navigation.pushView(ADF.view.scheduler, 'typeA');
 					});
 		});
+		WL.App.overrideBackButton(backFunc);
+		function backFunc() {
+			if (!ADF.view.login) {
+				ADF.view.login = new ADF.view.Login;
+			}
+			navigation.pushView(ADF.view.login, 'typeB');
+		}
 	}
 });

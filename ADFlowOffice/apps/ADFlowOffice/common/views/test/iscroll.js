@@ -59,5 +59,12 @@ ADF.view.Iscroll = Backbone.View
 									// 'typeA');
 									// });
 								});
+				WL.App.overrideBackButton(backFunc);
+				function backFunc() {
+					if (!ADF.view.detail) {
+						ADF.view.detail = new ADF.view.Detail;
+					}
+					navigation.pushView(ADF.view.detail, 'typeB');
+				}
 			}
 		});

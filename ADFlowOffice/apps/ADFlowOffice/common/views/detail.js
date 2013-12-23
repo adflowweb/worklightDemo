@@ -17,5 +17,12 @@ ADF.view.Detail = Backbone.View.extend({
 				navigation.pushView(ADF.view.iscroll, 'typeA');
 			});
 		});
+		WL.App.overrideBackButton(backFunc);
+		function backFunc() {
+			if (!ADF.view.dashBoard) {
+				ADF.view.dashBoard = new ADF.view.DashBoard;
+			}
+			navigation.pushView(ADF.view.dashBoard, 'typeB');
+		}
 	}
 });

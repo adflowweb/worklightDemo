@@ -20,5 +20,8 @@ ADF.view.Login = Backbone.View.extend({
 				navigation.pushView(ADF.view.dashBoard, 'typeA');
 			});
 		});
+		WL.App.overrideBackButton(backFunc);
+		function backFunc() {
+		}
 	}
 });
