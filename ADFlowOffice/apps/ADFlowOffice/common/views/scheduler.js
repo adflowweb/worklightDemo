@@ -92,14 +92,28 @@ ADF.view.Scheduler = Backbone.View.extend({
 				$('#dayoff_first').after(str);
 			}
 			if(items[i].ctgr=='longproject'){
-					var str = '<li class="longproject_li">' + items[i].strdate + items[i].enddate +items[i].owner + '</li>';
+					var str = '<li class="longproject_li">' + items[i].strdate +' ~ ' + items[i].enddate +items[i].owner + '</li>';
 				$('#longproject_first').after(str);
 			}
 
 		}
 //
-	} /*appendSchedulerList  end*/
+	}, /*appendSchedulerList  end*/
 
+	events:{
+		'click .btn_inputScheduler':'inputScheduler'
+	},
+	inputScheduler:function(){
+		
+			console.log("inputScheduler.......................... "
+					+ this);
+			if (!ADF.view.addscheduler) {
+				ADF.view.addscheduler = new ADF.view.AddScheduler;
+			}
+			navigation.pushView(ADF.view.addscheduler, 'typeA');
+		
+
+	}
 	
 });
 

@@ -3,7 +3,7 @@
 	background-color: #FFF; 
 }
 
-#scheduler_AppBody {
+.scheduler_AppBody {
 	width: 100%;
 	position: absolute;
 	min-height: 100%;
@@ -16,7 +16,7 @@
 	*/
 }
 
-#scheduler_header {
+.scheduler_header {
 	position: absolute;
 	top:0px;
 	height: 38px;
@@ -30,14 +30,27 @@
 	border-bottom: 1px solid #BBBBBB;
 }
 
-#scheduler_pagePort {
+.addscheduler_header{
+	position: absolute;
+	top:0px;
+	height: 38px;
+	line-height: 38px;
+	width: 100%;
+	text-align: center;
+	/*background-color: #2d313d; */
+	background-color:#E32426;
+	color: #FFF;
+	font-size: 16px;
+	border-bottom: 1px solid #BBBBBB;
+}
+.scheduler_pagePort {
 	position: absolute;
 	top:39px;
 	color: #9098A0;
 	width: 100%;
 }
 
-#scheduler_footer {
+.scheduler_footer {
 	position: absolute;
 	bottom: 0; /* Footer am Ende des Browsers festsetzen */
 	height: 38px;
@@ -46,11 +59,11 @@
 	
 }
 
-#footer_btngroup{	
+.footer_btngroup{	
 	position: relative;  
 }
 
-#footerlayout_center{
+.footerlayout_center{
   position: absolute;
   margin: auto;
   width: 80%;
@@ -187,4 +200,45 @@ cardul_longproject
 	font-size: 25px;
 	font-weight:bold;
 	color: #262C34;
+}
+
+
+
+/*
+ css addscheduler style
+ */
+
+ .addscheduler_header{
+	position: absolute;
+	top:0px;
+	height: 38px;
+	line-height: 38px;
+	width: 100%;	
+	/*background-color: #2d313d; */
+	background-color:#E32426;
+	color: #FFF;
+	font-size: 16px;
+	border-bottom: 1px solid #BBBBBB;
+}
+/*
+   .addscheduler_header a,  .addscheduler_header h4{
+	  display: inline;
+	  float: left;
+  }
+  */
+.addscheduler_header a.btn_inputCancelsc{
+	  display: inline;
+	  float: left;
+}
+  
+  
+.addscheduler_header h4{
+	  display: inline;	 
+	  text-align: center;
+}
+
+
+.addscheduler_header a.btn_inputAddsc{
+	  display: inline;
+	  float: right;
 }

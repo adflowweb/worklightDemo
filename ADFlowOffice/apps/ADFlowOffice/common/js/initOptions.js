@@ -189,3 +189,23 @@ else if (window.attachEvent)
 else
 	window.onload = contactListJSAtOnload;
 
+//add input scheduler form by eylee
+
+function addschedulerJSAtOnload() {
+	WL.Logger
+			.debug("addschedulerJSAtOnload inside................");
+	var element = document.createElement("script");
+	element.src = "views/addscheduler.js";
+	document.body.appendChild(element);
+}
+
+// Check for browser support of event handling capability
+if (window.addEventListener)
+	window.addEventListener("load", addschedulerJSAtOnload, false);
+else if (window.attachEvent)
+	window.attachEvent("onload", addschedulerJSAtOnload);
+else
+	window.onload = addschedulerJSAtOnload;
+
+
+
