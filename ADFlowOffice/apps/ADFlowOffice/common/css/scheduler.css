@@ -8,8 +8,8 @@
 	position: absolute;
 	min-height: 100%;
 	width: 100%;
-	background-color: #3498d9;
-	/*background-color: #FFF; */
+	/*background-color: #3498d9; */
+	background-color: #EFEFF4;
 	margin: 0 auto;
 	/*overflow: hidden;
 	overflow-y: auto;
@@ -23,7 +23,8 @@
 	line-height: 38px;
 	width: 100%;
 	text-align: center;
-	background-color: #2d313d;
+	/*background-color: #2d313d; */
+	background-color:#E32426;
 	color: #FFF;
 	font-size: 16px;
 	border-bottom: 1px solid #BBBBBB;
@@ -32,20 +33,158 @@
 #scheduler_pagePort {
 	position: absolute;
 	top:39px;
-
+	color: #9098A0;
 	width: 100%;
 }
 
 #scheduler_footer {
-	position: absolute;	
-
+	position: absolute;
 	bottom: 0; /* Footer am Ende des Browsers festsetzen */
 	height: 38px;
 	width: 100%;
-	background: #2d313d;
-	text-align: center;
+	background: #EFEFF4;
+	
 }
 
+#footer_btngroup{	
+	position: relative;  
+}
+
+#footerlayout_center{
+  position: absolute;
+  margin: auto;
+  width: 80%;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
 .dashboard-container {
 	color: #FFF;
+}
+
+
+
+/*
+card feelings..
+*/
+.myscheduler_wrapper{
+	position: relative;  
+}
+.cardul_workoutside{
+	
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-top: 30px;
+	margin-bottom: 0px;
+	padding:0px;
+	width:100%;
+	background: #FFFFFF;
+}
+
+.cardul_workoutside li{	
+	padding-top:6px ;
+	margin-left: 10px;
+	padding-bottom:6px;
+	padding-left:9px;
+	font-size: 13px;
+	font-weight:normal;
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
+}
+
+#workoutside_first{
+	padding-top:10px ;
+	margin-left: 10px;
+	padding-bottom:10px;
+	padding-left:9px;
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
+	font-size: 25px;
+	font-weight:bold;
+	color: #262C34;
+}
+
+
+/*
+cardul_dayoff
+*/
+
+
+.cardul_dayoff{
+	
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-top: 30px;
+	margin-bottom: 0px;
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
+	padding:0px;
+	width:100%;
+	background: #FFFFFF;
+}
+
+.cardul_dayoff li{	
+	padding-top:6px ;
+	margin-left: 10px;
+	padding-bottom:6px;
+	padding-left:9px;
+	font-size: 13px;
+	font-weight:normal;
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
+}
+
+#dayoff_first{
+	padding-top:10px ;
+	margin-left: 10px;
+	padding-bottom:10px;
+	padding-left:9px;
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
+	font-size: 25px;
+	font-weight:bold;
+	color: #262C34;
+}
+
+
+
+/*
+cardul_longproject
+*/
+
+
+.cardul_longproject{
+	
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-top: 30px;
+	margin-bottom: 40px;
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
+	padding:0px;
+	width:100%;
+	background: #FFFFFF;
+}
+
+.cardul_longproject li{	
+	padding-top:6px ;
+	margin-left: 10px;
+	padding-bottom:6px;
+	padding-left:9px;
+	font-size: 13px;
+	font-weight:normal;
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
+}
+
+#longproject_first{
+	padding-top:10px ;
+	margin-left: 10px;
+	padding-bottom:10px;
+	padding-left:9px;
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
+	font-size: 25px;
+	font-weight:bold;
+	color: #262C34;
 }

@@ -3,21 +3,44 @@
 	<div id="scheduler_AppBody" >
 			<!-- This is static header, it will be shown always -->
 			<div id="scheduler_header" >
-				<h3>daily Scheduler</h3>
+				<!-- h4>daily Scheduler</h4-->
+				<h4><i class="icon-calendar"> Mon, Dec 23</i></h4>
 			</div>
 			
 			<!-- This is a placeholder for dynamic page content -->
 			<div id="scheduler_pagePort" class="row">
-			schedulerView 2013-12-19
+				<div class="myscheduler_wrapper">
+					<ul class="cardul_workoutside">
+						<li id="workoutside_first">외근 현황</li>						
+					</ul>
+					
+						<ul class="cardul_dayoff">
+						<li id="dayoff_first">휴가 현황</li>
+						</ul>
+					
+						<ul class="cardul_longproject">
+						<li id="longproject_first">장기 프로젝트</li>
+											
+					</ul>
+					
+				</div>	
+				<!-- myscheduler_wrapper end -->
 			</div>
 			
-			
+			 <script type="text/template" id="schedulerListTemplate">
+      			  <span><%= title %></span><button class="edit">Edit</button>
+				  <button class="delete">Delete</button>
+   			 </script>
 			<div id="scheduler_footer" >
-			<ul class="btn-group btn-group-square">
-			   <li><a href="#" class="btn btn-funky">입력</a></li>
-			   <li><a href="#" class="btn btn-funky">수정</a></li>
-			   <li><a href="#" class="btn btn-funky">삭제</a></li>
-			</ul>	
-			</div>
+				<div id="footer_btngroup">
+					<div id="footerlayout_center">
+					<ul class="btn-group btn-group-square">
+					   <li><a href="#" class="btn btn-success btn_inputScheduler">입력</a></li>
+					   <li><a href="#" class="btn btn-success  btn_modifyScheduler">수정</a></li>
+					   <li><a href="#" class="btn btn-success  btn_deleteScheduler">삭제</a></li>
+					</ul>	
+					</div>
+				</div>
+				</div>
 		</div>
 </div>
