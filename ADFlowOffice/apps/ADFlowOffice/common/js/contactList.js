@@ -40,7 +40,7 @@ ADF.view.ContactList = Backbone.View.extend({
 			render : function() {
 				var self = this;
 				// load dashBoard view
-				navigation.load('views/ContactList.html', function() {
+				navigation.load('views/contactList.html', function() {
 					// iscorell 초기화
 					self.iscrollInti();
 
@@ -193,16 +193,16 @@ ADF.view.ContactList = Backbone.View.extend({
 								+ '</p></div></li>';
 					};
 					
-					$('#listUL').on({
-
-	                    click : function() {
-	                            // alert($(this).text());
-	                            console.log($(this));
-	                            console.log($(this).attr("id"));
-
-	                    }
-
-					}, 'li');
+//					$('#listUL').on({
+//
+//	                    click : function() {
+//	                            // alert($(this).text());
+//	                            console.log($(this));
+//	                            console.log($(this).attr("id"));
+//
+//	                    }
+//
+//					}, 'li');
 
 					$('ul', this.el).html(liSrc);
 					myScroll.refresh();
