@@ -2,24 +2,20 @@
 #header {
 	position:absolute; z-index:2;
 	top:0; left:0;
+
+}
+
+.contactHeader {
 	width:100%;
 	height:45px;
 	line-height:45px;
-	background-color:#d51875;
-	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #fe96c9), color-stop(0.05, #d51875), color-stop(1, #7b0a2e));
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #E9E8F1), color-stop(0.05, #958CD5), color-stop(1, #07053A));
 	background-image:-moz-linear-gradient(top, #fe96c9, #d51875 5%, #7b0a2e);
 	background-image:-o-linear-gradient(top, #fe96c9, #d51875 5%, #7b0a2e);
 	padding:0;
 	color:#eee;
-	font-size:20px;
+	font-size:30px;
 	text-align:center;
-}
-
-#header a {
-	color:#f3f3f3;
-	text-decoration:none;
-	font-weight:bold;
-	text-shadow:0 -1px 0 rgba(0,0,0,0.5);
 }
 
 #footer {
@@ -39,7 +35,6 @@
 	position:absolute; z-index:1;
 	top:45px; bottom:48px; left:0;
 	width:100%;
-	background:#aaa;
 	overflow:auto;
 }
 
@@ -64,7 +59,8 @@
 	line-height:50px;
 	border-bottom:1px solid #ccc;
 	border-top:1px solid #fff;
-	background-color:#FFDFE8;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #E9E8F1), color-stop(0.05, #FAFAFC), color-stop(1, #E5E4F8));
+
 }
 
 #ulDiv1_2 .addressListLi2 {
@@ -73,7 +69,6 @@
 	line-height:50px;
 	border-bottom:1px solid #ccc;
 	border-top:1px solid #fff;
-	background-color:#F1D0D9;
 	
 }
 
@@ -87,5 +82,21 @@
 #ulDiv1_2 p {
 	font-size:45px;
 	line-height: 1;
+	color: #000;
+	text-align:center;
 }
+
+.contactLabel {
+	margin-left:10px;
+	width:100px;
+	float: left; 
+	line-height: 1.7;
+}
+
+.contactInput {
+	position:relative;
+left:10px;
+}
+
+
 
