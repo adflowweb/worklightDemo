@@ -208,4 +208,19 @@ else
 	window.onload = addschedulerJSAtOnload;
 
 
+//add contactList by kicho
+function contactDetailJSAtOnload() {
+	WL.Logger.debug("contactDetailJSAtOnload inside................");
+	var element = document.createElement("script");
+	element.src = "js/contactDetail.js";
+	document.body.appendChild(element);
+}
+
+//Check for browser support of event handling capability
+if (window.addEventListener)
+	window.addEventListener("load", contactDetailJSAtOnload, false);
+else if (window.attachEvent)
+	window.attachEvent("onload", contactDetailJSAtOnload);
+else
+	window.onload = contactDetailJSAtOnload;
 
