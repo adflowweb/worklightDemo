@@ -93,9 +93,12 @@
 	line-height: 1.7;
 }
 
-.contactInput {
+#contactDetailDiv .contactInput {
 	position:relative;
 left:10px;
+font-weight: bold;
+background-color: #1B598A;
+color: #FFF;
 }
 
 

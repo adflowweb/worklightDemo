@@ -10,8 +10,8 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	},
 
 	events : {
-	// 'click button#searchBtn' : 'searchBtn',
-	// 'click li' : 'liClick',
+	 'click button.btn-contactUpdate' : 'contactUpdateClick',
+	 'click button.btn-contactUpdateFinish' : 'contactUpdateFinishClick',
 	},
 
 	render : function() {
@@ -23,6 +23,24 @@ ADF.view.ContactDetail = Backbone.View.extend({
 			 that.contactDisplay();
 			console.error("render2   render2   render2");
 		});
+	},
+	
+	contactUpdateClick : function() {
+		$('#Bt_contactUpdate').removeClass('btn-info').removeClass('btn-contactUpdate').addClass('btn-success').addClass('btn-contactUpdateFinish');
+		$("#Bt_contactUpdate").html("수 정 완 료");
+		$("input.contactInput").css("background-color","#FFF").css("color","#000");
+		$("input.contactInput").attr("readonly",false);
+		
+		console.error("contactUpdateClick   contactUpdateClick   contactUpdateClick");
+	},
+	
+	contactUpdateFinishClick : function() {
+		$('#Bt_contactUpdate').removeClass('btn-success').removeClass('btn-contactUpdateFinish').addClass('btn-info').addClass('btn-contactUpdate');
+		$("#Bt_contactUpdate").html("수 정  하 기");
+		$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
+		$("input.contactInput").attr("readonly",true);
+		
+		console.error("contactUpdateClick   contactUpdateClick   contactUpdateClick");
 	},
 	
 	contactSet : function(item) {
