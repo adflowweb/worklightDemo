@@ -34,9 +34,15 @@ function wlCommonInit() {
 
 		window.beforeload = new Date().getTime();
 
+		window.busy.show();
+
 		WL.Client.connect({
-			onSuccess : function(){console.log('success ========================')},
-			onFailure : function(){console.log('fail ========================')}
+			onSuccess : function() {
+				console.log('success ========================')
+			},
+			onFailure : function() {
+				console.log('fail ========================')
+			}
 		});
 
 		if (!ADF.view.dashBoard) {

@@ -84,7 +84,7 @@ if (window.addEventListener) {
 // Add a script element as a child of the body
 function dashBoardJSAtOnload() {
 	var element = document.createElement("script");
-	element.src = "views/dashBoard.js";
+	element.src = "js/views/dashBoard.js";
 	document.body.appendChild(element);
 }
 
@@ -99,7 +99,7 @@ else
 // Add a script element as a child of the body
 function loginJSAtOnload() {
 	var element = document.createElement("script");
-	element.src = "views/login.js";
+	element.src = "js/views/login.js";
 	document.body.appendChild(element);
 }
 
@@ -114,7 +114,7 @@ else
 // Add a script element as a child of the body
 function detailJSAtOnload() {
 	var element = document.createElement("script");
-	element.src = "views/detail.js";
+	element.src = "js/views/detail.js";
 	document.body.appendChild(element);
 }
 
@@ -145,7 +145,7 @@ else
 // Add a script element as a child of the body
 function iscrollViewJSAtOnload() {
 	var element = document.createElement("script");
-	element.src = "views/test/iscroll.js";
+	element.src = "js/views/test/iscroll.js";
 	document.body.appendChild(element);
 }
 
@@ -164,7 +164,7 @@ function schedulerJSAtOnload() {
 	WL.Logger
 			.debug("schedulerJSAtOnload schedulerJSAtOnload inside................");
 	var element = document.createElement("script");
-	element.src = "views/scheduler.js";
+	element.src = "js/views/scheduler.js";
 	document.body.appendChild(element);
 }
 
@@ -180,7 +180,7 @@ else
 function contactListJSAtOnload() {
 	WL.Logger.debug("contactListJSAtOnload inside................");
 	var element = document.createElement("script");
-	element.src = "js/contactList.js";
+	element.src = "js/views/contactList.js";
 	document.body.appendChild(element);
 }
 
@@ -197,7 +197,7 @@ else
 function addschedulerJSAtOnload() {
 	WL.Logger.debug("addschedulerJSAtOnload inside................");
 	var element = document.createElement("script");
-	element.src = "views/addscheduler.js";
+	element.src = "js/views/addscheduler.js";
 	document.body.appendChild(element);
 }
 
@@ -213,7 +213,7 @@ else
 function contactDetailJSAtOnload() {
 	WL.Logger.debug("contactDetailJSAtOnload inside................");
 	var element = document.createElement("script");
-	element.src = "js/contactDetail.js";
+	element.src = "js/views/contactDetail.js";
 	document.body.appendChild(element);
 }
 

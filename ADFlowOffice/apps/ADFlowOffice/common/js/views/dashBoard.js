@@ -41,7 +41,8 @@ ADF.view.DashBoard = Backbone.View.extend({
 				navigation.pushView(ADF.view.contactList, 'typeA');
 			});
 
-			navigation.loadAsync(ADF.view.dashBoard.elapsedTime);
+			navigation.loadAsync(function (){ADF.view.dashBoard.elapsedTime();window.busy.hide();}
+			);
 		});
 		WL.App.overrideBackButton(backFunc);
 		function backFunc() {

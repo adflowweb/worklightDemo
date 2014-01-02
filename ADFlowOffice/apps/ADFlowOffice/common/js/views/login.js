@@ -16,6 +16,8 @@ ADF.view.Login = Backbone.View
 						// console.log('this::' + this);
 						// console.log('WL::' + WL);
 						window.beforeload = new Date().getTime();
+						
+						window.busy.show();
 
 						if (!ADF.view.dashBoard) {
 							ADF.view.dashBoard = new ADF.view.DashBoard;
