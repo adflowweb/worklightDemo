@@ -24,7 +24,7 @@ ADF.view.ContactList = Backbone.View
 
 			initialize : function() {
 				_.bindAll(this, 'render', 'loadContactList', 'loadList',
-						'loadContactListSuccess', 'liClick'); // fixes loss of
+						'loadContactListSuccess', 'liClick','loadListDisplay'); // fixes loss of
 				// context for
 				// 'this' within
 				// methods
@@ -45,7 +45,7 @@ ADF.view.ContactList = Backbone.View
 			render : function() {
 				// load dashBoard view
 				var that = this;
-				navigation.load('views/contactList.html', function() {
+				navigation.loadBefore('views/contactList.html', function() {
 					// iscorell 초기화
 					that.iscrollInit();
 
@@ -53,11 +53,12 @@ ADF.view.ContactList = Backbone.View
 
 					// JSONStore 에서 model read
 					//that.ContactModelLoadClick();
-					
 					that.loadContactList("ADFlowContact");
+//					that.loadListDisplay();
 
 					// model 에서 address read
 //					that.loadList();
+					
 				});
 
 				WL.App.overrideBackButton(backFunc);
@@ -102,14 +103,28 @@ ADF.view.ContactList = Backbone.View
 				// }
 
 			},
+			
+			loadListDisplay : function() {
+				
+				console.log("======= loadListDisplay start =========");
+
+				$('ul', this.el).html(this.liSrc);
+				myScroll.refresh();
+				
+				//call async
+				navigation.loadAsync(function(){console.log('call after()')});
+
+			},
 
 			loadList : function() {
+				
+				console.log("======= loadList start =========");
 
-				var liSrc = '';
-				console.error(this.collection);
+				this.liSrc = '';
+//				console.error(this.collection);
 				for (var j = 0; j < this.collection.length; j++) {
 
-					liSrc += '<li id="' + j
+					this.liSrc += '<li id="' + j
 							+ '" class="addressListLi"><div><img id="'
 							+ this.collection.models[j].get('phone')
 							+ '" alt="" class="img img-circular" src="'
@@ -119,6 +134,11 @@ ADF.view.ContactList = Backbone.View
 							+ '</p></div></li>';
 				}
 				;
+				$('ul', this.el).html(this.liSrc);
+				myScroll.refresh();
+				
+				//call async
+				navigation.loadAsync(function(){console.log('call after()')});
 
 				// $('#listUL').on({
 				//				
@@ -132,8 +152,7 @@ ADF.view.ContactList = Backbone.View
 				//				
 				// }, 'li');
 
-				$('ul', this.el).html(liSrc);
-				myScroll.refresh();
+
 				console.log("address list End=======");
 
 			},
@@ -228,40 +247,6 @@ ADF.view.ContactList = Backbone.View
 									+ this.collection.models[0].get('no'));
 					
 					this.loadList();
-
-//					var temp = true;
-//					var liSrc = '';
-//					for (var j = 0; j < items.length; j++) {
-//
-//						temp = !temp;
-//
-//						var temp2 = temp ? "1" : "2";
-//						console.log(temp2);
-//						liSrc += '<li id="'
-//								+ this.collection.models[j].get('no')
-//								+ '" class="addressListLi' + temp2
-//								+ '"><div><img alt="Embedded Image" src="'
-//								+ this.collection.models[j].get('photo')
-//								+ '" /> <p id="NameBtn">'
-//								+ this.collection.models[j].get('nameKo')
-//								+ '</p></div></li>';
-//					}
-//					;
-
-					// $('#listUL').on({
-					//
-					// click : function() {
-					// // alert($(this).text());
-					// console.log($(this));
-					// console.log($(this).attr("id"));
-					//
-					// }
-					//
-					// }, 'li');
-//
-//					$('ul', this.el).html(liSrc);
-//					myScroll.refresh();
-//					console.log("address list End=======");
 
 				} else {
 
