@@ -39,7 +39,6 @@ Navigation.prototype.loadAsync = function(after) {
 	this.$page2.attr("style", "");
 	navigation.updateView();
 
-	console.log(after);
 	if (after) {
 		after();
 	}

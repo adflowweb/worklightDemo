@@ -1,7 +1,7 @@
 ADF.view.Detail = Backbone.View
 		.extend({
 			el : $('.panel-content'), // attaches `this.el` to an existing
-										// element.
+			// element.
 
 			initialize : function() {
 				// _.bindAll(this, 'render'); // fixes loss of context for
@@ -14,9 +14,10 @@ ADF.view.Detail = Backbone.View
 				// load dashBoard view
 				navigation.load('views/detail.html', function() {
 					$('.detailBtn').on('click', function() {
-						
+
 						window.beforeload = new Date().getTime();
-						
+						window.busy.show();
+
 						if (!ADF.view.iscroll) {
 							ADF.view.iscroll = new ADF.view.Iscroll;
 						}
@@ -26,9 +27,9 @@ ADF.view.Detail = Backbone.View
 				});
 				WL.App.overrideBackButton(backFunc);
 				function backFunc() {
-					
+
 					window.beforeload = new Date().getTime();
-					
+
 					if (!ADF.view.dashBoard) {
 						ADF.view.dashBoard = new ADF.view.DashBoard;
 					}

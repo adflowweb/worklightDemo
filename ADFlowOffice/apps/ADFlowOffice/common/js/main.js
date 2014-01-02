@@ -31,13 +31,20 @@ function wlCommonInit() {
 	 */
 	// Common initialization code goes here
 	$('#loginBtn').on('click', function() {
-		
+
 		window.beforeload = new Date().getTime();
-		
+
+		WL.Client.connect({
+			onSuccess : function(){console.log('success ========================')},
+			onFailure : function(){console.log('fail ========================')}
+		});
+
 		if (!ADF.view.dashBoard) {
 			ADF.view.dashBoard = new ADF.view.DashBoard;
 		}
 
 		navigation.pushView(ADF.view.dashBoard, 'typeA');
 	});
+
+	window.busy = new WL.BusyIndicator();
 }

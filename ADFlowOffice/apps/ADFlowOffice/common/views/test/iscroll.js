@@ -34,22 +34,6 @@ ADF.view.Iscroll = Backbone.View
 												+ '</div></li>';
 									}
 									$('#thelist').append(str);
-									var myScroll = new iScroll('wrapper', {
-										hScrollbar : false,
-										vScrollbar : true
-									});
-
-									$('#thelist').on({
-
-										click : function() {
-											// alert($(this).text());
-											console.log($(this));
-											console.log($(this).attr("id"));
-
-										}
-
-									}, 'li');
-
 									// $('.back').on('click', function() {
 									// if (!window.detailView) {
 									// window.detailView = new
@@ -58,8 +42,29 @@ ADF.view.Iscroll = Backbone.View
 									// navigation.pushView(window.detailView,
 									// 'typeA');
 									// });
-									navigation
-											.loadAsync(ADF.view.iscroll.elapsedTime);
+									navigation.loadAsync(function() {
+
+										var myScroll = new iScroll('wrapper', {
+											hScrollbar : false,
+											vScrollbar : true
+										});
+
+										$('#thelist').on(
+												{
+
+													click : function() {
+														// alert($(this).text());
+														console.log($(this));
+														console.log($(this)
+																.attr("id"));
+
+													}
+
+												}, 'li');
+										ADF.view.iscroll.elapsedTime();
+										window.busy.hide();
+									});
+									// 
 								});
 				WL.App.overrideBackButton(backFunc);
 				function backFunc() {

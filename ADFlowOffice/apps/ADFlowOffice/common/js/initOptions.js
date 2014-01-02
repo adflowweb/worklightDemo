@@ -9,11 +9,13 @@ var wlInitOptions = {
 	// # Should application automatically attempt to connect to Worklight Server
 	// on application start up
 	// # The default value is true, we are overriding it to false here.
-	connectOnStartup : true,
+	connectOnStartup : false,
 
 	// # The callback function to invoke in case application fails to connect to
 	// Worklight Server
-	// onConnectionFailure: function (){},
+	//onConnectionFailure : function() {
+
+	//},
 
 	// # Worklight server connection timeout
 	// timeout: 30000,
@@ -127,7 +129,7 @@ else
 // Add a script element as a child of the body
 function iscrollJSAtOnload() {
 	var element = document.createElement("script");
-//	element.src = "js/iscroll/iscroll-lite.js";
+	// element.src = "js/iscroll/iscroll-lite.js";
 	element.src = "js/iscroll/iscroll.js";
 	document.body.appendChild(element);
 }
@@ -174,7 +176,7 @@ else if (window.attachEvent)
 else
 	window.onload = schedulerJSAtOnload;
 
-//add contactList by kicho
+// add contactList by kicho
 function contactListJSAtOnload() {
 	WL.Logger.debug("contactListJSAtOnload inside................");
 	var element = document.createElement("script");
@@ -182,7 +184,7 @@ function contactListJSAtOnload() {
 	document.body.appendChild(element);
 }
 
-//Check for browser support of event handling capability
+// Check for browser support of event handling capability
 if (window.addEventListener)
 	window.addEventListener("load", contactListJSAtOnload, false);
 else if (window.attachEvent)
@@ -190,11 +192,10 @@ else if (window.attachEvent)
 else
 	window.onload = contactListJSAtOnload;
 
-//add input scheduler form by eylee
+// add input scheduler form by eylee
 
 function addschedulerJSAtOnload() {
-	WL.Logger
-			.debug("addschedulerJSAtOnload inside................");
+	WL.Logger.debug("addschedulerJSAtOnload inside................");
 	var element = document.createElement("script");
 	element.src = "views/addscheduler.js";
 	document.body.appendChild(element);
@@ -208,8 +209,7 @@ else if (window.attachEvent)
 else
 	window.onload = addschedulerJSAtOnload;
 
-
-//add contactList by kicho
+// add contactList by kicho
 function contactDetailJSAtOnload() {
 	WL.Logger.debug("contactDetailJSAtOnload inside................");
 	var element = document.createElement("script");
@@ -217,11 +217,10 @@ function contactDetailJSAtOnload() {
 	document.body.appendChild(element);
 }
 
-//Check for browser support of event handling capability
+// Check for browser support of event handling capability
 if (window.addEventListener)
 	window.addEventListener("load", contactDetailJSAtOnload, false);
 else if (window.attachEvent)
 	window.attachEvent("onload", contactDetailJSAtOnload);
 else
 	window.onload = contactDetailJSAtOnload;
-
