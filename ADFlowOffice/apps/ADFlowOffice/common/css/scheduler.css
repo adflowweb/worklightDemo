@@ -44,18 +44,23 @@
 	border-bottom: 1px solid #BBBBBB;
 }
 .scheduler_pagePort {
+	position: relative;
+	/*
 	position: absolute;
 	top:39px;
+	*/
 	color: #9098A0;
 	width: 100%;
+	
 }
 
 .scheduler_footer {
-	position: absolute;
+	background-color: #EFEFF4;
+	position: fixed;
 	bottom: 0; /* Footer am Ende des Browsers festsetzen */
 	height: 38px;
 	width: 100%;
-	background: #EFEFF4;
+	/*background: #EFEFF4; */
 	
 }
 
@@ -79,6 +84,7 @@
 card feelings..
 */
 .myscheduler_wrapper{
+	background-color: #EFEFF4;
 	position: relative;  
 }
 .cardul_workoutside{
