@@ -12,6 +12,9 @@ ADF.view.DashBoard = Backbone.View.extend({
 		// load dashBoard view
 		navigation.loadBefore('views/dashBoard.html', function() {
 			$('.back').on('click', function() {
+				
+				window.beforeload = new Date().getTime();
+				
 				if (!ADF.view.detail) {
 					ADF.view.detail = new ADF.view.Detail;
 				}

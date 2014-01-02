@@ -26,7 +26,7 @@ ADF.view.Iscroll = Backbone.View
 									for (i = 0; i < 100; i++) {
 										str += '<li id="'
 												+ i
-												+ '" style="border-color:black;border-style:solid none none none;border-width:1px;height:81px;background-color:white;"><div style="color:black;"><img width=80 height=80 src="images/'
+												+ '" style="border-color:grey;border-style:solid none none none;border-width:1px;height:81px;background-color:white;"><div style="color:grey;"><img width=80 height=80 src="images/'
 												+ lists[Math.floor(Math
 														.random() * 10)]
 												+ '.jpg">'
@@ -58,14 +58,27 @@ ADF.view.Iscroll = Backbone.View
 									// navigation.pushView(window.detailView,
 									// 'typeA');
 									// });
-									navigation.loadAsync();
+									navigation
+											.loadAsync(ADF.view.iscroll.elapsedTime);
 								});
 				WL.App.overrideBackButton(backFunc);
 				function backFunc() {
+
+					window.beforeload = new Date().getTime();
+
 					if (!ADF.view.detail) {
 						ADF.view.detail = new ADF.view.Detail;
 					}
 					navigation.pushView(ADF.view.detail, 'typeB');
 				}
+			},
+			elapsedTime : function() {
+				console.log('elapsedTime called')
+				var aftrload = new Date().getTime();
+				// Time calculating in seconds
+				var time = (aftrload - window.beforeload) / 1000;
+				document.getElementById("iScrollElapsedTime").innerHTML = "Your Page took <font color='red'><b>"
+						+ time + "</b></font> Seconds to Load";
+				window.beforeload = 0;
 			}
 		});
