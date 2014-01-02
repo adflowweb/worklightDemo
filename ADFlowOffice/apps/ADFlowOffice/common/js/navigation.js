@@ -11,7 +11,7 @@ var Navigation = function() {
 Navigation.prototype.pushView = function(view, aniType) {
 	this.aniType = aniType;
 	this.$page1 = $(".page");
-	this.$page2 = $("<div class='page'>");
+	this.$page2 = $("<div class='page' style='display:none'>");
 	$('.panel-content').append(this.$page2);
 	view.render(this.updateView);
 };
@@ -21,10 +21,26 @@ Navigation.prototype.getAniType = function() {
 };
 
 Navigation.prototype.load = function(page, callback) {
+	var $page = this.$page2;
 	this.$page2.load(page, function() {
+		$page.attr("style", "");
 		navigation.updateView();
 		callback();
 	});
+};
+
+Navigation.prototype.loadBefore = function(page, before) {
+	this.$page2.load(page, function() {
+		before();
+	});
+};
+
+Navigation.prototype.loadAsync = function(after) {
+	this.$page2.attr("style", "");
+	navigation.updateView();
+	if (after) {
+		after();
+	}
 };
 
 Navigation.prototype.updateView = function() {

@@ -24,7 +24,9 @@ ADF.view.Scheduler = Backbone.View.extend({
 		console.log("SchedulerView " + this);
 		var window_width = $(window).width();   
 		console.log("window_width :: "+window_width);
-		navigation.load('views/schedulerBoard.html', this.fetchDB);
+		//call async
+		navigation.loadBefore('views/schedulerBoard.html', this.fetchDB);
+		//navigation.load('views/schedulerBoard.html', this.fetchDB);
 		
        
 		
@@ -97,6 +99,9 @@ ADF.view.Scheduler = Backbone.View.extend({
 			}
 
 		}
+	   
+	   //call async
+	   navigation.loadAsync(function(){console.log('call after()')});
 //
 	}, /*appendSchedulerList  end*/
 
