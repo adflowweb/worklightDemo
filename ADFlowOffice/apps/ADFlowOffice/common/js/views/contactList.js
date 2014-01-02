@@ -24,14 +24,16 @@ ADF.view.ContactList = Backbone.View
 
 			initialize : function() {
 				_.bindAll(this, 'render', 'loadContactList', 'loadList',
-						'loadContactListSuccess', 'liClick','loadListDisplay'); // fixes loss of
+						'loadContactListSuccess', 'liClick', 'loadListDisplay'); // fixes
+																					// loss
+																					// of
 				// context for
 				// 'this' within
 				// methods
 				// this.render(); // not all views are self-rendering. This
 				// one is.
-				
-//				this.loadContactList("ADFlowContact");
+
+				// this.loadContactList("ADFlowContact");
 
 				this.clickTemp = true;
 			},
@@ -52,13 +54,13 @@ ADF.view.ContactList = Backbone.View
 					// 서버 주소록 변경 상황 체크
 
 					// JSONStore 에서 model read
-					//that.ContactModelLoadClick();
+					// that.ContactModelLoadClick();
 					that.loadContactList("ADFlowContact");
-//					that.loadListDisplay();
+					// that.loadListDisplay();
 
 					// model 에서 address read
-//					that.loadList();
-					
+					// that.loadList();
+
 				});
 
 				WL.App.overrideBackButton(backFunc);
@@ -74,22 +76,15 @@ ADF.view.ContactList = Backbone.View
 
 				console.error("id");
 
-				if (this.clickTemp) {
-					// this.clickTemp = false;
+				console.log($(e.currentTarget).attr("id"));
 
-					console.log($(e.currentTarget).attr("id"));
-
-					if (!ADF.view.contantDetail) {
-						console.log("contantDetail view Call");
-						ADF.view.contantDetail = new ADF.view.ContactDetail;
-					}
-					ADF.view.contantDetail.contactSet(this.collection.models[$(
-							e.currentTarget).attr("id")]);
-					navigation.pushView(ADF.view.contantDetail, 'typeA');
+				if (!ADF.view.contantDetail) {
+					console.log("contantDetail view Call");
+					ADF.view.contantDetail = new ADF.view.ContactDetail;
 				}
-				;
-
-				this.clickTemp = !this.clickTemp;
+				ADF.view.contantDetail.contactSet(this.collection.models[$(
+						e.currentTarget).attr("id")]);
+				navigation.pushView(ADF.view.contantDetail, 'typeA');
 
 			},
 
@@ -103,28 +98,31 @@ ADF.view.ContactList = Backbone.View
 				// }
 
 			},
-			
+
 			loadListDisplay : function() {
-				
+
 				console.log("======= loadListDisplay start =========");
 
 				$('ul', this.el).html(this.liSrc);
 				myScroll.refresh();
-				
-				//call async
-				navigation.loadAsync(function(){console.log('call after()')});
+
+				// call async
+				navigation.loadAsync(function() {
+					console.log('call after()')
+				});
 
 			},
 
 			loadList : function() {
-				
+
 				console.log("======= loadList start =========");
 
 				this.liSrc = '';
-//				console.error(this.collection);
+				// console.error(this.collection);
 				for (var j = 0; j < this.collection.length; j++) {
 
-					this.liSrc += '<li id="' + j
+					this.liSrc += '<li id="'
+							+ j
 							+ '" class="contactListLi"><div><img id="'
 							+ this.collection.models[j].get('phone')
 							+ '" alt="" class="img img-circular contactImg" src="'
@@ -136,9 +134,11 @@ ADF.view.ContactList = Backbone.View
 				;
 				$('ul', this.el).html(this.liSrc);
 				myScroll.refresh();
-				
-				//call async
-				navigation.loadAsync(function(){console.log('call after()')});
+
+				// call async
+				navigation.loadAsync(function() {
+					console.log('call after()')
+				});
 
 				// $('#listUL').on({
 				//				
@@ -151,7 +151,6 @@ ADF.view.ContactList = Backbone.View
 				// }
 				//				
 				// }, 'li');
-
 
 				console.log("address list End=======");
 
@@ -245,7 +244,7 @@ ADF.view.ContactList = Backbone.View
 					console
 							.log("===============   this.collection.models[j].get('no') =============="
 									+ this.collection.models[0].get('no'));
-					
+
 					this.loadList();
 
 				} else {
@@ -261,7 +260,8 @@ ADF.view.ContactList = Backbone.View
 
 			loadContactList : function(orchestrationName) {
 
-				console.log("..............try. to...something like that::"+orchestrationName);
+				console.log("..............try. to...something like that::"
+						+ orchestrationName);
 				var invocationData = {
 					adapter : 'CastIronAdapter', // adapter name
 					procedure : 'startOrchestration',
