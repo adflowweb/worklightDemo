@@ -18,7 +18,7 @@ ADF.view.Iscroll = Backbone.View
 			render : function() {
 				// load dashBoard view
 				navigation
-						.load(
+						.loadBefore(
 								'views/test/iscroll.html',
 								function() {
 
@@ -58,6 +58,7 @@ ADF.view.Iscroll = Backbone.View
 									// navigation.pushView(window.detailView,
 									// 'typeA');
 									// });
+									navigation.loadAsync();
 								});
 				WL.App.overrideBackButton(backFunc);
 				function backFunc() {

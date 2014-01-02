@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>index</title>
+<script type="text/javascript">
+	var beforeload = new Date().getTime();
+	window.onload = gettimeload;
+	function gettimeload() {
+		var aftrload = new Date().getTime();
+		// Time calculating in seconds
+		time = (aftrload - beforeload) / 1000
+		document.getElementById("loginElapsedTime").innerHTML = "Your Page took <font color='red'><b>"
+				+ time + "</b></font> Seconds to Load";
+	}
+</script>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
 <link rel="shortcut icon" href="images/favicon.png">
@@ -59,7 +70,7 @@
 						<div class="col-1"></div>
 					</div>
 					<a id="loginBtn" class="btn btn-success btn-block">로그인</a> <br>
-					<br> <label id="lbltxt" class="text-center"
+					<br> <label id="loginElapsedTime" class="text-center"
 						style="font-size: 12px" />
 				</div>
 			</div>

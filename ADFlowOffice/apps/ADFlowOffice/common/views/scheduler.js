@@ -27,7 +27,13 @@ ADF.view.Scheduler = Backbone.View.extend({
 		//call async
 		navigation.loadBefore('views/schedulerBoard.html', this.fetchDB);
 		//navigation.load('views/schedulerBoard.html', this.fetchDB);
-		
+		WL.App.overrideBackButton(backFunc);
+		function backFunc() {
+			if (!ADF.view.dashBoard) {
+				ADF.view.dashBoard = new ADF.view.DashBoard;
+			}
+			navigation.pushView(ADF.view.dashBoard, 'typeB');
+		}
        
 		
 	},

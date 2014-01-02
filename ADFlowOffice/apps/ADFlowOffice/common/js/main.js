@@ -31,6 +31,9 @@ function wlCommonInit() {
 	 */
 	// Common initialization code goes here
 	$('#loginBtn').on('click', function() {
+		
+		window.beforeload = new Date().getTime();
+		
 		if (!ADF.view.dashBoard) {
 			ADF.view.dashBoard = new ADF.view.DashBoard;
 		}

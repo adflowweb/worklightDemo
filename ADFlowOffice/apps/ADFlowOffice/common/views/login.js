@@ -1,27 +1,41 @@
-ADF.view.Login = Backbone.View.extend({
-	el : $('.panel-content'), // attaches `this.el` to an existing
-	// element.
+ADF.view.Login = Backbone.View
+		.extend({
+			el : $('.panel-content'), // attaches `this.el` to an existing
+			// element.
 
-	initialize : function() {
-		_.bindAll(this, 'render'); // fixes loss of context for 'this'
-		// within
-		// methods
-	},
-	render : function() {
-		// load dashBoard view
-		navigation.load('views/login.html', function() {
-			$('#loginBtn').on('click', function() {
-				// console.log('this::' + this);
-				// console.log('WL::' + WL);
+			initialize : function() {
+				_.bindAll(this, 'render'); // fixes loss of context for 'this'
+				// within
+				// methods
+			},
+			render : function() {
+				// load dashBoard view
+				navigation.load('views/login.html', function() {
 
-				if (!ADF.view.dashBoard) {
-					ADF.view.dashBoard = new ADF.view.DashBoard;
+					$('#loginBtn').on('click', function() {
+						// console.log('this::' + this);
+						// console.log('WL::' + WL);
+						window.beforeload = new Date().getTime();
+
+						if (!ADF.view.dashBoard) {
+							ADF.view.dashBoard = new ADF.view.DashBoard;
+						}
+						navigation.pushView(ADF.view.dashBoard, 'typeA');
+					});
+
+					ADF.view.login.elapsedTime();
+
+				});
+				WL.App.overrideBackButton(backFunc);
+				function backFunc() {
 				}
-				navigation.pushView(ADF.view.dashBoard, 'typeA');
-			});
+			},
+			elapsedTime : function() {
+				var aftrload = new Date().getTime();
+				// Time calculating in seconds
+				var time = (aftrload - window.beforeload) / 1000;
+				document.getElementById("loginElapsedTime").innerHTML = "Your Page took <font color='red'><b>"
+						+ time + "</b></font> Seconds to Load";
+				window.beforeload = 0;
+			}
 		});
-		WL.App.overrideBackButton(backFunc);
-		function backFunc() {
-		}
-	}
-});
