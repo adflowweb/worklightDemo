@@ -38,8 +38,8 @@ ADF.view.ContactList = Backbone.View
 
 			events : {
 				'click button#searchBtn' : 'searchBtn',
-				'click li' : 'liClick',
-				'click img' : 'phoneClick',
+				'click .contactListLi ' : 'liClick',
+				'click .contactImg' : 'phoneClick',
 			},
 
 			render : function() {
@@ -125,9 +125,9 @@ ADF.view.ContactList = Backbone.View
 				for (var j = 0; j < this.collection.length; j++) {
 
 					this.liSrc += '<li id="' + j
-							+ '" class="addressListLi"><div><img id="'
+							+ '" class="contactListLi"><div><img id="'
 							+ this.collection.models[j].get('phone')
-							+ '" alt="" class="img img-circular" src="'
+							+ '" alt="" class="img img-circular contactImg" src="'
 							+ this.collection.models[j].get('photo')
 							+ '" /> <p id="NameBtn">'
 							+ this.collection.models[j].get('nameKo')
