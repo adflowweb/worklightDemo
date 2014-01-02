@@ -23,6 +23,15 @@ ADF.view.ContactDetail = Backbone.View.extend({
 			 that.contactDisplay();
 			console.error("render2   render2   render2");
 		});
+		
+		
+		WL.App.overrideBackButton(backFunc);
+		function backFunc() {
+			if (!ADF.view.contactList) {
+				ADF.view.contactList = new ADF.view.ContactList;
+			}
+			navigation.pushView(ADF.view.contactList, 'typeB');
+		}
 	},
 	
 	contactUpdateClick : function() {

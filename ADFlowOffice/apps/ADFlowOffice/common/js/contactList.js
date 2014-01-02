@@ -25,11 +25,13 @@ ADF.view.ContactList = Backbone.View
 			initialize : function() {
 				_.bindAll(this, 'render', 'loadContactList', 'loadList',
 						'loadContactListSuccess', 'liClick'); // fixes loss of
-																// context for
+				// context for
 				// 'this' within
 				// methods
 				// this.render(); // not all views are self-rendering. This
 				// one is.
+				
+//				this.loadContactList("ADFlowContact");
 
 				this.clickTemp = true;
 			},
@@ -50,18 +52,29 @@ ADF.view.ContactList = Backbone.View
 					// 서버 주소록 변경 상황 체크
 
 					// JSONStore 에서 model read
-					that.ContactModelLoadClick();
+					//that.ContactModelLoadClick();
+					
+					that.loadContactList("ADFlowContact");
 
 					// model 에서 address read
-					that.loadList();
+//					that.loadList();
 				});
+
+				WL.App.overrideBackButton(backFunc);
+				function backFunc() {
+					if (!ADF.view.login) {
+						ADF.view.login = new ADF.view.Login;
+					}
+					navigation.pushView(ADF.view.login, 'typeB');
+				}
 			},
 
 			liClick : function(e) {
 
-				if (this.clickTemp) {
-//					this.clickTemp = false;
+				console.error("id");
 
+				if (this.clickTemp) {
+					// this.clickTemp = false;
 
 					console.log($(e.currentTarget).attr("id"));
 
@@ -72,38 +85,34 @@ ADF.view.ContactList = Backbone.View
 					ADF.view.contantDetail.contactSet(this.collection.models[$(
 							e.currentTarget).attr("id")]);
 					navigation.pushView(ADF.view.contantDetail, 'typeA');
-				};
-				
+				}
+				;
+
 				this.clickTemp = !this.clickTemp;
 
 			},
-			
+
 			phoneClick : function(e) {
 
-//				if (this.clickTemp) {
-//					this.clickTemp = false;
-					console.log("phoneClick   phoneClick");
-					document.location.href = 'tel:'+$(e.currentTarget).attr("id");
-//
-//				}
+				// if (this.clickTemp) {
+				// this.clickTemp = false;
+				console.log("phoneClick   phoneClick");
+				document.location.href = 'tel:' + $(e.currentTarget).attr("id");
+				//
+				// }
 
 			},
 
 			loadList : function() {
 
-				var temp = true;
 				var liSrc = '';
+				console.error(this.collection);
 				for (var j = 0; j < this.collection.length; j++) {
 
-					temp = !temp;
-
-					var temp2 = temp ? "1" : "1";
-					console.log(temp2);
-					liSrc += '<li id="'
-							+ this.collection.models[j].get('no')
-							+ '" class="addressListLi'
-							+ temp2
-							+ '"><div><img id="' +this.collection.models[j].get('phone') + '" alt="" class="img img-circular" src="'
+					liSrc += '<li id="' + j
+							+ '" class="addressListLi"><div><img id="'
+							+ this.collection.models[j].get('phone')
+							+ '" alt="" class="img img-circular" src="'
 							+ this.collection.models[j].get('photo')
 							+ '" /> <p id="NameBtn">'
 							+ this.collection.models[j].get('nameKo')
@@ -112,15 +121,15 @@ ADF.view.ContactList = Backbone.View
 				;
 
 				// $('#listUL').on({
-				//
+				//				
 				// click : function() {
 				// // alert($(this).text());
-				// console.log($(this));
-				// console.log($(this).attr("id"));
+				// console.error("click click click click");
+				// // console.log($(this).attr("id"));
 				// // alert($(this).attr("id"));
-				//
+				//				
 				// }
-				//
+				//				
 				// }, 'li');
 
 				$('ul', this.el).html(liSrc);
@@ -130,26 +139,28 @@ ADF.view.ContactList = Backbone.View
 			},
 
 			iscrollInit : function() {
-				myScroll = new iScroll('ulDiv', {
-
-					snap : 'li',
-					momentum : true,
-					onScrollEnd : function() {
-						// console.log("myScroll.currPageY");
-						// console.log(myScroll);
-						// console.log(myScroll.currPageY);
-						// var elementIndex = Number(myScroll.currPageY);
-						// console.log("elementIndex");
-						// console.log(elementIndex);
-						// var scrollerElem = $("#ulDiv").children()[0];
-						// console.log("scrollerElem");
-						// console.log(scrollerElem);
-						// var itemId =
-						// $(scrollerElem)[0].children[elementIndex].id;
-						// console.log("itemId");
-						// console.log(itemId);
-					}
-				});
+				myScroll = new iScroll('ulDiv');
+				// myScroll = new iScroll('ulDiv', {
+				//
+				// // snap : 'li',
+				// // momentum : true,
+				// click : true,
+				// onScrollEnd : function() {
+				// // console.log("myScroll.currPageY");
+				// // console.log(myScroll);
+				// // console.log(myScroll.currPageY);
+				// // var elementIndex = Number(myScroll.currPageY);
+				// // console.log("elementIndex");
+				// // console.log(elementIndex);
+				// // var scrollerElem = $("#ulDiv").children()[0];
+				// // console.log("scrollerElem");
+				// // console.log(scrollerElem);
+				// // var itemId =
+				// // $(scrollerElem)[0].children[elementIndex].id;
+				// // console.log("itemId");
+				// // console.log(itemId);
+				// }
+				// });
 
 			},
 
@@ -198,15 +209,15 @@ ADF.view.ContactList = Backbone.View
 							+ items[0].no);
 					for (var i = 0; i < items.length; i++) {
 						this.collection.add(new ADF.model.ContactItem({
-							nameen : items[i].nameEn,
-							hiredate : items[i].hiredDate,
+							nameEn : items[i].nameen,
+							hiredDate : items[i].hiredate,
 							sex : items[i].sex,
 							phone : items[i].phone,
 							email : items[i].email,
 							no : items[i].no,
-							birthdate : items[i].birthDate,
+							birthDate : items[i].birthdate,
 							dept : items[i].dept,
-							nameko : items[i].nameKo,
+							nameKo : items[i].nameko,
 							photo : 'data:image/jpeg;base64,' + items[i].photo
 
 						}));
@@ -215,25 +226,27 @@ ADF.view.ContactList = Backbone.View
 					console
 							.log("===============   this.collection.models[j].get('no') =============="
 									+ this.collection.models[0].get('no'));
+					
+					this.loadList();
 
-					var temp = true;
-					var liSrc = '';
-					for (var j = 0; j < items.length; j++) {
-
-						temp = !temp;
-
-						var temp2 = temp ? "1" : "2";
-						console.log(temp2);
-						liSrc += '<li id="'
-								+ this.collection.models[j].get('no')
-								+ '" class="addressListLi' + temp2
-								+ '"><div><img alt="Embedded Image" src="'
-								+ this.collection.models[j].get('photo')
-								+ '" /> <p id="NameBtn">'
-								+ this.collection.models[j].get('nameKo')
-								+ '</p></div></li>';
-					}
-					;
+//					var temp = true;
+//					var liSrc = '';
+//					for (var j = 0; j < items.length; j++) {
+//
+//						temp = !temp;
+//
+//						var temp2 = temp ? "1" : "2";
+//						console.log(temp2);
+//						liSrc += '<li id="'
+//								+ this.collection.models[j].get('no')
+//								+ '" class="addressListLi' + temp2
+//								+ '"><div><img alt="Embedded Image" src="'
+//								+ this.collection.models[j].get('photo')
+//								+ '" /> <p id="NameBtn">'
+//								+ this.collection.models[j].get('nameKo')
+//								+ '</p></div></li>';
+//					}
+//					;
 
 					// $('#listUL').on({
 					//
@@ -245,10 +258,10 @@ ADF.view.ContactList = Backbone.View
 					// }
 					//
 					// }, 'li');
-
-					$('ul', this.el).html(liSrc);
-					myScroll.refresh();
-					console.log("address list End=======");
+//
+//					$('ul', this.el).html(liSrc);
+//					myScroll.refresh();
+//					console.log("address list End=======");
 
 				} else {
 
@@ -263,7 +276,7 @@ ADF.view.ContactList = Backbone.View
 
 			loadContactList : function(orchestrationName) {
 
-				console.log("..............try. to...something like that");
+				console.log("..............try. to...something like that::"+orchestrationName);
 				var invocationData = {
 					adapter : 'CastIronAdapter', // adapter name
 					procedure : 'startOrchestration',
@@ -278,60 +291,3 @@ ADF.view.ContactList = Backbone.View
 			}
 
 		});
-
-// private PhoneStateListener callListener;
-//
-// @Override
-// public void onCreate(Bundle savedInstanceState) {
-//
-// callListener = new EndCallListener();
-// ...
-// }
-//
-// private class EndCallListener extends PhoneStateListener {
-//
-// private final String LOG_TAG = "EndCallListener";
-//
-// private boolean isPhoneCalling = false;
-//
-// @Override
-// public void onCallStateChanged(int state, String incomingNumber) {
-//
-// if (TelephonyManager.CALL_STATE_RINGING == state) {
-// Log.i(LOG_TAG, "RINGING, number: " + incomingNumber);
-// // finish();
-// }
-// if (TelephonyManager.CALL_STATE_OFFHOOK == state) {
-// // wait for phone to go offhook (probably set a boolean flag) so
-// // you know your app initiated the call.
-// Log.i(LOG_TAG, "OFFHOOK");
-// isPhoneCalling = true;
-// }
-// if (TelephonyManager.CALL_STATE_IDLE == state) {
-// // when this state occurs, and your flag is set, restart your
-// // app
-// Log.i(LOG_TAG, "IDLE");
-// if (TelephonyManager.CALL_STATE_IDLE == state) {
-// // run when class initial and phone call ended,
-// // need detect flag from CALL_STATE_OFFHOOK
-// Log.i(LOG_TAG, "IDLE");
-//
-// if (isPhoneCalling) {
-//
-// Log.i(LOG_TAG, "restart app");
-//
-// // restart app
-// Intent i = getBaseContext().getPackageManager()
-// .getLaunchIntentForPackage(
-// getBaseContext().getPackageName());
-// // i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-// i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-// startActivity(i);
-//
-// isPhoneCalling = false;
-// }
-//
-// }
-// }
-// }
-// }

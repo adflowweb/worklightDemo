@@ -127,7 +127,8 @@ else
 // Add a script element as a child of the body
 function iscrollJSAtOnload() {
 	var element = document.createElement("script");
-	element.src = "js/iscroll/iscroll-lite.js";
+//	element.src = "js/iscroll/iscroll-lite.js";
+	element.src = "js/iscroll/iscroll.js";
 	document.body.appendChild(element);
 }
 
