@@ -65,10 +65,11 @@ ADF.view.ContactList = Backbone.View
 
 				WL.App.overrideBackButton(backFunc);
 				function backFunc() {
-					if (!ADF.view.login) {
-						ADF.view.login = new ADF.view.Login;
+
+					if (!ADF.view.dashBoard) {
+						ADF.view.dashBoard = new ADF.view.DashBoard;
 					}
-					navigation.pushView(ADF.view.login, 'typeB');
+					navigation.pushView(ADF.view.dashBoard, 'typeB');
 				}
 			},
 
