@@ -14,11 +14,17 @@ ADF.view.DashBoard = Backbone.View.extend({
 			$('.back').on('click', function() {
 				
 				window.beforeload = new Date().getTime();
-				
+				window.busy.show();
+				/*
 				if (!ADF.view.detail) {
 					ADF.view.detail = new ADF.view.Detail;
 				}
 				navigation.pushView(ADF.view.detail, 'typeA');
+				*/
+				if (!ADF.view.iscroll) {
+					ADF.view.iscroll = new ADF.view.Iscroll;
+				}
+				navigation.pushView(ADF.view.iscroll, 'typeA');
 			});
 			$('.loadscheduler').on(
 					'click',

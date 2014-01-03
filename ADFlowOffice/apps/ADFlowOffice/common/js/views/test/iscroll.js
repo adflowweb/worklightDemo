@@ -81,10 +81,10 @@ ADF.view.Iscroll = Backbone.View
 
 					window.beforeload = new Date().getTime();
 
-					if (!ADF.view.detail) {
-						ADF.view.detail = new ADF.view.Detail;
+					if (!ADF.view.deshBoard) {
+						ADF.view.deshBoard = new ADF.view.DashBoard;
 					}
-					navigation.pushView(ADF.view.detail, 'typeB');
+					navigation.pushView(ADF.view.deshBoard, 'typeB');
 				}
 			},
 			elapsedTime : function() {
