@@ -1,4 +1,4 @@
-#Mon Dec 23 13:22:34 KST 2013
+#Fri Jan 03 16:28:35 KST 2014
 base.iphone=4155040770
 base.android=200347496
 common.android=3995469295
@@ -17,5 +17,5 @@ fipshttp.ipad=1366853547
 wl_compatible_version=
 base.ipad=4155040770
 ADFlowOffice.ipad.native=4155040770
-analytics.iphone=3764441202
 analytics.android=2195365451
+analytics.iphone=3764441202
