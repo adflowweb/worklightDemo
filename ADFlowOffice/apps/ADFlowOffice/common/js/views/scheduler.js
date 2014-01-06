@@ -46,11 +46,24 @@ ADF.view.Scheduler = Backbone.View.extend({
 
 	
 	fetchDB : function(){		
+		//startOrchestration_post
+//		var invocationData = {
+//                adapter : 'CastIronAdapter', // adapter name
+//                procedure : 'startOrchestration',
+//                parameters : ['ADFlowSchedule']
+        // parameters if any
+//        };
+		
+		var jsonData = '{"act":"R"}';
+		console.log("jsonData :: "+jsonData);
+		
+		
+		
 		var invocationData = {
                 adapter : 'CastIronAdapter', // adapter name
-                procedure : 'startOrchestration',
-                parameters : ['ADFlowSchedule']
-        // parameters if any
+                procedure : 'startOrchestration_post',
+                parameters : [jsonData,'ADFlowSchedule']
+
         };
         console.log(".........TestScheduler.....try. to...something like that");
 
@@ -66,16 +79,27 @@ ADF.view.Scheduler = Backbone.View.extend({
 		console.log("loadSchedulerSuccess" + JSON.stringify(result));
     	console.log("say hello");
 		console.log(result.invocationResult.resultSet);
-		console.log(result);
-		console.log(result.invocationResult);
-		console.log(result.invocationResult.array);
-		this.appendSchedulerList(result.invocationResult.array);
+		console.log("say hello  one...........");
+//		console.log(result);
+//		console.log(result.invocationResult);
+//		var hello = result.invocationResult;
+//		console.log("say hello  hello...........");
+//		console.log(result.invocationResult.Result);
+//		console.log(result.invocationResult.Result[0]);
+//		console.log(result.invocationResult.Result.length);
+//		console.log("hello :: "+hello);
+//		console.log("say hello  two...........");
+
+		
+//		this.appendSchedulerList(result.invocationResult.array);
+		this.appendSchedulerList(result.invocationResult.Result);
 	},/*loadSchedulerSuccess  end*/
 	loadSchedulerFailure : function(result){
 		  console.log("loadSchedulerFailure" + JSON.stringify(result));
 	},/*loadSchedulerSuccess  end*/
 	appendSchedulerList :function(items){
 	  	console.log("hello appendSchedulerList :: ");
+	  	console.log(items);
 		console.log(items.length);
 		console.log("say..");
 		console.log("..............  this.collection............." + this.collection);

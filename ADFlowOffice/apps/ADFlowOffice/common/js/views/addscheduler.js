@@ -9,7 +9,7 @@ ADF.view.AddScheduler = Backbone.View.extend({
 	initialize : function() {
 	console.log("SchedulerView init................. ");
 	
-	_.bindAll(this, 'render'); 
+	_.bindAll(this, 'render','fetchDB','loadaddSchedulerSuccess','loadaddSchedulerFailure','appendaddSchedulerList'); 
 	// fixes loss of context for 'this' within
 	
 	
@@ -63,6 +63,66 @@ ADF.view.AddScheduler = Backbone.View.extend({
 		
 		var scheduler_calendar2 = document.getElementsByClassName('scheduler_calendar')[1].value;		
 		console.log("scheduler_calendar2 :: "+scheduler_calendar2);
+		this.fetchDB(user,strCategory,sc_addevent,scheduler_calendar1,scheduler_calendar2);
 		
+	},
+	fetchDB : function(user,strCategory,sc_addevent,scheduler_calendar1,scheduler_calendar2){		
+				
+		var jsonData = '{"act" : "C", "sid" : "", "owner" : "'+user +'", "ctgr" : "'+strCategory+'" ,"strdate" : "'+scheduler_calendar1+'", "enddate" : "'+scheduler_calendar2+'","detail":"'+sc_addevent+'"}';
+		console.log("jsonData :: "+jsonData);
+		
+		
+		
+		var invocationData = {
+                adapter : 'CastIronAdapter', // adapter name
+                procedure : 'startOrchestration_post',
+                parameters : [jsonData,'ADFlowSchedule']
+
+        };
+        console.log(".........TestScheduler.....try. to...something like that");
+
+       
+        WL.Client.invokeProcedure(invocationData, {
+                onSuccess : this.loadaddSchedulerSuccess,
+                onFailure : this.loadaddSchedulerFailure
+        });
+	},/*fetchDB  end*/
+       
+	
+	loadaddSchedulerSuccess : function(result){
+		console.log("loadaddSchedulerSuccess" + JSON.stringify(result));
+    	console.log("say hello");
+		console.log(result.invocationResult.resultSet);
+		console.log("say hello  one...........");
+		console.log(result);
+		console.log(result.invocationResult);
+		var hello = result.invocationResult.isSuccessful;
+		if(hello){
+			console.log("say hello  hello...........");
+			console.log(result.invocationResult.Status);
+		}
+		
+		console.log("hello :: "+hello);
+		console.log("say hello  two...........");
+
+		
+//		this.appendSchedulerList(result.invocationResult.array);
+		this.appendaddSchedulerList(result.invocationResult);
+	},/*loadSchedulerSuccess  end*/
+	loadaddSchedulerFailure : function(result){
+		  console.log("loadaddSchedulerFailure" + JSON.stringify(result));
+	},
+	appendaddSchedulerList: function(items){
+		  console.log("appendaddSchedulerList" +items);
+		 
+				console.log("loadscheduler loadschedulerloadscheduler "
+						+ this);
+				if (!ADF.view.scheduler) {
+					ADF.view.scheduler = new ADF.view.Scheduler;
+				}
+				navigation.pushView(ADF.view.scheduler, 'typeA');
+			
+		  
+		  
 	}
 });

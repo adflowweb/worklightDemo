@@ -5,9 +5,10 @@
 
 .scheduler_AppBody {
 	width: 100%;
-	position: absolute;
-	min-height: 100%;
+	position: absolute;	
 	width: 100%;
+	/*min-height: 100%; eylee layout modifying..*/
+	height:100%;
 	/*background-color: #3498d9; */
 	background-color: #EFEFF4;
 	margin: 0 auto;
@@ -50,6 +51,7 @@
 	position: absolute;
 	top:39px;
 	*/
+	height:auto;
 	color: #9098A0;
 	width: 100%;
 	
@@ -57,7 +59,7 @@
 
 .scheduler_footer {
 	background-color: #EFEFF4;
-	position: fixed;
+	position: fixed;	
 	bottom: 0; /* Footer am Ende des Browsers festsetzen */
 	height: 38px;
 	width: 100%;
@@ -185,7 +187,7 @@ cardul_longproject
 	margin-right: 0px;
 	margin-left: 0px;
 	margin-top: 30px;
-	margin-bottom: 40px;
+	/*margin-bottom: 40px;*/
 	border-top: 1px solid #E6E5E8;
 	border-bottom: 1px solid #E6E5E8;	
 	padding:0px;

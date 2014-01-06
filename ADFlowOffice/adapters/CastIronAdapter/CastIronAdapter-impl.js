@@ -65,3 +65,25 @@ function startOrchestrationFiltered(orchestrationName){
 	};
 	return WL.Server.invokeCastIron(input);
 }
+
+
+
+
+function startOrchestration_post(param,orchestrationName){
+//	var jsonData = '{"act":"'+param+'"}';
+	var jsonData = param;
+	var input = {
+			method  : 'post',
+			appName : 'myApp',
+			requestType: 'http',
+			path : orchestrationName,	
+			returnedContentType : 'json',
+			 body:{				   
+			      contentType:'application/json',
+			      content: jsonData
+			      }
+	
+			
+	};
+	return WL.Server.invokeCastIron(input);
+}
