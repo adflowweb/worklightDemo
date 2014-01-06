@@ -1,25 +1,57 @@
 <div class="scheduler_wrapper" style="display: block;">
 	
 	<div class="scheduler_AppBody" >
+			
+			
 			<!-- This is static header, it will be shown always -->
-			<div class="addscheduler_header" >
-				<a href="#" class="btn btn-danger btn_inputCancelsc">Cancel</a>
+			<div class="scheduler_header" >
+			
 				<h4>New Event</h4>
-				<a href="#" class="btn btn-danger btn_inputAddsc">Add</a>
-			</div>
+			
+			</div> <!--  end of scheduler_header -->
 			
 			<!-- This is a placeholder for dynamic page content -->
-			<div  class="row scheduler_pagePort">
-				<div class="myscheduler_wrapper">
-					
-					
-				</div>	
-				<!-- myscheduler_wrapper end -->
-			</div>
+			<div  class="scheduler_pagePort">
+				<div class="addscheduler_wrapper">
+				<i class="icon-user"></i> user                
+				<input type="text" placeholder="A text input" name="username" class="input-block username">           
+				<i class="icon-heart"></i> category
+				<select class="as_categoryfield" id="as_categoryfield">
+				  <option value="workoutside">외근</option>
+				  <option value="dayoff">휴가</option>
+				  <option value="longproject">장기 프로젝트</option>
+				</select>								
+				<i class="icon-comment"></i> event
+				<input type="text" placeholder="A text input" class="input-block sc_addevent">
+				<i class="icon-calendar"></i> start date
+				<input  type="date"  min="2014-01-01" max="2014-12-31"value="2014-01-03" class="scheduler_calendar">
 			
-			 <script type="text/template" id="schedulerListTemplate">
-      			  <span><%= title %></span><button class="edit">Edit</button>
-				  <button class="delete">Delete</button>
-   			 </script>
+				<i class="icon-calendar"></i >end date
+				<input  type="date" min="2014-01-01" max="2014-12-31"value="2014-01-03"  class="scheduler_calendar">
+					 	<label id="addschedulerElapsedTime" class="text-center" style="font-size: 12px" />				
+				</div>	<!-- myscheduler_wrapper end -->
+			</div> <!--  scheduler_pagePort end -->
+   			 
+   			 
+   			 <div class="scheduler_footer" >
+				<div class="footer_btngroup">
+					<div class="footerlayout_center">
+					<!-- need to full btn group size of line ..50 vs 50-->
+						<a href="#" class="btn btn-success btn_inputCancelsc">Cancel</a>
+						<a href="#" class="btn btn-success btn_addschedulerbtn">Add</a>
+					<!-- ul class="btn-group btn-group-square">
+					   <li><a href="#" class="btn btn-success btn_inputScheduler">입력</a></li>
+					   <li><a href="#" class="btn btn-success  btn_modifyScheduler">수정</a></li>
+					   <li><a href="#" class="btn btn-success  btn_deleteScheduler">삭제</a></li>
+					</ul-->	
+						</div>  <!--  end of footerlayout_center -->
+				</div> <!--  end of footer_btngroup -->
+			</div> <!--  end of scheduler_footer -->
+				
+				
 			
-</div>
+			</div>  <!--  end of scheduler_AppBody -->
+			
+			
+			
+</div> <!--  end of scheduler_wrapper -->

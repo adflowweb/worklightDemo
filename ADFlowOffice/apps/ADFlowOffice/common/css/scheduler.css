@@ -45,6 +45,7 @@
 }
 .scheduler_pagePort {
 	position: relative;
+	top:40px;
 	/*
 	position: absolute;
 	top:39px;
@@ -86,6 +87,13 @@ card feelings..
 .myscheduler_wrapper{
 	background-color: #EFEFF4;
 	position: relative;  
+	
+}
+
+.addscheduler_wrapper{
+	background-color: #EFEFF4;
+	position: relative;  
+	top:40px;
 }
 .cardul_workoutside{
 	
@@ -248,3 +256,17 @@ cardul_longproject
 	  display: inline;
 	  float: right;
 }
+
+.scheduler_calendar{
+	width: 100%;
+}
+
+.as_categoryfield{
+	width: 100%;
+}
+/*
+.addevent{
+	position: relative;
+	width: 100%;
+}
+*/

@@ -21,6 +21,12 @@ ADF.view.Scheduler = Backbone.View.extend({
 	},
 	render : function() {
 		// load SchedulerView view
+		
+		
+		// it's loading....error...more thinking about this..
+		window.beforeload = new Date().getTime();
+		window.busy.show();
+		
 		console.log("SchedulerView " + this);
 		var window_width = $(window).width();   
 		console.log("window_width :: "+window_width);
@@ -73,7 +79,9 @@ ADF.view.Scheduler = Backbone.View.extend({
 		console.log(items.length);
 		console.log("say..");
 		console.log("..............  this.collection............." + this.collection);
-		
+		var str1 = "";
+		var str2 = "";
+		var str3 ="";
 	   for ( var i = 0; i < items.length; i++) {
 		   this.collection.add(new ADF.model.SchedulerModel(
 //		   this.collection.add(this.model.set(
@@ -91,23 +99,46 @@ ADF.view.Scheduler = Backbone.View.extend({
 //			console.log(this.model);
 //			console.log(this.model.toJSON());
 			
+//			if( items[i].ctgr=='workoutside'){
+//				var str ='<li class="workoutside_li">' + items[i].strdate + items[i].owner + items[i].detail + '</li>';
+//				$('#workoutside_first').after(str);
+//			}
+//			if(items[i].ctgr=='dayoff'){
+//					var str ='<li class="dayoff_li">' +  items[i].strdate + items[i].owner  + '</li>';
+//				$('#dayoff_first').after(str);
+//			}
+//			if(items[i].ctgr=='longproject'){
+//					var str = '<li class="longproject_li">' + items[i].strdate +' ~ ' + items[i].enddate +items[i].owner + '</li>';
+//				$('#longproject_first').after(str);
+//			}
 			if( items[i].ctgr=='workoutside'){
-				var str ='<li class="workoutside_li">' + items[i].strdate + items[i].owner + items[i].detail + '</li>';
-				$('#workoutside_first').after(str);
+				str1 +='<li class="workoutside_li">' + items[i].strdate + items[i].owner + items[i].detail + '</li>';				
 			}
 			if(items[i].ctgr=='dayoff'){
-					var str ='<li class="dayoff_li">' +  items[i].strdate + items[i].owner  + '</li>';
-				$('#dayoff_first').after(str);
+				str2 +='<li class="dayoff_li">' +  items[i].strdate + items[i].owner  + '</li>';				
 			}
 			if(items[i].ctgr=='longproject'){
-					var str = '<li class="longproject_li">' + items[i].strdate +' ~ ' + items[i].enddate +items[i].owner + '</li>';
-				$('#longproject_first').after(str);
+				str3 += '<li class="longproject_li">' + items[i].strdate +' ~ ' + items[i].enddate +items[i].owner + '</li>';				
 			}
 
-		}
+		}  // end of for loop
+	   
+	   if(str1!=""){
+		   $('#workoutside_first').after(str1);
+	   }
+	   if(str2!=""){
+		   $('#dayoff_first').after(str2);
+	   }
+	   if(str3!=""){
+		   $('#longproject_first').after(str3);
+	   }
+	   
 	   
 	   //call async
-	   navigation.loadAsync(function(){console.log('call after()')});
+//	   navigation.loadAsync(function(){console.log('call after()')});
+	   navigation.loadAsync(function(){ADF.view.scheduler.elapsedTime();window.busy.hide();});
+//	   ADF.view.scheduler.elapsedTime();
+		
 //
 	}, /*appendSchedulerList  end*/
 
@@ -124,7 +155,15 @@ ADF.view.Scheduler = Backbone.View.extend({
 			navigation.pushView(ADF.view.addscheduler, 'typeA');
 		
 
-	}
+	},  // end of inputScheduler 
+	elapsedTime : function() {
+		var aftrload = new Date().getTime();
+		// Time calculating in seconds
+		var time = (aftrload - window.beforeload) / 1000;
+		document.getElementById("schedulerElapsedTime").innerHTML = "Your Page took <font color='red'><b>"
+				+ time + "</b></font> Seconds to Load";
+		window.beforeload = 0;
+	}  // end of elaspsedTime
 	
 });
 
