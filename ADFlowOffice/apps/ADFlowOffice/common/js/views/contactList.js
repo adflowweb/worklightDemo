@@ -1,3 +1,34 @@
+//JSONStore start
+var collectionName = 'contact';
+//Object that defines all the collections
+var collections = {};
+//Object that defines the 'people' collection
+collections[collectionName] = {};
+//Object that defines the Search Fields for the 'people' collection
+collections[collectionName].searchFields = {
+		nameEn: 'string',
+		hiredDate : 'string',
+		sex : 'string',
+		phone : 'string',
+		email : 'string',
+		no : 'string',
+		birthDate : 'string',
+		dept : 'string',
+		nameKo : 'string',
+		photo : 'string'
+};
+
+WL.JSONStore.init(collections)
+.then(function () {
+//handle success
+})
+.fail(function (errorObject) {
+//handle failure
+});
+
+
+//JSONStore end
+
 ADF.model.ContactItem = Backbone.Model.extend({
 	defaults : {
 		nameEn : '',
@@ -24,18 +55,8 @@ ADF.view.ContactList = Backbone.View
 
 			initialize : function() {
 				_.bindAll(this, 'render', 'loadContactList', 'loadList',
-						'loadContactListSuccess', 'liClick', 'loadListDisplay'); // fixes
-																					// loss
-																					// of
-				// context for
-				// 'this' within
-				// methods
-				// this.render(); // not all views are self-rendering. This
-				// one is.
+						'loadContactListSuccess', 'liClick'); // fixes
 
-				// this.loadContactList("ADFlowContact");
-
-				this.clickTemp = true;
 			},
 
 			events : {
@@ -75,9 +96,9 @@ ADF.view.ContactList = Backbone.View
 
 			liClick : function(e) {
 
-				console.error("id");
+				console.error("liClick");
 
-				console.log($(e.currentTarget).attr("id"));
+//				console.log($(e.currentTarget).attr("id"));
 
 				if (!ADF.view.contantDetail) {
 					console.log("contantDetail view Call");

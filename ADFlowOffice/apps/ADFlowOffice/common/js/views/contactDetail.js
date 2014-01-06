@@ -60,7 +60,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	
 	contactDisplay : function() {
 		
-		console.log("nameKo ::"+this.contact.get('nameKo'));
+		console.error("nameKo ::"+this.contact.get('nameKo'));
 		$("#In_NameKo").val(this.contact.get('nameKo'));
 		$("#In_NameEn").val(this.contact.get('nameEn'));
 		$("#In_Phone").val(this.contact.get('phone'));
