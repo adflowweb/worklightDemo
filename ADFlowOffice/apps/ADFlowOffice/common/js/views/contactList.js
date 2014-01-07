@@ -1,30 +1,5 @@
 //JSONStore start
-var collectionName = 'contact';
-//Object that defines all the collections
-var collections = {};
-//Object that defines the 'people' collection
-collections[collectionName] = {};
-//Object that defines the Search Fields for the 'people' collection
-collections[collectionName].searchFields = {
-		nameEn: 'string',
-		hiredDate : 'string',
-		sex : 'string',
-		phone : 'string',
-		email : 'string',
-		no : 'string',
-		birthDate : 'string',
-		dept : 'string',
-		nameKo : 'string',
-		photo : 'string'
-};
 
-WL.JSONStore.init(collections)
-.then(function () {
-//handle success
-})
-.fail(function (errorObject) {
-//handle failure
-});
 
 
 //JSONStore end
@@ -55,15 +30,20 @@ ADF.view.ContactList = Backbone.View
 
 			initialize : function() {
 				_.bindAll(this, 'render', 'loadContactList', 'loadList',
-						'loadContactListSuccess', 'liClick'); // fixes
+						'loadContactListSuccess'); // fixes
+				
+				
+//				this.removeCollectionJSONStore();
+//				this.initJSONStore();
+				
 
 			},
 
-			events : {
-				'click button#searchBtn' : 'searchBtn',
-				'click .contactListLi ' : 'liClick',
-				'click .contactImg' : 'phoneClick',
-			},
+//			events : {
+//				'click button#searchBtn' : 'searchBtn',
+//				'click .contactListLi ' : 'liClick',
+//				'click .contactImg' : 'phoneClick',
+//			},
 
 			render : function() {
 				// load dashBoard view
@@ -76,7 +56,7 @@ ADF.view.ContactList = Backbone.View
 
 					// JSONStore 에서 model read
 					// that.ContactModelLoadClick();
-					that.loadContactList("ADFlowContact");
+					that.loadContactList('{"act" : "R"}',"ADFlowContact");
 					// that.loadListDisplay();
 
 					// model 에서 address read
@@ -94,32 +74,32 @@ ADF.view.ContactList = Backbone.View
 				}
 			},
 
-			liClick : function(e) {
-
-				console.error("liClick");
-
-//				console.log($(e.currentTarget).attr("id"));
-
-				if (!ADF.view.contantDetail) {
-					console.log("contantDetail view Call");
-					ADF.view.contantDetail = new ADF.view.ContactDetail;
-				}
-				ADF.view.contantDetail.contactSet(this.collection.models[$(
-						e.currentTarget).attr("id")]);
-				navigation.pushView(ADF.view.contantDetail, 'typeA');
-
-			},
-
-			phoneClick : function(e) {
-
-				// if (this.clickTemp) {
-				// this.clickTemp = false;
-				console.log("phoneClick   phoneClick");
-				document.location.href = 'tel:' + $(e.currentTarget).attr("id");
-				//
-				// }
-
-			},
+//			liClick : function(e) {
+//
+//				console.error("liClick");
+//
+////				console.log($(e.currentTarget).attr("id"));
+//
+//				if (!ADF.view.contantDetail) {
+//					console.log("contantDetail view Call");
+//					ADF.view.contantDetail = new ADF.view.ContactDetail;
+//				}
+//				ADF.view.contantDetail.contactSet(this.collection.models[$(
+//						e.currentTarget).attr("id")]);
+//				navigation.pushView(ADF.view.contantDetail, 'typeA');
+//
+//			},
+//
+//			phoneClick : function(e) {
+//
+//				// if (this.clickTemp) {
+//				// this.clickTemp = false;
+//				console.log("phoneClick   phoneClick");
+//				document.location.href = 'tel:' + $(e.currentTarget).attr("id");
+//				//
+//				// }
+//
+//			},
 
 			loadListDisplay : function() {
 
@@ -138,7 +118,7 @@ ADF.view.ContactList = Backbone.View
 			loadList : function() {
 
 				console.log("======= loadList start =========");
-
+				var that = this;
 				this.liSrc = '';
 				// console.error(this.collection);
 				for (var j = 0; j < this.collection.length; j++) {
@@ -162,17 +142,50 @@ ADF.view.ContactList = Backbone.View
 					console.log('call after()')
 				});
 
-				// $('#listUL').on({
-				//				
-				// click : function() {
-				// // alert($(this).text());
-				// console.error("click click click click");
-				// // console.log($(this).attr("id"));
-				// // alert($(this).attr("id"));
-				//				
-				// }
-				//				
-				// }, 'li');
+				 $('.contactListLi').on({
+								
+				 click : function(e) {
+					 if (!ADF.view.contantDetail) {
+							console.log("contantDetail view Call");
+							ADF.view.contantDetail = new ADF.view.ContactDetail;
+						}
+						ADF.view.contantDetail.contactSet(that.collection.models[$(
+								e.currentTarget).attr("id")]);
+						navigation.pushView(ADF.view.contantDetail, 'typeA');
+					 
+//					 that.findAllJSONStore();
+//					 that.findJSONStore('85100');
+								
+				 }
+								
+				 });
+				 
+				 $('.contactImg').on({
+						
+					 click : function(e) {
+						 console.log("phoneClick   phoneClick");
+						document.location.href = 'tel:' + $(e.currentTarget).attr("id");
+									
+					 }
+									
+				 });
+				 
+				 
+//				 $('#listUL').on({
+//						
+//					 click : function(e) {
+//						 if (!ADF.view.contantDetail) {
+//								console.log("contantDetail view Call");
+//								ADF.view.contantDetail = new ADF.view.ContactDetail;
+//							}
+//							ADF.view.contantDetail.contactSet(that.collection.models[$(
+//									e.currentTarget).attr("id")]);
+//							navigation.pushView(ADF.view.contantDetail, 'typeA');
+//									
+//					 }
+//									
+//				}, 'li');
+				 
 
 				console.log("address list End=======");
 
@@ -241,7 +254,8 @@ ADF.view.ContactList = Backbone.View
 					// displayloadDeliveryList(result.invocationResult.array);
 					this.collection = new ADF.collection.ContactList();
 
-					var items = result.invocationResult.array;
+					var items = result.invocationResult.Result;
+					var data = '';
 					console
 							.log("===============   this.collection =============="
 									+ this.collection);
@@ -261,8 +275,38 @@ ADF.view.ContactList = Backbone.View
 							photo : 'data:image/jpeg;base64,' + items[i].photo
 
 						}));
-					}
-					;
+						
+//						data = {
+//								nameEn : items[i].nameen,
+//								hiredDate : items[i].hiredate,
+//								sex : items[i].sex,
+//								phone : items[i].phone,
+//								email : items[i].email,
+//								no : items[i].no,
+//								birthDate : items[i].birthdate,
+//								dept : items[i].dept,
+//								nameKo : items[i].nameko,
+//								photo : 'data:image/jpeg;base64,' + items[i].photo
+//
+//							};
+//						
+////						console.log("data ::");
+////						console.log(data);
+////						this.addJSONStore(data);
+////						var collectionName = 'contact';
+////						var options = {}; //default
+//						WL.JSONStore.get('contact')
+//						.add(data, {})
+//						.then(function () {
+//						//handle success
+//							console.log("WL.JSONStore.add success");
+//						})
+//						.fail(function (errorObject) {
+//						//handle failure
+//							console.log("WL.JSONStore.add failure");
+//						});
+//						
+					};
 					console
 							.log("===============   this.collection.models[j].get('no') =============="
 									+ this.collection.models[0].get('no'));
@@ -280,14 +324,14 @@ ADF.view.ContactList = Backbone.View
 				console.error("Retrieve failure");
 			},
 
-			loadContactList : function(orchestrationName) {
+			loadContactList : function(param, orchestrationName) {
 
 				console.log("..............try. to...something like that::"
 						+ orchestrationName);
 				var invocationData = {
 					adapter : 'CastIronAdapter', // adapter name
-					procedure : 'startOrchestration',
-					parameters : [ orchestrationName ]
+					procedure : 'startOrchestration_post',
+					parameters : [ param, orchestrationName ]
 				// parameters if any
 				};
 				console.log("..............try. to...something like that");
@@ -295,6 +339,164 @@ ADF.view.ContactList = Backbone.View
 					onSuccess : this.loadContactListSuccess,
 					onFailure : this.loadContactListFailure
 				});
-			}
+			},
+			
+			//JSONStore init
+			initJSONStore : function() {
+
+				var collectionName = 'contact';
+				//Object that defines all the collections
+				var collections = {};
+				//Object that defines the 'people' collection
+				collections[collectionName] = {};
+				//Object that defines the Search Fields for the 'people' collection
+				collections[collectionName].searchFields = {
+						nameEn: 'string',
+						hiredDate : 'string',
+						sex : 'string',
+						phone : 'string',
+						email : 'string',
+						no : 'string',
+						birthDate : 'string',
+						dept : 'string',
+						nameKo : 'string',
+						photo : 'string'
+				};
+
+				WL.JSONStore.init(collections)
+				.then(function () {
+				//handle success
+					console.log("WL.JSONStore.init success");
+				})
+				.fail(function (errorObject) {
+				//handle failure
+					console.log("WL.JSONStore.init failure");
+				});
+			},
+			
+			//JSONStore init
+			initJSONStore : function() {
+
+				var collectionName = 'contact';
+				//Object that defines all the collections
+				var collections = {};
+				//Object that defines the 'people' collection
+				collections[collectionName] = {};
+				//Object that defines the Search Fields for the 'people' collection
+				collections[collectionName].searchFields = {
+						nameEn: 'string',
+						hiredDate : 'string',
+						sex : 'string',
+						phone : 'string',
+						email : 'string',
+						no : 'string',
+						birthDate : 'string',
+						dept : 'string',
+						nameKo : 'string',
+						photo : 'string'
+				};
+
+				WL.JSONStore.init(collections)
+				.then(function () {
+				//handle success
+					console.log("WL.JSONStore.init success");
+				})
+				.fail(function (errorObject) {
+				//handle failure
+					console.log("WL.JSONStore.init failure");
+				});
+			},
+			
+			//JSONStore add
+			addJSONStore : function(data) {
+				
+				console.log("data222 ::");
+				console.log(data);
+
+				var collectionName = 'contact';
+				var options = {}; //default
+				WL.JSONStore.get(collectionName)
+				.add(data, options)
+				.then(function () {
+				//handle success
+					console.log("WL.JSONStore.add success");
+				})
+				.fail(function (errorObject) {
+				//handle failure
+					console.log("WL.JSONStore.add failure");
+				});
+			},
+			
+			//JSONStore FindAll
+			findAllJSONStore : function() {
+
+				var collectionName = 'contact';
+				var options = {
+				exact: false, //default
+				limit: 10 //returns a maximum of 10 documents, default: return every match
+				};
+				WL.JSONStore.get(collectionName)
+				.findAll(options)
+				.then(function (arrayResults) {
+				//arrayResults = [{_id: 1, json: {name: 'carlos', age: 99}}]
+					console.log("findAll success ::");
+					console.log(arrayResults);
+				})
+				.fail(function (errorObject) {
+				//handle failure
+					console.log("findAll failure ");
+				});
+			},
+			
+			//JSONStore Find
+			findJSONStore : function(contact_no) {
+				
+				var query = {no: contact_no};
+				var collectionName = 'contact';
+				var options = {
+//				exact: false, //default
+//				limit: 10 //returns a maximum of 10 documents, default: return every match
+				};
+				WL.JSONStore.get(collectionName)
+				.find(query, options)
+				.then(function (arrayResults) {
+				//arrayResults = [{_id: 1, json: {name: 'carlos', age: 99}}]
+					console.log("find success ::");
+					console.log(arrayResults);
+				})
+				.fail(function (errorObject) {
+				//handle failure
+					console.log("find failure ");
+				});
+			},
+			
+			//JSONStore Remove Collection
+			removeCollectionJSONStore : function() {
+				
+				var collectionName = 'contact';
+//				var query = {name: '*'};
+//				var options = {}; 
+//				
+//				var tempJSONStore = WL.JSONStore.get(collectionName);
+//
+//				
+//				
+//				if(WL.JSONStore.get(collectionName).findAll(options)){
+//					console.log("Remove Collection success ");
+//				} else {
+//					console.log("Remove Collection success ");
+//				}
+				
+				WL.JSONStore.get(collectionName)
+				.removeCollection()
+				.then(function () {
+				//handle success
+					console.log("Remove Collection success ");
+				})
+				.fail(function (errorObject) {
+				//handle failure
+					console.log("Remove Collection failure ");
+				});
+			},
 
 		});
