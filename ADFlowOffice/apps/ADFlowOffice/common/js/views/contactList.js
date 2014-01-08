@@ -30,12 +30,9 @@ ADF.view.ContactList = Backbone.View
 
 			initialize : function() {
 				_.bindAll(this, 'render', 'loadContactList', 'loadList',
-						'loadContactListSuccess'); // fixes
+						'loadContactListSuccess','removeCollectionJSONStore','initJSONStore2','allAddJSONStore'); // fixes
 				
-				
-//				this.removeCollectionJSONStore();
-//				this.initJSONStore();
-				
+//				this.initJSONStore2();
 
 			},
 
@@ -74,32 +71,6 @@ ADF.view.ContactList = Backbone.View
 				}
 			},
 
-//			liClick : function(e) {
-//
-//				console.error("liClick");
-//
-////				console.log($(e.currentTarget).attr("id"));
-//
-//				if (!ADF.view.contantDetail) {
-//					console.log("contantDetail view Call");
-//					ADF.view.contantDetail = new ADF.view.ContactDetail;
-//				}
-//				ADF.view.contantDetail.contactSet(this.collection.models[$(
-//						e.currentTarget).attr("id")]);
-//				navigation.pushView(ADF.view.contantDetail, 'typeA');
-//
-//			},
-//
-//			phoneClick : function(e) {
-//
-//				// if (this.clickTemp) {
-//				// this.clickTemp = false;
-//				console.log("phoneClick   phoneClick");
-//				document.location.href = 'tel:' + $(e.currentTarget).attr("id");
-//				//
-//				// }
-//
-//			},
 
 			loadListDisplay : function() {
 
@@ -272,41 +243,16 @@ ADF.view.ContactList = Backbone.View
 							birthDate : items[i].birthdate,
 							dept : items[i].dept,
 							nameKo : items[i].nameko,
-							photo : 'data:image/jpeg;base64,' + items[i].photo
+							photo : items[i].photo
+//							photo : 'data:image/jpeg;base64,' + items[i].photo
 
 						}));
-						
-//						data = {
-//								nameEn : items[i].nameen,
-//								hiredDate : items[i].hiredate,
-//								sex : items[i].sex,
-//								phone : items[i].phone,
-//								email : items[i].email,
-//								no : items[i].no,
-//								birthDate : items[i].birthdate,
-//								dept : items[i].dept,
-//								nameKo : items[i].nameko,
-//								photo : 'data:image/jpeg;base64,' + items[i].photo
-//
-//							};
-//						
-////						console.log("data ::");
-////						console.log(data);
-////						this.addJSONStore(data);
-////						var collectionName = 'contact';
-////						var options = {}; //default
-//						WL.JSONStore.get('contact')
-//						.add(data, {})
-//						.then(function () {
-//						//handle success
-//							console.log("WL.JSONStore.add success");
-//						})
-//						.fail(function (errorObject) {
-//						//handle failure
-//							console.log("WL.JSONStore.add failure");
-//						});
-//						
 					};
+					
+//					var len = items.length;
+//					this.allAddJSONStore(items, len);
+					
+					
 					console
 							.log("===============   this.collection.models[j].get('no') =============="
 									+ this.collection.models[0].get('no'));
@@ -375,7 +321,9 @@ ADF.view.ContactList = Backbone.View
 			},
 			
 			//JSONStore init
-			initJSONStore : function() {
+			initJSONStore2 : function() {
+				
+				var that = this;
 
 				var collectionName = 'contact';
 				//Object that defines all the collections
@@ -399,32 +347,53 @@ ADF.view.ContactList = Backbone.View
 				WL.JSONStore.init(collections)
 				.then(function () {
 				//handle success
-					console.log("WL.JSONStore.init success");
+					console.log("WL.JSONStore.init2 success");
+					that.removeCollectionJSONStore();
 				})
 				.fail(function (errorObject) {
 				//handle failure
-					console.log("WL.JSONStore.init failure");
+					console.log("WL.JSONStore.init2 failure");
 				});
 			},
 			
 			//JSONStore add
-			addJSONStore : function(data) {
+			allAddJSONStore : function(items, i) {
 				
-				console.log("data222 ::");
-				console.log(data);
+				var that = this;
+				console.log("data i ::" + i);
+				if (i > 0) {
+					i--;
+					
+					var data = {
+							nameEn : items[i].nameen,
+							hiredDate : items[i].hiredate,
+							sex : items[i].sex,
+							phone : items[i].phone,
+							email : items[i].email,
+							no : items[i].no,
+							birthDate : items[i].birthdate,
+							dept : items[i].dept,
+							nameKo : items[i].nameko,
+							photo : 'data:image/jpeg;base64,' + items[i].photo
+					};
+					
+					var collectionName = 'contact';
+					var options = {}; //default
+					WL.JSONStore.get(collectionName)
+					.add(data, options)
+					.then(function () {
+					//handle success
+						console.log("WL.JSONStore.add success");
+						console.log("data i2 ::" + i);
+						that.allAddJSONStore(items, i);
+					})
+					.fail(function (errorObject) {
+					//handle failure
+						console.log("WL.JSONStore.add failure");
+					});
+					
+				}
 
-				var collectionName = 'contact';
-				var options = {}; //default
-				WL.JSONStore.get(collectionName)
-				.add(data, options)
-				.then(function () {
-				//handle success
-					console.log("WL.JSONStore.add success");
-				})
-				.fail(function (errorObject) {
-				//handle failure
-					console.log("WL.JSONStore.add failure");
-				});
 			},
 			
 			//JSONStore FindAll
@@ -433,7 +402,7 @@ ADF.view.ContactList = Backbone.View
 				var collectionName = 'contact';
 				var options = {
 				exact: false, //default
-				limit: 10 //returns a maximum of 10 documents, default: return every match
+//				limit: 10 //returns a maximum of 10 documents, default: return every match
 				};
 				WL.JSONStore.get(collectionName)
 				.findAll(options)
@@ -472,31 +441,21 @@ ADF.view.ContactList = Backbone.View
 			
 			//JSONStore Remove Collection
 			removeCollectionJSONStore : function() {
-				
+				var that = this;
 				var collectionName = 'contact';
-//				var query = {name: '*'};
-//				var options = {}; 
-//				
-//				var tempJSONStore = WL.JSONStore.get(collectionName);
-//
-//				
-//				
-//				if(WL.JSONStore.get(collectionName).findAll(options)){
-//					console.log("Remove Collection success ");
-//				} else {
-//					console.log("Remove Collection success ");
-//				}
 				
 				WL.JSONStore.get(collectionName)
 				.removeCollection()
 				.then(function () {
 				//handle success
 					console.log("Remove Collection success ");
+					that.initJSONStore();
+					
 				})
 				.fail(function (errorObject) {
 				//handle failure
 					console.log("Remove Collection failure ");
 				});
-			},
+			}
 
 		});
