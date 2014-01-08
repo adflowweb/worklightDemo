@@ -38,10 +38,11 @@ function wlCommonInit() {
 
 		WL.Client.connect({
 			onSuccess : function() {
-				console.log('success ========================')
+				console.log('success ========================');
 			},
 			onFailure : function() {
-				console.log('fail ========================')
+				console.log('fail ========================');
+				window.busy.hide();
 			}
 		});
 
@@ -53,4 +54,5 @@ function wlCommonInit() {
 	});
 
 	window.busy = new WL.BusyIndicator();
+	WL.OptionsMenu.setVisible(true);
 }
