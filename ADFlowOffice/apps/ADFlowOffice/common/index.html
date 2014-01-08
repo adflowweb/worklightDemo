@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>index</title>
+<!--  
 <script type="text/javascript">
 	var beforeload = new Date().getTime();
 	window.onload = gettimeload;
@@ -14,6 +15,7 @@
 				+ time + "</b></font> Seconds to Load";
 	}
 </script>
+-->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
 <link rel="shortcut icon" href="images/favicon.png">
@@ -21,33 +23,6 @@
 <script>
 	window.$ = window.jQuery = WLJQ;
 </script>
-<script src="http://www.google.com/jsapi"></script>
-<!--  
-<script>
-	google.load("webfont", "1");
-	google.setOnLoadCallback(function() {
-		WebFont.load({
-			custom : {
-				families : [ "NanumGothic" ],
-				urls : [ "http://fontface.kr/NanumGothic/css" ]
-			}
-		});
-	});
-</script>
--->
-<script src="http://www.google.com/jsapi"></script>
-<script>
-	google.load("webfont", "1");
-	google.setOnLoadCallback(function() {
-		WebFont.load({
-			custom : {
-				families : [ "NanumGothicBold" ],
-				urls : [ "http://fontface.kr/NanumGothicBold/css" ]
-			}
-		});
-	});
-</script>
-
 <!-- furatto css -->
 <link rel="stylesheet" href="css/furatto/normalize.css" />
 <link rel="stylesheet" href="css/furatto/furatto.css" />
@@ -77,21 +52,19 @@
 					<div class="row">
 						<div class="col-1"></div>
 					</div>
-					<h2 class="text-center"
-						style="font-family: NanumGothicBold; font-size: 40px;">에이디플로우
-					</h2>
+					<h2 class="text-center" style="font-size: 40px;">에이디플로우</h2>
 					<div class="row">
 						<div class="col-1"></div>
 					</div>
 					<div class="form-fields">
-						<label for="email" style="font-family: NanumGothicBold;"><i
-							class="icon-user"></i>&nbsp;&nbsp;아이디 </label> <input type="email"
-							name="" id="email" value="" class="input-block">
+						<label for="email"><i class="icon-user"></i>&nbsp;&nbsp;아이디
+						</label> <input type="email" name="" id="email" value=""
+							class="input-block">
 					</div>
 					<div class="form-fields">
-						<label for="password" style="font-family: NanumGothicBold;"><i
-							class="icon-lock"></i>&nbsp;&nbsp;패스워드 </label> <input type="password"
-							name="" id="password" value="" class="input-block">
+						<label for="password"><i class="icon-lock"></i>&nbsp;&nbsp;패스워드
+						</label> <input type="password" name="" id="password" value=""
+							class="input-block">
 					</div>
 					<!-- <div class="checkbox-fields">
 						<label for="check"> <input type="checkbox" id="check">
@@ -101,9 +74,8 @@
 					<div class="row">
 						<div class="col-1"></div>
 					</div>
-					<a id="loginBtn" class="btn btn-success btn-block"
-						style="font-family: NanumGothicBold;">로그인</a> <br> <br>
-					<label id="loginElapsedTime" class="text-center"
+					<a id="loginBtn" class="btn btn-success btn-block">로그인</a> <br>
+					<br> <label id="loginElapsedTime" class="text-center"
 						style="font-size: 12px" />
 				</div>
 			</div>
@@ -114,7 +86,6 @@
 	<script src="js/messages.js"></script>
 	<script src="js/navigation.js"></script>
 	<script src="js/fastclick.js"></script>
-
 	<!-- furatto js -->
 	<script src="js/furatto/furatto.min.js"></script>
 	<!-- furatto js end -->

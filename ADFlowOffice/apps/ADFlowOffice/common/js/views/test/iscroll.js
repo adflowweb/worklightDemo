@@ -56,17 +56,25 @@ ADF.view.Iscroll = Backbone.View
 							imageName = females[Math.floor(Math.random() * 5)];
 						}
 
+						// var name = items[i].nameko;
+						// console.log('nameLength::' + items[i].nameko.length);
+						// console.log('name1::' + name.charAt(1));
+						// if (name.length == 2) {
+						// name = name.charAt(0) + '&nbsp;&nbsp;&nbsp;'
+						// + name.charAt(1);
+						// }
+
 						str += '<li id="'
 								+ i
 								+ '" style="overflow: hidden;border-color:grey;border-style:solid none none none;border-width:1px;height:81px;background-color:white;"><div style="color:grey;float:left"><img width=80 height=80 src="images/'
 								+ imageName
 								+ '.jpg"></div>'
-								+ '<div style="color:grey;float:left"><h3 style="padding-left:10px;font-family:NanumGothicBold;">'
+								+ '<div style="color:grey;float:left"><h3 style="padding-left:10px;">'
 								+ items[i].nameko
 								+ '<font style="font-size:15px">&nbsp;&nbsp;'
 								+ items[i].title
 								+ '</font>'
-								+ '</h3><p style="padding-left:12px;font-family:NanumGothicBold;">'
+								+ '</h3><p style="padding-left:12px;">'
 								+ items[i].dept
 								+ '</p></div><div style="position:absolute;right:10px;color:grey;float:right;margin-top:16px;font-size: 44px;"><i class="icon-circle-arrow-right" /></div></li>';
 
@@ -107,10 +115,22 @@ ADF.view.Iscroll = Backbone.View
 			fail : function(result) {
 				console.log(JSON.stringify(result));
 				window.busy.hide();
-				WL.SimpleDialog.show("My Title", "My Text", [ {
+				WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
 					text : "확인",
 					handler : function() {
-						WL.Logger.debug("First button pressed");
+
+						WL.App.overrideBackButton(backFunc);
+						function backFunc() {
+
+							window.beforeload = new Date().getTime();
+
+							if (!ADF.view.login) {
+								ADF.view.login = new ADF.view.Login;
+							}
+							navigation.pushView(ADF.view.login, 'typeB');
+						}
+
+						WL.Logger.debug("error button pressed");
 					}
 				} ])
 			},
