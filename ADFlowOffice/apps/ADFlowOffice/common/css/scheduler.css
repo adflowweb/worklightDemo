@@ -59,7 +59,9 @@
 	border-bottom: 1px solid #BBBBBB;
 }
 
-
+#addscheduler_footer{
+	display: block;
+}
 .scheduler_footer {	
 	clear:both;
 	background-color: #EFEFF4;

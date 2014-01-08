@@ -45,6 +45,38 @@ ADF.view.AddScheduler = Backbone.View.extend({
 
 				ADF.view.addscheduler.addSchedulerForm();
 			});
+		  
+		   
+		   //  calling differently............ I need..
+//		   $(document).ready(function () {
+//			    $(":input[data-datepicker]").pickadate();
+//			    
+//			});
+		    
+		 
+//		   var catdiv = document.getElementById("addscheduler_footer");  
+		   $('.picka_one').on('click', function() {	
+			   console.log("picka_one  click");
+//			   var footerdisplay = document.getElementById("addscheduler_footer").style.display; 
+			   document.getElementById("addscheduler_footer").style.display = 'block';
+			   var footerdisplay = document.getElementById("addscheduler_footer").style.display; 
+			   console.log("footerdisplay:: "+footerdisplay);
+			   if(footerdisplay  == 'block'){ 
+				   console.log("picka_one  block");
+				   console.log("picka_one  footerdisplay :: "+footerdisplay);
+				   document.getElementById("addscheduler_footer").style.display = "none";  
+				   $(":input[data-datepicker]").pickadate();
+			   } else {  
+				   footerdisplay = "block";  
+				   document.getElementById("addscheduler_footer").style.display = "block";
+			   }  
+			  
+		   });
+//		   $(":input[data-datepicker]").pickadate();
+		 
+		   
+		   
+		   
 	},
 	elapsedTime : function() {
 		var aftrload = new Date().getTime();

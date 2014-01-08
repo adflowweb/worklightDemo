@@ -1,4 +1,14 @@
 /* Worklight container div */
+@font-face {
+	font-family: 'NanumGothicBold';
+	font-style: normal;
+	src: url('../fonts/NanumGothicBold.woff') format('woff')
+}
+
+body {
+	font-family: "NanumGothicBold";
+}
+
 #content {
 	height: 100%;
 	width: 100%;
