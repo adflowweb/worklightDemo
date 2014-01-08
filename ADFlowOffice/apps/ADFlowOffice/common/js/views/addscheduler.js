@@ -7,16 +7,18 @@ ADF.view.AddScheduler = Backbone.View.extend({
 	el : $('.panel-content'), // attaches `this.el` to an existing element.
 
 	initialize : function() {
-	console.log("SchedulerView init................. ");
+	console.log("AddScheduler view  init................. ");
 	
 	_.bindAll(this, 'render','fetchDB','loadaddSchedulerSuccess','loadaddSchedulerFailure','appendaddSchedulerList'); 
 	// fixes loss of context for 'this' within
 	
 	
 	},
+/*
 	events:{
 		'click .btn_addschedulerbtn':'addSchedulerForm'
 	},
+	*/
 	render : function() {
 		window.beforeload = new Date().getTime();
 		window.busy.show();
@@ -34,9 +36,15 @@ ADF.view.AddScheduler = Backbone.View.extend({
 			navigation.pushView(ADF.view.dashBoard, 'typeB');
 		}
 		
+		
 	},
 	hello: function(){
 		   navigation.loadAsync(function(){ADF.view.addscheduler.elapsedTime();window.busy.hide();});
+		   $('.btn_addschedulerbtn').on('click', function() {		
+				console.log("press btn_addschedulerbtn..................");
+
+				ADF.view.addscheduler.addSchedulerForm();
+			});
 	},
 	elapsedTime : function() {
 		var aftrload = new Date().getTime();
@@ -122,7 +130,7 @@ ADF.view.AddScheduler = Backbone.View.extend({
 				}
 				navigation.pushView(ADF.view.scheduler, 'typeA');
 			
-		  
+				
 		  
 	}
 });

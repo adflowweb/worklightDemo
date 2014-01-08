@@ -6,9 +6,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 	console.log("SchedulerView init................. ");
 	this.collection = new ADF.collection.SchedulerCollection();	
 //	this.model = new ADF.model.SchedulerModel();
-	console.log(this);
-	console.log(this.collection.models);
-	console.log(this.collection.toJSON());
+	
 //	console.log(this.model);
 //	console.log(this.model.toJSON());
 	this.collection.bind('add', function() {
@@ -29,7 +27,9 @@ ADF.view.Scheduler = Backbone.View.extend({
 		
 		console.log("SchedulerView " + this);
 		var window_width = $(window).width();   
+		var window_height = $(window).height();   
 		console.log("window_width :: "+window_width);
+		console.log("window_height :: "+window_height);
 		//call async
 		navigation.loadBefore('views/schedulerBoard.html', this.fetchDB);
 		//navigation.load('views/schedulerBoard.html', this.fetchDB);
@@ -40,7 +40,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 			}
 			navigation.pushView(ADF.view.dashBoard, 'typeB');
 		}
-       
+	
 		
 	},
 
@@ -105,7 +105,35 @@ ADF.view.Scheduler = Backbone.View.extend({
 		console.log("..............  this.collection............." + this.collection);
 		var str1 = "";
 		var str2 = "";
+		
 		var str3 ="";
+		
+//		header append today..is 
+
+		var currentTime = new Date();
+		var month = currentTime.getMonth() + 1;
+		var day = currentTime.getDate();
+		var year = currentTime.getFullYear();
+
+		var weekday=new Array(7);
+		weekday[0]="Sun";
+		weekday[1]="Mon";
+		weekday[2]="Tues";
+		weekday[3]="Wed";
+		weekday[4]="Thur";
+		weekday[5]="Fri";
+		weekday[6]="Sat";
+		var myDay  =weekday[currentTime.getDay()];		
+//		<i class="icon-calendar"><div>Mon, Dec 23</div></i>		
+		var myheader ='<i class="icon-calendar">';
+		myheader += myDay;
+		myheader +=', ';
+		myheader += month;
+		myheader +=' ';
+		myheader += day;
+		myheader +='</i>';		
+		$('.header_today').append(myheader);
+		
 	   for ( var i = 0; i < items.length; i++) {
 		   this.collection.add(new ADF.model.SchedulerModel(
 //		   this.collection.add(this.model.set(
@@ -120,21 +148,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 		
 			console.log(this.collection.models);
 			console.log(this.collection.toJSON());
-//			console.log(this.model);
-//			console.log(this.model.toJSON());
-			
-//			if( items[i].ctgr=='workoutside'){
-//				var str ='<li class="workoutside_li">' + items[i].strdate + items[i].owner + items[i].detail + '</li>';
-//				$('#workoutside_first').after(str);
-//			}
-//			if(items[i].ctgr=='dayoff'){
-//					var str ='<li class="dayoff_li">' +  items[i].strdate + items[i].owner  + '</li>';
-//				$('#dayoff_first').after(str);
-//			}
-//			if(items[i].ctgr=='longproject'){
-//					var str = '<li class="longproject_li">' + items[i].strdate +' ~ ' + items[i].enddate +items[i].owner + '</li>';
-//				$('#longproject_first').after(str);
-//			}
+
 			if( items[i].ctgr=='workoutside'){
 				str1 +='<li class="workoutside_li">' + items[i].strdate + items[i].owner + items[i].detail + '</li>';				
 			}
@@ -146,7 +160,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 			}
 
 		}  // end of for loop
-	   
+	 
 	   if(str1!=""){
 		   $('#workoutside_first').after(str1);
 	   }
@@ -163,15 +177,23 @@ ADF.view.Scheduler = Backbone.View.extend({
 	   navigation.loadAsync(function(){ADF.view.scheduler.elapsedTime();window.busy.hide();});
 //	   ADF.view.scheduler.elapsedTime();
 		
+		$('.btn_inputScheduler').on('click', function() {		
+			console.log("btn_inputScheduler event changed.........."+this);
+			ADF.view.scheduler.inputScheduler();
+			
+		});
+	   
 //
 	}, /*appendSchedulerList  end*/
 
+	/*
 	events:{
 		'click .btn_inputScheduler':'inputScheduler'
 	},
+	*/
 	inputScheduler:function(){
 		
-			console.log("inputScheduler.......................... "
+			console.log("inputScheduler....lalalal...................... "
 					+ this);
 			if (!ADF.view.addscheduler) {
 				ADF.view.addscheduler = new ADF.view.AddScheduler;
