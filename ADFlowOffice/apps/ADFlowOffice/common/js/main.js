@@ -54,5 +54,4 @@ function wlCommonInit() {
 	});
 
 	window.busy = new WL.BusyIndicator();
-	WL.OptionsMenu.setVisible(true);
 }

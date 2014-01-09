@@ -1,41 +1,39 @@
 ADF.view.DashBoard = Backbone.View.extend({
-	el : $('.panel-content'), // attaches `this.el` to an existing element.
+	el : $('.panel-content'), // attaches `this.el` to an existing
+	// element.
 
 	initialize : function() {
-		_.bindAll(this, 'render'); // fixes loss of context for 'this' within
+		_.bindAll(this, 'render'); // fixes loss of context for 'this'
+		// within
 		// methods
 
 		// this.render(); // not all views are self-rendering. This
 		// one is.
 	},
 	render : function() {
+		var that = this;
 		// load dashBoard view
 		navigation.loadBefore('views/dashBoard.html', function() {
-			$('.back').on('click', function() {
-				
+			$('.test').on('click', function() {
+
 				window.beforeload = new Date().getTime();
 				window.busy.show();
 				/*
-				if (!ADF.view.detail) {
-					ADF.view.detail = new ADF.view.Detail;
-				}
-				navigation.pushView(ADF.view.detail, 'typeA');
-				*/
+				 * if (!ADF.view.detail) { ADF.view.detail = new
+				 * ADF.view.Detail; } navigation.pushView(ADF.view.detail,
+				 * 'typeA');
+				 */
 				if (!ADF.view.iscroll) {
 					ADF.view.iscroll = new ADF.view.Iscroll;
 				}
 				navigation.pushView(ADF.view.iscroll, 'typeA');
 			});
-			$('.loadscheduler').on(
-					'click',
-					function() {
-						console.log("loadscheduler loadschedulerloadscheduler "
-								+ this);
-						if (!ADF.view.scheduler) {
-							ADF.view.scheduler = new ADF.view.Scheduler;
-						}
-						navigation.pushView(ADF.view.scheduler, 'typeA');
-					});
+			$('.loadscheduler').on('click', function() {
+				if (!ADF.view.scheduler) {
+					ADF.view.scheduler = new ADF.view.Scheduler;
+				}
+				navigation.pushView(ADF.view.scheduler, 'typeA');
+			});
 			$('.contantsList').on('click', function() {
 
 				if (!ADF.view.contantList) {
@@ -47,14 +45,20 @@ ADF.view.DashBoard = Backbone.View.extend({
 				navigation.pushView(ADF.view.contactList, 'typeA');
 			});
 
-			navigation.loadAsync(function (){ADF.view.dashBoard.elapsedTime();window.busy.hide();}
-			);
+			navigation.loadAsync(function() {
+				that.elapsedTime();
+				window.busy.hide();
+				new iScroll('menuList', {
+					hScrollbar : false,
+					vScrollbar : false
+				});
+			});
 		});
 		WL.App.overrideBackButton(backFunc);
 		function backFunc() {
-			
+
 			window.beforeload = new Date().getTime();
-			
+
 			if (!ADF.view.login) {
 				ADF.view.login = new ADF.view.Login;
 			}
@@ -66,8 +70,9 @@ ADF.view.DashBoard = Backbone.View.extend({
 		var aftrload = new Date().getTime();
 		// Time calculating in seconds
 		var time = (aftrload - window.beforeload) / 1000;
-		document.getElementById("dashBoardElapsedTime").innerHTML = "Your Page took <font color='red'><b>"
-				+ time + "</b></font> Seconds to Load";
+		// document.getElementById("dashBoardElapsedTime").innerHTML = "Your
+		// Page took <font color='red'><b>"
+		// + time + "</b></font> Seconds to Load";
 		window.beforeload = 0;
 	}
 });

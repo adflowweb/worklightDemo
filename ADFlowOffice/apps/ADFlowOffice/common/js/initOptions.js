@@ -13,9 +13,9 @@ var wlInitOptions = {
 
 	// # The callback function to invoke in case application fails to connect to
 	// Worklight Server
-	//onConnectionFailure : function() {
+	// onConnectionFailure : function() {
 
-	//},
+	// },
 
 	// # Worklight server connection timeout
 	// timeout: 30000,
@@ -42,7 +42,7 @@ var wlInitOptions = {
 	// - blacklist - Array of package names to ignore (e.g ['my.pkg'])
 	logger : {
 		enabled : true,
-		level : 'debug',
+		level : 'error',
 		stringify : true,
 		pretty : false,
 		tag : {
