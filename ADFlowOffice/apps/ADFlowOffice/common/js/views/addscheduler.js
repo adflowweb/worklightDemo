@@ -53,11 +53,19 @@ ADF.view.AddScheduler = Backbone.View.extend({
 //			    
 //			});
 		    
-		 
+		   $(function() {
+				  $( "#datepicker1" ).datepicker({
+				    dateFormat: 'yy-mm-dd'
+				  });
+				  
+				});
+		   
 //		   var catdiv = document.getElementById("addscheduler_footer");  
 		   $('.picka_one').on('click', function() {	
-			   console.log("picka_one  click");
-//			   var footerdisplay = document.getElementById("addscheduler_footer").style.display; 
+			   console.log("picka_one  clickasdfasdf");
+			   datepicker();
+//			   var footerdisplay = document.getElementById("addscheduler_footer").style.display;
+			   /*
 			   document.getElementById("addscheduler_footer").style.display = 'block';
 			   var footerdisplay = document.getElementById("addscheduler_footer").style.display; 
 			   console.log("footerdisplay:: "+footerdisplay);
@@ -69,12 +77,15 @@ ADF.view.AddScheduler = Backbone.View.extend({
 			   } else {  
 				   footerdisplay = "block";  
 				   document.getElementById("addscheduler_footer").style.display = "block";
-			   }  
+			   } 
+			   */ 
 			  
 		   });
 //		   $(":input[data-datepicker]").pickadate();
 		 
-		   
+		   /////////////////////////////////////////////////////
+		 
+	        ///////////////////////////////////////////////
 		   
 		   
 	},

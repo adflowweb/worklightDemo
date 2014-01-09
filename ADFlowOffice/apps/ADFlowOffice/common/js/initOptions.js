@@ -196,9 +196,14 @@ else
 
 function addschedulerJSAtOnload() {
 	WL.Logger.debug("addschedulerJSAtOnload inside................");
+
 	var element = document.createElement("script");
+	var element1 = document.createElement("script");
+	
 	element.src = "js/views/addscheduler.js";
+	element1.src = "js/views/jquery-ui-1.10.3.custom.min.js";
 	document.body.appendChild(element);
+	document.body.appendChild(element1);
 }
 
 // Check for browser support of event handling capability
