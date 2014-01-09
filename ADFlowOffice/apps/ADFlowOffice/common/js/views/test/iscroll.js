@@ -1,27 +1,25 @@
-var males = [ 'eugene_lee', 'gary_donovan', 'james_king', 'john_williams',
-		'paul_jones', 'ray_moore', 'steven_wells' ];
-
-var females = [ 'amy_jones', 'julie_taylor', 'kathleen_byrne', 'lisa_wong',
-		'paula_gates' ];
-
-var names = [ '고신규', '권근필', '김은주', '조광일', '박택영', '최순옥', '이찬호', '박수정', '김병상',
-		'오형은', '양석모', '박눌' ];
-
-var titles = [ '대표', '차장', '과장', '사원', '대리', '부장', '상무', '전무', '이사' ];
-
 ADF.view.Iscroll = Backbone.View
 		.extend({
+			constant1 : '" style="overflow: hidden;border-color:grey;border-style:solid none none none;border-width:1px;height:81px;background-color:white;"><div style="color:grey;float:left"><img width=80 height=80 src="images/',
+			constant2 : '</p></div><div style="position:absolute;right:10px;color:grey;float:right;margin-top:16px;font-size: 44px;"><i class="icon-circle-arrow-right" /></div></li>',
 			el : $('.panel-content'), // attaches `this.el` to an existing
 			// element.
 
 			initialize : function() {
-				_.bindAll(this, 'render'); // fixes loss of context for 'this'
+				_.bindAll(this, 'render', 'success', 'fail'); // fixes loss of
+				// context
+				// for 'this'
 				// within
 				// methods
 
 				// this.render(); // not all views are self-rendering. This
 				// one is.
 			},
+			males : [ 'eugene_lee', 'gary_donovan', 'james_king',
+					'john_williams', 'paul_jones', 'ray_moore', 'steven_wells' ],
+
+			females : [ 'amy_jones', 'julie_taylor', 'kathleen_byrne',
+					'lisa_wong', 'paula_gates' ],
 			getContactList : function() {
 				// get contact list
 				var invocationData = {
@@ -31,29 +29,32 @@ ADF.view.Iscroll = Backbone.View
 					parameters : [ '{"act" : "R"}', "ADFlowContact" ]
 				// parameters if any
 				};
-				console.log("..............try. to...something like that");
+				console.log("call invokeProcedure");
+
+				window.startProc = new Date().getTime();
 				WL.Client.invokeProcedure(invocationData, {
 					onSuccess : this.success,
 					onFailure : this.fail
 				});
 			},
 			success : function(result) {
-				console.log("Retrieve success" + JSON.stringify(result));
-
+				var that = this;
+				this.procElapsedTime();
+				console.log("response::" + JSON.stringify(result));
+				console.log("isSuccessful::"
+						+ result.invocationResult.isSuccessful);
 				if (result.invocationResult.isSuccessful) {
-
 					var items = result.invocationResult.Result;
-					console.log("===============   items[0].no =============="
-							+ items[0].no);
-
 					var str = '';
 					for (var i = 0; i < items.length; i++) {
 
 						var imageName;
-						if (items[i].sex == 'M') {
-							imageName = males[Math.floor(Math.random() * 7)];
+						if (items[i].sex == '0') {
+							imageName = this.males[Math
+									.floor(Math.random() * 7)];
 						} else {
-							imageName = females[Math.floor(Math.random() * 5)];
+							imageName = this.females[Math
+									.floor(Math.random() * 5)];
 						}
 
 						// var name = items[i].nameko;
@@ -66,17 +67,15 @@ ADF.view.Iscroll = Backbone.View
 
 						str += '<li id="'
 								+ i
-								+ '" style="overflow: hidden;border-color:grey;border-style:solid none none none;border-width:1px;height:81px;background-color:white;"><div style="color:grey;float:left"><img width=80 height=80 src="images/'
+								+ this.constant1
 								+ imageName
 								+ '.jpg"></div>'
 								+ '<div style="color:grey;float:left"><h3 style="padding-left:10px;">'
 								+ items[i].nameko
 								+ '<font style="font-size:15px">&nbsp;&nbsp;'
-								+ items[i].title
-								+ '</font>'
+								+ items[i].title + '</font>'
 								+ '</h3><p style="padding-left:12px;">'
-								+ items[i].dept
-								+ '</p></div><div style="position:absolute;right:10px;color:grey;float:right;margin-top:16px;font-size: 44px;"><i class="icon-circle-arrow-right" /></div></li>';
+								+ items[i].dept + this.constant2;
 
 					}
 					$('#thelist').append(str);
@@ -91,72 +90,84 @@ ADF.view.Iscroll = Backbone.View
 				// 'typeA');
 				// });
 				navigation.loadAsync(function() {
-
 					var myScroll = new iScroll('wrapper', {
 						hScrollbar : false,
-						vScrollbar : true
+						vScrollbar : false
+					});
+
+					console.log('this is test' + $('#back'));
+					$('#back').on('click', function() {
+						if (!ADF.view.dashBoard) {
+							ADF.view.dashBoard = new ADF.view.DashBoard;
+						}
+						navigation.pushView(ADF.view.dashBoard, 'typeB');
 					});
 
 					$('#thelist').on({
-
 						click : function() {
 							// alert($(this).text());
 							console.log($(this));
 							console.log($(this).attr("id"));
-
 						}
-
 					}, 'li');
-					ADF.view.iscroll.elapsedTime();
+					that.viewElapsedTime();
 					window.busy.hide();
 				});
 
 			},
 			fail : function(result) {
+				this.procElapsedTime();
 				console.log(JSON.stringify(result));
 				window.busy.hide();
 				WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
 					text : "확인",
 					handler : function() {
-
-						WL.App.overrideBackButton(backFunc);
-						function backFunc() {
-
+						WL.App.overrideBackButton(function() {
 							window.beforeload = new Date().getTime();
-
 							if (!ADF.view.login) {
 								ADF.view.login = new ADF.view.Login;
 							}
 							navigation.pushView(ADF.view.login, 'typeB');
-						}
-
+						});
 						WL.Logger.debug("error button pressed");
 					}
-				} ])
+				} ]);
 			},
 			render : function() {
+				var that = this;
 				// load dashBoard view
 				navigation.loadBefore('views/test/iscroll.html', function() {
-					ADF.view.iscroll.getContactList();
+					that.getContactList();
 				});
-				WL.App.overrideBackButton(backFunc);
-				function backFunc() {
-
-					window.beforeload = new Date().getTime();
-
-					if (!ADF.view.deshBoard) {
-						ADF.view.deshBoard = new ADF.view.DashBoard;
-					}
-					navigation.pushView(ADF.view.deshBoard, 'typeB');
-				}
+				WL.App.overrideBackButton(this.backFunc);
 			},
-			elapsedTime : function() {
-				console.log('elapsedTime called')
-				var aftrload = new Date().getTime();
+			viewElapsedTime : function() {
 				// Time calculating in seconds
-				var time = (aftrload - window.beforeload) / 1000;
-				document.getElementById("iScrollElapsedTime").innerHTML = "Your Page took <font color='red'><b>"
-						+ time + "</b></font> Seconds to Load";
+				var time = (new Date().getTime() - window.beforeload) / 1000;
+				console.log('viewElapsedTime::' + time);
+				var gap = time - window.procTime;
+				document.getElementById("iScrollElapsedTime").innerHTML = document
+						.getElementById("iScrollElapsedTime").innerHTML
+						+ " page : <font color='red'><b>"
+						+ time
+						+ "</b></font> ms gap : <font color='red'><b>"
+						+ gap.toFixed(3) + "</b></font> ms";
 				window.beforeload = 0;
+			},
+			procElapsedTime : function() {
+				// Time calculating in seconds
+				window.procTime = (new Date().getTime() - window.startProc) / 1000;
+				console.log('procedureElapsedTime::' + window.procTime);
+				document.getElementById("iScrollElapsedTime").innerHTML = "procedure : <font color='red'><b>"
+						+ window.procTime + "</b></font> ms";
+				window.startProc = 0;
+			},
+			backFunc : function() {
+				window.beforeload = new Date().getTime();
+
+				if (!ADF.view.deshBoard) {
+					ADF.view.deshBoard = new ADF.view.DashBoard;
+				}
+				navigation.pushView(ADF.view.deshBoard, 'typeB');
 			}
 		});
