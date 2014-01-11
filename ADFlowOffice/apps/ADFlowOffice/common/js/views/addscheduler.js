@@ -47,23 +47,20 @@ ADF.view.AddScheduler = Backbone.View.extend({
 			});
 		  
 		   
-		   //  calling differently............ I need..
-//		   $(document).ready(function () {
-//			    $(":input[data-datepicker]").pickadate();
-//			    
-//			});
-		    
 		   $(function() {
 				  $( "#datepicker1" ).datepicker({
 				    dateFormat: 'yy-mm-dd'
 				  });
+				  $( "#datepicker2" ).datepicker({
+					    dateFormat: 'yy-mm-dd'
+					  });
 				  
 				});
 		   
 //		   var catdiv = document.getElementById("addscheduler_footer");  
-		   $('.picka_one').on('click', function() {	
-			   console.log("picka_one  clickasdfasdf");
-			   datepicker();
+//		   $('.picka_one').on('click', function() {	
+//			   console.log("picka_one  clickasdfasdf");
+//			   datepicker();
 //			   var footerdisplay = document.getElementById("addscheduler_footer").style.display;
 			   /*
 			   document.getElementById("addscheduler_footer").style.display = 'block';
@@ -80,7 +77,7 @@ ADF.view.AddScheduler = Backbone.View.extend({
 			   } 
 			   */ 
 			  
-		   });
+//		   });
 //		   $(":input[data-datepicker]").pickadate();
 		 
 		   /////////////////////////////////////////////////////

@@ -96,6 +96,20 @@ ADF.view.Scheduler = Backbone.View.extend({
 	},/*loadSchedulerSuccess  end*/
 	loadSchedulerFailure : function(result){
 		  console.log("loadSchedulerFailure" + JSON.stringify(result));
+		  window.busy.hide();
+			WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
+				text : "확인",
+				handler : function() {
+					WL.App.overrideBackButton(function() {
+						window.beforeload = new Date().getTime();
+						if (!ADF.view.login) {
+							ADF.view.login = new ADF.view.Login;
+						}
+						navigation.pushView(ADF.view.login, 'typeB');
+					});
+					WL.Logger.debug("error button pressed");
+				}
+			} ]);
 	},/*loadSchedulerSuccess  end*/
 	appendSchedulerList :function(items){
 	  	console.log("hello appendSchedulerList :: ");
@@ -125,6 +139,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 		weekday[6]="Sat";
 		var myDay  =weekday[currentTime.getDay()];		
 //		<i class="icon-calendar"><div>Mon, Dec 23</div></i>		
+		
 		var myheader ='<i class="icon-calendar">';
 		myheader += myDay;
 		myheader +=', ';
@@ -181,6 +196,17 @@ ADF.view.Scheduler = Backbone.View.extend({
 			console.log("btn_inputScheduler event changed.........."+this);
 			ADF.view.scheduler.inputScheduler();
 			
+		});
+		$('#backbtnOnscheduler').on(
+		{
+			click : function(e) {
+				console.log("back button click");
+				if (!ADF.view.dashBoard) {
+					ADF.view.dashBoard = new ADF.view.DashBoard;
+				}
+				navigation.pushView(ADF.view.dashBoard, 'typeB');
+			}
+
 		});
 	   
 //
