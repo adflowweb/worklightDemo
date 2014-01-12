@@ -30,6 +30,8 @@ ADF.view.AddScheduler = Backbone.View.extend({
 		
 		WL.App.overrideBackButton(backFunc);
 		function backFunc() {
+			 $( "#datepicker1" ).datepicker("hide");
+			 $( "#datepicker2" ).datepicker("hide");
 			if (!ADF.view.dashBoard) {
 				ADF.view.dashBoard = new ADF.view.DashBoard;
 			}
@@ -56,6 +58,23 @@ ADF.view.AddScheduler = Backbone.View.extend({
 					  });
 				  
 				});
+		   
+		   
+		   
+		   
+			$('#backbtnOnaddscheduler').on(
+					{
+						click : function(e) {
+							 $( "#datepicker1" ).datepicker("hide");
+							 $( "#datepicker2" ).datepicker("hide");
+							console.log("back button click");
+							if (!ADF.view.scheduler) {
+								ADF.view.scheduler = new ADF.view.Scheduler;
+							}
+							navigation.pushView(ADF.view.scheduler, 'typeA');							
+						}
+
+					});
 		   
 //		   var catdiv = document.getElementById("addscheduler_footer");  
 //		   $('.picka_one').on('click', function() {	
@@ -96,6 +115,7 @@ ADF.view.AddScheduler = Backbone.View.extend({
 	},  // end of elaspsedTime
 	addSchedulerForm : function(){
 //		var user =$('input[name="user"]').val();
+	
 		var user = document.getElementsByClassName('username')[0].value;		
 		console.log("user :: "+user);
 		
@@ -111,7 +131,20 @@ ADF.view.AddScheduler = Backbone.View.extend({
 		
 		var scheduler_calendar2 = document.getElementsByClassName('scheduler_calendar')[1].value;		
 		console.log("scheduler_calendar2 :: "+scheduler_calendar2);
-		this.fetchDB(user,strCategory,sc_addevent,scheduler_calendar1,scheduler_calendar2);
+		if(scheduler_calendar1==''){
+			alert("날짜입력");
+		}
+		if(scheduler_calendar2==''){
+			alert("날짜입력");
+		}
+		if(scheduler_calendar1!='' &&scheduler_calendar2!='' ){
+			 $( "#datepicker1" ).datepicker("hide");
+			 $( "#datepicker2" ).datepicker("hide");
+			this.fetchDB(user,strCategory,sc_addevent,scheduler_calendar1,scheduler_calendar2);
+		}
+//		this.fetchDB(user,strCategory,sc_addevent,scheduler_calendar1,scheduler_calendar2);
+		
+		
 		
 	},
 	fetchDB : function(user,strCategory,sc_addevent,scheduler_calendar1,scheduler_calendar2){		

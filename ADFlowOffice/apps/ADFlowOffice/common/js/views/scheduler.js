@@ -199,7 +199,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 		});
 		$('#backbtnOnscheduler').on(
 		{
-			click : function(e) {
+			click : function() {
 				console.log("back button click");
 				if (!ADF.view.dashBoard) {
 					ADF.view.dashBoard = new ADF.view.DashBoard;
@@ -208,6 +208,42 @@ ADF.view.Scheduler = Backbone.View.extend({
 			}
 
 		});
+		
+		$('.btn_modifyScheduler').on(
+				{
+					click : function() {
+						console.log("btn_modifyScheduler click");
+						// db query..part 권차장님. ㅜㅠ
+						
+						 $("#popUpDiv").show();
+						
+						
+					}
+
+		});  // end btn_modifyScheduler
+		
+		$('.btn_modifyScheduler_ok').on(
+				{
+					click : function() {
+						console.log("btn_modifyScheduler_ok click");
+						// db query..part I need
+						
+						  $("#popUpDiv").hide();
+						
+						
+					}
+
+		});  // end btn_modifyScheduler
+		
+		
+		$('.btn_deleteScheduler').on(
+				{
+					click : function() {
+						console.log("btn_deleteScheduler click");
+						
+					}
+
+		});  // end btn_deleteScheduler
 	   
 //
 	}, /*appendSchedulerList  end*/
