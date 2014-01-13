@@ -90,13 +90,12 @@ ADF.view.Iscroll = Backbone.View
 				// 'typeA');
 				// });
 				navigation.loadAsync(function() {
-					var myScroll = new iScroll('wrapper', {
+					var myScroll = new iScroll('contactList', {
 						hScrollbar : false,
 						vScrollbar : false
 					});
-
-					console.log('this is test' + $('#back'));
 					$('#back').on('click', function() {
+						window.beforeload = new Date().getTime();
 						if (!ADF.view.dashBoard) {
 							ADF.view.dashBoard = new ADF.view.DashBoard;
 						}
@@ -108,6 +107,13 @@ ADF.view.Iscroll = Backbone.View
 							// alert($(this).text());
 							console.log($(this));
 							console.log($(this).attr("id"));
+
+							window.busy.show();
+							window.beforeload = new Date().getTime();
+							if (!ADF.view.contact) {
+								ADF.view.contact = new ADF.view.Contact;
+							}
+							navigation.pushView(ADF.view.contact, 'typeA');
 						}
 					}, 'li');
 					that.viewElapsedTime();
@@ -119,7 +125,7 @@ ADF.view.Iscroll = Backbone.View
 				this.procElapsedTime();
 				console.log(JSON.stringify(result));
 				window.busy.hide();
-				WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
+				WL.SimpleDialog.show("장애", result.errorMsg, [ {
 					text : "확인",
 					handler : function() {
 						WL.App.overrideBackButton(function() {
