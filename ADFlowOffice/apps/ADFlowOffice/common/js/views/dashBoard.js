@@ -16,6 +16,9 @@ ADF.view.DashBoard = Backbone.View.extend({
 		navigation.loadBefore('views/dashBoard.html', function() {
 			$('.test').on('click', function() {
 
+				// testCode
+				window.last_click_time = new Date().getTime();
+				// testCodeEnd
 				window.beforeload = new Date().getTime();
 				window.busy.show();
 				/*

@@ -78,7 +78,10 @@ ADF.view.Iscroll = Backbone.View
 								+ items[i].dept + this.constant2;
 
 					}
+					console.log('thelistBefore::' + $('#thelist').html());
 					$('#thelist').append(str);
+					console.log('thelistAfter::' + $('#thelist').html());
+
 				}
 
 				// $('.back').on('click', function() {
@@ -90,44 +93,65 @@ ADF.view.Iscroll = Backbone.View
 				// 'typeA');
 				// });
 				navigation.loadAsync(function() {
-					var myScroll = new iScroll('contactList', {
-						hScrollbar : false,
-						vScrollbar : false
-					});
-					$('#back').on('click', function() {
-						window.beforeload = new Date().getTime();
-						if (!ADF.view.dashBoard) {
-							ADF.view.dashBoard = new ADF.view.DashBoard;
-						}
-						navigation.pushView(ADF.view.dashBoard, 'typeB');
-					});
+					try {
+						var myScroll = new iScroll('contactList', {
+							hScrollbar : false,
+							vScrollbar : false
+						});
 
-					$('#thelist').on({
-						click : function() {
-							// alert($(this).text());
-							console.log($(this));
-							console.log($(this).attr("id"));
-
-							window.busy.show();
+						console.log('backBtnRegister!!!!!!!!!!!!!!!!!');
+						$('#back').on('click', function() {
+							console.log('backBtnClicked!!!!!!!!!!!!!!!!!');
 							window.beforeload = new Date().getTime();
-							if (!ADF.view.contact) {
-								ADF.view.contact = new ADF.view.Contact;
+							if (!ADF.view.dashBoard) {
+								ADF.view.dashBoard = new ADF.view.DashBoard;
 							}
-							navigation.pushView(ADF.view.contact, 'typeA');
-						}
-					}, 'li');
-					that.viewElapsedTime();
-					window.busy.hide();
+							navigation.pushView(ADF.view.dashBoard, 'typeB');
+
+						});
+						console.log('backBtnInited!!!!!!!!!!!!!!!!!');
+						$('#thelist').on({
+							click : function() {
+								// alert($(this).text());
+								console.log($(this));
+								console.log($(this).attr("id"));
+
+								// testCode
+								last_click_time = new Date().getTime();
+								// testCodeEnd
+								window.busy.show();
+								window.beforeload = new Date().getTime();
+								if (!ADF.view.contact) {
+									ADF.view.contact = new ADF.view.Contact;
+								}
+								navigation.pushView(ADF.view.contact, 'typeA');
+							}
+						}, 'li');
+						that.viewElapsedTime();
+						window.busy.hide();
+						// testCode
+						console.log(document.body.innerHTML);
+						// testCodeEnd
+					} catch (e) {
+						console.error(e);
+					}
 				});
 
 			},
 			fail : function(result) {
 				this.procElapsedTime();
-				console.log(JSON.stringify(result));
+				console.log('failString::' + JSON.stringify(result));
 				window.busy.hide();
 				WL.SimpleDialog.show("장애", result.errorMsg, [ {
 					text : "확인",
 					handler : function() {
+						// clean garbage
+						console.log('panelContentSecond::'
+								+ $('.page')[1].remove());
+						// console.log('panelContent::'
+						// + $('.panel-content').html());
+
+						// backBtn override
 						WL.App.overrideBackButton(function() {
 							window.beforeload = new Date().getTime();
 							if (!ADF.view.login) {
@@ -177,3 +201,17 @@ ADF.view.Iscroll = Backbone.View
 				navigation.pushView(ADF.view.deshBoard, 'typeB');
 			}
 		});
+
+// testCode
+document.addEventListener('click', function(e) {
+	console.log('clicked!!!!!!!!!!!!!!!!!!!!');
+	click_time = e['timeStamp'];
+	if (click_time && (click_time - last_click_time) < 500) {
+		console.log('stopPropagation!!!!!!!!!!!!!!!!!!!!');
+		e.stopImmediatePropagation();
+		e.preventDefault();
+		return false;
+	}
+	last_click_time = click_time;
+}, true);
+// testCodeEnd
