@@ -92,7 +92,7 @@ ADF.view.ContactList = Backbone.View
 							+ this.constant2 + i + '" /></div></li>';
 				}
 				;
-				$('ul', this.el).html(liSrc);
+				$('#listUL', this.el).html(liSrc);
 				// myScroll.refresh();
 
 				// call async
