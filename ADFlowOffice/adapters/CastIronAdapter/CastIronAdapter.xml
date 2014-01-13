@@ -24,6 +24,9 @@
 
 	<procedure name="startOrchestration"/>
 	<procedure name="startOrchestrationFiltered"/>
-	<procedure name="startOrchestration_post"/>
+		<!-- procedure name="startOrchestration_post" securityTest="WLADFlowOfficeSecurityTest"/-->
+		<!-- procedure securityTest="WLADFlowOfficeSecurityTest" name="getDummy" /-->
+	<procedure name="startOrchestration_post" />
+	 
 		
 </wl:adapter>

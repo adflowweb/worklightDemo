@@ -67,7 +67,14 @@ function startOrchestrationFiltered(orchestrationName){
 }
 
 
+////////////////////////////////////////////////
 
+function getDummy() {
+        WL.Logger.debug("getDummy.............");
+        return {};
+}
+
+// ///////////////////////////////////////////////////////////////////////////////////////////////
 
 function startOrchestration_post(param,orchestrationName){
 //	var jsonData = '{"act":"'+param+'"}';

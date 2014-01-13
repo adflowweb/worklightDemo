@@ -45,6 +45,13 @@
 			<test realm="wl_deviceNoProvisioningRealm" isInternalDeviceID="true" step="2"/>
        	</customSecurityTest>
        	-->
+       	 <customSecurityTest name="WLADFlowOfficeSecurityTest">
+                        <test isInternalUserID="true" realm="WLADFlowOfficeRealm" />
+                </customSecurityTest>
+                <customSecurityTest name="LDAPSecurityTest">
+                        <test isInternalUserID="true" realm="LDAPRealm"/>
+                </customSecurityTest>
+       	
        	<customSecurityTest name="SubscribeServlet">
        		<test realm="SubscribeServlet" isInternalUserID="true"/>
        	</customSecurityTest>      	
@@ -52,6 +59,13 @@
 	</securityTests> 
 	
 	<realms>
+	 <realm name="WLADFlowOfficeRealm" loginModule="LDAPLoginModule">
+                        <className>com.worklight.core.auth.ext.FormBasedAuthenticator</className>
+                </realm>
+                <realm loginModule="LDAPLoginModule" name="LDAPRealm">
+                        <className>com.worklight.core.auth.ext.FormBasedAuthenticator</className>
+                        <onLoginUrl>/console</onLoginUrl>
+                </realm>
 		<realm name="SampleAppRealm" loginModule="StrongDummy">
 			<className>com.worklight.core.auth.ext.FormBasedAuthenticator</className>
 		</realm>
@@ -95,7 +109,23 @@
 		<loginModule name="rejectAll">
 			<className>com.worklight.core.auth.ext.RejectingLoginModule</className>
 		</loginModule>
-		
+		 <loginModule name="LDAPLoginModule">
+                        <className>com.worklight.core.auth.ext.LdapLoginModule</className>
+
+                        <parameter name="ldapProviderUrl" value="ldap://192.168.0.171" />
+                        <parameter name="ldapTimeoutMs" value="2000" />
+                        <parameter name="ldapSecurityAuthentication" value="simple" />
+                        <parameter name="validationType" value="searchPattern" />
+                        <parameter name="ldapSecurityPrincipalPattern"
+                                value="cn={username},ou=consumers,dc=acmeshop,dc=com" />
+                        <parameter name="ldapSearchFilterPattern"
+                                value="(&amp;(objectClass=groupOfUniqueNames)(uniqueMember=cn={username},ou=consumers,dc=acmeshop,dc=com))" />
+                        <parameter name="ldapSearchBase" value="dc=acmeshop,dc=com" />
+                        <!-- parameter name="ldapSecurityPrincipalPattern" value="cn={username},ou=developers,dc=acmeshop,dc=com" 
+                                /> <parameter name="ldapSearchFilterPattern" value="(&amp;(objectClass=inetOrgPerson))" 
+                                / -->
+                        <parameter name="ldapSearchBase" value="dc=acmeshop,dc=com" />
+         </loginModule>
 		<!-- For websphere -->
 		<!-- loginModule name="WASLTPAModule">
       		<className>com.worklight.core.auth.ext.WebSphereLoginModule</className>

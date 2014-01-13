@@ -4,10 +4,16 @@
 			
 			
 			<!-- This is static header, it will be shown always -->
-			<div class="scheduler_header" >
+			<div class="scheduler_header" >			
+				<div style="position: absolute; left: 10px; color: white; float: left; font-size: 44px;"
+			id="backbtnOnaddscheduler">
+			<!-- i class="icon-circle-arrow-left" /-->
+			<i class="icon-chevron-left icon-2"></i>
 			
+			</div>
+			<div class="scheduler_textHeader">
 				<h4>New Event</h4>
-			
+			</div>
 			</div> <!--  end of scheduler_header -->
 			
 			<!-- This is a placeholder for dynamic page content -->
@@ -16,26 +22,26 @@
 				<i class="icon-user"></i> user                
 				<input type="text" placeholder="A text input" name="username" class="input-block username">           
 				<i class="icon-heart"></i> category
-				<select class="as_categoryfield" id="as_categoryfield">
+				<select class="as_categoryfield" id="as_categoryfield" data-furatto='select'>
 				  <option value="workoutside">외근</option>
 				  <option value="dayoff">휴가</option>
 				  <option value="longproject">장기 프로젝트</option>
 				</select>								
 				<i class="icon-comment"></i> event
 				<input type="text" placeholder="A text input" class="input-block sc_addevent">
-				<i class="icon-calendar"></i> start date
-				<input  type="date"  min="2014-01-01" max="2014-12-31"value="2014-01-03" class="scheduler_calendar">
-			
+				
+					<i class="icon-calendar"></i> start date
+					<input type="text" id="datepicker1" class="scheduler_calendar"> 
 				<i class="icon-calendar"></i >end date
-				<input  type="date" min="2014-01-01" max="2014-12-31"value="2014-01-03"  class="scheduler_calendar">
-					 	<label id="addschedulerElapsedTime" class="text-center" style="font-size: 12px" />
-					  
-				<label> Date <input type="text"  data-datepicker class="picka_one" /></label>
-
-					
-					
+				<input type="text" id="datepicker2" class="scheduler_calendar">
+			
+			
+			
+				<!-- input  type="date"  min="2014-01-01" max="2014-12-31"value="2014-01-03" class="scheduler_calendar"-->
+			
+			
+			 	<label id="addschedulerElapsedTime" class="text-center" style="font-size: 12px" />
 					<div class="bottom_beforediv">
-																
 					</div>				
 				</div>	<!-- myscheduler_wrapper end -->
 			</div> <!--  scheduler_pagePort end -->
@@ -45,10 +51,10 @@
 				<div class="footer_btngroup">
 					<div class="footerlayout_center">
 						<ul class="btn-group btn-group-square">
-					   <li><a href="#" class="btn btn-success btn_inputCancelsc">Cancel</a></li>
-					   <li><a href="#" class="btn btn-success btn_addschedulerbtn">Add</a></li>
+					   <!-- li><a href="#" class="btn btn-success btn_inputCancelsc" id="footerbtn_addschedulercl"><i class="icon-remove"></i>Cancel</a></li-->
+					   <li id="footerOneli_full"><a href="#" class="btn btn-success btn_addschedulerbtn" id="footerOnea_full"><i class="icon-ok"></i>Add</a></li>
 					   </ul>
-					<!-- need to full btn group size of line ..50 vs 50-->
+					<!-- need to full botn group size of line ..50 vs 50-->
 						<!-- a href="#" class="btn btn-success btn_inputCancelsc">Cancel</a>
 						<a href="#" class="btn btn-success btn_addschedulerbtn">Add</a-->
 					<!-- ul class="btn-group btn-group-square">

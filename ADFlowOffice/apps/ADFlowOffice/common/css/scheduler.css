@@ -12,8 +12,10 @@
 	/*min-height: 100%; eylee layout modifying..*/
 	height:100%;
 	max-height:100%; 
-	/*background-color: #3498d9; */
+	/*background-color: #3498d9;
 	background-color: #EFEFF4;
+	 */
+	background-color:#1B598A;
 	margin: 0 auto;
 	/*overflow: hidden;
 	overflow-y: auto;
@@ -25,8 +27,8 @@
 	display: block;
 	top:0px;
 	
-	 height: 38px;
-	line-height: 10%;
+	 height: 50px;
+	line-height: 50px;
 	width: 100%;
 	text-align: center;
 	z-index: 5;
@@ -34,37 +36,54 @@
 	 position: fixed;
 	 height: 38px;
 	 height: 10%;	
+	 background-color:#E32426;
+	 border-bottom: 1px solid #BBBBBB;
 	 */
-	background-color:#E32426;
+	background-color:#1B598A;
 	color: #FFF;
 	font-size: 16px;
-	border-bottom: 1px solid #BBBBBB;
+	
 }
 
 .addscheduler_header{
 	position: absolute;
 	display: block;
 	top:0px;
-	height: 38px;
-	line-height: 10%;
+	 height: 50px;
+	line-height: 50px;
+	
 	width: 100%;
 	text-align: center;
 	/*background-color: #2d313d;
 	height: 38px;
 	position: absolute;
-	 */
 	background-color:#E32426;
+	height: 38px;
+	line-height: 10%;
+	border-bottom: 1px solid #BBBBBB;
+	 */	
+	background-color:#1B598A;
 	color: #FFF;
 	font-size: 16px;
-	border-bottom: 1px solid #BBBBBB;
+	
 }
 
 #addscheduler_footer{
+	clear:both;
+	background-color:#1B598A;
+	position: absolute;
+	 /* Footer am Ende des Browsers festsetzen */
+	height:50px;
 	display: block;
+	width: 100%;
+	bottom: 0;
+	z-index: 4;
+	margin:0px;
+	left:0px;
 }
 .scheduler_footer {	
 	clear:both;
-	background-color: #EFEFF4;
+	background-color:#1B598A;
 	position: absolute;
 	 /* Footer am Ende des Browsers festsetzen */
 	height:50px;
@@ -109,7 +128,7 @@
 
 .scheduler_pagePort {
 	position: fixed;
-	top:40px;
+	top:50px;
 	bottom:50px;
 	overflow:auto;
 	/*
@@ -118,12 +137,13 @@
 	top:39px;
 	height:80%;
 	height:auto;
+	color: #9098A0;
 	*/	
 	
 	display:block;
 	height:100%;
 	max-height:100%; 
-	color: #9098A0;
+	color: #FFF;
 	width: 100%;
 	z-index: 3;
 	overflow:auto;
@@ -133,36 +153,55 @@
 card feelings..
 */
 .myscheduler_wrapper{	
-	background-color: #EFEFF4;		
+
+	background-color:#1B598A;
 	display:block;
 	height:100%;
 	max-height:100%; 
 	/*
+	background-color: #EFEFF4;		
 	position: relative;
 	overflow:auto;
 	*/
 }
 
 .addscheduler_wrapper{
+	background-color:#1B598A;
+	display:block;
+	height:100%;
+	max-height:100%; 
+	position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0px;
+	width:80%;
+	/*
 	background-color: #EFEFF4;
 	position: relative;  
-	top:40px;
+	top:50px;
 	overflow:auto;
 	display:block;
 	height:100%;
 	max-height:100%; 
+	*/
 }
 .cardul_workoutside{
 	
-	border-top: 1px solid #E6E5E8;
-	border-bottom: 1px solid #E6E5E8;
+	
 	margin-right: 0px;
-	margin-left: 0px;
-	margin-top: 30px;
+	margin-left: 0px;	
 	margin-bottom: 0px;
 	padding:0px;
 	width:100%;
+	background: #009686;
+	color:#FFFFFF;
+	/*
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;
+	margin-top: 30px;
 	background: #FFFFFF;
+	*/
 }
 
 .cardul_workoutside li{	
@@ -172,20 +211,25 @@ card feelings..
 	padding-left:9px;
 	font-size: 13px;
 	font-weight:normal;
+	/*
 	border-top: 1px solid #E6E5E8;
-	border-bottom: 1px solid #E6E5E8;	
+	border-bottom: 1px solid #E6E5E8;
+	*/	
 }
 
 #workoutside_first{
 	padding-top:10px ;
 	margin-left: 10px;
 	padding-bottom:10px;
-	padding-left:9px;
-	border-top: 1px solid #E6E5E8;
-	border-bottom: 1px solid #E6E5E8;	
+	padding-left:9px;		
 	font-size: 25px;
 	font-weight:bold;
+	color:#FFFFFF;
+	/*
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;
 	color: #262C34;
+	*/
 }
 
 
@@ -198,13 +242,17 @@ cardul_dayoff
 	
 	margin-right: 0px;
 	margin-left: 0px;
-	margin-top: 30px;
 	margin-bottom: 0px;
-	border-top: 1px solid #E6E5E8;
-	border-bottom: 1px solid #E6E5E8;	
 	padding:0px;
 	width:100%;
+	color:#FFFFFF;
+	background: #FA417D;
+	/*
 	background: #FFFFFF;
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
+		margin-top: 30px;
+	*/
 }
 
 .cardul_dayoff li{	
@@ -214,8 +262,11 @@ cardul_dayoff
 	padding-left:9px;
 	font-size: 13px;
 	font-weight:normal;
+	/*
 	border-top: 1px solid #E6E5E8;
-	border-bottom: 1px solid #E6E5E8;	
+	border-bottom: 1px solid #E6E5E8;
+	*/	
+	
 }
 
 #dayoff_first{
@@ -223,11 +274,13 @@ cardul_dayoff
 	margin-left: 10px;
 	padding-bottom:10px;
 	padding-left:9px;
+	/*
 	border-top: 1px solid #E6E5E8;
-	border-bottom: 1px solid #E6E5E8;	
+	border-bottom: 1px solid #E6E5E8;
+	*/	
 	font-size: 25px;
 	font-weight:bold;
-	color: #262C34;
+	color:#FFFFFF;
 }
 
 
@@ -244,15 +297,19 @@ cardul_longproject
 	
 	margin-right: 0px;
 	margin-left: 0px;
-	margin-top: 30px;
-	/*margin-bottom: 40px;*/
-	border-top: 1px solid #E6E5E8;
-	border-bottom: 1px solid #E6E5E8;	
+
+	/*margin-bottom: 40px;*/	
 	padding:0px;
 	width:100%;
-	background: #FFFFFF;
-	
+	background: #9583A9;
+	color:#FFFFFF;
 	padding-bottom: 0px;
+	/*
+		margin-top: 30px;
+	background: #FFFFFF;
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
+	*/
 }
 
 .cardul_longproject li{	
@@ -262,8 +319,10 @@ cardul_longproject
 	padding-left:9px;
 	font-size: 13px;
 	font-weight:normal;
+	/*
 	border-top: 1px solid #E6E5E8;
-	border-bottom: 1px solid #E6E5E8;	
+	border-bottom: 1px solid #E6E5E8;
+	*/	
 }
 
 #longproject_first{
@@ -271,11 +330,14 @@ cardul_longproject
 	margin-left: 10px;
 	padding-bottom:10px;
 	padding-left:9px;
-	border-top: 1px solid #E6E5E8;
-	border-bottom: 1px solid #E6E5E8;	
+	
 	font-size: 25px;
 	font-weight:bold;
+	/*
+	border-top: 1px solid #E6E5E8;
+	border-bottom: 1px solid #E6E5E8;	
 	color: #262C34;
+	*/
 }
 
 
@@ -312,8 +374,13 @@ cardul_longproject
 	  display: inline;	 
 	  text-align: center;
 }
+.scheduler_textHeader{
+ vertical-align:middle ;
+ height: 50px;
+margin-top: 10px;
+max-height: 50px;
 
-
+}
 .addscheduler_header a.btn_inputAddsc{
 	  display: inline;
 	  float: right;
@@ -331,4 +398,32 @@ cardul_longproject
 	position: relative;
 	width: 100%;
 }
+#footerbtn_addschedulercl{
+	width:90px;
+}
 */
+
+#footerOneli_full{
+	width:100%;
+}
+#footerOnea_full{
+	width:100%;
+}
+
+
+#popUpDiv{
+    z-index: 100;
+    position: absolute;
+    background-color: #FFF;
+    display: none;
+    bottom: 10px;
+    right:10px;
+    width: 200px;
+    height: 300px;
+    opacity:0.7;
+    /*
+    background-color: rgba(123, 123,123, 0.8);
+    top: 0;
+    left: 0;
+      */
+}

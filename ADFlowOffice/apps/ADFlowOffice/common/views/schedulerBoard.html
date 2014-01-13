@@ -4,15 +4,23 @@
 			<!-- This is static header, it will be shown always -->
 			
 			<div class="scheduler_header" >
+				<div style="position: absolute; left: 10px; color: white; float: left; font-size: 44px;"
+			id="backbtnOnscheduler">
+			<!-- i class="icon-circle-arrow-left" /-->
+			<i class="icon-chevron-left icon-2"></i>
+			
+			</div>
+			
 				<!-- h4>daily Scheduler</h4-->
+				<div class="scheduler_textHeader">
 				<h4 class="header_today"></h4>
+				</div>
 			</div> <!--  end of scheduler_header -->
 			
 			<!-- This is a placeholder for dynamic page content -->
 			
 			<div  class="scheduler_pagePort">
-				<div class="myscheduler_wrapper">
-					<label id="schedulerElapsedTime" class="text-center" style="font-size: 12px" />
+				<div class="myscheduler_wrapper">					
 					<ul class="cardul_workoutside">
 						<li id="workoutside_first">외근 현황</li>						
 					</ul>					
@@ -22,6 +30,7 @@
 					<ul class="cardul_longproject">
 					<li id="longproject_first">장기 프로젝트</li>											
 					</ul>
+					<label id="schedulerElapsedTime" class="text-center" style="font-size: 12px" />
 					<div class="bottom_beforediv">
 																
 					</div>
@@ -40,13 +49,17 @@
 				<div class="footer_btngroup">
 					<div class="footerlayout_center">
 					<ul class="btn-group btn-group-square">
-					   <li><a href="#" class="btn btn-success btn_inputScheduler">입력</a></li>
-					   <li><a href="#" class="btn btn-success  btn_modifyScheduler">수정</a></li>
-					   <li><a href="#" class="btn btn-success  btn_deleteScheduler">삭제</a></li>
+					   <li><a href="#" class="btn btn-success btn_inputScheduler"><i class="icon-calendar-empty"></i>입력</a></li>
+					   <li><a href="#" class="btn btn-success  btn_modifyScheduler"><i class="icon-pencil"></i>수정</a></li>
+					   <li><a href="#" class="btn btn-success  btn_deleteScheduler"><i class="icon-trash"></i>삭제</a></li>
 					</ul>	
 					</div>  <!--  end of footerlayout_center -->
 				</div> <!--  end of footer_btngroup -->
 			</div> <!--  end of scheduler_footer -->
 		
+			<div id="popUpDiv">
+			<a href="#" class="btn btn-success  btn_modifyScheduler_ok"><i class="icon-pencil"></i>수정</a>
+	    
+			</div>
 		</div>  <!--  end of scheduler_AppBody -->
 </div> <!--  end of scheduler_wrapper -->

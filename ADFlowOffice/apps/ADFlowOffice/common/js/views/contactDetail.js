@@ -1,15 +1,15 @@
 console.log("contactDetail.js load");
 
 ADF.view.ContactDetail = Backbone.View.extend({
-	el : $('.panel-content'), // attaches `this.el` to an existing
-	// element.
+	el : $('.panel-content'), 
+	photoTemp : '',
+	addFlag : false,
 
 	initialize : function() {
 		_.bindAll(this, 'render','contactSet','contactDisplay','contactUpdateFinishClick','contactAddFinishClick'); 
 //		this.contactDisplay();
 		
-		this.photoTemp;
-		this.addFlag = false;
+		
 	},
 
 	events : {
@@ -17,22 +17,26 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	 'click button.btn-contactUpdateFinish' : 'contactUpdateFinishClick',
 	 'click button.btn-contactAdd' : 'contactAddClick',
 	 'click button.btn-contactAddFinish' : 'contactAddFinishClick',
-	 'click button.btn-contactDelFinish' : 'contactDelFinishClick',
+	 'click i.icon-contactDel-click' : 'contactDelFinishClick',
+	 'click #back_contactDetail' : 'contactDetailBackClick',
 	},
 
 	render : function() {
 		// load dashBoard view
 		var that = this;
-		console.error("render   render   render");
+		console.error(" contactDetail render  addFlag ::" + that.addFlag );
 		navigation.load('views/contactDetail.html', function() {
 			
-			if (this.addFlag) {
+			if (that.addFlag) {
 				
 				$('#Bt_contactUpdate').removeClass('btn-info').removeClass('btn-contactUpdate').addClass('btn-success').addClass('btn-contactAddFinish');
 				$("#Bt_contactUpdate").html("추 가 완 료");
 				$("input.contactInput").css("background-color","#FFF").css("color","#000");
 				$("input.contactInput").attr("readonly",false);
+				$("select.contactInputSel").attr("disabled",false);
 				this.photoTemp =  '';
+				
+				that.addFlag = false;
 				
 				
 			} else {
@@ -80,13 +84,13 @@ ADF.view.ContactDetail = Backbone.View.extend({
 				'",	"birthdate" : "'+ document.getElementById("In_BirthDate").value +
 				'",	"dept" : "'+ document.getElementById("In_Dept").value +
 				'",	"nameko" : "'+ document.getElementById("In_NameKo").value +
+				'",	"title" : "'+ document.getElementById("In_Title").value +
 				'",	"photo" : "'+ this.photoTemp +
 				'"';
 		
-		console.log("contactUpdateFinishClick photoTemp ::"+ this.photoTemp);
 		this.callDB('{"act" : "U", '+ data +'}',"ADFlowContact");
 		
-		console.error("contactUpdateFinishClick   contactUpdateFinishClick   contactUpdateFinishClick" + data);
+		console.error("contactUpdateFinishClick  ::" + data);
 	},
 	
 	contactAddClick : function() {
@@ -97,6 +101,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("#In_Dept").val('');
 		$("#In_Sex").val('');
 		$("#In_No").val('');
+		$("#In_Title").val('');
 		$("#In_HiredDate").val('');
 		$("#In_BirthDate").val('');
 		$("#In_Photo").html('<img class="contactInput" alt="" src="" />');
@@ -105,8 +110,9 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("#Bt_contactUpdate").html("추 가 완 료");
 		$("input.contactInput").css("background-color","#FFF").css("color","#000");
 		$("input.contactInput").attr("readonly",false);
+		$("select.contactInputSel").attr("disabled",false);
 		
-		console.error("contactUpdateClick   contactUpdateClick   contactUpdateClick");
+		console.error("contactAddClick ");
 	},
 	
 	contactAddFinishClick : function() {
@@ -115,6 +121,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("#Bt_contactUpdate").html("추 가  하 기");
 		$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
 		$("input.contactInput").attr("readonly",true);
+		$("select.contactInputSel").attr("disabled",true);
 		
 		var data = '"nameen" : "'+document.getElementById("In_NameEn").value + 
 				'",	"hiredate" : "' +document.getElementById("In_HiredDate").value +
@@ -125,13 +132,13 @@ ADF.view.ContactDetail = Backbone.View.extend({
 				'",	"birthdate" : "'+ document.getElementById("In_BirthDate").value +
 				'",	"dept" : "'+ document.getElementById("In_Dept").value +
 				'",	"nameko" : "'+ document.getElementById("In_NameKo").value +
+				'",	"title" : "'+ document.getElementById("In_Title").value +
 				'",	"photo" : "'+ this.photoTemp +
 				'"';
 		
-		console.log("contactAddFinishClick photoTemp ::"+ this.photoTemp);
-//		this.callDB('{"act" : "C", '+ data +'}',"ADFlowContact");
+		this.callDB('{"act" : "C", '+ data +'}',"ADFlowContact");
 		
-		console.error("contactUpdateFinishClick   contactUpdateFinishClick   contactUpdateFinishClick" + data);
+		console.error("contactAddFinishClick   ::" + data);
 	},
 	
 	contactDelFinishClick : function() {
@@ -143,10 +150,9 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		
 		var data = '"no" : "'+ document.getElementById("In_No").value +	'"';
 		
-		console.log("contactDelFinishClick photoTemp ::"+ this.photoTemp);
 //		this.callDB('{"act" : "D", '+ data +'}',"ADFlowContact");
 		
-		console.error("contactUpdateFinishClick   contactUpdateFinishClick   contactUpdateFinishClick" + data);
+		console.error("contactDelFinishClick  ::" + data);
 	},
 	
 	contactSet : function(item) {
@@ -165,6 +171,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("#In_Dept").val(this.contact.get('dept'));
 		document.getElementById("In_Sex").selectedIndex = parseInt(this.contact.get('sex'));
 		$("#In_No").val(this.contact.get('no'));
+		$("#In_Title").val(this.contact.get('title'));
 		$("#In_HiredDate").val(this.contact.get('hiredDate'));
 		$("#In_BirthDate").val(this.contact.get('birthDate'));
 		$("#In_Photo").html('<img class="contactInput" alt="" src="'
@@ -211,14 +218,24 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		});
 	},
 	
+	contactDetailBackClick : function() {
+
+		if (!ADF.view.contactList) {
+			ADF.view.contactList = new ADF.view.ContactList;
+		}
+		navigation.pushView(ADF.view.contactList, 'typeB');
+	},
+	
 	callDBSuccess : function(result) {
 
 		console.error("Retrieve Success");
+		console.error(result);
 	},
 	
 	callDBFailure : function(result) {
 
 		console.error("Retrieve failure");
+		console.error(result);
 	},
 	
 	addFlagOn : function(addFlag) {
@@ -226,5 +243,21 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		console.error("addFlag ::"+ addFlag);
 		this.addFlag = addFlag;
 	},
+	
+	load_url : function(url) {
+		var req = new XMLHttpRequest();
+		req.open('GET', url, false);
+		req.overrideMimeType('text/plain; charset=x-user-defined');
+		req.send(null);
+		if(req.status !=200) return '';
+	    
+		var filestream = req.responseText;
+		var bytes = [];
+		for(var i=0; i < filestream.length; i++){
+			bytes[i] = filestream.charCodeAt(i) & 0xff;
+		}
+		
+		var imgSrc = 'data:image/jpeg;base64,'+ base64.encode(String.fromCharCode.apply(String, bytes));
+	}
 
 });
