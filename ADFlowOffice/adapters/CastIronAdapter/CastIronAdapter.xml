@@ -27,6 +27,6 @@
 		<!-- procedure name="startOrchestration_post" securityTest="WLADFlowOfficeSecurityTest"/-->
 		<!-- procedure securityTest="WLADFlowOfficeSecurityTest" name="getDummy" /-->
 	<procedure name="startOrchestration_post" />
-	 
+	<procedure securityTest="WLADFlowOfficeSecurityTest" name="getDummy" /> 
 		
 </wl:adapter>
