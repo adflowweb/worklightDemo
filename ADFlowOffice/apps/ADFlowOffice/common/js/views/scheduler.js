@@ -13,7 +13,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 	    console.log('this.collection.bind...............new object in the collection');
 	});
 	
-	_.bindAll(this, 'render', 'fetchDB','loadSchedulerSuccess','loadSchedulerFailure','appendSchedulerList'); // fixes loss of context for 'this' within
+	_.bindAll(this, 'render', 'fetchDB','loadSchedulerSuccess','loadSchedulerFailure','appendSchedulerList', 'fetchDBforModify','loadSchedulerbypersonSuccess','loadSchedulerbypersonFailure','popupModifyList','fetchDBbySidforM','loadSchedulerbySidSuccess','loadSchedulerbySidFailure'); // fixes loss of context for 'this' within
 	
 	    	
 	},
@@ -154,6 +154,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 //		   this.collection.add(this.model.set(
 					{
 						owner : items[i].owner ,
+						nameko : items[i].nameko,
 						ctgr : items[i].ctgr,
 						strdate : items[i].strdate,
 						enddate : items[i].enddate ,						
@@ -165,13 +166,22 @@ ADF.view.Scheduler = Backbone.View.extend({
 			console.log(this.collection.toJSON());
 
 			if( items[i].ctgr=='workoutside'){
-				str1 +='<li class="workoutside_li">' + items[i].strdate + items[i].owner + items[i].detail + '</li>';				
+				if(items[i].strdate==items[i].enddate){
+					str1 +='<li class="workoutside_li">' + items[i].strdate + items[i].nameko + items[i].detail + '</li>';
+				}else{
+					str1 +='<li class="workoutside_li">' + items[i].strdate +' ~ ' + items[i].enddate + items[i].nameko + items[i].detail + '</li>';
+				}
 			}
 			if(items[i].ctgr=='dayoff'){
-				str2 +='<li class="dayoff_li">' +  items[i].strdate + items[i].owner  + '</li>';				
+				if(items[i].strdate==items[i].enddate){
+					str2 +='<li class="dayoff_li">'+ items[i].strdate + items[i].nameko + items[i].detail + '</li>';
+				}else{
+					str2 +='<li class="dayoff_li">' + items[i].strdate +' ~ ' + items[i].enddate + items[i].nameko + items[i].detail + '</li>';
+				}
+						
 			}
 			if(items[i].ctgr=='longproject'){
-				str3 += '<li class="longproject_li">' + items[i].strdate +' ~ ' + items[i].enddate +items[i].owner + '</li>';				
+				str3 += '<li class="longproject_li">' + items[i].strdate +' ~ ' + items[i].enddate +items[i].nameko + '</li>';				
 			}
 
 		}  // end of for loop
@@ -189,9 +199,19 @@ ADF.view.Scheduler = Backbone.View.extend({
 	   
 	   //call async
 //	   navigation.loadAsync(function(){console.log('call after()')});
-	   navigation.loadAsync(function(){ADF.view.scheduler.elapsedTime();window.busy.hide();});
+	   navigation.loadAsync(function(){
+		   /*
+			var myScroll = new iScroll('iscrolldiv', {
+				hScrollbar : false,
+				vScrollbar : false
+			});
+		   */		   
+		   ADF.view.scheduler.elapsedTime();window.busy.hide();
+		   });
 //	   ADF.view.scheduler.elapsedTime();
 		
+	 
+	  
 		$('.btn_inputScheduler').on('click', function() {		
 			console.log("btn_inputScheduler event changed.........."+this);
 			ADF.view.scheduler.inputScheduler();
@@ -216,6 +236,8 @@ ADF.view.Scheduler = Backbone.View.extend({
 						// db query..part 권차장님. ㅜㅠ
 						
 						 $("#popUpDiv").show();
+						 ADF.view.scheduler.fetchDBforModify();
+					
 						
 						
 					}
@@ -245,6 +267,9 @@ ADF.view.Scheduler = Backbone.View.extend({
 
 		});  // end btn_deleteScheduler
 	   
+		
+		
+		
 //
 	}, /*appendSchedulerList  end*/
 
@@ -271,8 +296,158 @@ ADF.view.Scheduler = Backbone.View.extend({
 		document.getElementById("schedulerElapsedTime").innerHTML = "Your Page took <font color='red'><b>"
 				+ time + "</b></font> Seconds to Load";
 		window.beforeload = 0;
-	}  // end of elaspsedTime
+	},  // end of elaspsedTime
+	fetchDBforModify : function(){		
+		
+		
+//		var jsonData = '{"act":"R"}';
+		var jsonData =  '{"act":"R", "owner":"78322"}';
+		console.log("jsonData :: "+jsonData);
+		
+		
+		
+		var invocationData = {
+                adapter : 'CastIronAdapter', // adapter name
+                procedure : 'startOrchestration_post',
+                parameters : [jsonData,'ADFlowSchedule']
+
+        };
+        console.log(".........TestScheduler.....try. to...something like that");
+
+       
+        WL.Client.invokeProcedure(invocationData, {
+                onSuccess : this.loadSchedulerbypersonSuccess,
+                onFailure : this.loadSchedulerbypersonFailure
+        });
+	},/*fetchDB  end*/
+	loadSchedulerbypersonSuccess : function(result){
+		console.log("loadSchedulerbypersonSuccess" + JSON.stringify(result));    
+		console.log(result.invocationResult.resultSet);		
+//		this.appendSchedulerList(result.invocationResult.array);
+		this.popupModifyList(result.invocationResult.Result);
+	},/*loadSchedulerbypersonSuccess  end*/
+	loadSchedulerbypersonFailure: function(result){
+		  console.log("loadSchedulerbypersonFailure" + JSON.stringify(result));
+		  window.busy.hide();
+			WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
+				text : "확인",
+				handler : function() {
+					
+					WL.Logger.debug("error button pressed");
+				}
+			} ]);
+	},/*loadSchedulerbypersonFailure  end*/
+	popupModifyList :function(items){
+		
+	  	console.log("hello popupModifyList :: ");
+	  	$('.popupmodilistUl').empty();
+	  	console.log(items);
+		console.log(items.length);
+		var str1 ="";
+		var str2 ="";
+		var str3 ="";
+		var str = "";
+		 for ( var i = 0; i < items.length; i++) {
+			 if( items[i].ctgr=='workoutside'){
+					if(items[i].strdate==items[i].enddate){
+						str1 +='<li class="workoutside_popupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-coffee"></i>' + items[i].strdate  + '</li>';
+					}else{
+						str1 +='<li class="workoutside_popupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-coffee"></i>' + items[i].strdate +' ~ ' + items[i].enddate  + '</li>';
+					}
+			 }
+			 if(items[i].ctgr=='dayoff'){
+					if(items[i].strdate==items[i].enddate){
+						str2 +='<li class="dayoff_poopupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-lightbulb"></i>'+ items[i].strdate +  '</li>';
+					}else{
+						str2 +='<li class="dayoff_poopupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-lightbulb"></i>' + items[i].strdate +' ~ ' + items[i].enddate + '</li>';
+					}
+							
+				}
+				if(items[i].ctgr=='longproject'){
+					str3 += '<li class="longproject_popupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-paper-clip"></i>' + items[i].strdate +' ~ ' + items[i].enddate  + '</li>';				
+				}
+		 }// end of for loop
+
+
+		   if(str1!=""){
+			   str += '<li id="popupmodilistUl_workoutside" class="workoutside_popupli">외근</li>';	    	
+		       str += str1;
+			   str += '<li id="popupmodilistUl_dayoff" class="dayoff_poopupli">휴가</li>';
+			   str += str2;
+			   str += '<li id="popupmodilistUl_longproject" class="longproject_popupli">장기프로젝트</li>';
+			   str += str3;
+			   $('.popupmodilistUl').append(str);
+		   }
+		   
+		   
+
+		   $('.modifyLiforscheduler')
+			.on(
+					{
+
+						click : function(e) {
+							if (!ADF.view.addscheduler) {
+								console.log("modifyLiforscheduler addscheduler view if ");
+								ADF.view.addscheduler = new ADF.view.AddScheduler;							
+							}
+							var id = $(e.currentTarget).attr("id");
+							console.log("id :: "+id);
+							ADF.view.scheduler.fetchDBbySidforM(id);					
+
+						}
+
+			});
+		 
+	},/* end of popupModifyList */
 	
+	fetchDBbySidforM : function(id){
+		var sid = id;
+		console.log("sid :: "+sid);
+		
+//		   '{"act":"R","sid":"142"}','ADFlowSchedule'
+//		var jsonData = '{"act":"R"}';
+		var jsonData =  '{"act":"R", "sid":"'+sid+'"}';
+		console.log("jsonData :: "+jsonData);
+		
+		
+		
+		var invocationData = {
+                adapter : 'CastIronAdapter', // adapter name
+                procedure : 'startOrchestration_post',
+                parameters : [jsonData,'ADFlowSchedule']
+
+        };
+        console.log(".........TestScheduler.....try. to...something like that");
+
+       
+        WL.Client.invokeProcedure(invocationData, {
+                onSuccess : this.loadSchedulerbySidSuccess,
+                onFailure : this.loadSchedulerbySidFailure
+        });
+	},/*fetchDBbySidforM  end*/
+	
+	loadSchedulerbySidSuccess : function(result){
+		console.log("loadSchedulerbySidSuccess" + JSON.stringify(result));
+    	console.log("say loadSchedulerbySidSuccess");
+		console.log(result.invocationResult.resultSet);
+		
+		if (!ADF.view.addscheduler) {
+			ADF.view.addscheduler = new ADF.view.AddScheduler;
+		}
+		navigation.pushView(ADF.view.addscheduler, 'typeA');
+		
+	},/*loadSchedulerbySidSuccess  end*/
+	loadSchedulerbySidFailure : function(result){
+		  console.log("loadSchedulerbySidFailure" + JSON.stringify(result));
+		  window.busy.hide();
+			WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
+				text : "확인",
+				handler : function() {
+					
+					WL.Logger.debug("error button pressed");
+				}
+			} ]);
+	},/*loadSchedulerbySidFailure  end*/
 });
 
 
@@ -286,7 +461,8 @@ ADF.model.SchedulerModel = Backbone.Model.extend({
 			 ctgr:'',
 			 strdate :'',
 			 enddate:'',
-			 detail:''
+			 detail:'',
+			 nameko:''
 			 };
 	 }
 	 

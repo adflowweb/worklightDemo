@@ -205,5 +205,11 @@ ADF.view.AddScheduler = Backbone.View.extend({
 			
 				
 		  
+	},
+	
+	schedulerDetailItem : function(item) {
+		console.log(item);
+		this.contact = item;
+		console.error("contactSet   contactSet   contactSet");
 	}
 });
