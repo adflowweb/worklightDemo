@@ -3,10 +3,12 @@ console.log("contactDetail.js load");
 ADF.view.ContactDetail = Backbone.View.extend({
 	el : $('.panel-content'), 
 	photoTemp : 'aaa',
+	callDBType : '',
+	contactNameKo : '',
 	addFlag : false,
 
 	initialize : function() {
-		_.bindAll(this, 'render','contactSet','contactDisplay','contactUpdateFinishClick','contactAddFinishClick','readURL'); 
+		_.bindAll(this, 'render','contactSet','contactDisplay','contactUpdateFinishClick','contactAddFinishClick','readURL', 'callDBSuccess'); 
 //		this.contactDisplay();
 		
 		
@@ -49,6 +51,13 @@ ADF.view.ContactDetail = Backbone.View.extend({
 			console.error("render2   render2   render2");
 		});
 		
+		$("#In_imgFile").on({
+		      change : function() {
+		    	  alert(this.value); //선택한 이미지 경로 표시
+		    	  console.log(this);
+		    	  that.readURL(this);
+		      }
+        });
 		
 		WL.App.overrideBackButton(backFunc);
 		function backFunc() {
@@ -60,10 +69,6 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	},
 	
 	contactUpdateClick : function() {
-		
-		console.log("Ldap call start");
-		this.callDBTest();
-		console.log("Ldap call end");
 		
 		$('#Bt_contactUpdate').removeClass('btn-info').removeClass('btn-contactUpdate').addClass('btn-success').addClass('btn-contactUpdateFinish');
 		$("#Bt_contactUpdate").html("수 정 완 료");
@@ -77,6 +82,31 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	
 	contactUpdateFinishClick : function() {
 		
+		var inNo = parseInt(document.getElementById("In_No").value);
+		
+		if( isNaN(inNo) ||inNo > 99999 || inNo < 0 ){
+			alert('사번은 숫자 5자리 이하로 입력 하세요!');
+			document.getElementById("In_No").focus();
+			
+			return; //함수 종료.
+		};
+		
+//	console.log("In_NameKo ::"+ document.getElementById("In_NameKo").value + " len ::" + document.getElementById("In_NameKo").value.length);
+		
+		if( document.getElementById("In_NameKo").value == '' ){
+			alert('이름은 꼭 입력 해야 합니다!');
+			document.getElementById("In_NameKo").focus();
+			
+			return; //함수 종료.
+		};
+		
+		if( document.getElementById("In_NameEn").value == '' ){
+			alert('영문 이름은 꼭 입력 해야 합니다!');
+			document.getElementById("In_NameEn").focus();
+			
+			return; //함수 종료.
+		}
+		
 		$('#Bt_contactUpdate').removeClass('btn-success').removeClass('btn-contactUpdateFinish').addClass('btn-info').addClass('btn-contactUpdate');
 		$("#Bt_contactUpdate").html("수 정  하 기");
 		$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
@@ -84,6 +114,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("select.contactInputSel").attr("disabled",true);
 		$("#In_imgFile").hide();
 		$("i.icon-contactDel-click").show();
+		this.contactNameKo = document.getElementById("In_NameKo").value;
 		
 		var data = '"nameen" : "'+document.getElementById("In_NameEn").value + 
 				'",	"hiredate" : "' +document.getElementById("In_HiredDate").value +
@@ -98,9 +129,8 @@ ADF.view.ContactDetail = Backbone.View.extend({
 				'",	"photo" : "'+ this.photoTemp +
 				'"';
 		
+		this.callDBType = "U";
 		this.callDB('{"act" : "U", '+ data +'}',"ADFlowContact");
-		
-		alert('수정이 완료 되었습니다.');
 		console.error("contactUpdateFinishClick  ::" + data);
 	},
 	
@@ -123,6 +153,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("input.contactInput").attr("readonly",false);
 		$("select.contactInputSel").attr("disabled",false);
 		$("#In_imgFile").show();
+		this.contactNameKo = '';
 		
 		console.error("contactAddClick ");
 	},
@@ -154,8 +185,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 			return; //함수 종료.
 		}
 		
-		
-		var msg = document.getElementById("In_NameKo").value + '님의 추가 완료 되었습니다.';
+		this.contactNameKo = document.getElementById("In_NameKo").value;
 		$('#Bt_contactUpdate').removeClass('btn-success').removeClass('btn-contactAddFinish').addClass('btn-info').addClass('btn-contactAdd');
 		$("#Bt_contactUpdate").html("추 가  하 기");
 		$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
@@ -175,9 +205,8 @@ ADF.view.ContactDetail = Backbone.View.extend({
 				'",	"title" : "'+ document.getElementById("In_Title").value +
 				'",	"photo" : "'+ this.photoTemp +
 				'"';
-		
+		this.callDBType = "C";
 		this.callDB('{"act" : "C", '+ data +'}',"ADFlowContact");
-		alert(msg);
 		console.error("contactAddFinishClick   ::" + data);
 	},
 	
@@ -186,7 +215,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		var r=confirm("정말 삭제 하시겠습니까?");
 		if (r==true)
 		  {
-			var msg = document.getElementById("In_NameKo").value + '님의 삭제가 완료 되었습니다.';
+			this.contactNameKo = document.getElementById("In_NameKo").value;
 			$('#Bt_contactUpdate').removeClass('btn-success').removeClass('btn-contactAddFinish').addClass('btn-info').addClass('btn-contactAdd');
 			$("#Bt_contactUpdate").html("추 가  하 기");
 			$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
@@ -194,10 +223,11 @@ ADF.view.ContactDetail = Backbone.View.extend({
 			
 			var data = '"no" : "'+ document.getElementById("In_No").value +	'"';
 			
+			this.callDBType = "D";
 //			this.callDB('{"act" : "D", '+ data +'}',"ADFlowContact");
+			
 			console.error("contactDelFinishClick OK  ::");
 			console.error("contactDelFinishClick  ::" + data);
-			alert(msg);
 		  }
 		else
 		  {
@@ -213,8 +243,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	},
 	
 	contactDisplay : function() {
-		
-		var that = this;
+
 		console.error("nameKo ::"+this.contact.get('nameKo'));
 		$("#In_NameKo").val(this.contact.get('nameKo'));
 		$("#In_NameEn").val(this.contact.get('nameEn'));
@@ -226,33 +255,13 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("#In_Title").val(this.contact.get('title'));
 		$("#In_HiredDate").val(this.contact.get('hiredDate'));
 		$("#In_BirthDate").val(this.contact.get('birthDate'));
-		$("#In_Photo").html('<img class="contactInput" alt="" src="'
+		$("#In_Photo").html('<img width=100 height=100 class="contactInput" alt="" src="'
 			+ this.contact.get('photo')
 			+ '" />');
 		$("#In_imgFile").hide();
 		this.photoTemp =  this.contact.get('photo');
 		console.error("contactDisplay   contactDisplay   contactDisplay");
 		
-//		 $('.contactImg').on({
-//				
-//			 click : function(e) {
-//				 console.log("phoneClick   phoneClick");
-//				document.location.href = 'tel:' + $(e.currentTarget).attr("id");
-//							
-//			 }
-//							
-//		 });
-
-		 
-		 $("#In_imgFile").on({
-		      change : function() {
-		    	  alert(this.value); //선택한 이미지 경로 표시
-		    	  console.log(this);
-		    	  that.readURL(this);
-		      }
-         });
-
-	
 	},
 	
 	readURL : function(inUrl){
@@ -280,24 +289,8 @@ ADF.view.ContactDetail = Backbone.View.extend({
 
 	},
 	
-	callDBTest : function() {
-
-		console.log("callDBTest  ::");
-		var invocationData = {
-			adapter : 'CastIronAdapter', // adapter name
-			procedure : 'getDummy',
-			parameters : []
-		// parameters if any
-		};
-		console.log("..............try. to...something like that");
-		WL.Client.invokeProcedure(invocationData, {
-			onSuccess : this.callDBSuccess,
-			onFailure : this.callDBFailure
-		});
-	},
-	
 	callDB : function(param, orchestrationName) {
-
+		window.busy.show();
 		console.log("param  ::" + param);
 		var invocationData = {
 			adapter : 'CastIronAdapter', // adapter name
@@ -321,17 +314,60 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	},
 	
 	callDBSuccess : function(result) {
+		window.busy.hide();
+		var that = this;
 
 		console.error("Retrieve Success");
 		console.error(result);
-		var items = result.invocationResult.Result;
+		var errorOk = result.invocationResult.error;
+
+		console.log(errorOk);
+		
+		if(errorOk){
+//			alert('Error :' + JSON.stringify(errorOk));
+			WL.SimpleDialog.show("오류", JSON.stringify(errorOk));
+			
+		} else {
+			
+			var msg;
+			switch (this.callDBType) {
+			case 'C':
+				msg = this.contactNameKo + '님의 \n 추가 완료 되었습니다.';
+				break;
+			case 'U':
+				msg = this.contactNameKo + '님의 \n 수정이 완료 되었습니다.';
+				break;
+			case 'D':
+				msg = this.contactNameKo + '님의 \n 삭제가 완료 되었습니다.';
+				break;
+			
+
+			default:
+				msg = '';
+				break;
+			}
+			
+//			alert(msg);
+		}
+		
+		WL.SimpleDialog.show("성공", msg);
+		
 		
 	},
 	
 	callDBFailure : function(result) {
 
 		console.error("Retrieve failure");
-		console.error(result);
+		window.busy.hide();
+		WL.SimpleDialog.show("장애", result.errorMsg, [ {
+			text : "확인",
+			handler : function() {
+				// clean garbage
+				console.log('panelContentSecond::'
+						+ $('.page')[1].remove());
+				WL.Logger.debug("error button pressed");
+			}
+		} ]);
 	},
 	
 	addFlagOn : function(addFlag) {

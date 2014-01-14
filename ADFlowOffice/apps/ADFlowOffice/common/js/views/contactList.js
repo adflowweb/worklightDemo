@@ -48,14 +48,7 @@ ADF.view.ContactList = Backbone.View
 
 				});
 
-				WL.App.overrideBackButton(backFunc);
-				function backFunc() {
-
-					if (!ADF.view.dashBoard) {
-						ADF.view.dashBoard = new ADF.view.DashBoard;
-					}
-					navigation.pushView(ADF.view.dashBoard, 'typeB');
-				}
+				
 			},
 
 			loadListDisplay : function() {
@@ -97,11 +90,22 @@ ADF.view.ContactList = Backbone.View
 
 				// call async
 				navigation.loadAsync(function() {
-
+					
+					window.busy.hide();
 					var myScroll = new iScroll('ulDiv', {
 						hScrollbar : false,
 						vScrollbar : false
 					});
+					
+					WL.App.overrideBackButton(backFunc);
+					function backFunc() {
+
+						if (!ADF.view.dashBoard) {
+							ADF.view.dashBoard = new ADF.view.DashBoard;
+						}
+						navigation.pushView(ADF.view.dashBoard, 'typeB');
+					}
+					
 					console.log('call after()')
 				});
 
@@ -309,6 +313,19 @@ ADF.view.ContactList = Backbone.View
 			loadContactListFailure : function(result) {
 
 				console.error("Retrieve failure");
+				window.busy.hide();
+				WL.SimpleDialog.show("장애", result.errorMsg, [ {
+					text : "확인",
+					handler : function() {
+						// clean garbage
+						console.log('panelContentSecond::'
+								+ $('.page')[1].remove());
+						// console.log('panelContent::'
+						// + $('.panel-content').html());
+
+						WL.Logger.debug("error button pressed");
+					}
+				} ]);
 			},
 
 			loadContactList : function(param, orchestrationName) {
