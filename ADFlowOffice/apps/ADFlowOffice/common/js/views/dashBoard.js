@@ -38,7 +38,8 @@ ADF.view.DashBoard = Backbone.View.extend({
 				navigation.pushView(ADF.view.scheduler, 'typeA');
 			});
 			$('.contantsList').on('click', function() {
-
+				
+				window.busy.show();
 				if (!ADF.view.contantList) {
 					console.log("contantList contantList ");
 					ADF.view.contactList = new ADF.view.ContactList;
