@@ -94,3 +94,8 @@ function startOrchestration_post(param,orchestrationName){
 	};
 	return WL.Server.invokeCastIron(input);
 }
+
+function getDummy() {
+    WL.Logger.debug("getDummy.............");
+    return {};
+}
