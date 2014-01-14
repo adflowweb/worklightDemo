@@ -203,15 +203,15 @@ ADF.view.Iscroll = Backbone.View
 		});
 
 // testCode
-document.addEventListener('click', function(e) {
-	console.log('clicked!!!!!!!!!!!!!!!!!!!!');
-	click_time = e['timeStamp'];
-	if (click_time && (click_time - last_click_time) < 500) {
-		console.log('stopPropagation!!!!!!!!!!!!!!!!!!!!');
-		e.stopImmediatePropagation();
-		e.preventDefault();
-		return false;
-	}
-	last_click_time = click_time;
-}, true);
+// document.addEventListener('click', function(e) {
+// console.log('clicked!!!!!!!!!!!!!!!!!!!!');
+// click_time = e['timeStamp'];
+// if (click_time && (click_time - last_click_time) < 500) {
+// console.log('stopPropagation!!!!!!!!!!!!!!!!!!!!');
+// e.stopImmediatePropagation();
+// e.preventDefault();
+// return false;
+// }
+// last_click_time = click_time;
+// }, true);
 // testCodeEnd
