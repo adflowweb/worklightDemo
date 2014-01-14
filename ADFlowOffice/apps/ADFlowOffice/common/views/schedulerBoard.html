@@ -6,8 +6,7 @@
 			<div class="scheduler_header" >
 				<div style="position: absolute; left: 10px; color: white; float: left; font-size: 44px;"
 			id="backbtnOnscheduler">
-			<!-- i class="icon-circle-arrow-left" /-->
-			<i class="icon-chevron-left icon-2"></i>
+				<i class="icon-circle-arrow-left"></i>
 			
 			</div>
 			
@@ -61,15 +60,37 @@
 				</div> <!--  end of footer_btngroup -->
 			</div> <!--  end of scheduler_footer -->
 		
-			<div id="popUpDiv">
+			<div id="popUpDivModify">
 			
-	    	<ul class="popupmodilistUl">
-	    	<!-- li id="popupmodilistUl_workoutside" class="workoutside_popupli">외근</li>
-	    	<li id="popupmodilistUl_dayoff" class="dayoff_poopupli">휴가</li>
-	    	<li id="popupmodilistUl_longproject" class="longproject_popupli">장기프로젝트</li-->
-	    	
-	    	</ul>
-	    	<a href="#" class="btn btn-success  btn_modifyScheduler_ok"><i class="icon-pencil"></i>닫기</a>
+		    	<ul class="popupmodilistUl">
+		    	<!-- li id="popupmodilistUl_workoutside" class="workoutside_popupli">외근</li>
+		    	<li id="popupmodilistUl_dayoff" class="dayoff_poopupli">휴가</li>
+		    	<li id="popupmodilistUl_longproject" class="longproject_popupli">장기프로젝트</li-->
+		    	
+		    	</ul>
+		    	
+		    	<a href="#" class="btn btn-success  btn_modifyScheduler_ok"><i class="icon-remove"></i>닫기</a>
+		    	
+			</div>
+			<div id="popUpDivDelete">
+				<div class="popUpDiv_btngroupheader">
+				<ul class="btn-group btn-group-square">
+				 <li><a href="#" class="btn btn-success  btn_alldel_pop"><i class="icon-check-sign"></i>전체선택</a></li>
+				  <li><a href="#" class="btn btn-success  btn_allunselected_pop"><i class="icon-eraser"></i>선택해제</a></li>
+				</ul>
+				</div>
+				
+		    	<ul class="popupdellistUl">	    	
+		    	
+		    	</ul>
+		    
+		    	<div class="popUpDiv_btngroup">
+		    	<ul class="btn-group btn-group-square">
+					   <li><a href="#" class="btn btn-success  btn_selecteddel_pop"><i class="icon-trash"></i>삭제</a></li>					 
+					   <li><a href="#" class="btn btn-success  btn_deleteScheduler_ok"><i class="icon-remove"></i>닫기</a></li>					
+					</ul>	
+		    	
+		    	</div>
 			</div>
 		</div>  <!--  end of scheduler_AppBody -->
 </div> <!--  end of scheduler_wrapper -->
