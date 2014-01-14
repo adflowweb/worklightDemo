@@ -39,6 +39,7 @@ function wlCommonInit() {
 		WL.Client.connect({
 			onSuccess : function() {
 				console.log('success ========================');
+//				loadDummy();
 			},
 			onFailure : function() {
 				console.log('fail ========================');
@@ -46,12 +47,49 @@ function wlCommonInit() {
 			}
 		});
 
+		
 		if (!ADF.view.dashBoard) {
 			ADF.view.dashBoard = new ADF.view.DashBoard;
 		}
 
 		navigation.pushView(ADF.view.dashBoard, 'typeA');
+		
 	});
 
 	window.busy = new WL.BusyIndicator();
 }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+//dummy start
+function loadDummy() {
+	  console.log("...getDummy...........try. to...something like that");
+     var invocationData = {
+             adapter : 'CastIronAdapter', // adapter name
+             procedure : 'getDummy',
+             parameters : []
+     };
+     console.log("...getDummy...........try. to...something like that");
+
+     WL.Client.invokeProcedure(
+                                     invocationData,
+                                     {
+                                             onSuccess : function loadDummySuccess(result) {
+                                            	 console.log("...hiso............try. to...something like that"
+                                                         + result);
+                                            	  console.log("...loadDummySuccess...........try. to...something like that"
+                                                                     + JSON.stringify(result));
+
+//                                                     if (result.invocationResult.isSuccessful) {
+//                                                    	 console.log("...result.invocationResult.isSuccessful...........try. to...something like that");
+//                                                     } else {
+//                                                     }
+                                             },
+                                             onFailure : function loadDummyFailure(result) {
+                                            	 console.log("onFailure loadDummyFailure");
+                                             }
+                                     });
+     
+}
+//dummy end
