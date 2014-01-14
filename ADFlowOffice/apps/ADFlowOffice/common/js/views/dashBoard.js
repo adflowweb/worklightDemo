@@ -39,6 +39,7 @@ ADF.view.DashBoard = Backbone.View.extend({
 			});
 			$('.contantsList').on('click', function() {
 				
+				window.last_click_time = new Date().getTime();
 				window.busy.show();
 				if (!ADF.view.contantList) {
 					console.log("contantList contantList ");
