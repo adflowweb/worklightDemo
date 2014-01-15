@@ -1,7 +1,7 @@
 
 ADF.view.Scheduler = Backbone.View.extend({
 	el : $('.panel-content'), // attaches `this.el` to an existing element.
-
+	callDBType : '',
 	initialize : function() {
 	console.log("SchedulerView init................. ");
 	this.collection = new ADF.collection.SchedulerCollection();	
@@ -13,8 +13,8 @@ ADF.view.Scheduler = Backbone.View.extend({
 	    console.log('this.collection.bind...............new object in the collection');
 	});
 	
-	_.bindAll(this, 'render', 'fetchDB','loadSchedulerSuccess','loadSchedulerFailure','appendSchedulerList', 'fetchDBforModify','loadSchedulerbypersonSuccess','loadSchedulerbypersonFailure','popupModifyList','fetchDBbySidforM','loadSchedulerbySidSuccess','loadSchedulerbySidFailure','modifyMyScheduler','fetchDBforDelList','loadSchedulerbypersonDSuccess','loadSchedulerbypersonDFailure','popupDeleteList','fetchDeleteDB','fetchDeleteDBSuccess','fetchDeleteDBFailure'); 
-	
+//	_.bindAll(this, 'render', 'fetchDB','loadSchedulerSuccess','loadSchedulerFailure','appendSchedulerList', 'fetchDBforModify','loadSchedulerbypersonSuccess','loadSchedulerbypersonFailure','popupModifyList','fetchDBbySidforM','loadSchedulerbySidSuccess','loadSchedulerbySidFailure','modifyMyScheduler','fetchDBforDelList','loadSchedulerbypersonDSuccess','loadSchedulerbypersonDFailure','popupDeleteList','fetchDeleteDB','fetchDeleteDBSuccess','fetchDeleteDBFailure'); 
+	_.bindAll(this, 'render', 'fetchDB','loadSchedulerSuccess','loadSchedulerFailure','appendSchedulerList', 'popupModifyList','modifyMyScheduler','popupDeleteList','delAftershowsclist');
 	    	
 	},
 	render : function() {
@@ -35,6 +35,8 @@ ADF.view.Scheduler = Backbone.View.extend({
 		console.log("jsonData :: "+jsonData);
 		
 		navigation.loadBefore('views/schedulerBoard.html', this.fetchDB(jsonData));
+		this.callDBType = "RList";
+		
 		//navigation.load('views/schedulerBoard.html', this.fetchDB);
 		WL.App.overrideBackButton(backFunc);
 		function backFunc() {
@@ -87,17 +89,62 @@ ADF.view.Scheduler = Backbone.View.extend({
 		console.log("say hello  one...........");
 //		console.log(result);
 //		console.log(result.invocationResult);
-//		var hello = result.invocationResult;
-//		console.log("say hello  hello...........");
-//		console.log(result.invocationResult.Result);
 //		console.log(result.invocationResult.Result[0]);
 //		console.log(result.invocationResult.Result.length);
-//		console.log("hello :: "+hello);
-//		console.log("say hello  two...........");
 
+
+		var errorOk = result.invocationResult.error;
+
+		console.log(errorOk);
 		
+		if(errorOk){
+//			alert('Error :' + JSON.stringify(errorOk));
+			WL.SimpleDialog.show("오류", JSON.stringify(errorOk));
+			
+		} else {
+			
+			var msg;
+			switch (this.callDBType) {
+			case 'RList':
+//				msg = this.contactNameKo + '님의 \n 추가 완료 되었습니다.';
+				msg = 'RList';
+				console.log("db sucess case RList *********************************************");
+				this.appendSchedulerList(result.invocationResult.Result);
+				break;
+			case 'RPopM':
+//				msg = this.contactNameKo + '님의 \n 수정이 완료 되었습니다.';
+				msg = 'RPopM';
+				console.log("db sucess case RPopM *********************************************");
+				this.popupModifyList(result.invocationResult.Result);
+				break;
+			case 'UBySid':
+//				msg = this.contactNameKo + '님의 \n 삭제가 완료 되었습니다.';
+				msg = 'UBySid';
+				console.log("db sucess case UBySid *********************************************");
+				this.modifyMyScheduler(result.invocationResult.Result);
+				break;
+			case 'RPopD':
+//				msg = this.contactNameKo + '님의 \n 삭제가 완료 되었습니다.';
+				msg = 'RPopD';
+				console.log("db sucess case RPopD *********************************************");
+				this.popupDeleteList(result.invocationResult.Result);
+				break;
+			case 'DByS':
+//				msg = this.contactNameKo + '님의 \n 삭제가 완료 되었습니다.';
+				msg = 'RList';
+				console.DByS("db sucess case DByS *********************************************");
+				this.delAftershowsclist(result.invocationResult.Result);
+				break;
+			default:
+				msg = 'default';
+				console.log("db sucess case default *********************************************");
+				msg = '';
+				break;
+			}
+		}
+		WL.SimpleDialog.show("성공", msg);
 //		this.appendSchedulerList(result.invocationResult.array);
-		this.appendSchedulerList(result.invocationResult.Result);
+		
 	},/*loadSchedulerSuccess  end*/
 	loadSchedulerFailure : function(result){
 		  console.log("loadSchedulerFailure" + JSON.stringify(result));
@@ -241,12 +288,14 @@ ADF.view.Scheduler = Backbone.View.extend({
 				{
 					click : function() {
 						console.log("btn_modifyScheduler click");
-					
+						ADF.view.scheduler.callDBType = "RPopM";
+						 console.log("callDBType :: "+ADF.view.scheduler.callDBType);
 						
-						 $("#popUpDivModify").show();
-						 ADF.view.scheduler.fetchDBforModify();
-					
+						 $("#popUpDivModify").show();						
 						
+						 var jsonData =  '{"act":"R", "owner":"78322"}';
+						 console.log("jsonData :: "+jsonData);
+						 ADF.view.scheduler.fetchDB(jsonData);
 						
 					}
 
@@ -271,8 +320,18 @@ ADF.view.Scheduler = Backbone.View.extend({
 					click : function() {
 						console.log("btn_deleteScheduler click");
 						$('#popUpDivDelete').show();
-						 ADF.view.scheduler.fetchDBforDelList();
 						 console.log("btn_deleteScheduler show");
+						 
+						ADF.view.scheduler.callDBType = "RPopD";
+					    console.log("callDBType :: "+ADF.view.scheduler.callDBType);
+							 
+					
+						 var jsonData =  '{"act":"R", "owner":"78322"}';
+						 console.log("jsonData :: "+jsonData);
+						 ADF.view.scheduler.fetchDB(jsonData);				 
+						
+//						 ADF.view.scheduler.fetchDBforDelList();
+						
 					}
 
 		});  // end btn_deleteScheduler
@@ -317,48 +376,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 		document.getElementById("schedulerElapsedTime").innerHTML = "Your Page took <font color='red'><b>"
 				+ time + "</b></font> Seconds to Load";
 		window.beforeload = 0;
-	},  // end of elaspsedTime
-	fetchDBforModify : function(){		
-		
-		
-//		var jsonData = '{"act":"R"}';
-		// need login logic
-		var jsonData =  '{"act":"R", "owner":"78322"}';
-		console.log("jsonData :: "+jsonData);
-		
-		
-		
-		var invocationData = {
-                adapter : 'CastIronAdapter', // adapter name
-                procedure : 'startOrchestration_post',
-                parameters : [jsonData,'ADFlowSchedule']
-
-        };
-        console.log(".........TestScheduler.....try. to...something like that");
-
-       
-        WL.Client.invokeProcedure(invocationData, {
-                onSuccess : this.loadSchedulerbypersonSuccess,
-                onFailure : this.loadSchedulerbypersonFailure
-        });
-	},/*fetchDB  end*/
-	loadSchedulerbypersonSuccess : function(result){
-		console.log("loadSchedulerbypersonSuccess" + JSON.stringify(result));    
-		console.log(result.invocationResult.resultSet);		
-//		this.appendSchedulerList(result.invocationResult.array);
-		this.popupModifyList(result.invocationResult.Result);
-	},/*loadSchedulerbypersonSuccess  end*/
-	loadSchedulerbypersonFailure: function(result){
-		  console.log("loadSchedulerbypersonFailure" + JSON.stringify(result));
-		  window.busy.hide();
-			WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
-				text : "확인",
-				handler : function() {
-					
-					WL.Logger.debug("error button pressed");
-				}
-			} ]);
-	},/*loadSchedulerbypersonFailure  end*/
+	},  // end of elaspsedTime	
 	popupModifyList :function(items){
 		
 	  	console.log("hello popupModifyList :: ");
@@ -371,22 +389,15 @@ ADF.view.Scheduler = Backbone.View.extend({
 		var str = "";
 		 for ( var i = 0; i < items.length; i++) {
 			  if( items[i].ctgr=='workoutside'){
-                  if(items[i].strdate==items[i].enddate){
-                          str1 +='<li class="workoutside_popupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-lightbulb"></i>' + items[i].strdate  + '</li>';
-                  }else{
-                          str1 +='<li class="workoutside_popupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-lightbulb"></i>' + items[i].strdate +' ~ ' + items[i].enddate  + '</li>';
-                  }
-				}
+                
+                       str1 +='<li class="workoutside_popupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-lightbulb"></i>' + items[i].detail   + '</li>';
+                }
 			   if(items[i].ctgr=='dayoff'){
-			                  if(items[i].strdate==items[i].enddate){
-			                          str2 +='<li class="dayoff_poopupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-coffee"></i>'+ items[i].strdate +  '</li>';
-			                  }else{
-			                          str2 +='<li class="dayoff_poopupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-coffee"></i>' + items[i].strdate +' ~ ' + items[i].enddate + '</li>';
-			                  }
+			           str2 +='<li class="dayoff_poopupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-coffee"></i>'+ items[i].detail  +  '</li>';                
 			                                  
 			   }
 			 if(items[i].ctgr=='longproject'){
-                  str3 += '<li class="longproject_popupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-paper-clip"></i>' + items[i].strdate +' ~ ' + items[i].enddate  + '</li>';                                
+                  str3 += '<li class="longproject_popupli modifyLiforscheduler" id="'+items[i].sid+'"><i class="icon-paper-clip"></i>' +items[i].detail   + '</li>';                                
 			 }
 		 }// end of for loop
 
@@ -415,7 +426,22 @@ ADF.view.Scheduler = Backbone.View.extend({
 							var id = $(e.currentTarget).attr("id");
 							console.log("id :: "+e.currentTarget);
 							console.log("id :: "+id);
-							ADF.view.scheduler.fetchDBbySidforM(id);	
+//							ADF.view.scheduler.fetchDBbySidforM(id);
+							
+							ADF.view.scheduler.callDBType = "UBySid";
+						    console.log("callDBType :: "+ADF.view.scheduler.callDBType);
+							
+					
+							var sid = id;
+							console.log("sid :: "+sid);							
+//							   '{"act":"R","sid":"142"}','ADFlowSchedule'
+//							var jsonData = '{"act":"R"}';
+							var jsonData =  '{"act":"R", "sid":"'+sid+'"}';
+							console.log("jsonData :: "+jsonData);
+							ADF.view.scheduler.fetchDB(jsonData);
+							
+							
+							
 //								$('#Bt_contactUpdate').removeClass('btn-info').removeClass('btn-contactUpdate').addClass('btn-success').addClass('btn-contactAddFinish');
 //						
 
@@ -435,55 +461,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 
 			});
 		 
-	},/* end of popupModifyList */
-	
-	fetchDBbySidforM : function(id){
-		var sid = id;
-		console.log("sid :: "+sid);
-		
-//		   '{"act":"R","sid":"142"}','ADFlowSchedule'
-//		var jsonData = '{"act":"R"}';
-		var jsonData =  '{"act":"R", "sid":"'+sid+'"}';
-		console.log("jsonData :: "+jsonData);
-		
-		
-		
-		var invocationData = {
-                adapter : 'CastIronAdapter', // adapter name
-                procedure : 'startOrchestration_post',
-                parameters : [jsonData,'ADFlowSchedule']
-
-        };
-        console.log(".........TestScheduler.....try. to...something like that");
-
-       
-        WL.Client.invokeProcedure(invocationData, {
-                onSuccess : this.loadSchedulerbySidSuccess,
-                onFailure : this.loadSchedulerbySidFailure
-        });
-	},/*fetchDBbySidforM  end*/
-	
-	loadSchedulerbySidSuccess : function(result){
-		console.log("loadSchedulerbySidSuccess" + JSON.stringify(result));
-    	console.log("say loadSchedulerbySidSuccess");
-		console.log(result.invocationResult.resultSet);
-		
-		/////////////////////////////////modelset		
-		this.modifyMyScheduler(result.invocationResult.Result);
-		
-		
-	},/*loadSchedulerbySidSuccess  end*/
-	loadSchedulerbySidFailure : function(result){
-		  console.log("loadSchedulerbySidFailure" + JSON.stringify(result));
-		  window.busy.hide();
-			WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
-				text : "확인",
-				handler : function() {
-					
-					WL.Logger.debug("error button pressed");
-				}
-			} ]);
-	},/*loadSchedulerbySidFailure  end*/
+	},/* end of popupModifyList */	
 	modifyMyScheduler :function(items){
 	 	console.log("hello modifyMyScheduler :: "); 
 	  	console.log(items);
@@ -512,49 +490,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 			ADF.view.addscheduler.SetschedulerDetailItem(mdmodel);
 			navigation.pushView(ADF.view.addscheduler, 'typeA');
 			   
-	},
-	fetchDBforDelList : function(){		
-		
-		
-//		var jsonData = '{"act":"R"}';
-		// need login logic
-//		{ “act” : “D”, “sid” : “1” }
-		var jsonData =  '{"act":"R", "owner":"78322"}';
-		console.log("jsonData :: "+jsonData);
-		
-		
-		
-		var invocationData = {
-                adapter : 'CastIronAdapter', // adapter name
-                procedure : 'startOrchestration_post',
-                parameters : [jsonData,'ADFlowSchedule']
-
-        };
-        console.log(".........TestScheduler.....try. to...something like that");
-
-       
-        WL.Client.invokeProcedure(invocationData, {
-                onSuccess : this.loadSchedulerbypersonDSuccess,
-                onFailure : this.loadSchedulerbypersonDFailure
-        });
-	},/*fetchDBforDelList  end*/
-	loadSchedulerbypersonDSuccess : function(result){
-		console.log("loadSchedulerbypersonDSuccess" + JSON.stringify(result));    
-		console.log(result.invocationResult.resultSet);		
-//		this.appendSchedulerList(result.invocationResult.array);
-		this.popupDeleteList(result.invocationResult.Result);
-	},/*loadSchedulerbypersonSuccess  end*/
-	loadSchedulerbypersonDFailure: function(result){
-		  console.log("loadSchedulerbypersonDFailure" + JSON.stringify(result));
-		  window.busy.hide();
-			WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
-				text : "확인",
-				handler : function() {
-					
-					WL.Logger.debug("error button pressed");
-				}
-			} ]);
-	},/*loadSchedulerbypersonFailure  end*/
+	},	
 	popupDeleteList :function(items){
 		
 	  	console.log("hello popupDeleteList :: ");
@@ -567,22 +503,17 @@ ADF.view.Scheduler = Backbone.View.extend({
 		var str = "";
 		 for ( var i = 0; i < items.length; i++) {
 			 if( items[i].ctgr=='workoutside'){
-                 if(items[i].strdate==items[i].enddate){
-                         str1 +='<li class="workoutside_popupli deleteLiforscheduler" id="li_'+items[i].sid+'"><label for="'+items[i].sid+'"><input type="checkbox" class="delsid" id="'+items[i].sid+'"><i class="icon-lightbulb"></i>' + items[i].strdate  + '</label></li>';
-                 }else{
-                         str1 +='<li class="workoutside_popupli deleteLiforscheduler" id="li_'+items[i].sid+'"><label for="'+items[i].sid+'"><input type="checkbox" class="delsid" id="'+items[i].sid+'"><i class="icon-lightbulb"></i>' + items[i].strdate +' ~ ' + items[i].enddate  + '</label></li>';
-                 }
+                
+                  str1 +='<li class="workoutside_popupli deleteLiforscheduler" id="li_'+items[i].sid+'"><label for="'+items[i].sid+'"><input type="checkbox" class="delsid" id="'+items[i].sid+'"><i class="icon-lightbulb"></i>' + items[i].detail   + '</label></li>';
+                
 				}
 			   if(items[i].ctgr=='dayoff'){
-			                  if(items[i].strdate==items[i].enddate){
-			                          str2 +='<li class="dayoff_poopupli deleteLiforscheduler" id="li_'+items[i].sid+'"><label for="'+items[i].sid+'"><input type="checkbox" class="delsid" id="'+items[i].sid+'"><i class="icon-coffee"></i>'+ items[i].strdate +  '</label></li>';
-			                  }else{
-			                          str2 +='<li class="dayoff_poopupli deleteLiforscheduler" id="li_'+items[i].sid+'"><label for="'+items[i].sid+'"><input type="checkbox" class="delsid" id="'+items[i].sid+'"><i class="icon-coffee"></i>' + items[i].strdate +' ~ ' + items[i].enddate + '</label></li>';
-			                  }
+			               
+	             str2 +='<li class="dayoff_poopupli deleteLiforscheduler" id="li_'+items[i].sid+'"><label for="'+items[i].sid+'"><input type="checkbox" class="delsid" id="'+items[i].sid+'"><i class="icon-coffee"></i>'+ items[i].detail  +  '</label></li>';			               
 			                                  
 			   }
 			 if(items[i].ctgr=='longproject'){
-                 str3 += '<li class="longproject_popupli deleteLiforscheduler" id="li_'+items[i].sid+'"><label for="'+items[i].sid+'"><input type="checkbox" class="delsid" id="'+items[i].sid+'"><i class="icon-paper-clip"></i>' + items[i].strdate +' ~ ' + items[i].enddate  + '</label></li>';                                
+                 str3 += '<li class="longproject_popupli deleteLiforscheduler" id="li_'+items[i].sid+'"><label for="'+items[i].sid+'"><input type="checkbox" class="delsid" id="'+items[i].sid+'"><i class="icon-paper-clip"></i>' + items[i].detail   + '</label></li>';                                
 			 }
 		 }// end of for loop
 
@@ -696,9 +627,13 @@ ADF.view.Scheduler = Backbone.View.extend({
 							       alert("checkbox id =" + myid + " checked status " + checked);
 							    
 //							      { “act” : “D”, “sid” : “1” }
-							       var jsonData = '{ “act” : “D”, “sid” : “'+myid+'” }';
+							     ADF.view.scheduler.callDBType = "DByS";
+							     console.log("callDBType :: "+ADF.view.scheduler.callDBType);						       
+							     
+							       var jsonData = '{ "act" : "D", "sid" : "'+myid+'" }';
 									console.log("jsonData :: "+jsonData);									
-									navigation.loadBefore('views/schedulerBoard.html', ADF.view.scheduler.fetchDeleteDB(jsonData));
+//									navigation.loadBefore('views/schedulerBoard.html', ADF.view.scheduler.fetchDeleteDB(jsonData));
+									navigation.loadBefore('views/schedulerBoard.html', ADF.view.scheduler.fetchDB(jsonData));
 								 }
 							  });
 						}
@@ -706,61 +641,12 @@ ADF.view.Scheduler = Backbone.View.extend({
 			 });
 		 
 	},/* end of popupDeleteList */
-	fetchDeleteDB : function(jsonData){		
-		//startOrchestration_post
-//		var invocationData = {
-//                adapter : 'CastIronAdapter', // adapter name
-//                procedure : 'startOrchestration',
-//                parameters : ['ADFlowSchedule']
-        // parameters if any
-//        };
+	delAftershowsclist : function(items){
+		console.log("delAftershowsclist :: "+items);		
 		
-		
-		/* eylee  */
-//		var jsonData = '{"act":"R"}';
-		console.log("jsonData :: "+jsonData);
-		
-		
-		
-		var invocationData = {
-                adapter : 'CastIronAdapter', // adapter name
-                procedure : 'startOrchestration_post',
-                parameters : [jsonData,'ADFlowSchedule']
-
-        };
-        console.log(".........TestScheduler.....try. to...something like that");
-
-       
-        WL.Client.invokeProcedure(invocationData, {
-                onSuccess : this.fetchDeleteDBSuccess,
-                onFailure : this.fetchDeleteDBFailure
-        });
-	},/*fetchDeleteDB  end*/
-	fetchDeleteDBSuccess : function(result){
-		console.log("fetchDeleteDBSuccess" + JSON.stringify(result));
-    	
-		console.log(result.invocationResult.resultSet);
 	
-		alert("success");
-	},/*fetchDeleteDBSuccess  end*/
-	fetchDeleteDBFailure : function(result){
-		  console.log("fetchDeleteDBFailure" + JSON.stringify(result));
-		  window.busy.hide();
-			WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
-				text : "확인",
-				handler : function() {
-					WL.App.overrideBackButton(function() {
-						window.beforeload = new Date().getTime();
-						if (!ADF.view.login) {
-							ADF.view.login = new ADF.view.Login;
-						}
-						navigation.pushView(ADF.view.login, 'typeB');
-					});
-					WL.Logger.debug("error button pressed");
-				}
-			} ]);
-	}/*fetchDeleteDBFailure  end*/  
-	
+
+	},  // end of delAftershowsclist 
 	
 	
 });

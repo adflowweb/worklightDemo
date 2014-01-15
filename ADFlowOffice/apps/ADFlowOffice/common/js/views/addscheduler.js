@@ -101,7 +101,7 @@ ADF.view.AddScheduler = Backbone.View.extend({
 			   
 			   $("#scheduler_mduser").val(this.userid);
 			   $("#scheduler_mduser").attr("readonly",true);
-			   $("#as_categoryfield").empty();
+//			   $("#as_categoryfield").empty();
 			   $(".sc_addevent").empty();
 				$("#datepicker1").empty();
 				$("#datepicker2").empty();
@@ -324,7 +324,7 @@ ADF.view.AddScheduler = Backbone.View.extend({
 			   
 			   $("#scheduler_mduser").val(this.userid);
 			   $("#scheduler_mduser").attr("readonly",true);
-			   $("#as_categoryfield").empty();
+//			   $("#as_categoryfield").empty();
 			   $(".sc_addevent").empty();
 				$("#datepicker1").empty();
 				$("#datepicker2").empty();
