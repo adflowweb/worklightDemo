@@ -45,6 +45,14 @@ ADF.view.ContactList = Backbone.View
 				navigation.loadBefore('views/contactList.html', function() {
 
 					that.loadContactList('{"act" : "R"}', "ADFlowContact");
+					
+					// 관리자 및 본일 일때 버튼 표시여부
+					// adminID => 관리자 ID
+					// loginID => 로그인 id
+					//추가버튼 관리자 일때 표시
+					if (loginID != adminID) {
+						$('#contactAdd_icon').hide();
+					};
 
 				});
 
@@ -58,7 +66,7 @@ ADF.view.ContactList = Backbone.View
 				$('ul', this.el).html(this.liSrc);
 				// call async
 				navigation.loadAsync(function() {
-					console.log('call after()')
+					console.log('call after()');
 				});
 
 			},
@@ -99,14 +107,15 @@ ADF.view.ContactList = Backbone.View
 					
 					WL.App.overrideBackButton(backFunc);
 					function backFunc() {
-
+						window.last_click_time = new Date().getTime();
+						window.busy.show();
 						if (!ADF.view.dashBoard) {
 							ADF.view.dashBoard = new ADF.view.DashBoard;
 						}
 						navigation.pushView(ADF.view.dashBoard, 'typeB');
 					}
 					
-					console.log('call after()')
+					console.log('call after()');
 				});
 
 				$('.icon-contactDetail-click')
@@ -114,6 +123,8 @@ ADF.view.ContactList = Backbone.View
 								{
 
 									click : function(e) {
+										window.last_click_time = new Date().getTime();
+										window.busy.show();
 										if (!ADF.view.contantDetail) {
 											console
 													.log("contantDetail view Call");
@@ -140,6 +151,7 @@ ADF.view.ContactList = Backbone.View
 						{
 
 							click : function(e) {
+								window.last_click_time = new Date().getTime();
 								if (!ADF.view.contantDetail) {
 									console
 											.log("contantDetail view Call");
@@ -163,6 +175,7 @@ ADF.view.ContactList = Backbone.View
 						{
 
 							click : function(e) {
+								window.last_click_time = new Date().getTime();
 								console.log("phoneClick   phoneClick");
 								document.location.href = 'tel:'
 										+ $(e.currentTarget).attr("id");
@@ -174,6 +187,8 @@ ADF.view.ContactList = Backbone.View
 				$('#back_contactList').on(
 						{
 							click : function(e) {
+								window.last_click_time = new Date().getTime();
+								window.busy.show();
 								console.log("back_contactDetail   back_contactDetail");
 								if (!ADF.view.dashBoard) {
 									ADF.view.dashBoard = new ADF.view.DashBoard;
@@ -207,27 +222,6 @@ ADF.view.ContactList = Backbone.View
 					hScrollbar : false,
 					vScrollbar : false
 				});
-				// myScroll = new iScroll('ulDiv', {
-				//
-				// // snap : 'li',
-				// // momentum : true,
-				// click : true,
-				// onScrollEnd : function() {
-				// // console.log("myScroll.currPageY");
-				// // console.log(myScroll);
-				// // console.log(myScroll.currPageY);
-				// // var elementIndex = Number(myScroll.currPageY);
-				// // console.log("elementIndex");
-				// // console.log(elementIndex);
-				// // var scrollerElem = $("#ulDiv").children()[0];
-				// // console.log("scrollerElem");
-				// // console.log(scrollerElem);
-				// // var itemId =
-				// // $(scrollerElem)[0].children[elementIndex].id;
-				// // console.log("itemId");
-				// // console.log(itemId);
-				// }
-				// });
 
 			},
 

@@ -29,6 +29,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		console.error(" contactDetail render  addFlag ::" + that.addFlag );
 		navigation.load('views/contactDetail.html', function() {
 			
+			window.busy.hide();
 			if (that.addFlag) {
 				
 				$('#Bt_contactUpdate').removeClass('btn-info').removeClass('btn-contactUpdate').addClass('btn-success').addClass('btn-contactAddFinish');
@@ -47,20 +48,23 @@ ADF.view.ContactDetail = Backbone.View.extend({
 				that.contactDisplay();
 
 			}
+			
+			$("#In_imgFile").on({
+			      change : function() {
+			    	  console.log(this);
+			    	  that.readURL(this);
+			      }
+	        });
 			 
 			console.error("render2   render2   render2");
 		});
 		
-		$("#In_imgFile").on({
-		      change : function() {
-		    	  alert(this.value); //선택한 이미지 경로 표시
-		    	  console.log(this);
-		    	  that.readURL(this);
-		      }
-        });
+		
 		
 		WL.App.overrideBackButton(backFunc);
 		function backFunc() {
+			window.last_click_time = new Date().getTime();
+			window.busy.show();
 			if (!ADF.view.contactList) {
 				ADF.view.contactList = new ADF.view.ContactList;
 			}
@@ -69,18 +73,20 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	},
 	
 	contactUpdateClick : function() {
+		window.last_click_time = new Date().getTime();
 		
 		$('#Bt_contactUpdate').removeClass('btn-info').removeClass('btn-contactUpdate').addClass('btn-success').addClass('btn-contactUpdateFinish');
 		$("#Bt_contactUpdate").html("수 정 완 료");
 		$("input.contactInput").css("background-color","#FFF").css("color","#000");
 		$("input.contactInput").attr("readonly",false);
 		$("select.contactInputSel").attr("disabled",false);
-		$("#In_imgFile").show();
+		$("#imgField").show();
 		console.error("contactUpdateClick   contactUpdateClick   contactUpdateClick");
 		$("i.icon-contactDel-click").hide();
 	},
 	
 	contactUpdateFinishClick : function() {
+		window.last_click_time = new Date().getTime();
 		
 		var inNo = parseInt(document.getElementById("In_No").value);
 		
@@ -112,7 +118,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
 		$("input.contactInput").attr("readonly",true);
 		$("select.contactInputSel").attr("disabled",true);
-		$("#In_imgFile").hide();
+		$("#imgField").hide();
 		$("i.icon-contactDel-click").show();
 		this.contactNameKo = document.getElementById("In_NameKo").value;
 		
@@ -135,6 +141,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	},
 	
 	contactAddClick : function() {
+		window.last_click_time = new Date().getTime();
 		$("#In_NameKo").val('');
 		$("#In_NameEn").val('');
 		$("#In_Phone").val('');
@@ -152,22 +159,22 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("input.contactInput").css("background-color","#FFF").css("color","#000");
 		$("input.contactInput").attr("readonly",false);
 		$("select.contactInputSel").attr("disabled",false);
-		$("#In_imgFile").show();
+		$("#imgField").show();
 		this.contactNameKo = '';
 		
 		console.error("contactAddClick ");
 	},
 	
 	contactAddFinishClick : function() {
-		
+		window.last_click_time = new Date().getTime();
 		var inNo = parseInt(document.getElementById("In_No").value);
 		
-//		if( isNaN(inNo) ||inNo > 99999 || inNo < 0 ){
-//			alert('사번은 숫자 5자리 이하로 입력 하세요!');
-//			document.getElementById("In_No").focus();
-//			
-//			return; //함수 종료.
-//		};
+		if( isNaN(inNo) ||inNo > 99999 || inNo < 0 ){
+			alert('사번은 숫자 5자리 이하로 입력 하세요!');
+			document.getElementById("In_No").focus();
+			
+			return; //함수 종료.
+		};
 		
 //	console.log("In_NameKo ::"+ document.getElementById("In_NameKo").value + " len ::" + document.getElementById("In_NameKo").value.length);
 		
@@ -191,7 +198,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
 		$("input.contactInput").attr("readonly",true);
 		$("select.contactInputSel").attr("disabled",true);
-		$("#In_imgFile").hide();
+		$("#imgField").hide();
 		
 		var data = '"nameen" : "'+document.getElementById("In_NameEn").value + 
 				'",	"hiredate" : "' +document.getElementById("In_HiredDate").value +
@@ -211,7 +218,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	},
 	
 	contactDelFinishClick : function() {
-		
+		window.last_click_time = new Date().getTime();
 		var r=confirm("정말 삭제 하시겠습니까?");
 		if (r==true)
 		  {
@@ -224,7 +231,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 			var data = '"no" : "'+ document.getElementById("In_No").value +	'"';
 			
 			this.callDBType = "D";
-//			this.callDB('{"act" : "D", '+ data +'}',"ADFlowContact");
+			this.callDB('{"act" : "D", '+ data +'}',"ADFlowContact");
 			
 			console.error("contactDelFinishClick OK  ::");
 			console.error("contactDelFinishClick  ::" + data);
@@ -255,10 +262,22 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("#In_Title").val(this.contact.get('title'));
 		$("#In_HiredDate").val(this.contact.get('hiredDate'));
 		$("#In_BirthDate").val(this.contact.get('birthDate'));
-		$("#In_Photo").html('<img width=100 height=100 class="contactInput" alt="" src="'
-			+ this.contact.get('photo')
-			+ '" />');
-		$("#In_imgFile").hide();
+		$('#In_Photo').attr('src',this.contact.get('photo'));
+		$("#imgField").hide();
+		
+		// 관리자 및 본일 일때 버튼 표시여부
+		// adminID => 관리자 ID
+		// loginID => 로그인 id
+		//수정버튼 관리자 및 본인 일때 표시
+		if (loginID != this.contact.get('no') && loginID != adminID ) {
+			$('#Bt_contactUpdate').hide();
+		};
+		
+		//삭제버튼 관리자만 표시
+		if (loginID != adminID) {
+			$('#contactDel_icon').hide();
+		};
+		
 		this.photoTemp =  this.contact.get('photo');
 		console.error("contactDisplay   contactDisplay   contactDisplay");
 		
@@ -274,14 +293,16 @@ ADF.view.ContactDetail = Backbone.View.extend({
             reader.onload = function (e) { 
             //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
             	
-            	console.log("e.target.result  ::" + e.target.result);
+            	if (e.total > 300000) {
+					alert('사진 용량이 큽니다. \n 파일 크기는 0.3 MB(300 kb) 이하로 올리세요.');
+					return;
+				}
+
             	that.photoTemp = e.target.result;
-            	console.log("readURL  photoTemp22  ::" + that.photoTemp);
-            	$("#In_Photo").html('<img width=100 height=100 class="contactInput" alt="" src="'
-            			+ e.target.result
-            			+ '" />');
-                //이미지 Tag의 SRC속성에 읽어들인 File내용을 지정
-                //(아래 코드에서 읽어들인 dataURL형식)
+            	console.log("readURL  photoTemp22  ::" + that.photoTemp.length);
+
+            	$('#In_Photo').attr('src',e.target.result);
+
             };                    
             reader.readAsDataURL(inUrl.files[0]);
             //File내용을 읽어 dataURL형식의 문자열로 저장
@@ -306,7 +327,8 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	},
 	
 	contactDetailBackClick : function() {
-
+		window.last_click_time = new Date().getTime();
+		window.busy.show();
 		if (!ADF.view.contactList) {
 			ADF.view.contactList = new ADF.view.ContactList;
 		}
@@ -324,7 +346,6 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		console.log(errorOk);
 		
 		if(errorOk){
-//			alert('Error :' + JSON.stringify(errorOk));
 			WL.SimpleDialog.show("오류", JSON.stringify(errorOk));
 			
 		} else {
@@ -339,6 +360,13 @@ ADF.view.ContactDetail = Backbone.View.extend({
 				break;
 			case 'D':
 				msg = this.contactNameKo + '님의 \n 삭제가 완료 되었습니다.';
+				//list 화면으로 이동.
+				window.last_click_time = new Date().getTime();
+				window.busy.show();
+				if (!ADF.view.contactList) {
+					ADF.view.contactList = new ADF.view.ContactList;
+				}
+				navigation.pushView(ADF.view.contactList, 'typeB');
 				break;
 			
 
@@ -347,10 +375,14 @@ ADF.view.ContactDetail = Backbone.View.extend({
 				break;
 			}
 			
-//			alert(msg);
 		}
 		
-		WL.SimpleDialog.show("성공", msg);
+		WL.SimpleDialog.show("완료", msg,[ {
+			text : "확인",
+			handler : function() {
+				WL.Logger.debug("button pressed");
+			}
+		} ]);
 		
 		
 	},
