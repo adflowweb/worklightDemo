@@ -269,7 +269,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		// adminID => 관리자 ID
 		// loginID => 로그인 id
 		//수정버튼 관리자 및 본인 일때 표시
-		if (loginID != this.contact.get('no') && window.group != 'admin' ) {
+		if (window.userID != this.contact.get('no') && window.group != 'admin' ) {
 			$('#Bt_contactUpdate').hide();
 		};
 		//삭제버튼 관리자만 표시
