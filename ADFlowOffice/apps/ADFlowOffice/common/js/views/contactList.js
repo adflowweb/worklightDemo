@@ -50,7 +50,7 @@ ADF.view.ContactList = Backbone.View
 					// adminID => 관리자 ID
 					// loginID => 로그인 id
 					//추가버튼 관리자 일때 표시
-					if (loginID != adminID) {
+					if (window.group != 'admin') {
 						$('#contactAdd_icon').hide();
 					};
 
