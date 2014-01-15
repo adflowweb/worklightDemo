@@ -7,11 +7,13 @@
 		style="position: absolute; right: 10px; color: white; float: left; font-size: 44px;">
 		<i class="icon-trash icon-contactDel-click" />
 	</div>
-	<div>
-		<h1
-			style="text-align: center; margin-top: 7px; font-family: 'NanumGothicBold'; font-size: 40px;">상 세 내 용</h1>
-	</div>
+
 	<div id="contactDetailDiv">
+		<div>
+		<img id="In_Photo"
+			style="display: block; margin-left: auto; margin-right: auto; border-radius: 80px;"
+			width=100 height=100 src="">
+		</div>
 		<div class="form-fields">
       <label class="contactLabel" for="In_NameKo">이름:</label>
       <input class="contactInput" type="text" placeholder="" id="In_NameKo" readonly>
@@ -58,10 +60,10 @@
         <option>여</option>
       </select>
     </div>
-    <div class="form-fields">
-    	<label class="contactLabel" for="In_HiredDate">사진:</label>
-      <div id="In_Photo"></div>
+    <div class="form-fields" id="imgField">
+    	<label class="contactLabel" for="In_HiredDate">사진 파일 :</label>
       <input class="contactInput" type='file' id="In_imgFile" readonly  >
+      <label>(파일 크기는 0.3 MB(300 kb) 이하로 올리세요.)</label>
     </div>
     <div class="form-fields">
       <button id="Bt_contactUpdate" class="btn btn-info btn-block btn-contactUpdate">수 정 하 기</button>
