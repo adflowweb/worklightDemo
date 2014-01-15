@@ -1,3 +1,4 @@
+<div>
   <div
 		style="position: absolute; left: 10px; color: white; float: left; font-size: 44px;"
 		id="back_contactDetail">
@@ -60,7 +61,31 @@
         <option>여</option>
       </select>
     </div>
-    <div class="form-fields" id="imgField">
+    
+    <div class="form-fields" id="selGroup" >
+      <label class="contactLabel" for="In_Group">그룹:</label>
+      <select class="contactInputSel" id="In_Group" disabled >
+        <option>일반</option>
+        <option>관리자</option>
+      </select>
+    </div>
+    
+    <div class="form-fields addField">
+      <label class="contactLabel" for="In_Opwd">기존 암호:</label>
+      <input class="contactInput" type="password" placeholder="" id="In_Opwd" readonly>
+    </div>
+    <div class="form-fields updateField">
+      <label class="contactLabel" for="In_Npwd1">새 암호 1:</label>
+      <input class="contactInput" type="password" placeholder="" id="In_Npwd1" readonly>
+    </div>
+    <div class="form-fields updateField">
+      <label class="contactLabel" for="In_Npwd2">새 암호 2:</label>
+      <input class="contactInput" type="password" placeholder="" id="In_Npwd2" readonly>
+    </div>
+
+    
+    
+    <div class="form-fields updateField">
     	<label class="contactLabel" for="In_HiredDate">사진 파일 :</label>
       <input class="contactInput" type='file' id="In_imgFile" readonly  >
       <label>(파일 크기는 0.3 MB(300 kb) 이하로 올리세요.)</label>
@@ -69,5 +94,5 @@
       <button id="Bt_contactUpdate" class="btn btn-info btn-block btn-contactUpdate">수 정 하 기</button>
     </div>
   </div>
-
+</div>
 

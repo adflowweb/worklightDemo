@@ -1,5 +1,7 @@
 console.log("contactDetail.js load");
 
+window.group = '1';
+
 ADF.view.ContactDetail = Backbone.View.extend({
 	el : $('.panel-content'), 
 	photoTemp : 'aaa',
@@ -38,6 +40,9 @@ ADF.view.ContactDetail = Backbone.View.extend({
 				$("input.contactInput").attr("readonly",false);
 				$("select.contactInputSel").attr("disabled",false);
 				$("i.icon-contactDel-click").hide();
+				$(".addField").hide();
+				$(".updateField").show();
+				$("#selGroup").show();
 				this.photoTemp =  '';
 				
 				that.addFlag = false;
@@ -75,12 +80,16 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	contactUpdateClick : function() {
 		window.last_click_time = new Date().getTime();
 		
+		$("#In_Opwd").val('');
+		$("#In_Npwd1").val('');
+		$("#In_Npwd2").val('');
 		$('#Bt_contactUpdate').removeClass('btn-info').removeClass('btn-contactUpdate').addClass('btn-success').addClass('btn-contactUpdateFinish');
 		$("#Bt_contactUpdate").html("수 정 완 료");
 		$("input.contactInput").css("background-color","#FFF").css("color","#000");
 		$("input.contactInput").attr("readonly",false);
 		$("select.contactInputSel").attr("disabled",false);
-		$("#imgField").show();
+		$(".updateField").show();
+		$(".addField").show();
 		console.error("contactUpdateClick   contactUpdateClick   contactUpdateClick");
 		$("i.icon-contactDel-click").hide();
 	},
@@ -111,29 +120,74 @@ ADF.view.ContactDetail = Backbone.View.extend({
 			document.getElementById("In_NameEn").focus();
 			
 			return; //함수 종료.
+		};
+		
+		if( document.getElementById("In_Opwd").value.leanth > 8 ){
+			alert('암호가 8자리를 넘었습니다. \n 8자리 이하로 입력 하세요.');
+			document.getElementById("In_Opwd").focus();
+			
+			return; //함수 종료.
+		};
+		
+		if( document.getElementById("In_Opwd").value == '' ){
+			alert('기존 암호는 꼭 입력 해야 합니다!');
+			document.getElementById("In_Opwd").focus();
+			
+			return; //함수 종료.
+		};
+		
+		if( document.getElementById("In_Npwd1").value.leanth > 8 || document.getElementById("In_Npwd2").value.leanth > 8 ){
+			alert('암호가 8자리를 넘었습니다. \n 8자리 이하로 입력 하세요.');
+			document.getElementById("In_Npwd1").focus();
+			
+			return; //함수 종료.
 		}
 		
-		$('#Bt_contactUpdate').removeClass('btn-success').removeClass('btn-contactUpdateFinish').addClass('btn-info').addClass('btn-contactUpdate');
-		$("#Bt_contactUpdate").html("수 정  하 기");
-		$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
-		$("input.contactInput").attr("readonly",true);
-		$("select.contactInputSel").attr("disabled",true);
-		$("#imgField").hide();
-		$("i.icon-contactDel-click").show();
+		var npwd;
+		if( document.getElementById("In_Npwd1").value != document.getElementById("In_Npwd2").value ){
+			alert('새 암호1, 새 암호2가 틀립니다. \n 다시 동일한 암호로 입력 하세요.');
+			document.getElementById("In_Npwd1").focus();
+			
+			return; //함수 종료.
+		} else{
+			npwd = document.getElementById("In_Npwd1").value;
+		};
+		
+		
 		this.contactNameKo = document.getElementById("In_NameKo").value;
 		
-		var data = '"nameen" : "'+document.getElementById("In_NameEn").value + 
-				'",	"hiredate" : "' +document.getElementById("In_HiredDate").value +
-				'",	"sex" : "'+ document.getElementById("In_Sex").selectedIndex +
-				'",	"phone" : "'+ document.getElementById("In_Phone").value +
-				'",	"email" : "'+ document.getElementById("In_Email").value +
-				'",	"no" : "'+ document.getElementById("In_No").value +
-				'",	"birthdate" : "'+ document.getElementById("In_BirthDate").value +
-				'",	"dept" : "'+ document.getElementById("In_Dept").value +
-				'",	"nameko" : "'+ document.getElementById("In_NameKo").value +
-				'",	"title" : "'+ document.getElementById("In_Title").value +
-				'",	"photo" : "'+ this.photoTemp +
-				'"';
+		if (npwd == '') {
+			var data = '"nameen" : "'+document.getElementById("In_NameEn").value + 
+			'",	"hiredate" : "' +document.getElementById("In_HiredDate").value +
+			'",	"sex" : "'+ document.getElementById("In_Sex").selectedIndex +
+			'",	"phone" : "'+ document.getElementById("In_Phone").value +
+			'",	"email" : "'+ document.getElementById("In_Email").value +
+			'",	"no" : "'+ document.getElementById("In_No").value +
+			'",	"birthdate" : "'+ document.getElementById("In_BirthDate").value +
+			'",	"dept" : "'+ document.getElementById("In_Dept").value +
+			'",	"nameko" : "'+ document.getElementById("In_NameKo").value +
+			'",	"title" : "'+ document.getElementById("In_Title").value +
+			'",	"opwd" : "'+ document.getElementById("In_Opwd").value +
+			'",	"photo" : "'+ this.photoTemp +
+			'"';
+			
+		} else {
+			var data = '"nameen" : "'+document.getElementById("In_NameEn").value + 
+			'",	"hiredate" : "' +document.getElementById("In_HiredDate").value +
+			'",	"sex" : "'+ document.getElementById("In_Sex").selectedIndex +
+			'",	"phone" : "'+ document.getElementById("In_Phone").value +
+			'",	"email" : "'+ document.getElementById("In_Email").value +
+			'",	"no" : "'+ document.getElementById("In_No").value +
+			'",	"birthdate" : "'+ document.getElementById("In_BirthDate").value +
+			'",	"dept" : "'+ document.getElementById("In_Dept").value +
+			'",	"nameko" : "'+ document.getElementById("In_NameKo").value +
+			'",	"title" : "'+ document.getElementById("In_Title").value +
+			'",	"npwd" : "'+ npwd +
+			'",	"opwd" : "'+ document.getElementById("In_Opwd").value +
+			'",	"photo" : "'+ this.photoTemp +
+			'"';
+		}
+		
 		
 		this.callDBType = "U";
 		this.callDB('{"act" : "U", '+ data +'}',"ADFlowContact");
@@ -152,6 +206,9 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("#In_Title").val('');
 		$("#In_HiredDate").val('');
 		$("#In_BirthDate").val('');
+		$("#In_Opwd").val('');
+		$("#In_Npwd1").val('');
+		$("#In_Npwd2").val('');
 		$("#In_Photo").html('<img class="contactInput" alt="" src="" />');
 		this.photoTemp =  '';
 		$('#Bt_contactUpdate').removeClass('btn-info').removeClass('btn-contactAdd').addClass('btn-success').addClass('btn-contactAddFinish');
@@ -159,7 +216,9 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("input.contactInput").css("background-color","#FFF").css("color","#000");
 		$("input.contactInput").attr("readonly",false);
 		$("select.contactInputSel").attr("disabled",false);
-		$("#imgField").show();
+		$(".addField").hide();
+		$(".updateField").show();
+		$("#selGroup").show();
 		this.contactNameKo = '';
 		
 		console.error("contactAddClick ");
@@ -192,13 +251,32 @@ ADF.view.ContactDetail = Backbone.View.extend({
 			return; //함수 종료.
 		}
 		
+		if( document.getElementById("In_Npwd1").value == '' ){
+			alert('새 암호는 꼭 입력 해야 합니다!');
+			document.getElementById("In_Npwd1").focus();
+			
+			return; //함수 종료.
+		}
+		
+		if( document.getElementById("In_Npwd1").value.leanth > 8 || document.getElementById("In_Npwd2").value.leanth > 8 ){
+			alert('암호가 8자리를 넘었습니다. \n 8자리 이하로 입력 하세요.');
+			document.getElementById("In_Npwd1").focus();
+			
+			return; //함수 종료.
+		}
+		
+		var npwd;
+		if( document.getElementById("In_Npwd1").value != document.getElementById("In_Npwd2").value ){
+			alert('새 암호1, 새 암호2가 틀립니다. \n 다시 동일한 암호로 입력 하세요.');
+			document.getElementById("In_Npwd1").focus();
+			
+			return; //함수 종료.
+		} else{
+			npwd = document.getElementById("In_Npwd1").value;
+		}
+		
 		this.contactNameKo = document.getElementById("In_NameKo").value;
-		$('#Bt_contactUpdate').removeClass('btn-success').removeClass('btn-contactAddFinish').addClass('btn-info').addClass('btn-contactAdd');
-		$("#Bt_contactUpdate").html("추 가  하 기");
-		$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
-		$("input.contactInput").attr("readonly",true);
-		$("select.contactInputSel").attr("disabled",true);
-		$("#imgField").hide();
+		
 		
 		var data = '"nameen" : "'+document.getElementById("In_NameEn").value + 
 				'",	"hiredate" : "' +document.getElementById("In_HiredDate").value +
@@ -210,6 +288,8 @@ ADF.view.ContactDetail = Backbone.View.extend({
 				'",	"dept" : "'+ document.getElementById("In_Dept").value +
 				'",	"nameko" : "'+ document.getElementById("In_NameKo").value +
 				'",	"title" : "'+ document.getElementById("In_Title").value +
+				'",	"group" : "'+ document.getElementById("In_Group").selectedIndex +
+				'",	"npwd" : "'+ npwd +
 				'",	"photo" : "'+ this.photoTemp +
 				'"';
 		this.callDBType = "C";
@@ -223,11 +303,6 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		if (r==true)
 		  {
 			this.contactNameKo = document.getElementById("In_NameKo").value;
-			$('#Bt_contactUpdate').removeClass('btn-success').removeClass('btn-contactAddFinish').addClass('btn-info').addClass('btn-contactAdd');
-			$("#Bt_contactUpdate").html("추 가  하 기");
-			$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
-			$("input.contactInput").attr("readonly",true);
-			
 			var data = '"no" : "'+ document.getElementById("In_No").value +	'"';
 			
 			this.callDBType = "D";
@@ -263,17 +338,19 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		$("#In_HiredDate").val(this.contact.get('hiredDate'));
 		$("#In_BirthDate").val(this.contact.get('birthDate'));
 		$('#In_Photo').attr('src',this.contact.get('photo'));
-		$("#imgField").hide();
+		$(".updateField").hide();
+		$(".addField").hide();
+		$("#selGroup").hide();
 		
 		// 관리자 및 본일 일때 버튼 표시여부
 		// adminID => 관리자 ID
 		// loginID => 로그인 id
 		//수정버튼 관리자 및 본인 일때 표시
-		if (window.userID != this.contact.get('no') && window.group != 'admin' ) {
+		if (window.userID != this.contact.get('no') && window.group != '1' ) {
 			$('#Bt_contactUpdate').hide();
 		};
 		//삭제버튼 관리자만 표시
-		if (window.group != 'admin') {
+		if (window.group != '1') {
 			$('#contactDel_icon').hide();
 		};
 		
@@ -295,7 +372,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
             	if (e.total > 300000) {
 					alert('사진 용량이 큽니다. \n 파일 크기는 0.3 MB(300 kb) 이하로 올리세요.');
 					return;
-				}
+				};
 
             	that.photoTemp = e.target.result;
             	console.log("readURL  photoTemp22  ::" + that.photoTemp.length);
@@ -341,21 +418,49 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		console.error("Retrieve Success");
 		console.error(result);
 		var errorOk = result.invocationResult.error;
+		var status = result.invocationResult.Status;
+		
+		var title;
 
-		console.log(errorOk);
+		console.log(status);
 		
 		if(errorOk){
-			WL.SimpleDialog.show("오류", JSON.stringify(errorOk));
+			title = "오류";
+			msg = JSON.stringify(errorOk);
 			
 		} else {
 			
+			title = "완료";
 			var msg;
 			switch (this.callDBType) {
 			case 'C':
 				msg = this.contactNameKo + '님의 \n 추가 완료 되었습니다.';
+				
+				$('#Bt_contactUpdate').removeClass('btn-success').removeClass('btn-contactAddFinish').addClass('btn-info').addClass('btn-contactAdd');
+				$("#Bt_contactUpdate").html("추 가  하 기");
+				$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
+				$("input.contactInput").attr("readonly",true);
+				$("select.contactInputSel").attr("disabled",true);
+				$("#imgField").hide();
+				
 				break;
 			case 'U':
-				msg = this.contactNameKo + '님의 \n 수정이 완료 되었습니다.';
+				if (status == 'AuthError') {
+					title = "오류";
+					msg = this.contactNameKo + '님의 \n 기존 암호가 틀립니다.';
+				} else {
+					msg = this.contactNameKo + '님의 \n 수정이 완료 되었습니다.';
+					
+					$('#Bt_contactUpdate').removeClass('btn-success').removeClass('btn-contactUpdateFinish').addClass('btn-info').addClass('btn-contactUpdate');
+					$("#Bt_contactUpdate").html("수 정  하 기");
+					$("input.contactInput").css("background-color","#1B598A").css("color","#FFF");
+					$("input.contactInput").attr("readonly",true);
+					$("select.contactInputSel").attr("disabled",true);
+					$(".updateField").hide();
+					$(".addField").hide();
+					$("i.icon-contactDel-click").show();
+				}
+				
 				break;
 			case 'D':
 				msg = this.contactNameKo + '님의 \n 삭제가 완료 되었습니다.';
@@ -372,16 +477,21 @@ ADF.view.ContactDetail = Backbone.View.extend({
 			default:
 				msg = '';
 				break;
-			}
+			};
 			
-		}
+			
+			
+			
+		};
 		
-		WL.SimpleDialog.show("완료", msg,[ {
+		WL.SimpleDialog.show(title, msg,[{
 			text : "확인",
 			handler : function() {
 				WL.Logger.debug("button pressed");
 			}
 		} ]);
+		
+		
 		
 		
 	},
