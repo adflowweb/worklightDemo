@@ -32,6 +32,12 @@ ADF.view.DashBoard = Backbone.View.extend({
 				navigation.pushView(ADF.view.iscroll, 'typeA');
 			});
 			$('.loadscheduler').on('click', function() {
+				// testCode
+				window.last_click_time = new Date().getTime();
+				// testCodeEnd
+				window.beforeload = new Date().getTime();
+				window.busy.show();
+				
 				if (!ADF.view.scheduler) {
 					ADF.view.scheduler = new ADF.view.Scheduler;
 				}

@@ -11,9 +11,8 @@ ADF.view.Scheduler = Backbone.View.extend({
 //	console.log(this.model.toJSON());
 	this.collection.bind('add', function() {
 	    console.log('this.collection.bind...............new object in the collection');
-	});
-	
-//	_.bindAll(this, 'render', 'fetchDB','loadSchedulerSuccess','loadSchedulerFailure','appendSchedulerList', 'fetchDBforModify','loadSchedulerbypersonSuccess','loadSchedulerbypersonFailure','popupModifyList','fetchDBbySidforM','loadSchedulerbySidSuccess','loadSchedulerbySidFailure','modifyMyScheduler','fetchDBforDelList','loadSchedulerbypersonDSuccess','loadSchedulerbypersonDFailure','popupDeleteList','fetchDeleteDB','fetchDeleteDBSuccess','fetchDeleteDBFailure'); 
+	});	
+ 
 	_.bindAll(this, 'render', 'fetchDB','loadSchedulerSuccess','loadSchedulerFailure','appendSchedulerList', 'popupModifyList','modifyMyScheduler','popupDeleteList','delAftershowsclist');
 	    	
 	},
@@ -21,9 +20,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 		// load SchedulerView view
 		
 		
-		// it's loading....error...more thinking about this..
-		window.beforeload = new Date().getTime();
-		window.busy.show();
+	
 		
 		console.log("SchedulerView " + this);
 		var window_width = $(window).width();   
@@ -36,20 +33,28 @@ ADF.view.Scheduler = Backbone.View.extend({
 		
 		navigation.loadBefore('views/schedulerBoard.html', this.fetchDB(jsonData));
 		this.callDBType = "RList";
-		
+		WL.App.overrideBackButton(this.backFunc);
 		//navigation.load('views/schedulerBoard.html', this.fetchDB);
-		WL.App.overrideBackButton(backFunc);
-		function backFunc() {
-			if (!ADF.view.dashBoard) {
-				ADF.view.dashBoard = new ADF.view.DashBoard;
-			}
-			navigation.pushView(ADF.view.dashBoard, 'typeB');
-		}
+		
+		
+//		WL.App.overrideBackButton(backFunc);
+//		function backFunc() {
+//			if (!ADF.view.dashBoard) {
+//				ADF.view.dashBoard = new ADF.view.DashBoard;
+//			}
+//			navigation.pushView(ADF.view.dashBoard, 'typeB');
+//		}
 	
 		
 	},
+	backFunc : function() {
+		window.beforeload = new Date().getTime();
 
-	
+		if (!ADF.view.deshBoard) {
+			ADF.view.deshBoard = new ADF.view.DashBoard;
+		}
+		navigation.pushView(ADF.view.deshBoard, 'typeB');
+	},
 	fetchDB : function(jsonData){		
 		//startOrchestration_post
 //		var invocationData = {
