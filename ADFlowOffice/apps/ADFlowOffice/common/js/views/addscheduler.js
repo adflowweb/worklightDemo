@@ -48,7 +48,7 @@ ADF.view.AddScheduler = Backbone.View.extend({
 							if (!ADF.view.scheduler) {
 								ADF.view.scheduler = new ADF.view.Scheduler;
 							}
-							navigation.pushView(ADF.view.scheduler, 'typeA');							
+							navigation.pushView(ADF.view.scheduler, 'typeB');							
 						}
 
 					});
@@ -70,8 +70,45 @@ ADF.view.AddScheduler = Backbone.View.extend({
 		   
 		
 		   $(function() {
+//			   alert("Device Ready");
+			  
 			   
-				  $( "#datepicker1" ).datepicker({
+			 /*   
+			    $('#datepicker1').on(
+			    		
+						{
+
+							click : function(e) {
+//								document.addEventListener("showkeyboard", function(){ alert("Keyboard is ON");}, false);
+//								document.addEventListener("hidekeyboard", function(){ alert("Keyboard is OFF");}, false);
+//								$(document.activeElement).filter(':input:focus').blur();							
+								 $( "#datepicker1" ).datepicker({
+								    dateFormat: 'yy-mm-dd'
+								   });		
+								
+							
+							}
+
+				});  // end of datepicker1
+			    
+			    $('#datepicker2').on(
+						{
+                            
+							click : function(e) {
+//								document.addEventListener("showkeyboard", function(){ alert("Keyboard is ON");}, false);
+//								document.addEventListener("hidekeyboard", function(){ alert("Keyboard is OFF");}, false);
+								
+//								$(document.activeElement).filter(':input:focus').blur();								
+								 $( "#datepicker2" ).datepicker({
+									    dateFormat: 'yy-mm-dd'
+								   });		
+								
+							
+							}
+
+				});  // end of datepicker2
+			    */
+				  $( "#datepicker1" ).datepicker({					  
 				    dateFormat: 'yy-mm-dd'
 				  });
 				  $( "#datepicker2" ).datepicker({
