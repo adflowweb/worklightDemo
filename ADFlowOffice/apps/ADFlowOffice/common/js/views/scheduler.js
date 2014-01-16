@@ -2,7 +2,8 @@
 ADF.view.Scheduler = Backbone.View.extend({
 	el : $('.panel-content'), // attaches `this.el` to an existing element.
 	callDBType : '',
-//	sidArray :  [],
+	sidArray :  [],
+	sidarraySize : 0,
 	removeSid : '',
 	initialize : function() {
 	console.log("SchedulerView init................. ");
@@ -661,7 +662,7 @@ ADF.view.Scheduler = Backbone.View.extend({
                                     	ADF.view.scheduler.callDBType = "DByS";
                                     	console.log("callDBType :: "+ADF.view.scheduler.callDBType);                                                       
                                     	ADF.view.scheduler.removeSid = myid;
-//                                    	ADF.view.scheduler.sidArray.push(myid);
+                                    	ADF.view.scheduler.sidArray.push(myid);
                                     	var jsonData = '{ "act" : "D", "sid" : "'+myid+'" }';
                                         console.log("jsonData :: "+jsonData);                                                                        
 //                                       navigation.loadBefore('views/schedulerBoard.html', ADF.view.scheduler.fetchDeleteDB(jsonData));
@@ -672,12 +673,38 @@ ADF.view.Scheduler = Backbone.View.extend({
                                     } // end of checked
                              });  // end of deleteLiforscheduler
                             
-//                            for (var i=0; i < ADF.view.scheduler.sidArray.length; i++) {
-//                            	  console.log("end of deleteLiforscheduler ADF.view.scheduler.sidArray[i] "+ADF.view.scheduler.sidArray[i]);
-//                            	   console.log("ADF.view.scheduler.sidArray "+ADF.view.scheduler.sidArray.length);
-//                            	}
+                            for (var i=0; i < ADF.view.scheduler.sidArray.length; i++) {
+                            	  console.log("end of deleteLiforscheduler ADF.view.scheduler.sidArray[i] "+ADF.view.scheduler.sidArray[i]);
+                            	   console.log("ADF.view.scheduler.sidArray "+ADF.view.scheduler.sidArray.length);
+                            }
                          
-                         
+                            if(ADF.view.scheduler.sidArray.length==0){	
+                            	
+                            
+                        		var dialogTitle = "스케줄러";
+                        		var dialogText = "체크박스를 선택해 주세요";
+
+                        		WL.SimpleDialog.show(dialogTitle, dialogText, [ {
+                        			text : '확인',
+                        			handler : function() {
+
+                        				console.log("확인버튼 click");
+                					
+                        			}
+                        		}
+
+                        		]);
+                            
+                            	
+                            	
+                            }
+                            
+                            if(ADF.view.scheduler.sidarraySize == 0){
+                                console.log("equal..............0    :: "+ADF.view.scheduler.sidarraySize);
+                                ADF.view.scheduler.sidarraySize = ADF.view.scheduler.sidArray.length;
+                                console.log("ADF.view.scheduler.sidarraySize :: "+ADF.view.scheduler.sidarraySize);
+                            }
+                            console.log("after if ADF.view.scheduler.sidarraySize :: "+ADF.view.scheduler.sidarraySize);
 						}
 
 			 });  // end of btn_selecteddel_pop
@@ -685,25 +712,45 @@ ADF.view.Scheduler = Backbone.View.extend({
 	},/* end of popupDeleteList */
 	delAftershowsclist : function(items){	
 	
-		 console.log("delAftershowsclist :: ");			
-//		 alert("after delete");
 		
 		
-       	   console.log("end of deleteLiforscheduler ADF.view.scheduler.removeSid "+ADF.view.scheduler.removeSid);
-//       	   console.log("ADF.view.scheduler.sidArray "+ADF.view.scheduler.sidArray.length);
-       	   var removeid =  "liSid_"+ ADF.view.scheduler.removeSid;
-       	  var removepopliid =  "li_"+ ADF.view.scheduler.removeSid;
-       	   console.log("removeid :: "+removeid);
-//       	   document.getElementById(removeid).remove();
-       	   rid = "'#" +removeid +"'";       
+		 console.log("mine............................. :: ");
+		 if( this.sidarraySize > 0 ){
+			 console.log(" this.sidarraySize > 0 :: "+ this.sidarraySize);
+			 this.sidarraySize -= 1;
+			 console.log("- 1 after :: "+ this.sidarraySize);
+			 
+			 if(this.sidarraySize == 0){
+				 for (var i=0; i < ADF.view.scheduler.sidArray.length; i++) {
+					 console.log("for.....................hi............................");
+			       	 console.log("end of deleteLiforscheduler ADF.view.scheduler.sidArray[i] "+ADF.view.scheduler.sidArray[i]);
+			         var removeid =  "liSid_"+ ADF.view.scheduler.sidArray[i];
+			         var removepopliid =  "li_"+ ADF.view.scheduler.sidArray[i];
+			         console.log("removeid :: "+removeid);
+			         rid = "'#" +removeid +"'";  
+			     	$('#'+removeid).remove();
+			     	$('#'+removepopliid).remove();
+			     	
+			       	 console.log("ADF.view.scheduler.sidArray "+ADF.view.scheduler.sidArray.length);
+			       } // end of for
+				 ADF.view.scheduler.sidArray = [];
+			 } /// end of  if(this.sidarraySize == 0){
 		 
-       	$('#'+removeid).remove();
-     	$('#'+removepopliid).remove();
-//		liSid_163		
-		
-       	ADF.view.scheduler.removeSid ="";
-		
-		 console.log("after delAftershowsclist ADF.view.scheduler.removeSid "+ADF.view.scheduler.removeSid);
+		 }  // end of  if( this.sidarraySize > 0 )
+		 
+	       console.log("ADF.view.scheduler.sidarraySize this.sidarraySize :: "+this.sidarraySize);
+	       console.log("ADF.view.scheduler.sidarraySize :: "+this.sidArray.length);
+		 
+//		 for (var i=0; i < ADF.view.scheduler.sidArray.length; i++) {
+//       	  console.log("end of deleteLiforscheduler ADF.view.scheduler.sidArray[i] "+ADF.view.scheduler.sidArray[i]);
+//       	   console.log("ADF.view.scheduler.sidArray "+ADF.view.scheduler.sidArray.length);
+//       }
+    
+      
+       
+		 
+		 
+		 
 	} // end of delAftershowsclist 
 	
 	
