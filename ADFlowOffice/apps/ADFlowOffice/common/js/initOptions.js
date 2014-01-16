@@ -157,7 +157,8 @@ else if (window.attachEvent)
 else
 	window.onload = iscrollViewJSAtOnload;
 
-// //////////////////////////////////////////////////////////////////////////////
+//
+// ////////////////////////////////////////////////////////////////////////////
 // add scheduler by eylee
 
 function schedulerJSAtOnload() {
@@ -199,7 +200,7 @@ function addschedulerJSAtOnload() {
 
 	var element = document.createElement("script");
 	var element1 = document.createElement("script");
-	
+
 	element.src = "js/views/addscheduler.js";
 	element1.src = "js/views/jquery-ui-1.10.3.custom.min.js";
 	document.body.appendChild(element);

@@ -8,6 +8,7 @@
 var LoginRealmChallengeHandler = WL.Client.createChallengeHandler("LoginRealm");
 
 LoginRealmChallengeHandler.isCustomResponse = function(response) {
+	// WL.Logger.info('response::' + JSON.stringify(response));
 	if (!response || !response.responseJSON || response.responseText === null) {
 		return false;
 	}
@@ -19,16 +20,16 @@ LoginRealmChallengeHandler.isCustomResponse = function(response) {
 };
 
 LoginRealmChallengeHandler.handleChallenge = function(response) {
-	console.log('response::' + JSON.stringify(response));
+	// WL.Logger.info('response::' + JSON.stringify(response));
 	var authRequired = response.responseJSON.authRequired;
-	console.log('handleChallenge::' + authRequired);
+	// console.log('handleChallenge::' + authRequired);
 
 	if (authRequired == true) {
 		if (response.responseJSON.errorMessage
 				&& response.responseJSON.errorMessage == 'Invalid login credentials') {
-			console.log(response.responseJSON.errorMessage);
+			// console.log(response.responseJSON.errorMessage);
 			window.busy.hide();
-			WL.SimpleDialog.show("장애", response.responseJSON.errorMessage, [ {
+			WL.SimpleDialog.show("에러", '아이디 또는 패스워드를 확인해 주세요', [ {
 				text : "확인",
 				handler : function() {
 					WL.Logger.debug("error button pressed");
@@ -36,6 +37,7 @@ LoginRealmChallengeHandler.handleChallenge = function(response) {
 				}
 			} ]);
 		} else {
+
 			var username = $("#user").val() + '@adflow.co.kr';
 			var password = $("#password").val();
 
@@ -48,12 +50,14 @@ LoginRealmChallengeHandler.handleChallenge = function(response) {
 			LoginRealmChallengeHandler.submitAdapterAuthentication(
 					invocationData, {
 						onSuccess : function(result) {
-							console.log("successResult" + result);
-							console.log("result" + JSON.stringify(result));
+							// console.log("successResult" + result);
+							// console.log("result" +
+							// JSON.stringify(result));
 						},
 						onFailure : function(result) {
-							console.log("failResult" + result);
-							console.log("result" + JSON.stringify(result));
+							// console.log("failResult" + result);
+							// console.log("result" +
+							// JSON.stringify(result));
 
 							window.busy.hide();
 							WL.SimpleDialog.show("에러", '아이디 또는 패스워드를 확인해 주세요',

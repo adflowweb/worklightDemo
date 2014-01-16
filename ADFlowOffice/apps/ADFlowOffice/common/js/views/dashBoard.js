@@ -33,24 +33,22 @@ ADF.view.DashBoard = Backbone.View.extend({
 			});
 			$('.loadscheduler').on('click', function() {
 				/*
-				window.last_click_time = new Date().getTime();
-				
-				window.beforeload = new Date().getTime();
-				window.busy.show();
-				
+				 * window.last_click_time = new Date().getTime();
+				 * 
+				 * window.beforeload = new Date().getTime(); window.busy.show();
+				 * 
+				 * if (!ADF.view.scheduler) { ADF.view.scheduler = new
+				 * ADF.view.Scheduler; } navigation.pushView(ADF.view.scheduler,
+				 * 'typeA');
+				 */
 				if (!ADF.view.scheduler) {
 					ADF.view.scheduler = new ADF.view.Scheduler;
 				}
 				navigation.pushView(ADF.view.scheduler, 'typeA');
-				*/
-				if (!ADF.view.scheduler) {
-					ADF.view.scheduler = new ADF.view.Scheduler;
-				}
-				navigation.pushView(ADF.view.scheduler, 'typeA');
-				
+
 			});
 			$('.contantsList').on('click', function() {
-				
+
 				window.last_click_time = new Date().getTime();
 				window.busy.show();
 				if (!ADF.view.contantList) {
@@ -73,6 +71,18 @@ ADF.view.DashBoard = Backbone.View.extend({
 		});
 		WL.App.overrideBackButton(backFunc);
 		function backFunc() {
+
+			WL.SimpleDialog.show("알림", "앱을 종료하시려면 종료버튼을 눌러주세요", [ {
+				text : "종료",
+				handler : function() {
+					WL.App.close();
+				}
+			}, {
+				text : "취소",
+				handler : function() {
+					WL.Logger.debug("cancel button pressed");
+				}
+			} ]);
 
 			// window.beforeload = new Date().getTime();
 			//

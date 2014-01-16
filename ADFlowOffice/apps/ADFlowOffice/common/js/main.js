@@ -8,7 +8,6 @@ window.addEventListener('load', function() {
 }, false);
 
 function wlCommonInit() {
-
 	/*
 	 * Application is started in offline mode as defined by a connectOnStartup
 	 * property in initOptions.js file. In order to begin communicating with
@@ -29,47 +28,48 @@ function wlCommonInit() {
 	 * onConnectFailure });
 	 * 
 	 */
-	// Common initialization code goes here
-	$('#loginBtn').on('click', function() {
+}
 
-		// validation check
-		var username = $("#user").val();
-		var password = $("#password").val();
+// Common initialization code goes here
+$('#loginBtn').on('click', function() {
 
-		if (!username || !password || username == '' || password == '') {
-			window.busy.hide();
-			WL.SimpleDialog.show("에러", '아이디 또는 패스워드를 확인해 주세요', [ {
-				text : "확인",
-				handler : function() {
-					WL.Logger.debug("error button pressed");
-				}
-			} ]);
-			return;
-		}
+	// validation check
+	var username = $("#user").val();
+	var password = $("#password").val();
 
-		window.beforeload = new Date().getTime();
-		window.busy.show();
-
-		WL.Client.connect({
-			onSuccess : function() {
-				console.log('connection success ========================');
-				loadDummy();
-			},
-			onFailure : function() {
-				console.log('connection fail ========================');
-				window.busy.hide();
+	if (!username || !password || username == '' || password == '') {
+		window.busy.hide();
+		WL.SimpleDialog.show("에러", '아이디 또는 패스워드를 확인해 주세요', [ {
+			text : "확인",
+			handler : function() {
+				WL.Logger.debug("error button pressed");
 			}
-		});
+		} ]);
+		return;
+	}
 
+	window.beforeload = new Date().getTime();
+	window.busy.show();
+
+	WL.Client.connect({
+		onSuccess : function() {
+			console.log('connection success ========================');
+			loadDummy();
+		},
+		onFailure : function() {
+			console.log('connection fail ========================');
+			window.busy.hide();
+		}
 	});
 
-	window.busy = new WL.BusyIndicator();
-}
+});
+
+window.busy = new WL.BusyIndicator();
 
 // ///////////////////////////////////////////////////////////////////////////////
 // dummy start
 function loadDummy() {
-	console.log("...getDummy");
+	console.log("...getDummy...");
 	var invocationData = {
 		adapter : 'LoginAdapter', // adapter name
 		procedure : 'getDummy',

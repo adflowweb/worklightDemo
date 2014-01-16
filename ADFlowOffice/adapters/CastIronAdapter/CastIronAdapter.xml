@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    Licensed Materials - Property of IBM
-    5725-I43 (C) Copyright IBM Corp. 2011, 2013. All Rights Reserved.
-    US Government Users Restricted Rights - Use, duplication or
-    disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
--->
-<wl:adapter name="CastIronAdapter"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:wl="http://www.worklight.com/integration"
-	xmlns:http="http://www.worklight.com/integration/http"
+<!-- Licensed Materials - Property of IBM 5725-I43 (C) Copyright IBM Corp. 
+	2011, 2013. All Rights Reserved. US Government Users Restricted Rights - 
+	Use, duplication or disclosure restricted by GSA ADP Schedule Contract with 
+	IBM Corp. -->
+<wl:adapter name="CastIronAdapter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:wl="http://www.worklight.com/integration" xmlns:http="http://www.worklight.com/integration/http"
 	xmlns:ci="http://www.worklight.com/integration/ci">
 
 	<displayName>CastIronAdapter</displayName>
@@ -17,16 +13,15 @@
 		<connectionPolicy xsi:type="http:HTTPConnectionPolicyType">
 			<protocol>http</protocol>
 			<domain>adflow-svr.iptime.org</domain>
-			<port>9081</port>			
+			<port>9081</port>
 		</connectionPolicy>
 		<loadConstraints maxConcurrentConnectionsPerNode="2" />
 	</connectivity>
 
-	<procedure name="startOrchestration"/>
-	<procedure name="startOrchestrationFiltered"/>
-		<!-- procedure name="startOrchestration_post" securityTest="WLADFlowOfficeSecurityTest"/-->
-	
+	<procedure name="startOrchestration" />
+	<procedure name="startOrchestrationFiltered" />
+	<!-- procedure name="startOrchestration_post" securityTest="WLADFlowOfficeSecurityTest"/ -->
+
 	<procedure name="startOrchestration_post" />
-	<procedure securityTest="WLADFlowOfficeSecurityTest" name="getDummy" /> 
-		
+
 </wl:adapter>
