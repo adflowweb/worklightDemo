@@ -70,23 +70,20 @@ ADF.view.AddScheduler = Backbone.View.extend({
 		   
 		
 		   $(function() {
-//			   alert("Device Ready");
-			  
-			   
-			 /*   
+//			   alert("Device Ready");		
 			    $('#datepicker1').on(
 			    		
 						{
-
 							click : function(e) {
 //								document.addEventListener("showkeyboard", function(){ alert("Keyboard is ON");}, false);
 //								document.addEventListener("hidekeyboard", function(){ alert("Keyboard is OFF");}, false);
-//								$(document.activeElement).filter(':input:focus').blur();							
-								 $( "#datepicker1" ).datepicker({
-								    dateFormat: 'yy-mm-dd'
-								   });		
-								
-							
+//								$(document.activeElement).filter(':input:focus').blur();		
+								 $(this).filter(':input:focus').blur();	
+//								 $(this).off('blur');
+								 
+//								 $( "#datepicker1" ).datepicker({
+//								    dateFormat: 'yy-mm-dd'
+//								   });						
 							}
 
 				});  // end of datepicker1
@@ -97,17 +94,17 @@ ADF.view.AddScheduler = Backbone.View.extend({
 							click : function(e) {
 //								document.addEventListener("showkeyboard", function(){ alert("Keyboard is ON");}, false);
 //								document.addEventListener("hidekeyboard", function(){ alert("Keyboard is OFF");}, false);
-								
+								 $(this).filter(':input:focus').blur();	
 //								$(document.activeElement).filter(':input:focus').blur();								
-								 $( "#datepicker2" ).datepicker({
-									    dateFormat: 'yy-mm-dd'
-								   });		
-								
-							
+//								 $( "#datepicker2" ).datepicker({
+//									    dateFormat: 'yy-mm-dd'
+//								   });		
+											
 							}
 
 				});  // end of datepicker2
-			    */
+			   
+			
 				  $( "#datepicker1" ).datepicker({					  
 				    dateFormat: 'yy-mm-dd'
 				  });
@@ -122,7 +119,8 @@ ADF.view.AddScheduler = Backbone.View.extend({
 		   if(flag==true){
 			   console.log("flag .................lololo..."+flag);
 //			    $('#Bt_contactUpdate').removeClass('btn-info').removeClass('btn-contactUpdate').addClass('btn-success').addClass('btn-contactAddFinish');
-				$("#footerOneli_full").html('<a href="#" class="btn btn-success btn_modifyschedulerbtn" id="footerOnea_full"><i class="icon-ok"></i>Confirm</a>');
+			   $(".scheduler_textHeader").html('<h4>이벤트 수정</h4>');
+				$("#footerOneli_full").html('<a href="#" class="btn btn-success btn_modifyschedulerbtn" id="footerOnea_full"><i class="icon-edit"></i>수정하기</a>');
 				$("#footerOneli_full").css("background-color","#1B598A").css("color","#FFF");
 
 				console.log("this.scModel :: "+this.scModel);
@@ -207,13 +205,36 @@ ADF.view.AddScheduler = Backbone.View.extend({
 		
 		var scheduler_calendar2 = document.getElementsByClassName('scheduler_calendar')[1].value;		
 		console.log("scheduler_calendar2 :: "+scheduler_calendar2);
-		if(scheduler_calendar1==''){
-			alert("날짜입력");
-		}
-		if(scheduler_calendar2==''){
-			alert("날짜입력");
-		}
-		if(scheduler_calendar1!='' &&scheduler_calendar2!='' ){
+
+		
+		
+		
+		if(scheduler_calendar1=='' || scheduler_calendar2==''|| sc_addevent ==''){			
+			var dialogTitle = "";
+    		var dialogText = "";
+    		if(scheduler_calendar1=='' || scheduler_calendar2==''){
+    			dialogTitle = "날짜입력";
+    			dialogText = "날짜를 입력해 주세요";
+    		}
+    		if(sc_addevent=='' ){
+    			dialogTitle = "이벤트입력";
+    			dialogText = "이벤트를 입력해 주세요";
+    		}
+    		WL.SimpleDialog.show(dialogTitle, dialogText, [ {
+    			text : '확인',
+    			handler : function() {
+    				console.log("확인버튼 click");				
+    			}
+    		}
+
+    		]);   // end of WL.SimpleDialog.show
+        
+						
+		}  // end of if(scheduler_calendar1=='' || scheduler_calendar2=='' )
+
+		
+		
+		if(scheduler_calendar1!='' &&scheduler_calendar2!='' && sc_addevent!='' ){
 			 $( "#datepicker1" ).datepicker("hide");
 			 $( "#datepicker2" ).datepicker("hide");
 			 
