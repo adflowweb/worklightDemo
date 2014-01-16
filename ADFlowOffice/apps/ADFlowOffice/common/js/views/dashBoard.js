@@ -74,12 +74,12 @@ ADF.view.DashBoard = Backbone.View.extend({
 		WL.App.overrideBackButton(backFunc);
 		function backFunc() {
 
-			window.beforeload = new Date().getTime();
-
-			if (!ADF.view.login) {
-				ADF.view.login = new ADF.view.Login;
-			}
-			navigation.pushView(ADF.view.login, 'typeB');
+			// window.beforeload = new Date().getTime();
+			//
+			// if (!ADF.view.login) {
+			// ADF.view.login = new ADF.view.Login;
+			// }
+			// navigation.pushView(ADF.view.login, 'typeB');
 		}
 	},
 	elapsedTime : function() {

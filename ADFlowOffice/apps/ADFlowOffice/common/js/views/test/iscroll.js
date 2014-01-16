@@ -34,7 +34,8 @@ ADF.view.Iscroll = Backbone.View
 				window.startProc = new Date().getTime();
 				WL.Client.invokeProcedure(invocationData, {
 					onSuccess : this.success,
-					onFailure : this.fail
+					onFailure : this.fail,
+					timeout : 10000
 				});
 			},
 			success : function(result) {
@@ -69,8 +70,7 @@ ADF.view.Iscroll = Backbone.View
 								+ i
 								+ this.constant1
 								+ imageName
-								+ '.jpg"></div>'
-								+ '<div style="color:grey;float:left"><h3 style="padding-left:10px;">'
+								+ '.jpg"></div><div style="color:grey;float:left"><h3 style="padding-left:10px;">'
 								+ items[i].nameko
 								+ '<font style="font-size:15px">&nbsp;&nbsp;'
 								+ items[i].title + '</font>'
@@ -142,7 +142,7 @@ ADF.view.Iscroll = Backbone.View
 				this.procElapsedTime();
 				console.log('failString::' + JSON.stringify(result));
 				window.busy.hide();
-				WL.SimpleDialog.show("장애", result.errorMsg, [ {
+				WL.SimpleDialog.show("에러", result.errorMsg, [ {
 					text : "확인",
 					handler : function() {
 						// clean garbage
@@ -205,7 +205,7 @@ ADF.view.Iscroll = Backbone.View
 		});
 
 // testCode
- document.addEventListener('click', function(e) {
+document.addEventListener('click', function(e) {
 	console.log('clicked!!!!!!!!!!!!!!!!!!!!');
 	click_time = e['timeStamp'];
 	if (click_time && (click_time - last_click_time) < 500) {
