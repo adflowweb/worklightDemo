@@ -7,6 +7,7 @@ ADF.view.AddScheduler = Backbone.View.extend({
 	el : $('.panel-content'), // attaches `this.el` to an existing element.
 	addFlag : false,	
 	userid : "",
+	username : "",
 	initialize : function() {
 	
 		console.log("AddScheduler view  init................. ");		
@@ -132,9 +133,9 @@ ADF.view.AddScheduler = Backbone.View.extend({
 				$("#datepicker2").val(this.scModel.get('enddate'));				
 		   }else{
 			   console.log("flag .................false..input form..jsut new event..."+flag);
-			   console.log("  this.userid  "+  this.userid);
+			   console.log("  this.userid  "+  this.username);
 			   
-			   $("#scheduler_mduser").val(this.userid);
+			   $("#scheduler_mduser").val(this.username);
 			   $("#scheduler_mduser").attr("readonly",true);
 //			   $("#as_categoryfield").empty();
 			   $(".sc_addevent").empty();
@@ -238,7 +239,7 @@ ADF.view.AddScheduler = Backbone.View.extend({
 			 $( "#datepicker1" ).datepicker("hide");
 			 $( "#datepicker2" ).datepicker("hide");
 			 
-			 var jsonData = '{"act" : "C", "sid" : "", "owner" : "'+user +'", "ctgr" : "'+strCategory+'" ,"strdate" : "'+scheduler_calendar1+'", "enddate" : "'+scheduler_calendar2+'","detail":"'+sc_addevent+'"}';
+			 var jsonData = '{"act" : "C", "sid" : "", "owner" : "'+this.userid +'", "ctgr" : "'+strCategory+'" ,"strdate" : "'+scheduler_calendar1+'", "enddate" : "'+scheduler_calendar2+'","detail":"'+sc_addevent+'"}';
 			 console.log("jsonData   :: "+jsonData);
 			 this.fetchDB(jsonData);
 //			this.fetchDB(user,strCategory,sc_addevent,scheduler_calendar1,scheduler_calendar2);
@@ -279,7 +280,7 @@ ADF.view.AddScheduler = Backbone.View.extend({
 			 var sid =  this.scModel.get('sid');
 			 var owner = this.scModel.get('owner');
 			 console.log("sid............."+sid + "owner............."+owner);
-			 var jsonData = '{"act" : "U", "sid" : "'+sid+'", "owner" : "'+owner +'", "ctgr" : "'+strCategory+'" ,"strdate" : "'+scheduler_calendar1+'", "enddate" : "'+scheduler_calendar2+'","detail":"'+sc_addevent+'"}';
+			 var jsonData = '{"act" : "U", "sid" : "'+sid+'", "owner" : "'+this.userid +'", "ctgr" : "'+strCategory+'" ,"strdate" : "'+scheduler_calendar1+'", "enddate" : "'+scheduler_calendar2+'","detail":"'+sc_addevent+'"}';
 			 console.log("jsonData   :: "+jsonData);
 			 
 			
@@ -363,11 +364,11 @@ ADF.view.AddScheduler = Backbone.View.extend({
 		this.addFlag = flag;
 		console.log("addFlag ::"+ this.addFlag);
 	}, /* end of addFlagOn  */
-	nowUser : function(userid) {
-
-		console.log("userid ::"+ userid);
+	nowUser : function(userid, username) {
 		this.userid = userid;
+		this.username = username;
 		console.log("userid ::"+ this.userid);
+		console.log("username ::"+ this.username);
 	}, /* end of nowUser */
 	cleanupinputform :function(flag){
 		console.log("cleanupinputform ::"+ flag);
@@ -378,9 +379,9 @@ ADF.view.AddScheduler = Backbone.View.extend({
 		   
 		if(!cleanflag){
 			   console.log("flag .................false..input form..jsut new event..."+cleanflag);
-			   console.log("  this.userid  "+  this.userid);
+			   console.log("  this.userid  "+  this.username);
 			   
-			   $("#scheduler_mduser").val(this.userid);
+			   $("#scheduler_mduser").val(this.username);
 			   $("#scheduler_mduser").attr("readonly",true);
 //			   $("#as_categoryfield").empty();
 			   $(".sc_addevent").empty();

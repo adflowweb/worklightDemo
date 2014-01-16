@@ -91,6 +91,7 @@ LoginRealmChallengeHandler.handleChallenge = function(response) {
 
 		console.log('ADF.user::' + JSON.stringify(ADF.user));
 		console.log('ADF.user.nameen::' + ADF.user.nameen);
+		console.log('ADF.user.no::' + ADF.user.no);
 		LoginRealmChallengeHandler.submitSuccess();
 	}
 };

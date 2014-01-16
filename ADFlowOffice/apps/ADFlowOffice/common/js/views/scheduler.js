@@ -4,7 +4,8 @@ ADF.view.Scheduler = Backbone.View.extend({
 	callDBType : '',
 	sidArray :  [],
 	sidarraySize : 0,
-	removeSid : '',
+	removeSid : '',	
+	koName : '',
 	initialize : function() {
 	console.log("SchedulerView init................. ");
 	this.collection = new ADF.collection.SchedulerCollection();	
@@ -31,6 +32,9 @@ ADF.view.Scheduler = Backbone.View.extend({
         console.log("window_width :: "+window_width);
         console.log("window_height :: "+window_height);
         //call async
+       
+		this.koName = ADF.user.nameko;
+		console.log("koName :: "+ this.koName);
         var jsonData = '{"act":"R"}';
         console.log("jsonData :: "+jsonData);
         
@@ -97,55 +101,54 @@ ADF.view.Scheduler = Backbone.View.extend({
 
 		var errorOk = result.invocationResult.error;
 
-		console.log(errorOk);
+	
 		
 		if(errorOk){
+			
+			console.log(errorOk);
+			var dialogTitle = "에러메시지";
+			var dialogText = JSON.stringify(errorOk);
 //			alert('Error :' + JSON.stringify(errorOk));
-			WL.SimpleDialog.show("오류", JSON.stringify(errorOk));
+			WL.SimpleDialog.show(dialogTitle, dialogText, [ {
+    			text : '확인',
+    			handler : function() {
+    				console.log("확인버튼 click");				
+    			}
+    		}
+
+    		]);   // end of WL.SimpleDialog.show
 			
 		} else {
 			
-			var msg;
 			switch (this.callDBType) {
 			case 'RList':
-//				msg = this.contactNameKo + '님의 \n 추가 완료 되었습니다.';
-				msg = 'RList';
+
 				console.log("db sucess case RList *********************************************");
 				this.appendSchedulerList(result.invocationResult.Result);
 				break;
 			case 'RPopM':
-//				msg = this.contactNameKo + '님의 \n 수정이 완료 되었습니다.';
-				msg = 'RPopM';
 				console.log("db sucess case RPopM *********************************************");
 				this.popupModifyList(result.invocationResult.Result);
 				break;
 			case 'UBySid':
 //				msg = this.contactNameKo + '님의 \n 삭제가 완료 되었습니다.';
-				msg = 'UBySid';
 				console.log("db sucess case UBySid *********************************************");
 				this.modifyMyScheduler(result.invocationResult.Result);
 				break;
 			case 'RPopD':
-//				msg = this.contactNameKo + '님의 \n 삭제가 완료 되었습니다.';
-				msg = 'RPopD';
 				console.log("db sucess case RPopD *********************************************");
 				this.popupDeleteList(result.invocationResult.Result);
 				break;
-			case 'DByS':
-//				msg = this.contactNameKo + '님의 \n 삭제가 완료 되었습니다.';
-				msg = 'RList';
-				console.log("db sucess case DByS *********************************************");
-				 window.busy.hide();
+			case 'DByS':			
+				console.log("db sucess case DByS *********************************************");				
 				this.delAftershowsclist(result.invocationResult.Result);
 				break;
-			default:
-				msg = 'default';
-				console.log("db sucess case default *********************************************");
-				msg = '';
+			default:				
+				console.log("db sucess case default *********************************************");				
 				break;
 			}
 		}
-		WL.SimpleDialog.show("성공", msg);
+		
 //		this.appendSchedulerList(result.invocationResult.array);
 		
 	},/*loadSchedulerSuccess  end*/
@@ -196,6 +199,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 //		<i class="icon-calendar"><div>Mon, Dec 23</div></i>		
 		
 		var myheader ='<i class="icon-calendar">';
+		myheader +=' ';
 		myheader += myDay;
 		myheader +=', ';
 		myheader += month;
@@ -301,8 +305,14 @@ ADF.view.Scheduler = Backbone.View.extend({
 						 console.log("callDBType :: "+ADF.view.scheduler.callDBType);
 						
 						 $("#popUpDivModify").show();						
-						
-						 var jsonData =  '{"act":"R", "owner":"78322"}';
+
+						 ///////////////////////////////////////////////////////////
+						 
+						 
+						var employeeNo = ADF.user.no;
+						 console.log("employeeNo :: "+employeeNo);						 
+						 //////////////////////////////////////////////////////
+						 var jsonData =  '{"act":"R", "owner":"'+employeeNo+'"}';
 						 console.log("jsonData :: "+jsonData);
 						 ADF.view.scheduler.fetchDB(jsonData);
 						
@@ -333,9 +343,12 @@ ADF.view.Scheduler = Backbone.View.extend({
 						 
 						ADF.view.scheduler.callDBType = "RPopD";
 					    console.log("callDBType :: "+ADF.view.scheduler.callDBType);
-							 
-					
-						 var jsonData =  '{"act":"R", "owner":"78322"}';
+					    
+						 var employeeNo = ADF.user.no;
+						 console.log("employeeNo :: "+employeeNo);						 
+						 //////////////////////////////////////////////////////
+											
+						 var jsonData =  '{"act":"R", "owner":"'+employeeNo+'"}';
 						 console.log("jsonData :: "+jsonData);
 						 ADF.view.scheduler.fetchDB(jsonData);				 
 						
@@ -369,11 +382,21 @@ ADF.view.Scheduler = Backbone.View.extend({
 		
 			console.log("inputScheduler....lalalal...................... "
 					+ this);
+			
+//			console.log("ADF.user.no :: "+ADF.user.no);
+//			console.log('ADF.user.nameen::' + ADF.user.nameen);
+//			var employeeNumber = ADF.user.no;
+			var employeeNo = ADF.user.no;
+			 console.log("employeeNo :: "+employeeNo);	
+			 var employeeName = ADF.user.nameko;
+			
 			if (!ADF.view.addscheduler) {
 				ADF.view.addscheduler = new ADF.view.AddScheduler;
 			}
-			ADF.view.addscheduler.nowUser('78322');
+			
+		
 			ADF.view.addscheduler.cleanupinputform("false");
+			ADF.view.addscheduler.nowUser(employeeNo,employeeName);
 			navigation.pushView(ADF.view.addscheduler, 'typeA');
 		
 
@@ -734,6 +757,16 @@ ADF.view.Scheduler = Backbone.View.extend({
 			       	 console.log("ADF.view.scheduler.sidArray "+ADF.view.scheduler.sidArray.length);
 			       } // end of for
 				 ADF.view.scheduler.sidArray = [];
+				 var dialogTitle = "알림";
+		    	var dialogText =  this.koName + '님의 \n 삭제가 완료 되었습니다.';				
+					WL.SimpleDialog.show(dialogTitle, dialogText, [ {
+		    			text : '확인',
+		    			handler : function() {
+		    				console.log("확인버튼 click");				
+		    			}
+		    		}
+
+		    		]);   // end of WL.SimpleDialog.show
 			 } /// end of  if(this.sidarraySize == 0){
 		 
 		 }  // end of  if( this.sidarraySize > 0 )
