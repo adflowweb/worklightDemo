@@ -32,64 +32,68 @@ function wlCommonInit() {
 	// Common initialization code goes here
 	$('#loginBtn').on('click', function() {
 
-		window.beforeload = new Date().getTime();
+		// validation check
+		var username = $("#user").val();
+		var password = $("#password").val();
 
+		if (!username || !password || username == '' || password == '') {
+			window.busy.hide();
+			WL.SimpleDialog.show("에러", '아이디 또는 패스워드를 확인해 주세요', [ {
+				text : "확인",
+				handler : function() {
+					WL.Logger.debug("error button pressed");
+				}
+			} ]);
+			return;
+		}
+
+		window.beforeload = new Date().getTime();
 		window.busy.show();
 
 		WL.Client.connect({
 			onSuccess : function() {
-				console.log('success ========================');
-//				loadDummy();
+				console.log('connection success ========================');
+				loadDummy();
 			},
 			onFailure : function() {
-				console.log('fail ========================');
+				console.log('connection fail ========================');
 				window.busy.hide();
 			}
 		});
 
-		
-		if (!ADF.view.dashBoard) {
-			ADF.view.dashBoard = new ADF.view.DashBoard;
-		}
-
-		navigation.pushView(ADF.view.dashBoard, 'typeA');
-		
 	});
 
 	window.busy = new WL.BusyIndicator();
 }
 
-
-
-/////////////////////////////////////////////////////////////////////////////////
-//dummy start
+// ///////////////////////////////////////////////////////////////////////////////
+// dummy start
 function loadDummy() {
-	  console.log("...getDummy...........try. to...something like that");
-     var invocationData = {
-             adapter : 'CastIronAdapter', // adapter name
-             procedure : 'getDummy',
-             parameters : []
-     };
-     console.log("...getDummy...........try. to...something like that");
+	console.log("...getDummy");
+	var invocationData = {
+		adapter : 'LoginAdapter', // adapter name
+		procedure : 'getDummy',
+		parameters : []
+	};
 
-     WL.Client.invokeProcedure(
-                                     invocationData,
-                                     {
-                                             onSuccess : function loadDummySuccess(result) {
-                                            	 console.log("...hiso............try. to...something like that"
-                                                         + result);
-                                            	  console.log("...loadDummySuccess...........try. to...something like that"
-                                                                     + JSON.stringify(result));
+	WL.Client.invokeProcedure(invocationData, {
+		onSuccess : function(result) {
+			console.log("result" + result);
+			console.log("result" + JSON.stringify(result));
 
-//                                                     if (result.invocationResult.isSuccessful) {
-//                                                    	 console.log("...result.invocationResult.isSuccessful...........try. to...something like that");
-//                                                     } else {
-//                                                     }
-                                             },
-                                             onFailure : function loadDummyFailure(result) {
-                                            	 console.log("onFailure loadDummyFailure");
-                                             }
-                                     });
-     
+			// if (result.invocationResult.isSuccessful) {
+			// console.log("...result.invocationResult.isSuccessful...........try.
+			// to...something like that");
+			// } else {
+			// }
+			if (!ADF.view.dashBoard) {
+				ADF.view.dashBoard = new ADF.view.DashBoard;
+			}
+			navigation.pushView(ADF.view.dashBoard, 'typeA');
+		},
+		onFailure : function(result) {
+			console.log("onFailure loadDummyFailure");
+		}
+	});
 }
-//dummy end
+// dummy end

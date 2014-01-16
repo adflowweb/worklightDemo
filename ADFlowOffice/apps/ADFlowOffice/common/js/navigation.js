@@ -54,8 +54,8 @@ Navigation.prototype.updateView = function() {
 			effectA = 'left';
 			effectB = 'right';
 		}
-		console.log('$page1::' + this.$page1.html());
-		console.log('$page2::' + this.$page2.html());
+		// console.log('$page1::' + this.$page1.html());
+		// console.log('$page2::' + this.$page2.html());
 
 		// Position the page at the starting position of the animation
 		this.$page2.attr("class", "page " + effectA);

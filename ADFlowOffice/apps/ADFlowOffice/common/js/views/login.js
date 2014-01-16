@@ -16,8 +16,26 @@ ADF.view.Login = Backbone.View
 						// console.log('this::' + this);
 						// console.log('WL::' + WL);
 						window.beforeload = new Date().getTime();
-						
 						window.busy.show();
+
+						// loadDummy();
+						console.log("callDBTest ::");
+						var invocationData = {
+							adapter : 'CastIronAdapter', // adapter
+							// name
+							procedure : 'getDummy',
+							parameters : []
+						// parameters if any
+						};
+						console.log("call login adapter");
+						WL.Client.invokeProcedure(invocationData, {
+							onSuccess : function() {
+								console.log("login success==============");
+							},
+							onFailure : function() {
+								console.log("login fail==============");
+							}
+						});
 
 						if (!ADF.view.dashBoard) {
 							ADF.view.dashBoard = new ADF.view.DashBoard;
