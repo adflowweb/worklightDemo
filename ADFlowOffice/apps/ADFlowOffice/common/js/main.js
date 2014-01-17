@@ -3,9 +3,9 @@
 // date: 2013.12.18
 ////////////////////
 window.isAnimation = false;
-window.addEventListener('load', function() {
-	new FastClick(document.body);
-}, false);
+//window.addEventListener('load', function() {
+//	new FastClick(document.body);
+//}, false);
 
 function wlCommonInit() {
 	/*

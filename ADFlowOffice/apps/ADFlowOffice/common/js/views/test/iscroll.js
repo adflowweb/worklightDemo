@@ -208,6 +208,9 @@ ADF.view.Iscroll = Backbone.View
 document.addEventListener('click', function(e) {
 	console.log('clicked!!!!!!!!!!!!!!!!!!!!');
 	click_time = e['timeStamp'];
+	console.log('last_click_time::'+last_click_time);
+	console.log('click_time::'+click_time);
+	console.log('click_time - last_click_time::'+(click_time - last_click_time));
 	if (click_time && (click_time - last_click_time) < 500) {
 		console.log('stopPropagation!!!!!!!!!!!!!!!!!!!!');
 		e.stopImmediatePropagation();
