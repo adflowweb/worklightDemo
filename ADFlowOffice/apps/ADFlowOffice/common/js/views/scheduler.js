@@ -22,7 +22,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 	},
 	render : function() {
 		// load SchedulerView view
-		
+		var that = this;
 		
 	
 		
@@ -32,37 +32,25 @@ ADF.view.Scheduler = Backbone.View.extend({
         console.log("window_width :: "+window_width);
         console.log("window_height :: "+window_height);
         //call async
-       
+    	ADF.view.scheduler.callDBType = "RList";
 		this.koName = ADF.user.nameko;
 		console.log("koName :: "+ this.koName);
         var jsonData = '{"act":"R"}';
-        console.log("jsonData :: "+jsonData);
+        console.log("jsonData :: "+jsonData);        
+      
         
-        navigation.loadBefore('views/schedulerBoard.html', this.fetchDB(jsonData));
-        this.callDBType = "RList";
-        WL.App.overrideBackButton(this.backFunc);
-        //navigation.load('views/schedulerBoard.html', this.fetchDB);
+        navigation.loadBefore('views/schedulerBoard.html', function() {
+//			that.getContactList();
+        	
+        	that.fetchDB(jsonData);
+		});
+		WL.App.overrideBackButton(this.backFunc);
         
-        
-//        WL.App.overrideBackButton(backFunc);
-//        function backFunc() {
-//                if (!ADF.view.dashBoard) {
-//                        ADF.view.dashBoard = new ADF.view.DashBoard;
-//                }
-//                navigation.pushView(ADF.view.dashBoard, 'typeB');
-//        }
 
         
 		},
-		backFunc : function() {
-		        window.beforeload = new Date().getTime();
 		
-		        if (!ADF.view.deshBoard) {
-		                ADF.view.deshBoard = new ADF.view.DashBoard;
-		        }
-		        navigation.pushView(ADF.view.deshBoard, 'typeB');
-		},// end of backFunc
-	fetchDB : function(jsonData){		
+		fetchDB : function(jsonData){		
 
 		
 		
@@ -80,7 +68,7 @@ ADF.view.Scheduler = Backbone.View.extend({
         };
         console.log(".........TestScheduler.....try. to...something like that");
 
-       
+    	window.startProc = new Date().getTime();
         WL.Client.invokeProcedure(invocationData, {
                 onSuccess : this.loadSchedulerSuccess,
                 onFailure : this.loadSchedulerFailure
@@ -89,6 +77,7 @@ ADF.view.Scheduler = Backbone.View.extend({
        
 	
 	loadSchedulerSuccess : function(result){
+		this.procElapsedTime();
 		console.log("loadSchedulerSuccess" + JSON.stringify(result));
     	console.log("say hello");
 		console.log(result.invocationResult.resultSet);
@@ -112,7 +101,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 			WL.SimpleDialog.show(dialogTitle, dialogText, [ {
     			text : '확인',
     			handler : function() {
-    				console.log("확인버튼 click");				
+    				console.log("확인버튼  click");				
     			}
     		}
 
@@ -153,11 +142,19 @@ ADF.view.Scheduler = Backbone.View.extend({
 		
 	},/*loadSchedulerSuccess  end*/
 	loadSchedulerFailure : function(result){
-		  console.log("loadSchedulerFailure" + JSON.stringify(result));
-		  window.busy.hide();
-			WL.SimpleDialog.show("에러메시지", result.errorMsg, [ {
+		  console.log("loadSchedulerFailure" + JSON.stringify(result));		
+			window.busy.hide();
+			WL.SimpleDialog.show("에러", result.errorMsg, [ {
 				text : "확인",
 				handler : function() {
+					// clean garbage
+					console.log('panelContentSecond::'
+							+ $('.page')[1].remove());
+
+					// console.log('panelContent::'
+					// + $('.panel-content').html());
+
+					// backBtn override
 					WL.App.overrideBackButton(function() {
 						window.beforeload = new Date().getTime();
 						if (!ADF.view.login) {
@@ -166,18 +163,21 @@ ADF.view.Scheduler = Backbone.View.extend({
 						navigation.pushView(ADF.view.login, 'typeB');
 					});
 					WL.Logger.debug("error button pressed");
+
 				}
 			} ]);
+			
+			
 	},/*loadSchedulerSuccess  end*/
 	appendSchedulerList :function(items){
+		var that = this;
 	  	console.log("hello appendSchedulerList :: ");
 	  	console.log(items);
 		console.log(items.length);
 		console.log("say..");
 		console.log("..............  this.collection............." + this.collection);
 		var str1 = "";
-		var str2 = "";
-		
+		var str2 = "";		
 		var str3 ="";
 		
 //		header append today..is 
@@ -195,7 +195,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 		weekday[4]="목요일";
 		weekday[5]="금요일";
 		weekday[6]="토요일";
-		var myDay  =weekday[currentTime.getDay()];		
+		var myDay  = weekday[currentTime.getDay()];		
 //		<i class="icon-calendar"><div>Mon, Dec 23</div></i>		
 		
 		var myheader ='<i class="icon-calendar">';
@@ -265,21 +265,21 @@ ADF.view.Scheduler = Backbone.View.extend({
        //call async
 //       navigation.loadAsync(function(){console.log('call after()')});
        navigation.loadAsync(function(){
+    	   console.log(" navigation.loadAsync scheduler..................");
+    	 
                /*
                     var myScroll = new iScroll('iscrolldiv', {
                             hScrollbar : false,
                             vScrollbar : false
                     });
-               */                   
-               ADF.view.scheduler.elapsedTime();window.busy.hide();
-             
-//       ADF.view.scheduler.elapsedTime();
+               */ 		
+		     that.viewElapsedTime();
+	    	 window.busy.hide();
+			
+
        });    // end of navigation.loadAsync
 
-		
-	 
-	  
-		$('.btn_inputScheduler').on('click', function() {		
+       $('.btn_inputScheduler').on('click', function() {		
 			console.log("btn_inputScheduler event changed.........."+this);
 			ADF.view.scheduler.inputScheduler();
 			
@@ -289,10 +289,17 @@ ADF.view.Scheduler = Backbone.View.extend({
 		{
 			click : function() {
 				console.log("back button click");
+				
+				console.log('backBtnClicked!!!!!!!!!!!!!!!!!');
+				window.beforeload = new Date().getTime();
 				if (!ADF.view.dashBoard) {
 					ADF.view.dashBoard = new ADF.view.DashBoard;
 				}
 				navigation.pushView(ADF.view.dashBoard, 'typeB');
+//				if (!ADF.view.dashBoard) {
+//					ADF.view.dashBoard = new ADF.view.DashBoard;
+//				}
+//				navigation.pushView(ADF.view.dashBoard, 'typeB');
 			}
 
 		});  // end of backbtnOnscheduler
@@ -368,6 +375,10 @@ ADF.view.Scheduler = Backbone.View.extend({
 
 		});  // end btn_deleteScheduler_ok
 		
+	 
+	  
+	
+		
 		
 		
 //
@@ -390,6 +401,14 @@ ADF.view.Scheduler = Backbone.View.extend({
 			 console.log("employeeNo :: "+employeeNo);	
 			 var employeeName = ADF.user.nameko;
 			
+////////////////////////////////
+//			 need busy logic
+			 
+			 
+			 
+			 
+			 
+			 
 			if (!ADF.view.addscheduler) {
 				ADF.view.addscheduler = new ADF.view.AddScheduler;
 			}
@@ -401,6 +420,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 		
 
 	},  // end of inputScheduler 
+	/*
 	elapsedTime : function() {
 		var aftrload = new Date().getTime();
 		// Time calculating in seconds
@@ -408,7 +428,8 @@ ADF.view.Scheduler = Backbone.View.extend({
 		document.getElementById("schedulerElapsedTime").innerHTML = "Your Page took <font color='red'><b>"
 				+ time + "</b></font> Seconds to Load";
 		window.beforeload = 0;
-	},  // end of elaspsedTime	
+	},  // end of elaspsedTime
+	*/	
 	popupModifyList :function(items){
 		
 	  	console.log("hello popupModifyList :: ");
@@ -762,7 +783,10 @@ ADF.view.Scheduler = Backbone.View.extend({
 					WL.SimpleDialog.show(dialogTitle, dialogText, [ {
 		    			text : '확인',
 		    			handler : function() {
-		    				console.log("확인버튼 click");				
+		    				console.log("확인버튼 click");			
+		    			
+		    				$('#popUpDivDelete').hide();
+							
 		    			}
 		    		}
 
@@ -784,7 +808,37 @@ ADF.view.Scheduler = Backbone.View.extend({
 		 
 		 
 		 
-	} // end of delAftershowsclist 
+	}, // end of delAftershowsclist
+	
+	viewElapsedTime : function() {
+		// Time calculating in seconds
+		var time = (new Date().getTime() - window.beforeload) / 1000;
+		console.log('viewElapsedTime::' + time);
+		var gap = time - window.procTime;
+		document.getElementById("schedulerElapsedTime").innerHTML = document
+				.getElementById("schedulerElapsedTime").innerHTML
+				+ " page : <font color='red'><b>"
+				+ time
+				+ "</b></font> ms gap : <font color='red'><b>"
+				+ gap.toFixed(3) + "</b></font> ms";
+		window.beforeload = 0;
+	},
+	procElapsedTime : function() {
+		// Time calculating in seconds
+		window.procTime = (new Date().getTime() - window.startProc) / 1000;
+		console.log('procedureElapsedTime::' + window.procTime);
+		document.getElementById("schedulerElapsedTime").innerHTML = "procedure : <font color='red'><b>"
+				+ window.procTime + "</b></font> ms";
+		window.startProc = 0;
+	},
+	backFunc : function() {
+		window.beforeload = new Date().getTime();
+
+		if (!ADF.view.dashBoard) {
+			ADF.view.dashBoard = new ADF.view.DashBoard;
+		}
+		navigation.pushView(ADF.view.dashBoard, 'typeB');
+	}
 	
 	
 });
