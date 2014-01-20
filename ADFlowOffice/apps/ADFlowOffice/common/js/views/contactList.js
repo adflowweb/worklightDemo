@@ -81,20 +81,58 @@ ADF.view.ContactList = Backbone.View
 				var that = this;
 				var liSrc = '';
 				// console.error(this.collection);
-				for (var i = 0; i < this.collection.length; i++) {
+				
+				var males = [ 'eugene_lee', 'gary_donovan', 'james_king',
+							'john_williams', 'paul_jones', 'ray_moore', 'steven_wells' ];
 
-					liSrc += this.constant1
-							+ this.collection.models[i].get('phone')
-							+ '" src="'
-							+ this.collection.models[i].get('photo')
-							+ '" /></div>'
-							+ '<div style="color:grey;float:left"><h3 style="padding-left:10px;">'
-							+ this.collection.models[i].get('nameKo')
-							+ '<font style="font-size:15px">&nbsp;&nbsp;'
-							+ this.collection.models[i].get('title')
-							+ '</font>' + '</h3><p style="padding-left:12px;">'
-							+ this.collection.models[i].get('dept')
-							+ this.constant2 + i + '" /></div></li>';
+				var	females = [ 'amy_jones', 'julie_taylor', 'kathleen_byrne',
+							'lisa_wong', 'paula_gates' ];
+				
+				for (var i = 0; i < this.collection.length; i++) {
+					
+					var imageName;
+					if (this.collection.models[i].get('sex') == '0') {
+						imageName =  males[Math
+								.floor(Math.random() * 7)];
+					} else {
+						imageName =  females[Math
+								.floor(Math.random() * 5)];
+					}
+					
+					console.log('photo ::');
+					console.log(this.collection.models[i].get('photo'));
+					
+					if (this.collection.models[i].get('photo').length == 0) {
+						liSrc += this.constant1
+						+ this.collection.models[i].get('phone')
+						+ '" src="images/'
+						+ imageName
+						+ '.jpg" /></div>'
+						+ '<div style="color:grey;float:left"><h3 style="padding-left:10px;">'
+						+ this.collection.models[i].get('nameKo')
+						+ '<font style="font-size:15px">&nbsp;&nbsp;'
+						+ this.collection.models[i].get('title')
+						+ '</font>' + '</h3><p style="padding-left:12px;">'
+						+ this.collection.models[i].get('dept')
+						+ this.constant2 + i + '" /></div></li>';
+						
+					} else {
+						liSrc += this.constant1
+						+ this.collection.models[i].get('phone')
+						+ '" src="'
+						+ this.collection.models[i].get('photo')
+						+ '" /></div>'
+						+ '<div style="color:grey;float:left"><h3 style="padding-left:10px;">'
+						+ this.collection.models[i].get('nameKo')
+						+ '<font style="font-size:15px">&nbsp;&nbsp;'
+						+ this.collection.models[i].get('title')
+						+ '</font>' + '</h3><p style="padding-left:12px;">'
+						+ this.collection.models[i].get('dept')
+						+ this.constant2 + i + '" /></div></li>';
+
+					}
+
+					
 				}
 				;
 				$('#listUL', this.el).html(liSrc);
