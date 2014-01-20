@@ -751,7 +751,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 //
 //			 });
 
-	       /*
+	     
 		   $('.deleteLiforscheduler')
 			.on(
 					{
@@ -782,7 +782,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 
 			});  // end of deleteLiforscheduler
 		   
-		   */
+		  
 	       
 		   $('.btn_alldel_pop').on(
 				{
