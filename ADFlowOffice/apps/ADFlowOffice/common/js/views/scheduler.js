@@ -17,7 +17,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 	    console.log('this.collection.bind...............new object in the collection');
 	});	
  
-	_.bindAll(this, 'render', 'fetchDB','loadSchedulerSuccess','loadSchedulerFailure','appendSchedulerList', 'popupModifyList','modifyMyScheduler','popupDeleteList','delAftershowsclist');
+	_.bindAll(this, 'render', 'fetchDB','loadSchedulerSuccess','loadSchedulerFailure','appendSchedulerList', 'popupModifyList','modifyMyScheduler','popupDeleteList','delAftershowsclist','emptySchedulerList');
 	    	
 	},
 	render : function() {
@@ -33,8 +33,14 @@ ADF.view.Scheduler = Backbone.View.extend({
         console.log("window_height :: "+window_height);
         //call async
     	ADF.view.scheduler.callDBType = "RList";
-		this.koName = ADF.user.nameko;
-		console.log("koName :: "+ this.koName);
+    	/////////////////////////////////////////////////////
+    	
+//    
+			this.koName = ADF.user.nameko;
+			console.log("koName :: "+ this.koName);
+//    
+    	
+    	///////////////////////////////////////////////
         var jsonData = '{"act":"R"}';
         console.log("jsonData :: "+jsonData);        
       
@@ -113,7 +119,15 @@ ADF.view.Scheduler = Backbone.View.extend({
 			case 'RList':
 
 				console.log("db sucess case RList *********************************************");
-				this.appendSchedulerList(result.invocationResult.Result);
+				console.log(result);
+
+				if(result.invocationResult.Count==0){
+					console.log("............00000000000000000");
+					console.log(result.invocationResult.Count);
+					this.emptySchedulerList();
+				}else{
+					this.appendSchedulerList(result.invocationResult.Result);
+				}
 				break;
 			case 'RPopM':
 				console.log("db sucess case RPopM *********************************************");
@@ -172,8 +186,8 @@ ADF.view.Scheduler = Backbone.View.extend({
 	appendSchedulerList :function(items){
 		var that = this;
 	  	console.log("hello appendSchedulerList :: ");
-	  	console.log(items);
-		console.log(items.length);
+//	  	console.log(items);
+//		console.log(items.length);
 		console.log("say..");
 		console.log("..............  this.collection............." + this.collection);
 		var str1 = "";
@@ -243,7 +257,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 						
 			}
 			if(items[i].ctgr=='longproject'){
-				str3 += '<li class="longproject_li" id= "liSid_'+items[i].sid +'">'  + items[i].strdate +' ~ ' + items[i].enddate +items[i].nameko + '</li>';				
+				str3 += '<li class="longproject_li" id= "liSid_'+items[i].sid +'">'  + items[i].strdate +' ~ ' + items[i].enddate  +' ' +items[i].nameko  +'<br/>        ' + items[i].detail + '</li>';				
 			}
 
 		}  // end of for loop
@@ -315,13 +329,14 @@ ADF.view.Scheduler = Backbone.View.extend({
 
 						 ///////////////////////////////////////////////////////////
 						 
-						 
-						var employeeNo = ADF.user.no;
-						 console.log("employeeNo :: "+employeeNo);						 
-						 //////////////////////////////////////////////////////
-						 var jsonData =  '{"act":"R", "owner":"'+employeeNo+'"}';
-						 console.log("jsonData :: "+jsonData);
-						 ADF.view.scheduler.fetchDB(jsonData);
+						 if(ADF.user.no!=""||ADF.user.no!=null||ADF.user.no!='undefined'){
+							var employeeNo = ADF.user.no;
+							 console.log("employeeNo :: "+employeeNo);						 
+							 //////////////////////////////////////////////////////
+							 var jsonData =  '{"act":"R", "owner":"'+employeeNo+'"}';
+							 console.log("jsonData :: "+jsonData);
+							 ADF.view.scheduler.fetchDB(jsonData);
+						 }
 						
 					}
 
@@ -383,7 +398,124 @@ ADF.view.Scheduler = Backbone.View.extend({
 		
 //
 	}, /*appendSchedulerList  end*/
+	emptySchedulerList : function(){
+		var that = this;
+    	 navigation.loadAsync(function(){
+      	   console.log(" navigation.loadAsync scheduler..................");
+      	 
+                 /*
+                      var myScroll = new iScroll('iscrolldiv', {
+                              hScrollbar : false,
+                              vScrollbar : false
+                      });
+                 */ 		
+  		     that.viewElapsedTime();
+  	    	 window.busy.hide();
+  			
 
+         });   // end of navigation.loadAsync
+
+         $('.btn_inputScheduler').on('click', function() {		
+  			console.log("btn_inputScheduler event changed.........."+this);
+  			ADF.view.scheduler.inputScheduler();
+  			
+  		}); // end of btn_inputScheduler
+  		
+  		$('#backbtnOnscheduler').on(
+  		{
+  			click : function() {
+  				console.log("back button click");
+  				
+  				console.log('backBtnClicked!!!!!!!!!!!!!!!!!');
+  				window.beforeload = new Date().getTime();
+  				if (!ADF.view.dashBoard) {
+  					ADF.view.dashBoard = new ADF.view.DashBoard;
+  				}
+  				navigation.pushView(ADF.view.dashBoard, 'typeB');
+//  				if (!ADF.view.dashBoard) {
+//  					ADF.view.dashBoard = new ADF.view.DashBoard;
+//  				}
+//  				navigation.pushView(ADF.view.dashBoard, 'typeB');
+  			}
+
+  		});  // end of backbtnOnscheduler
+  		
+  		$('.btn_modifyScheduler').on(
+  				{
+  					click : function() {
+  						console.log("btn_modifyScheduler click");
+  						ADF.view.scheduler.callDBType = "RPopM";
+  						 console.log("callDBType :: "+ADF.view.scheduler.callDBType);
+  						
+  						 $("#popUpDivModify").show();						
+
+  						 ///////////////////////////////////////////////////////////
+  						 
+  						 if(ADF.user.no!=""||ADF.user.no!=null||ADF.user.no!='undefined'){
+  							var employeeNo = ADF.user.no;
+  							 console.log("employeeNo :: "+employeeNo);						 
+  							 //////////////////////////////////////////////////////
+  							 var jsonData =  '{"act":"R", "owner":"'+employeeNo+'"}';
+  							 console.log("jsonData :: "+jsonData);
+  							 ADF.view.scheduler.fetchDB(jsonData);
+  						 }
+  						
+  					}
+
+  		});  // end btn_modifyScheduler
+  		
+  		$('.btn_modifyScheduler_ok').on(
+  				{
+  					click : function() {
+  						console.log("btn_modifyScheduler_ok click");
+  						// db query..part I need
+  						
+  						  $("#popUpDivModify").hide();
+  						
+  						
+  					}
+
+  		});  // end btn_modifyScheduler
+  		
+  		
+  		$('.btn_deleteScheduler').on(
+  				{
+  					click : function() {
+  						console.log("btn_deleteScheduler click");
+  						$('#popUpDivDelete').show();
+  						 console.log("btn_deleteScheduler show");
+  						 
+  						ADF.view.scheduler.callDBType = "RPopD";
+  					    console.log("callDBType :: "+ADF.view.scheduler.callDBType);
+  					    
+  						 var employeeNo = ADF.user.no;
+  						 console.log("employeeNo :: "+employeeNo);						 
+  						 //////////////////////////////////////////////////////
+  											
+  						 var jsonData =  '{"act":"R", "owner":"'+employeeNo+'"}';
+  						 console.log("jsonData :: "+jsonData);
+  						 ADF.view.scheduler.fetchDB(jsonData);				 
+  						
+//  						 ADF.view.scheduler.fetchDBforDelList();
+  						
+  					}
+
+  		});  // end btn_deleteScheduler
+  		$('.btn_deleteScheduler_ok').on(
+  				{
+  					click : function() {
+  						console.log("btn_deleteScheduler_ok click");
+  						$('#popUpDivDelete').hide();
+  						
+  						
+  					}
+
+  		});  // end btn_deleteScheduler_ok
+  		
+    	
+    },  /* end of emptySchedulerList */
+	
+	
 	/*
 	events:{
 		'click .btn_inputScheduler':'inputScheduler'
@@ -397,10 +529,13 @@ ADF.view.Scheduler = Backbone.View.extend({
 //			console.log("ADF.user.no :: "+ADF.user.no);
 //			console.log('ADF.user.nameen::' + ADF.user.nameen);
 //			var employeeNumber = ADF.user.no;
-			var employeeNo = ADF.user.no;
-			 console.log("employeeNo :: "+employeeNo);	
-			 var employeeName = ADF.user.nameko;
-			
+			 var employeeName = '';
+			 var employeeNo = '';
+			 if(ADF.user.no!=""||ADF.user.no!=null||ADF.user.no!='undefined'){
+				employeeNo = ADF.user.no;
+				console.log("employeeNo :: "+employeeNo);	
+				employeeName = ADF.user.nameko;
+			 }
 ////////////////////////////////
 //			 need busy logic
 			 
@@ -616,6 +751,7 @@ ADF.view.Scheduler = Backbone.View.extend({
 //
 //			 });
 
+	       /*
 		   $('.deleteLiforscheduler')
 			.on(
 					{
@@ -646,6 +782,8 @@ ADF.view.Scheduler = Backbone.View.extend({
 
 			});  // end of deleteLiforscheduler
 		   
+		   */
+	       
 		   $('.btn_alldel_pop').on(
 				{
 
