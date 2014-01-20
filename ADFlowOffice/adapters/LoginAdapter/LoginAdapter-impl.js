@@ -67,7 +67,7 @@ function submitAuthentication(username, password) {
 		return {
 			authRequired : false,
 			email : val.resultSet[0].email,
-			group : val.resultSet[0].grp,
+			grp : val.resultSet[0].grp,
 			no : val.resultSet[0].no,
 			nameen : val.resultSet[0].nameen,
 			nameko : val.resultSet[0].nameko,

@@ -40,6 +40,10 @@ ADF.view.ContactList = Backbone.View
 			},
 
 			render : function() {
+				
+				console.log("ADF.user.grp ::" + ADF.user.grp);
+				console.log("ADF.user.no ::" + ADF.user.no);
+				
 				// load dashBoard view
 				var that = this;
 				navigation.loadBefore('views/contactList.html', function() {
@@ -50,7 +54,7 @@ ADF.view.ContactList = Backbone.View
 					// adminID => 관리자 ID
 					// loginID => 로그인 id
 					//추가버튼 관리자 일때 표시
-					if (window.group != '1') {
+					if (ADF.user.grp != '1') {
 						$('#contactAdd_icon').hide();
 					};
 

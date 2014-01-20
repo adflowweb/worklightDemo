@@ -1,6 +1,6 @@
 console.log("contactDetail.js load");
 
-window.group = '1';
+//window.group = '1';
 
 ADF.view.ContactDetail = Backbone.View.extend({
 	el : $('.panel-content'), 
@@ -26,6 +26,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 	},
 
 	render : function() {
+		
 		// load dashBoard view
 		var that = this;
 		console.error(" contactDetail render  addFlag ::" + that.addFlag );
@@ -346,11 +347,11 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		// adminID => 관리자 ID
 		// loginID => 로그인 id
 		//수정버튼 관리자 및 본인 일때 표시
-		if (window.userID != this.contact.get('no') && window.group != '1' ) {
+		if (ADF.user.no != this.contact.get('no') && ADF.user.grp != '1' ) {
 			$('#Bt_contactUpdate').hide();
 		};
 		//삭제버튼 관리자만 표시
-		if (window.group != '1') {
+		if (ADF.user.grp != '1') {
 			$('#contactDel_icon').hide();
 		};
 		
