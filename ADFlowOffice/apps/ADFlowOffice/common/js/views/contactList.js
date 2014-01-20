@@ -41,8 +41,8 @@ ADF.view.ContactList = Backbone.View
 
 			render : function() {
 				
-				console.log("ADF.user.grp ::" + ADF.user.grp);
-				console.log("ADF.user.no ::" + ADF.user.no);
+//				console.log("ADF.user.grp ::" + ADF.user.grp);
+//				console.log("ADF.user.no ::" + ADF.user.no);
 				
 				// load dashBoard view
 				var that = this;
