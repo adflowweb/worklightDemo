@@ -352,7 +352,7 @@ ADF.view.ContactDetail = Backbone.View.extend({
 		};
 		//삭제버튼 관리자만 표시
 		if (ADF.user.grp != '1') {
-			$('#contactDel_icon').hide();
+			$('.icon-contactDel-click').hide();
 		};
 		
 		this.photoTemp =  this.contact.get('photo');
